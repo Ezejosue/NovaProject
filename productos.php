@@ -28,8 +28,8 @@
 
         <!-- PAGE CONTAINER-->
         <div class="page-container2">
-           <!-- Menu Responsive-->
-           <header class="header-desktop2">
+            <!-- Menu Responsive-->
+            <header class="header-desktop2">
                 <div class="section__content section__content--p30">
                     <div class="container-fluid">
                         <div class="header-wrap2">
@@ -49,7 +49,7 @@
             <aside class="menu-sidebar2 js-right-sidebar d-block d-lg-none">
                 <div class="logo">
                     <a href="#">
-                    <img src="resources/images/logo.png" alt="PizzaNova" />
+                        <img src="resources/images/logo.png" alt="PizzaNova" />
                     </a>
                 </div>
                 <div class="menu-sidebar2__content js-scrollbar2">
@@ -214,13 +214,14 @@
                             </div>
                             <div class="modal-body">
                                 <div class="row">
-                                <div class="col-sm-12">
+                                    <div class="col-sm-12">
                                         <div class="preview">
                                         </div>
                                         <div class="row">
                                             <div class="col-sm-4"></div>
                                             <div class="col-sm-4">
-                                                <button id="triggerUpload" class="btn btn-primary"> <i class="fa fa-magic"></i>
+                                                <button id="triggerUpload" class="btn btn-primary"> <i
+                                                        class="fa fa-magic"></i>
                                                     Subir imagen</button>
                                                 <input type="file" id="filePicker" />
                                             </div>
@@ -259,8 +260,8 @@
                                         <i class="fa fa-file-alt"></i>
                                     </div>
                                     <div class="col-sm-11">
-                                        <textarea placeholder="Descripción" class="form-control" id="exampleFormControlTextarea1"
-                                            rows="3"></textarea>
+                                        <textarea placeholder="Descripción" class="form-control"
+                                            id="exampleFormControlTextarea1" rows="3"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -283,13 +284,14 @@
                             </div>
                             <div class="modal-body">
                                 <div class="row">
-                                <div class="col-sm-12">
+                                    <div class="col-sm-12">
                                         <div class="preview1">
                                         </div>
                                         <div class="row">
                                             <div class="col-sm-4"></div>
                                             <div class="col-sm-4">
-                                                <button id="triggerUpload1" class="btn btn-primary"> <i class="fa fa-magic"></i>
+                                                <button id="triggerUpload1" class="btn btn-primary"> <i
+                                                        class="fa fa-magic"></i>
                                                     Subir imagen</button>
                                                 <input type="file" id="filePicker1" />
                                             </div>
@@ -328,8 +330,8 @@
                                         <i class="fa fa-file-alt"></i>
                                     </div>
                                     <div class="col-sm-11">
-                                        <textarea placeholder="Descripción" class="form-control" id="exampleFormControlTextarea1"
-                                            rows="3"></textarea>
+                                        <textarea placeholder="Descripción" class="form-control"
+                                            id="exampleFormControlTextarea1" rows="3"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -369,4 +371,5 @@
                 <script src="resources/js/main.js"></script>
 
 </body>
+
 </html>

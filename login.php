@@ -37,9 +37,10 @@
                                     <label>Contraseña</label>
                                     <input class="au-input au-input--full" type="password" name="password">
                                 </div>
-                                
-                                <button class="au-btn au-btn--block au-btn--green m-b-20" type="submit">Iniciar Sesión</button>
-                                
+
+                                <button class="au-btn au-btn--block au-btn--green m-b-20" type="submit">Iniciar
+                                    Sesión</button>
+
                             </form>
                             <div class="register-link">
                                 <p>

@@ -25,10 +25,10 @@
                 sitepack::menu();
         ?>
         <!-- Fin SIDEBAR-->
-<!-- PAGE CONTAINER-->
-<div class="page-container2">
-           <!-- Menu Responsive-->
-           <header class="header-desktop2">
+        <!-- PAGE CONTAINER-->
+        <div class="page-container2">
+            <!-- Menu Responsive-->
+            <header class="header-desktop2">
                 <div class="section__content section__content--p30">
                     <div class="container-fluid">
                         <div class="header-wrap2">
@@ -48,7 +48,7 @@
             <aside class="menu-sidebar2 js-right-sidebar d-block d-lg-none">
                 <div class="logo">
                     <a href="#">
-                    <img src="resources/images/logo.png" alt="PizzaNova" />
+                        <img src="resources/images/logo.png" alt="PizzaNova" />
                     </a>
                 </div>
                 <div class="menu-sidebar2__content js-scrollbar2">

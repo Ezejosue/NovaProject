@@ -216,7 +216,8 @@
                                         <div class="row">
                                             <div class="col-sm-4"></div>
                                             <div class="col-sm-4">
-                                                <button id="triggerUpload" class="btn btn-primary"> <i class="fa fa-magic"></i>
+                                                <button id="triggerUpload" class="btn btn-primary"> <i
+                                                        class="fa fa-magic"></i>
                                                     Subir imagen</button>
                                                 <input type="file" id="filePicker" />
                                             </div>
@@ -241,8 +242,8 @@
                                         <i class="fa fa-file-alt"></i>
                                     </div>
                                     <div class="col-sm-11">
-                                        <textarea placeholder="Descripción" class="form-control" id="exampleFormControlTextarea1"
-                                            rows="3"></textarea>
+                                        <textarea placeholder="Descripción" class="form-control"
+                                            id="exampleFormControlTextarea1" rows="3"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -271,7 +272,8 @@
                                         <div class="row">
                                             <div class="col-sm-4"></div>
                                             <div class="col-sm-4">
-                                                <button id="triggerUpload1" class="btn btn-primary"> <i class="fa fa-magic"></i>
+                                                <button id="triggerUpload1" class="btn btn-primary"> <i
+                                                        class="fa fa-magic"></i>
                                                     Subir imagen</button>
                                                 <input type="file" id="filePicker1" />
                                             </div>
@@ -296,8 +298,8 @@
                                         <i class="fa fa-file-alt"></i>
                                     </div>
                                     <div class="col-sm-11">
-                                        <textarea placeholder="Descripción" class="form-control" id="exampleFormControlTextarea1"
-                                            rows="3"></textarea>
+                                        <textarea placeholder="Descripción" class="form-control"
+                                            id="exampleFormControlTextarea1" rows="3"></textarea>
                                     </div>
                                 </div>
                             </div>

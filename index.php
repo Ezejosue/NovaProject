@@ -54,7 +54,7 @@
             <aside class="menu-sidebar2 js-right-sidebar d-block d-lg-none">
                 <div class="logo">
                     <a href="#">
-                    <img src="resources/images/logo.png" alt="PizzaNova" />
+                        <img src="resources/images/logo.png" alt="PizzaNova" />
                     </a>
                 </div>
                 <div class="menu-sidebar2__content js-scrollbar2">

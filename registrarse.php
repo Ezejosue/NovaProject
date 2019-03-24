@@ -24,7 +24,7 @@
                     <div class="login-content">
                         <div class="login-logo">
                             <a href="#">
-                                <img src="resources/images/logo.png" alt="PizzaNova"/>
+                                <img src="resources/images/logo.png" alt="PizzaNova" />
                             </a>
                         </div>
                         <div class="login-form">
@@ -65,7 +65,8 @@
                                     <input class="form-control">
                                 </div>
 
-                                <button class="au-btn au-btn--block au-btn--green m-b-20" type="submit">Registrarse</button>
+                                <button class="au-btn au-btn--block au-btn--green m-b-20"
+                                    type="submit">Registrarse</button>
 
                             </form>
 

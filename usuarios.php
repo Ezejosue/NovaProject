@@ -49,7 +49,7 @@
             <aside class="menu-sidebar2 js-right-sidebar d-block d-lg-none">
                 <div class="logo">
                     <a href="#">
-                    <img src="resources/images/logo.png" alt="PizzaNova" />
+                        <img src="resources/images/logo.png" alt="PizzaNova" />
                     </a>
                 </div>
                 <div class="menu-sidebar2__content js-scrollbar2">
@@ -171,7 +171,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                    <td></td>
+                                        <td></td>
                                         <td>Carlos</td>
                                         <td>Quijano</td>
                                         <td>carlos_q@gmail.com</td>
@@ -197,7 +197,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                    <td></td>
+                                        <td></td>
                                         <td>Ezequiel</td>
                                         <td>Avalos</td>
                                         <td>aezeqgmail.com</td>
@@ -240,13 +240,14 @@
                             </div>
                             <div class="modal-body">
                                 <div class="row">
-                                <div class="col-sm-12">
+                                    <div class="col-sm-12">
                                         <div class="preview">
                                         </div>
                                         <div class="row">
                                             <div class="col-sm-4"></div>
                                             <div class="col-sm-4">
-                                                <button id="triggerUpload" class="btn btn-primary"> <i class="fa fa-magic"></i>
+                                                <button id="triggerUpload" class="btn btn-primary"> <i
+                                                        class="fa fa-magic"></i>
                                                     Subir imagen</button>
                                                 <input type="file" id="filePicker" />
                                             </div>
@@ -281,8 +282,8 @@
                                         <i class="fa fa-envelope"></i>
                                     </div>
                                     <div class="col-sm-11">
-                                    <input type="email" id="inputEmail" class="form-control" placeholder="Correo"
-                                                required autofocus>
+                                        <input type="email" id="inputEmail" class="form-control" placeholder="Correo"
+                                            required autofocus>
                                     </div>
                                 </div>
                             </div>
@@ -322,11 +323,11 @@
                                         <i class="fa fa-user"></i>
                                     </div>
                                     <div class="col-sm-11">
-                                    <select class="custom-select" id="inlineFormCustomSelectPref">
-                                                <option selected>Género</option>
-                                                <option value="1">Masculino</option>
-                                                <option value="2">Femenino</option>
-                                            </select>
+                                        <select class="custom-select" id="inlineFormCustomSelectPref">
+                                            <option selected>Género</option>
+                                            <option value="1">Masculino</option>
+                                            <option value="2">Femenino</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -359,13 +360,14 @@
                             </div>
                             <div class="modal-body">
                                 <div class="row">
-                                <div class="col-sm-12">
+                                    <div class="col-sm-12">
                                         <div class="preview1">
                                         </div>
                                         <div class="row">
                                             <div class="col-sm-4"></div>
                                             <div class="col-sm-4">
-                                                <button id="triggerUpload1" class="btn btn-primary"> <i class="fa fa-magic"></i>
+                                                <button id="triggerUpload1" class="btn btn-primary"> <i
+                                                        class="fa fa-magic"></i>
                                                     Subir imagen</button>
                                                 <input type="file" id="filePicker1" />
                                             </div>
@@ -400,8 +402,8 @@
                                         <i class="fa fa-envelope"></i>
                                     </div>
                                     <div class="col-sm-11">
-                                    <input type="email" id="inputEmail" class="form-control" placeholder="Correo"
-                                                required autofocus>
+                                        <input type="email" id="inputEmail" class="form-control" placeholder="Correo"
+                                            required autofocus>
                                     </div>
                                 </div>
                             </div>
@@ -441,11 +443,11 @@
                                         <i class="fa fa-user"></i>
                                     </div>
                                     <div class="col-sm-11">
-                                    <select class="custom-select" id="inlineFormCustomSelectPref">
-                                                <option selected>Género</option>
-                                                <option value="1">Masculino</option>
-                                                <option value="2">Femenino</option>
-                                            </select>
+                                        <select class="custom-select" id="inlineFormCustomSelectPref">
+                                            <option selected>Género</option>
+                                            <option value="1">Masculino</option>
+                                            <option value="2">Femenino</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -495,4 +497,5 @@
                 <script src="resources/js/main.js"></script>
 
 </body>
+
 </html>

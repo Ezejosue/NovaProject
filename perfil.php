@@ -54,7 +54,7 @@
             <aside class="menu-sidebar2 js-right-sidebar d-block d-lg-none">
                 <div class="logo">
                     <a href="#">
-                    <img src="resources/images/logo.png" alt="PizzaNova" />
+                        <img src="resources/images/logo.png" alt="PizzaNova" />
                     </a>
                 </div>
                 <div class="menu-sidebar2__content js-scrollbar2">
@@ -119,7 +119,8 @@
                                 <div class="row form-group">
                                     <div class="col col-md-2"></div>
                                     <div class="col col-md-8 text-center">
-                                    <img src="resources/images/icon/avatar-big-01.jpg" class="rounded-circle" alt="John Doe">
+                                        <img src="resources/images/icon/avatar-big-01.jpg" class="rounded-circle"
+                                            alt="John Doe">
                                     </div>
                                     <div class="col col-md-2"></div>
                                 </div>
@@ -129,8 +130,8 @@
                                             <div class="input-group-addon">
                                                 <i class="fa fa-user"></i>
                                             </div>
-                                            <input type="text" id="input1-group1" name="input1-group1" placeholder="Nombre"
-                                                class="form-control">
+                                            <input type="text" id="input1-group1" name="input1-group1"
+                                                placeholder="Nombre" class="form-control">
                                         </div>
                                     </div>
                                     <div class="col col-md-6">
@@ -138,8 +139,8 @@
                                             <div class="input-group-addon">
                                                 <i class="fa fa-user"></i>
                                             </div>
-                                            <input type="text" id="input1-group1" name="input1-group1" placeholder="Apellidos"
-                                                class="form-control">
+                                            <input type="text" id="input1-group1" name="input1-group1"
+                                                placeholder="Apellidos" class="form-control">
                                         </div>
                                     </div>
                                 </div>
@@ -149,8 +150,8 @@
                                             <div class="input-group-addon">
                                                 <i class="fa fa-envelope"></i>
                                             </div>
-                                            <input type="email" id="inputEmail" class="form-control" placeholder="Correo"
-                                                required autofocus>
+                                            <input type="email" id="inputEmail" class="form-control"
+                                                placeholder="Correo" required autofocus>
                                         </div>
                                     </div>
                                     <div class="col col-md-6">
@@ -158,8 +159,8 @@
                                             <div class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
                                             </div>
-                                            <input type="text" id="input1-group1" name="input1-group1" placeholder="Fecha de nacimiento"
-                                                class="form-control">
+                                            <input type="text" id="input1-group1" name="input1-group1"
+                                                placeholder="Fecha de nacimiento" class="form-control">
                                         </div>
                                     </div>
                                 </div>
@@ -169,8 +170,8 @@
                                             <div class="input-group-addon">
                                                 <i class="fa fa-user"></i>
                                             </div>
-                                            <input type="text" id="input1-group1" name="input1-group1" placeholder="Nombre de usuario"
-                                                class="form-control">
+                                            <input type="text" id="input1-group1" name="input1-group1"
+                                                placeholder="Nombre de usuario" class="form-control">
                                         </div>
                                     </div>
                                     <div class="col col-md-6">
@@ -189,8 +190,8 @@
                                             <div class="input-group-addon">
                                                 <i class="fa fa-phone"></i>
                                             </div>
-                                            <input type="text" id="input1-group1" name="input1-group1" placeholder="Teléfono"
-                                                class="form-control">
+                                            <input type="text" id="input1-group1" name="input1-group1"
+                                                placeholder="Teléfono" class="form-control">
                                         </div>
                                     </div>
                                     <div class="col col-md-6">
@@ -212,8 +213,8 @@
                                             <div class="input-group-addon">
                                                 <i class="fa fa-map-marker-alt"></i>
                                             </div>
-                                            <input type="text" id="input1-group1" name="input1-group1" placeholder="Dirección"
-                                                class="form-control">
+                                            <input type="text" id="input1-group1" name="input1-group1"
+                                                placeholder="Dirección" class="form-control">
                                         </div>
                                     </div>
                                 </div>
