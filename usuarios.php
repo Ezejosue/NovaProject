@@ -7,21 +7,21 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Usuarios</title>
 
-    <link href="resources/css/font-face.css" rel="stylesheet" media="all">
-    <link href="resources/vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
-    <link href="resources/vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
-    <link href="resources/vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
-    <link href="resources/vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
-    <link href="resources/css/theme.css" rel="stylesheet" media="all">
-    <link href="resources/css/imagen.css" rel="stylesheet" media="all">
-    <link href="resources/vendor/animsition/animsition.min.css" rel="stylesheet" media="all">
+    <link href="../resources/css/font-face.css" rel="stylesheet" media="all">
+    <link href="../resources/vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
+    <link href="../resources/vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+    <link href="../resources/vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
+    <link href="../resources/vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
+    <link href="../resources/css/theme.css" rel="stylesheet" media="all">
+    <link href="../resources/css/imagen.css" rel="stylesheet" media="all">
+    <link href="../resources/vendor/animsition/animsition.min.css" rel="stylesheet" media="all">
 </head>
 
 <body class="animsition">
     <div class="page-wrapper">
         <!-- SIDEBAR-->
         <?php
-                require "core/models/menu.php";
+                require "../core/models/menu.php";
                 sitepack::menu();
         ?>
         <!-- Fin SIDEBAR-->
@@ -489,12 +489,12 @@
                     </div>
                 </div>
 
-                <script src="resources/vendor/jquery-3.3.1.min.js"></script>
-                <script src="resources/vendor/bootstrap-4.1/bootstrap.min.js"></script>
-                <script src="resources/vendor/animsition/animsition.min.js"></script>
-                <script src="resources/vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
-                <script src="resources/vendor/chartjs/Chart.bundle.min.js"></script>
-                <script src="resources/js/main.js"></script>
+                <script src="../resources/vendor/jquery-3.3.1.min.js"></script>
+                <script src="../resources/vendor/bootstrap-4.1/bootstrap.min.js"></script>
+                <script src="../resources/vendor/animsition/animsition.min.js"></script>
+                <script src="../resources/vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
+                <script src="../resources/vendor/chartjs/Chart.bundle.min.js"></script>
+                <script src="../resources/js/main.js"></script>
 
 </body>
 

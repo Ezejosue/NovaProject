@@ -10,25 +10,25 @@
     <title>Dashboard</title>
 
     <!-- Fontfaces CSS-->
-    <link href="resources/css/font-face.css" rel="stylesheet" media="all">
-    <link href="resources/vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
-    <link href="resources/vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+    <link href="../resources/css/font-face.css" rel="stylesheet" media="all">
+    <link href="../resources/vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
+    <link href="../resources/vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
     <!-- Bootstrap CSS-->
-    <link href="resources/vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
-    <link href="resources/vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
+    <link href="../resources/vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
+    <link href="../resources/vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
     <!-- Main CSS-->
-    <link href="resources/css/theme.css" rel="stylesheet" media="all">
+    <link href="../resources/css/theme.css" rel="stylesheet" media="all">
     <!-- Vendor CSS-->
-    <link href="resources/vendor/animsition/animsition.min.css" rel="stylesheet" media="all">
+    <link href="../resources/vendor/animsition/animsition.min.css" rel="stylesheet" media="all">
     <!--Preview CSS-->
-    <link href="resources/css/preview.css" rel="stylesheet" media="all">
+    <link href="../resources/css/preview.css" rel="stylesheet" media="all">
 </head>
 
 <body class="animsition">
     <div class="page-wrapper">
         <!-- MENU SIDEBAR-->
         <?php
-                require "core/models/menu.php";
+                require "../core/models/menu.php";
                 sitepack::menu();
         ?>
         <!-- END MENU SIDEBAR-->
@@ -56,13 +56,13 @@
             <aside class="menu-sidebar2 js-right-sidebar d-block d-lg-none">
                 <div class="logo">
                     <a href="#">
-                        <img src="resources/images/logo.png" alt="PizzaNova" />
+                        <img src="../resources/images/logo.png" alt="PizzaNova" />
                     </a>
                 </div>
                 <div class="menu-sidebar2__content js-scrollbar2">
                     <div class="account2">
                         <div class="image img-cir img-120">
-                            <img src="resources/images/icon/avatar-big-01.jpg" alt="John Doe" />
+                            <img src="../resources/images/icon/avatar-big-01.jpg" alt="John Doe" />
                         </div>
                         <h4 class="name">john doe</h4>
                         <a href="login.php">Cerrar Sesión</a>
@@ -239,18 +239,18 @@
     </div>
 
     <!-- Jquery JS-->
-    <script src="resources/vendor/jquery-3.2.1.min.js"></script>
+    <script src="../resources/vendor/jquery-3.2.1.min.js"></script>
     <!-- Bootstrap JS-->
-    <script src="resources/vendor/bootstrap-4.1/bootstrap.min.js"></script>
+    <script src="../resources/vendor/bootstrap-4.1/bootstrap.min.js"></script>
     <!-- Vendor JS-->
-    <script src="resources/vendor/animsition/animsition.min.js"></script>
-    <script src="resources/vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
-    <script src="resources/vendor/chartjs/Chart.bundle.min.js"></script>
-    <script src="resources/vendor/vector-map/jquery.vmap.min.js"></script>
+    <script src="../resources/vendor/animsition/animsition.min.js"></script>
+    <script src="../resources/vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="../resources/vendor/chartjs/Chart.bundle.min.js"></script>
+    <script src="../resources/vendor/vector-map/jquery.vmap.min.js"></script>
     <!-- Main JS-->
-    <script src="resources/js/main.js"></script>
+    <script src="../resources/js/main.js"></script>
     <!-- preview JS-->
-    <script src="resources/js/preview.js"></script>
+    <script src="../resources/js/preview.js"></script>
 
 </body>
 
