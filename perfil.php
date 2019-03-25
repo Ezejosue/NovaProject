@@ -20,6 +20,8 @@
     <link href="resources/css/theme.css" rel="stylesheet" media="all">
     <!-- Vendor CSS-->
     <link href="resources/vendor/animsition/animsition.min.css" rel="stylesheet" media="all">
+    <!--Preview CSS-->
+    <link href="resources/css/preview.css" rel="stylesheet" media="all">
 </head>
 
 <body class="animsition">
@@ -116,11 +118,11 @@
                         </div>
                         <div class="card-body card-block">
                             <form action="" method="post" class="form-horizontal">
-                                <div class="row form-group">
-                                    <div class="col col-md-2"></div>
-                                    <div class="col col-md-8 text-center">
-                                        <img src="resources/images/icon/avatar-big-01.jpg" class="rounded-circle"
-                                            alt="John Doe">
+                                    <div class="preview img-wrapper"></div>
+                                    <div class="file-upload-wrapper">
+                                        <input type="file" name="file" class="file-upload-native" accept="image/*"/>
+                                        <h3 align="center">Subir imagen</h3>
+                                        <input type="text" class="file-upload-text" />
                                     </div>
                                     <div class="col col-md-2"></div>
                                 </div>
@@ -131,7 +133,7 @@
                                                 <i class="fa fa-user"></i>
                                             </div>
                                             <input type="text" id="input1-group1" name="input1-group1"
-                                                placeholder="Nombre" class="form-control">
+                                                placeholder="Nombre" class="form-control" required autofocus>
                                         </div>
                                     </div>
                                     <div class="col col-md-6">
@@ -151,7 +153,7 @@
                                                 <i class="fa fa-envelope"></i>
                                             </div>
                                             <input type="email" id="inputEmail" class="form-control"
-                                                placeholder="Correo" required autofocus>
+                                                placeholder="Correo">
                                         </div>
                                     </div>
                                     <div class="col col-md-6">
@@ -159,7 +161,7 @@
                                             <div class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
                                             </div>
-                                            <input type="text" id="input1-group1" name="input1-group1"
+                                            <input type="date" id="input1-group1" name="input1-group1"
                                                 placeholder="Fecha de nacimiento" class="form-control">
                                         </div>
                                     </div>
@@ -179,7 +181,7 @@
                                             <div class="input-group-addon">
                                                 <i class="fa fa-lock"></i>
                                             </div>
-                                            <input type="password" id="inputPassword5" class="form-control"
+                                            <input type="password" id="inputPassword5" class="form-control" placeholder="Contraseña"
                                                 aria-describedby="passwordHelpBlock">
                                         </div>
                                     </div>
@@ -247,6 +249,8 @@
     <script src="resources/vendor/vector-map/jquery.vmap.min.js"></script>
     <!-- Main JS-->
     <script src="resources/js/main.js"></script>
+    <!-- preview JS-->
+    <script src="resources/js/preview.js"></script>
 
 </body>
 

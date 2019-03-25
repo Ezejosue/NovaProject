@@ -28,7 +28,7 @@ class sitepack
                     <a href="perfil.php">
                         <i class="fas fa-user-circle"></i>Perfil</a>
 
-                </li>z
+                </li>
                 <li>
                     <a href="categorias.php">
                         <i class="fas fa-list"></i>Categorías</a>
