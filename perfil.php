@@ -120,9 +120,9 @@
                             <form action="" method="post" class="form-horizontal">
                                     <div class="preview img-wrapper"></div>
                                     <div class="file-upload-wrapper">
-                                        <input type="file" name="file" class="file-upload-native" accept="image/*"/>
-                                        <h3 align="center">Subir imagen</h3>
+                                        <input type="file" name="file" class="file-upload-native" ccept="image/*a" />
                                         <input type="text" class="file-upload-text" />
+                                        <h3 align="center">Subir imagen</h3>
                                     </div>
                                     <div class="col col-md-2"></div>
                                 </div>
