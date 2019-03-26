@@ -47,8 +47,9 @@
 
                             </form>
                             <div class="register-link">
-                                <p>
+                                <p> 
                                     ¿No tienes una cuenta?
+                                    
                                     <a href="registrarse.php">Registrate</a>
                                 </p>
                             </div>
