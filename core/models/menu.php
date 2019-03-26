@@ -6,13 +6,13 @@ class sitepack
     print('<aside class="menu-sidebar2">
     <div id="logo_pizza_nova" class="logo">  
         <a align="center" href="#">
-            <img src="resources/images/logo.png" alt="Pizza Nova"/>
+            <img src="../resources/images/logo.png" alt="Pizza Nova"/>
         </a>
     </div>
     <div class="menu-sidebar2__content js-scrollbar1">
         <div class="account2">
             <div class="image img-cir img-120">
-                <img src="resources/images/icon/avatar-big-01.jpg" alt="John Doe" />
+                <img src="../resources/images/icon/avatar-big-01.jpg" alt="John Doe" />
             </div>
             <h4 class="name">john doe</h4>
         </div>
