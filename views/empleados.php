@@ -292,7 +292,7 @@
                                         <i class="fa fa-calendar"></i>
                                     </div>
                                     <div class="col-sm-11">
-                                        <input placeholder="Fecha de nacimiento" class="form-control">
+                                        <input type="date" min="1950-01-01" max="2001-01-01" placeholder="Fecha de nacimiento" class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -412,7 +412,7 @@
                                         <i class="fa fa-calendar"></i>
                                     </div>
                                     <div class="col-sm-11">
-                                        <input placeholder="Fecha de nacimiento" class="form-control">
+                                        <input type="date" placeholder="Fecha de nacimiento" class="form-control">
                                     </div>
                                 </div>
                             </div>

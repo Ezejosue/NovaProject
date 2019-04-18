@@ -159,7 +159,7 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
-                                    <input type="date" id="input1-group1" name="input1-group1"
+                                    <input type="date" min="1950-01-01" max="2001-01-01" id="input1-group1" name="input1-group1"
                                         placeholder="Fecha de nacimiento" class="form-control">
                                 </div>
                             </div>
