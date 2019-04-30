@@ -253,6 +253,15 @@ INNER JOIN categorias c  ON platillos.id_categoria = c.id_categoria GROUP by c.i
 
 SELECT COUNT(id_empleado)N_empleados, empleados.genero
 FROM empleados
-INNER JOIN usuarios ON empleados.id_usuario = usuarios.id_usuario GROUP BY empleado.genero;
+INNER JOIN usuarios ON empleados.id_usuario = usuarios.id_usuario GROUP BY empleados.genero;
+
+SELECT SUM(platillos.id_platillo)N_platillos, c.nombre_categoria
+FROM platillos
+INNER JOIN categorias c
+ON platillos.id_categoria = c.id_categoria  GROUP BY c.id_categoria;
+
+SELECT nombre_empleado, fecha_nacimiento
+FROM empleados
+WHERE fecha_nacimiento BETWEEN '1900-01-01' AND '2001-12-31' ORDER BY fecha_nacimiento DESC;
 --Consultas multitabla  
 
