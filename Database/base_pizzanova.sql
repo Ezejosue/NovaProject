@@ -205,17 +205,8 @@ CREATE TRIGGER Llenar_bitacora1 AFTER UPDATE ON Empleados
 FOR EACH ROW
 INSERT INTO Bitacoras(Usuario, Fecha, Accion) Values ('Josue', now(), 'Modifico un empleado');
 --FINAL TRIGGER UPDATE
-/* 
---TRIGGER UPDATE
-CREATE TRIGGER Ascenso BEFORE UPDATE ON Empleados
-FOR EACH ROW
-BEGIN
-IF NEW.fecha_nacimiento <= now() THEN
-    SET NEW.`id_cargo` = 'id_cargo' + 1; 
-    END IF;
-END
---FINAL TRIGGER UPDATE */
--------------------------------------------------------------
+
+---------------------------------------------
 
 -------------------------------------------------------------
 --Procedure
