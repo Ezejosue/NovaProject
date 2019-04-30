@@ -195,16 +195,26 @@ INSERT INTO DetalleFactura(cantidad, id_platillo, subtotal) VALUES
 
 -------------------------------------------------------------
 --TRIGGER INSERT
-CREATE TRIGGER Llenar_bitacora AFTER INSERT ON MateriasPrimas
+CREATE TRIGGER Llenar_bitacora AFTER INSERT ON Empleados
 FOR EACH ROW
-INSERT INTO Bitacoras(Usuario, Fecha, Accion) Values ('Josue', now(), 'Agrego un producto');
+INSERT INTO Bitacoras(Usuario, Fecha, Accion) Values ('Josue', now(), 'Agrego un empleado');
 --FINAL TRIGGER INSERT
 
 --TRIGGER UPDATE
-CREATE TRIGGER Llenar_bitacora1 AFTER UPDATE ON MateriasPrimas
+CREATE TRIGGER Llenar_bitacora1 AFTER UPDATE ON Empleados
 FOR EACH ROW
-INSERT INTO Bitacoras(Usuario, Fecha, Accion) Values ('Josue', now(), 'Modifico un producto');
+INSERT INTO Bitacoras(Usuario, Fecha, Accion) Values ('Josue', now(), 'Modifico un empleado');
 --FINAL TRIGGER UPDATE
+/* 
+--TRIGGER UPDATE
+CREATE TRIGGER Ascenso BEFORE UPDATE ON Empleados
+FOR EACH ROW
+BEGIN
+IF NEW.fecha_nacimiento <= now() THEN
+    SET NEW.`id_cargo` = 'id_cargo' + 1; 
+    END IF;
+END
+--FINAL TRIGGER UPDATE */
 -------------------------------------------------------------
 
 -------------------------------------------------------------
@@ -225,6 +235,17 @@ IN `subtotal` DOUBLE)
 BEGIN
 INSERT INTO DetalleFactura(id_detallefac, cantidad, id_platillo, subtotal)
 VALUES (id_detallefac, cantidad, id_platillo, subtotal);
+END$$
+DELIMITER ;
+--Procedure
+
+--Procedure
+DELIMITER $$
+CREATE PROCEDURE `Platillo` (IN `id_platillo` INT UNSIGNED, IN `nombre_platillo` VARCHAR(50), IN `precio` DOUBLE(6,2),
+IN `idMateria` INT UNSIGNED, IN `id_categoria` INT UNSIGNED) 
+BEGIN
+INSERT INTO Platillos(id_platillo, nombre_platillo, precio, idMateria, id_categoria)
+VALUES (id_platillo, nombre_platillo, precio, idMateria, id_categoria);
 END$$
 DELIMITER ;
 --Procedure
