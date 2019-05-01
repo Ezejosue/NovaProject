@@ -49,7 +49,7 @@ CREATE TABLE Empleados(
 CREATE TABLE UnidadMedida(
     id_Medida INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     nombre_medida VARCHAR(40) NOT NULL,
-    Unidad DECIMAL NOT NULL);
+    Unidad INT NOT NULL);
 ----------------------------------------------------------
 CREATE TABLE MateriasPrimas(
     idMateria INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
@@ -107,42 +107,34 @@ CREATE TABLE Bitacoras(
 --insert tipo usuarios
 INSERT INTO TipoUsuario(nombre_usuario, descripcion) VALUES
     ('Administrador','Tiene acceso a todas las funciones del programa web'),
-    ('Empleado','Tiene acceso a todas las funciones del programa web menos la administracion de clientes'),
-    ('Gerente', 'Tiene acceso a todas las funciones menos a las graficas y reportes de ganacias'),
-    ('Invitado', 'Solo puede visualizar las paginas pero no puede agrgar, modificar ni eliminar datos');
+    ('Empleado','Tiene acceso a todas las funciones del programa web menos la administracion de clientes');
 --final insert tipo usuarios
 
 --Insert categoria
 INSERT INTO Categorias(nombre_categoria, descripcion, foto_categoria) VALUES
     ('Pizzas', 'Diferentes tipos de pizza que se preparan', 'pizza.jpg'),
     ('Bebidad', 'Diferentes tipos de bebidad', 'bebidad.jpg'),
-    ('Platillos', 'Diferentes platillos que se preparan', 'Platillo.jpg'),
-    ('Entradas', 'Diferentes tipos de entradas que se preparan antes del plato fuerte', 'Entrada.jpg'),
-    ('Pastas', 'Diferentes platillos que son preparados a base de harina mezclada con agua', 'Pastas.jpg');
+    ('Platillos', 'Diferentes platillos que se preparan', 'Platillo.jpg');
 --Final insert categoria
 
 --Insert Cargo
 INSERT INTO Cargo(nombre_Cargo) VALUES
     ('Gerente'),
-    ('Administrador'),
-    ('Contador'),
-    ('Cocinero'),
-    ('Ordenanza'),
-    ('Vigilante');
+    ('Administrador');
 --Final insert cargo
 
 --insert usuario
 INSERT INTO Usuarios(nombre_usuario, clave, foto_usuario, id_Tipousuario) VALUES
     ('Raik', '123', 'empleado.jpg', 2),    
     ('Conrad', '123', 'empleado.jpg', 1),    
-    ('Assuanta', '123', 'empleado.jpg', 5),    
-    ('Lexus', '123', 'empleado.jpg', 1),    
+    ('Assuanta', '123', 'empleado.jpg', 2),    
+    ('Lexus', '123', 'empleado.jpg', 2),    
     ('Elyse', '123', 'empleado.jpg', 2),    
-    ('Marlin', '123', 'empleado.jpg', 6),    
-    ('Ray', '123', 'empleado.jpg', 4),    
-    ('Sebastian', '123', 'empleado.jpg', 4),    
-    ('Fatima', '123', 'empleado.jpg', 3),    
-    ('Florine', '123', 'empleado.jpg', 1);   
+    ('Marlin', '123', 'empleado.jpg', 2),    
+    ('Ray', '123', 'empleado.jpg', 2),    
+    ('Sebastian', '123', 'empleado.jpg', 2),    
+    ('Fatima', '123', 'empleado.jpg', 2),    
+    ('Florine', '123', 'empleado.jpg', 2);   
 --Final insert usuario
 
 --Insert usuarios
@@ -164,26 +156,16 @@ INSERT INTO Empleados(nombre_empleado, apellido_empleado, dui, direccion, telefo
 INSERT INTO UnidadMedida(nombre_medida, Unidad) VALUES
     ('Kilogramo', 1000),
     ('Gramo', 1),
-    ('Miligramo', 0.001),
+    ('Miligramo', 0001),
     ('Litro', 1000);
-    ('Mililitro' 0.001),
-    ('Onza' 28.3495)
-    ('Libra', 453.592);
 --final insert unidad de medidad
 
 --insert materia prima
 INSERT INTO MateriasPrimas(nombre_materia, id_Medida, id_categoria) VALUES
-    ('Masa', 2, 1),
-    ('Piña', 7, 1),
-    ('Harina' 1, 1),
-    ('Sal', 2, 1),
-    ('Levadura' 2, 1),
-    ('Aceite', 5, 1),
-    ('Queso' 2, 1)
-    ('Coca-Cola', 4, 2),
     ('Pepperoni', 2, 1),
     ('Carne', 2, 1),
-    ('Nachos', 2, 4)
+    ('Pepsi', 4, 1),
+    ('Masa', 2, 1);
 --final insert materia prima
 
 --insert platillos
@@ -191,14 +173,7 @@ INSERT INTO Platillos(nombre_platillo, precio, idMateria, id_categoria) VALUES
     ('Pizza Cuatro', '12.99', 1, 1),
     ('Pizza carne', '10.00', 2, 1),
     ('Pizza masa suave', '9.00', 4, 1),
-    ('Pizza comun', '5.99', 1, 1),
-    ('Pan con ajo sin queso' '2.35', 1, 4),
-    ('Pan con ajo con queso', '3.25', 1, 4),
-    ('Calzone de un ingrediente', '4.45', 1, 1),
-    ('Calzone mixto', '4.75', 1, 1),
-    ('Lasagna Bolognese', '5.25', 1, 5),
-    ('Lasagna de pollo', '5.25', 1, 5),
-    ('Spaghetti Alla Bolognese', '4.00', 1, 5);
+    ('Pizza comun', '5.99', 1, 1);
 --final insert platillos
 
 --insert encabezado factura
@@ -206,11 +181,7 @@ INSERT INTO EncabezadoFactura(nombre_cliente, id_empleado) VALUES
     ('Josue', 1),
     ('Carlos', 3),
     ('Frank', 4),
-    ('Aljandro', 5);
-    ('María', 5);
-    ('Gerardo', 1);
-    ('Ezequiel', 2);
-    ('Vanesa', 5);
+    ('Gerardo', 5);
 --final insert encabezado factura
 
 --insert detalle factura
@@ -218,12 +189,6 @@ INSERT INTO DetalleFactura(cantidad, id_platillo, subtotal) VALUES
     (2, 1, '25.00'),
     (3, 2, '30.00'),
     (1, 3, '27.00'),
-    (2, 5, '28.00');
-    (1, 6, '3.75');
-    (4, 4, '22.00');
-    (1, 4, '5.99');
-    (1, 2, '11.98');
-    (8, 2, '47.92');
     (4, 4, '22.00');
 --final insert detalle factura
 -------------------------------------------------------------
@@ -241,7 +206,12 @@ FOR EACH ROW
 INSERT INTO Bitacoras(Usuario, Fecha, Accion) Values ('Josue', now(), 'Modifico un empleado');
 --FINAL TRIGGER UPDATE
 
----------------------------------------------
+--TRIGGER
+CREATE TRIGGER Llenar_bitacora3 AFTER UPDATE ON Usuarios
+FOR EACH ROW
+INSERT INTO Bitacoras(Usuario, Fecha, Accion) Values ('Josue', now(), 'Modifico un Usuario');
+--FINAL TRIGGER 
+-------------------------------------------------------------
 
 -------------------------------------------------------------
 --Procedure
