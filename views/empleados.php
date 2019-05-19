@@ -24,7 +24,7 @@
     <div class="page-wrapper">
         <!-- SIDEBAR-->
         <?php
-                require "../core/models/menu.php";
+                require "../core/helpers/menu.php";
                 sitepack::menu();
         ?>
         <!-- Fin SIDEBAR-->
@@ -37,7 +37,7 @@
                     <div class="container-fluid">
                         <div class="header-wrap2">
                             <div class="logo d-block d-lg-none">
-                                <a href="#">
+                                <a href="index.php">
                                     <img src="../resources/images/logo.png" alt="PizzaNova" />
                                 </a>
                             </div>
@@ -102,6 +102,7 @@
                         </ul>
                     </nav>
                 </div>
+
             </aside>
             <!-- Fin Menu Responsive-->
             <br>
@@ -136,11 +137,7 @@
                                         <th>Nombre</th>
                                         <th>Apellido</th>
                                         <th>Correo</th>
-                                        <th>Fecha de Nacimiento</th>
                                         <th>Teléfono</th>
-                                        <th>DUI</th>
-                                        <th>Género</th>
-                                        <th>Dirección</th>
                                         <th>Modificar</th>
                                         <th>Eliminar</th>
                                     </tr>
@@ -151,11 +148,7 @@
                                         <td>Gerardo</td>
                                         <td>Ramirez</td>
                                         <td>gerardogo145@gmail.com</td>
-                                        <td>12/09/2001</td>
-                                        <td>7707-5797</td>
-                                        <td>02625242-6</td>
-                                        <td>Masculino</td>
-                                        <td>La gloria, mejicanos</td>
+                                        <td>77075797</td>
                                         <td>
                                             <div clas="col-sm-1">
                                                 <a href="#ventana2" class="btn btn-info" data-toggle="modal">
@@ -176,11 +169,7 @@
                                         <td>Gerardo</td>
                                         <td>Ramirez</td>
                                         <td>gerardogo145@gmail.com</td>
-                                        <td>12/09/2001</td>
-                                        <td>7707-5797</td>
-                                        <td>02625242-6</td>
-                                        <td>Masculino</td>
-                                        <td>La gloria, mejicanos</td>
+                                        <td>77075797</td>
                                         <td>
                                             <div clas="col-sm-1">
                                                 <a href="#ventana2" class="btn btn-info" data-toggle="modal">
@@ -201,11 +190,7 @@
                                         <td>Gerardo</td>
                                         <td>Ramirez</td>
                                         <td>gerardogo145@gmail.com</td>
-                                        <td>12/09/2001</td>
-                                        <td>7707-5797</td>
-                                        <td>02625242-6</td>
-                                        <td>Masculino</td>
-                                        <td>La gloria, mejicanos</td>
+                                        <td>77075797</td>
                                         <td>
                                             <div clas="col-sm-1">
                                                 <a href="#ventana2" class="btn btn-info" data-toggle="modal">
@@ -292,7 +277,8 @@
                                         <i class="fa fa-calendar"></i>
                                     </div>
                                     <div class="col-sm-11">
-                                        <input type="date" min="1950-01-01" max="2001-01-01" placeholder="Fecha de nacimiento" class="form-control">
+                                        <input type="date" min="1950-01-01" max="2001-01-01"
+                                            placeholder="Fecha de nacimiento" class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -497,7 +483,7 @@
                 <!-- Main JS-->
                 <script src="../resources/js/main.js"></script>
                 <script src="../resources/js/imagen.js"></script>
-                
+
 
 
 </body>

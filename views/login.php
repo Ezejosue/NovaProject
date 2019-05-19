@@ -18,6 +18,7 @@
     <link href="../resources/css/theme.css" rel="stylesheet" media="all">
     <!-- Vendor CSS-->
     <link href="../resources/extras/animsition/animsition.min.css" rel="stylesheet" media="all">
+    <link href="../resources/css/imagen.css" rel="stylesheet" media="all">
 </head>
 
 <body>
@@ -41,19 +42,46 @@
                                     <label>Contraseña</label>
                                     <input class="au-input au-input--full" type="password" name="password">
                                 </div>
-
-                                <button class="au-btn au-btn--block au-btn--green m-b-20" type="submit">Iniciar
-                                    Sesión</button>
+                                <a href="index.php" class="au-btn au-btn--block au-btn--green m-b-20 text-center"
+                                    type="submit">Iniciar
+                                    Sesión</a>
 
                             </form>
-                            <div class="register-link">
+                            <div class="container text-center">
                                 <p>
-                                    ¿No tienes una cuenta?
-                                    <a href="registrarse.php">Registrate</a>
+                                    ¿Olvidaste la contraseña?<br>
+                                    <a href="#recuperar" class="btn btn-sm" data-toggle="modal">Recuperar</a>
                                 </p>
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal de Agregar -->
+    <div class="modal fade" id="recuperar">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Recuperar contraseña</h5>
+
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-1">
+                            <i class="fa fa-list"></i>
+                        </div>
+                        <div class="col-sm-11">
+                            <input placeholder="Ingrese su correo" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary">Aceptar</button>
                 </div>
             </div>
         </div>
@@ -67,6 +95,7 @@
     <script src="../resources/extras/perfect-scrollbar/perfect-scrollbar.js"></script>
     <!-- Main JS-->
     <script src="../resources/js/main.js"></script>
+    <script src="../resources/js/imagen.js"></script>
 
 </body>
 

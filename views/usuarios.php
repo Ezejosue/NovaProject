@@ -25,7 +25,7 @@
     <div class="page-wrapper">
         <!-- SIDEBAR-->
         <?php
-                require "../core/models/menu.php";
+                require "../core/helpers/menu.php";
                 sitepack::menu();
         ?>
         <!-- Fin SIDEBAR-->
@@ -137,12 +137,7 @@
                                         <th>Nombre</th>
                                         <th>Apellido</th>
                                         <th>Correo</th>
-                                        <th>Fecha de Nacimiento</th>
-                                        <th>Usuario</th>
                                         <th>Teléfono</th>
-                                        <th>Género</th>
-                                        <th>Dirección</th>
-                                        <th>Fecha de Creación</th>
                                         <th>Modificar</th>
                                         <th>Eliminar</th>
                                     </tr>
@@ -153,12 +148,7 @@
                                         <td>Gerardo</td>
                                         <td>Ramirez</td>
                                         <td>gerardogo145@gmail.com</td>
-                                        <td>12/09/2001</td>
-                                        <td>G3rardo</td>
-                                        <td>7707-5797</td>
-                                        <td>Masculino</td>
-                                        <td>La gloria, mejicanos</td>
-                                        <td>17/03/2019</td>
+                                        <td>77075797</td>
                                         <td>
                                             <div clas="col-sm-1">
                                                 <a href="#ventana2" class="btn btn-info" data-toggle="modal">
@@ -179,12 +169,7 @@
                                         <td>Carlos</td>
                                         <td>Quijano</td>
                                         <td>carlos_q@gmail.com</td>
-                                        <td>01/01/2001</td>
-                                        <td>Carlos503</td>
-                                        <td>6343-5797</td>
-                                        <td>Masculino</td>
-                                        <td>San Salvador</td>
-                                        <td>17/03/2019</td>
+                                        <td>63435797</td>
                                         <td>
                                             <div clas="col-sm-1">
                                                 <a href="#ventana2" class="btn btn-info" data-toggle="modal">
@@ -205,12 +190,7 @@
                                         <td>Ezequiel</td>
                                         <td>Avalos</td>
                                         <td>aezeqgmail.com</td>
-                                        <td>01/01/2001</td>
-                                        <td>Aezeq</td>
                                         <td>7109-6668</td>
-                                        <td>Masculino</td>
-                                        <td>La gloria, mejicanos</td>
-                                        <td>17/03/2019</td>
                                         <td>
                                             <div clas="col-sm-1">
                                                 <a href="#ventana2" class="btn btn-info" data-toggle="modal">

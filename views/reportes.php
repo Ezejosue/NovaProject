@@ -26,7 +26,7 @@
     <div class="page-wrapper">
         <!-- SIDEBAR-->
         <?php
-                require "../core/models/menu.php";
+                require "../core/helpers/menu.php";
                 sitepack::menu();
         ?>
         <!-- Fin SIDEBAR-->
@@ -38,7 +38,7 @@
                     <div class="container-fluid">
                         <div class="header-wrap2">
                             <div class="logo d-block d-lg-none">
-                                <a href="#">
+                                <a href="index.php">
                                     <img src="../resources/images/logo.png" alt="PizzaNova" />
                                 </a>
                             </div>
