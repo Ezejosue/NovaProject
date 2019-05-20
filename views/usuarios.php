@@ -109,15 +109,10 @@
             <!-- Contenido-->
             <div class="main-content">
                 <div class="section__content section__content--p30">
-                    <!-- Barra de busqueda -->
-                    <h2 class="pb-2 display-5 text-center">GESTIÓN DE USUARIOS</h2>
-                    <br>
                     <div class="row">
-                        <div class="col-sm-11 col-9">
-                            <input type="text" id="myInput" class="form-control" placeholder="Buscar">
-                        </div>
                         <div class="col-sm-1 col-3">
-                            <a href="#ventana1" class="btn btn-success btn-md" data-toggle="modal">
+                            <a href="#modal-create" class="btn btn-success tooltipped modal-trigger" data-toggle="modal"
+                                data-tooltip="Agregar">
                                 <span class="btn-label">
                                     <i class="fa fa-plus"></i>
                                 </span>
@@ -125,87 +120,19 @@
                         </div>
                     </div>
                     <br>
-                    <div class="card strpied-tabled-with-hover">
-                        <div class="card-header">
-                            <p class="card-category">Usuarios</p>
-                        </div>
-                        <div class="card-body table-full-width table-responsive" id="myTable">
-                            <table class="table table-hover table-striped">
+                    <div class="row">
+                        <div class="container">
+                            <table class="display" id="tabla-usuarios">
                                 <thead>
                                     <tr>
-                                        <th>Foto</th>
-                                        <th>Nombre</th>
-                                        <th>Apellido</th>
-                                        <th>Correo</th>
-                                        <th>Teléfono</th>
-                                        <th>Modificar</th>
-                                        <th>Eliminar</th>
+                                        <th>NOMBRES</th>
+                                        <th>APELLIDOS</th>
+                                        <th>CORREO</th>
+                                        <th>USUARIO</th>
+                                        <th>ACCIÓN</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td></td>
-                                        <td>Gerardo</td>
-                                        <td>Ramirez</td>
-                                        <td>gerardogo145@gmail.com</td>
-                                        <td>77075797</td>
-                                        <td>
-                                            <div clas="col-sm-1">
-                                                <a href="#ventana2" class="btn btn-info" data-toggle="modal">
-                                                    <i class="fa fa-edit"></i>
-                                                </a>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div clas="col-sm-1">
-                                                <a href="#ventana3" class="btn btn-danger" data-toggle="modal">
-                                                    <i class="fa fa-times"></i>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td></td>
-                                        <td>Carlos</td>
-                                        <td>Quijano</td>
-                                        <td>carlos_q@gmail.com</td>
-                                        <td>63435797</td>
-                                        <td>
-                                            <div clas="col-sm-1">
-                                                <a href="#ventana2" class="btn btn-info" data-toggle="modal">
-                                                    <i class="fa fa-edit"></i>
-                                                </a>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div clas="col-sm-1">
-                                                <a href="#ventana3" class="btn btn-danger" data-toggle="modal">
-                                                    <i class="fa fa-times"></i>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td></td>
-                                        <td>Ezequiel</td>
-                                        <td>Avalos</td>
-                                        <td>aezeqgmail.com</td>
-                                        <td>7109-6668</td>
-                                        <td>
-                                            <div clas="col-sm-1">
-                                                <a href="#ventana2" class="btn btn-info" data-toggle="modal">
-                                                    <i class="fa fa-edit"></i>
-                                                </a>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div clas="col-sm-1">
-                                                <a href="#ventana3" class="btn btn-danger" data-toggle="modal">
-                                                    <i class="fa fa-times"></i>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                <tbody id="tbody-read">
                                 </tbody>
                             </table>
                         </div>
@@ -277,7 +204,8 @@
                                         <i class="fa fa-calendar"></i>
                                     </div>
                                     <div class="col-sm-11">
-                                        <input type="date" min="1950-01-01" max="2001-01-01" placeholder="Fecha de nacimiento" class="form-control">
+                                        <input type="date" min="1950-01-01" max="2001-01-01"
+                                            placeholder="Fecha de nacimiento" class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -397,7 +325,8 @@
                                         <i class="fa fa-calendar"></i>
                                     </div>
                                     <div class="col-sm-11">
-                                        <input type="date" min="1950-01-01" max="2001-01-01" placeholder="Fecha de nacimiento" class="form-control">
+                                        <input type="date" min="1950-01-01" max="2001-01-01"
+                                            placeholder="Fecha de nacimiento" class="form-control">
                                     </div>
                                 </div>
                             </div>
