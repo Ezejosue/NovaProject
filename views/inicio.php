@@ -2,12 +2,13 @@
 <html lang="es">
 
 <head>
+    <!-- Required meta tags-->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Usuarios</title>
+    <!-- Title Page-->
+    <title>Dashboard</title>
 
-   
     <!-- Fontfaces CSS-->
     <link href="../resources/css/font-face.css" rel="stylesheet" media="all">
     <link href="../resources/extras/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
@@ -19,17 +20,17 @@
     <link href="../resources/css/theme.css" rel="stylesheet" media="all">
     <!-- Vendor CSS-->
     <link href="../resources/extras/animsition/animsition.min.css" rel="stylesheet" media="all">
-
 </head>
 
 <body class="animsition">
     <div class="page-wrapper">
-        <!-- SIDEBAR-->
+        <!-- MENU SIDEBAR-->
         <?php
                 require "../core/helpers/menu.php";
                 sitepack::menu();
         ?>
-        <!-- Fin SIDEBAR-->
+        <!-- END MENU SIDEBAR-->
+
         <!-- PAGE CONTAINER-->
         <div class="page-container2">
             <!-- Menu Responsive-->
@@ -107,51 +108,88 @@
             <!-- Fin Menu Responsive-->
             <br>
             <!-- Contenido-->
-            <div class="main-content">
+            <section class="statistic">
                 <div class="section__content section__content--p30">
-                    <!-- Barra de busqueda -->
-                    <h2 class="pb-2 display-5 text-center">REPORTES</h2>
-                    <br>
-                    <div class="col-lg-12">
-                        <div class="au-card m-b-30">
-                            <div class="au-card-inner">
-                                <h3 class="title-2 m-b-40">Team Commits</h3>
-                                <canvas id="team-chart"></canvas>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-6 col-lg-3">
+                                <div class="statistic__item">
+                                    <h2 class="number">688</h2>
+                                    <span class="desc">Productos</span>
+                                    <div class="icon">
+                                        <i class="zmdi zmdi-shopping-basket"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <div class="statistic__item">
+                                    <h2 class="number">15</h2>
+                                    <span class="desc">Categorías</span>
+                                    <div class="icon">
+                                        <i class="zmdi zmdi-view-list"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <div class="statistic__item">
+                                    <h2 class="number">10,368</h2>
+                                    <span class="desc">Usuarios</span>
+                                    <div class="icon">
+                                        <i class="zmdi zmdi-account-o"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <div class="statistic__item">
+                                    <h2 class="number">$1,060,386</h2>
+                                    <span class="desc">Ganancias</span>
+                                    <div class="icon">
+                                        <i class="zmdi zmdi-money"></i>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <br>
-                    <div class="col-lg-12">
-                        <div class="au-card m-b-30">
-                            <div class="au-card-inner">
-                                <h3 class="title-2 m-b-40">Bar chart</h3>
-                                <canvas id="barChart"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-12">
-                        <div class="au-card m-b-30">
-                            <div class="au-card-inner">
-                                <h3 class="title-2 m-b-40">Yearly Sales</h3>
-                                <canvas id="sales-chart"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                    <br>
                 </div>
-            </div>
+            </section>
+            <!-- END STATISTIC-->
+            <section>
+                <div class="section__content section__content--p30">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <!-- RECENT REPORT-->
+                                <div class="recent-report2">
+                                    <h3 class="title-3">Productos por categorías</h3>
+                                    <div class="chart-info">
+                                    </div>
+                                    <div class="au-card-inner">
+                                        <canvas id="singelBarChart"></canvas>
+                                    </div>
+                                </div>
+                                <!-- END RECENT REPORT 2 -->
+                            </div>
+                            <div class="col-xl-4">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- END PAGE CONTAINER-->
+        </div>
+    </div>
 
-            <!-- Jquery JS-->
-            <script src="../resources/js/jquery-3.2.1.min.js"></script>
-            <!-- Bootstrap JS-->
-            <script src="../resources/extras/bootstrap-4.1/bootstrap.min.js"></script>
-            <!-- Vendor JS-->
-            <script src="../resources/extras/animsition/animsition.min.js"></script>
-            <script src="../resources/extras/perfect-scrollbar/perfect-scrollbar.js"></script>
-            <!-- Main JS-->
-            <script src="../resources/extras/chartjs/Chart.bundle.min.js"></script>
-            <script src="../resources/js/main.js"></script>
-            
+    <!-- Jquery JS-->
+    <script src="../resources/js/jquery-3.2.1.min.js"></script>
+    <!-- Bootstrap JS-->
+    <script src="../resources/extras/bootstrap-4.1/bootstrap.min.js"></script>
+    <!-- Vendor JS-->
+    <script src="../resources/extras/animsition/animsition.min.js"></script>
+    <script src="../resources/extras/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="../resources/extras/chartjs/Chart.bundle.min.js"></script>
+    <!-- Main JS-->
+    <script src="../resources/js/main.js"></script>
 </body>
 
 </html>
+<!-- end document-->
