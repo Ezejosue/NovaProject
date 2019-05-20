@@ -51,13 +51,28 @@ CREATE TABLE UnidadMedida(
     nombre_medida VARCHAR(40) NOT NULL,
     Unidad INT NOT NULL);
 ----------------------------------------------------------
+
+CREATE TABLE Receta(
+    id_receta INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    nombre_receta VARCHAR(1000) NOT NULL,
+    tiempo VARCHAR(11) NOT NULL,
+    elaboracion VARCHAR(350) NOT NULL,
+    id_categoria INT UNSIGNED,
+    FOREIGN KEY (id_categoria) REFERENCES Categorias(id_categoria),
+    dificultad INT(11) NOT NULL,
+    imagen VARCHAR(100) NOT NULL
+);
+--------------------------------------------------------
+
 CREATE TABLE MateriasPrimas(
     idMateria INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     nombre_materia VARCHAR(50) NOT NULL,
     id_Medida INT UNSIGNED,
     FOREIGN KEY (id_Medida) REFERENCES UnidadMedida(id_Medida),
     id_categoria INT UNSIGNED,
-    FOREIGN KEY (id_categoria) REFERENCES Categorias(id_categoria)   
+    FOREIGN KEY (id_categoria) REFERENCES Categorias(id_categoria),
+    id_receta int UNSIGNED,
+    FOREIGN key (id_receta) REFERENCES Receta(id_receta)   
 );
 --------------------------------------------------------------
 CREATE TABLE Platillos(
@@ -79,6 +94,10 @@ CREATE TABLE Platillos(
     id_producto INT UNSIGNED,
     FOREIGN KEY (id_producto) REFERENCES productos(id_producto)); */
 --------------------------------------------------------------------
+
+------------------------------------------------------------------
+
+------------------------------------------------------------------
 CREATE TABLE EncabezadoFactura(
     id_EncabezadoFac INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     nombre_cliente VARCHAR(50),
@@ -152,6 +171,14 @@ INSERT INTO Empleados(nombre_empleado, apellido_empleado, dui, direccion, telefo
     ('Florine', 'Mills', '49795687-9', 'Ilobasco', 78745896,'F', '1991-02-26', 'El Salvador', 'Florine@mail.com',1,10);
 --Final insert usuarios
 
+--insert receta
+
+
+INSERT INTO Receta(nombre_receta, tiempo, elaboracion, id_categoria, dificultad, imagen) VALUES
+    ('Pizza 4 quesos', '20 min', 'Le das verga a la mesa hasta que quede redonda y le hechas un vergo de queso', 1, 1, 'awdawd.png');
+--final insert receta
+
+
 --insert unidad de medidad
 INSERT INTO UnidadMedida(nombre_medida, Unidad) VALUES
     ('Kilogramo', 1000),
@@ -160,12 +187,13 @@ INSERT INTO UnidadMedida(nombre_medida, Unidad) VALUES
     ('Litro', 1000);
 --final insert unidad de medidad
 
+
 --insert materia prima
-INSERT INTO MateriasPrimas(nombre_materia, id_Medida, id_categoria) VALUES
-    ('Pepperoni', 2, 1),
-    ('Carne', 2, 1),
-    ('Pepsi', 4, 1),
-    ('Masa', 2, 1);
+INSERT INTO MateriasPrimas(nombre_materia, id_Medida, id_categoria, id_receta) VALUES
+    ('Pepperoni', 2, 1, 1),
+    ('Carne', 2, 1, 1),
+    ('Pepsi', 4, 1, 1),
+    ('Masa', 2, 1, 1);
 --final insert materia prima
 
 --insert platillos
@@ -259,7 +287,7 @@ SELECT * FROM Categorias;
 SELECT * FROM Cargo;
 SELECT * FROM Bitacoras;
 
---Consultas multitabla
+--Consultas multitabla 
 SELECT COUNT(u.id_usuario)N_usuarios, u.nombre_usuario, p.nombre_usuario
 FROM usuarios u, Tipousuario p
 where u.id_Tipousuario = p.id_Tipousuario GROUP BY p.nombre_usuario;
@@ -279,6 +307,6 @@ ON platillos.id_categoria = c.id_categoria  GROUP BY c.id_categoria;
 
 SELECT nombre_empleado, fecha_nacimiento
 FROM empleados
-WHERE fecha_nacimiento BETWEEN '1900-01-01' AND '2001-12-31' ORDER BY fecha_nacimiento DESC;
+WHERE fecha_nacimiento BETWEEN '1900-01-01' AND '2001-12-31' ORDER BY fecha_nacimiento DESC; 
 --Consultas multitabla  
 

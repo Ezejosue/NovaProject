@@ -64,12 +64,12 @@
                             <img src="../resources/images/icon/avatar-big-01.jpg" alt="John Doe" />
                         </div>
                         <h4 class="name">john doe</h4>
-                        <a href="login.php">Cerrar Sesión</a>
+                        <a href="index.php">Cerrar Sesión</a>
                     </div>
                     <nav class="navbar-sidebar2">
                         <ul class="list-unstyled navbar__list">
                             <li>
-                                <a href="index.php">
+                                <a href="inicio.php">
                                     <i class="fas fa-tachometer-alt"></i>Vista General
                                     <span class="arrow">
 
