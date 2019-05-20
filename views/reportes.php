@@ -26,7 +26,7 @@
     <div class="page-wrapper">
         <!-- SIDEBAR-->
         <?php
-                require "../core/helpers/menu.php";
+                require "../core/dashboard/menu.php";
                 sitepack::menu();
         ?>
         <!-- Fin SIDEBAR-->
