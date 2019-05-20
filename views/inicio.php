@@ -11,7 +11,7 @@
 
     <!-- Fontfaces CSS-->
     <link href="../resources/css/font-face.css" rel="stylesheet" media="all">
-    <link href="../resources/css/fontawesome-all.min.css" rel="stylesheet" media="all">
+    <link href="../resources/extras/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
     <link href="../resources/extras/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
     <!-- Bootstrap CSS-->
     <link href="../resources/extras/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
@@ -26,7 +26,7 @@
     <div class="page-wrapper">
         <!-- MENU SIDEBAR-->
         <?php
-                require "../core/helpers/menu.php";
+                require "../core/dashboard/menu.php";
                 sitepack::menu();
         ?>
         <!-- END MENU SIDEBAR-->
@@ -39,7 +39,7 @@
                     <div class="container-fluid">
                         <div class="header-wrap2">
                             <div class="logo d-block d-lg-none">
-                                <a href="index.php">
+                                <a href="inicio.php">
                                     <img src="../resources/images/logo.png" alt="PizzaNova" />
                                 </a>
                             </div>
@@ -63,12 +63,12 @@
                             <img src="../resources/images/icon/avatar-big-01.jpg" alt="John Doe" />
                         </div>
                         <h4 class="name">john doe</h4>
-                        <a href="login.php">Cerrar Sesión</a>
+                        <a href="index.php">Cerrar Sesión</a>
                     </div>
                     <nav class="navbar-sidebar2">
                         <ul class="list-unstyled navbar__list">
                             <li>
-                                <a href="index.php">
+                                <a href="inicio.php">
                                     <i class="fas fa-tachometer-alt"></i>Vista General
                                     <span class="arrow">
 

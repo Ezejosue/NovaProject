@@ -20,7 +20,7 @@ class sitepack
         <nav class="navbar-sidebar2">
             <ul class="list-unstyled navbar__list">
                 <li>
-                    <a href="index.php">
+                    <a href="inicio.php">
                         <i class="fas fa-tachometer-alt"></i>Vista General
                     </a>
                 </li>
@@ -35,7 +35,7 @@ class sitepack
                 </li>
                         <li>
                             <a href="productos.php">
-                                <i class="fas fa-shopping-basket"></i>Productos</a>
+                                <i class="fas fa-shopping-basket"></i>Materia prima</a>
                         </li>
                         <li>
                             <a href="usuarios.php">
@@ -51,9 +51,10 @@ class sitepack
                             <i class="fas fa-chart-bar"></i>Reportes</a>
                     </li>
                     <li>
-                        <a href="login.php">
+                        <a href="index.php">
                              <i class="fas fa-power-off"></i>Cerrar sesion</a>
                     </li>
+                    
             </ul>
         </nav>
     </div>
