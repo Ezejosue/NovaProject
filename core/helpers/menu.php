@@ -35,7 +35,7 @@ class sitepack
                 </li>
                         <li>
                             <a href="productos.php">
-                                <i class="fas fa-shopping-basket"></i>Productos</a>
+                                <i class="fas fa-shopping-basket"></i>Materia prima</a>
                         </li>
                         <li>
                             <a href="usuarios.php">
