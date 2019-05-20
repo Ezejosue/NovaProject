@@ -42,6 +42,11 @@ class sitepack
                                 <i class="fas fa-users"></i>Usuarios</a>
                         </li>
                         <li>
+                            <a href="tipo_usuarios.php">
+                                <i class="fa fa-th	
+                                "></i>Tipo de usuarios</a>
+                        </li>
+                        <li>
                             <a href="empleados.php">
                                 <i class="fas fa-id-card"></i>Empleados</a>
                         </li>
