@@ -1,10 +1,11 @@
 $(document).ready(function()
 {
     showTable();
+    showSelectTipo('create_tipo', null);
 })
 
 //Constante para establecer la ruta y parámetros de comunicación con la API
-const apiUsuarios = '../../core/api/usuarios.php?site=private&action=';
+const apiUsuarios = '../core/api/usuarios.php?site=private&action=';
 
 //Función para llenar tabla con los datos de los registros
 function fillTable(rows)
@@ -89,6 +90,47 @@ $('#form-search').submit(function()
         console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
     });
 })
+
+//Función para cargar las categorías en el select del formulario
+function showSelectTipo(idSelect, value)
+{
+    $.ajax({
+        url: apiUsuarios + 'readTipoUsuario',
+        type: 'post',
+        data: null,
+        datatype: 'json'
+    })
+    .done(function(response){
+        //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+        if (isJSONString(response)) {
+            const result = JSON.parse(response);
+            //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
+            if (result.status) {
+                let content = '';
+                if (!value) {
+                    content += '<option value="" disabled selected>Seleccione una opción</option>';
+                }
+                result.dataset.forEach(function(row){
+                    if (row.id_categoria != value) {
+                        content += `<option value="${row.id_Tipousuario}">${row.tipo}</option>`;
+                    } else {
+                        content += `<option value="${row.id_Tipousuario}" selected>${row.tipo}</option>`;
+                    }
+                });
+                $('#' + idSelect).html(content);
+            } else {
+                $('#' + idSelect).html('<option value="">No hay opciones</option>');
+            }
+            $('select').formSelect();
+        } else {
+            console.log(response);
+        }
+    })
+    .fail(function(jqXHR){
+        //Se muestran en consola los posibles errores de la solicitud AJAX
+        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+    });
+}
 
 //Función para crear un nuevo registro
 $('#form-create').submit(function()

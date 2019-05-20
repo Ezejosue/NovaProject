@@ -5,9 +5,13 @@ class Usuarios extends Validator
 	private $id = null;
 	private $nombres = null;
 	private $apellidos = null;
-	private $correo = null;
-	private $nombre_usuario = null;
+	private $alias = null;
+	private $foto = null;
+	private $fecha_creacion = null;
+	private $estado = null;
+	private $tipo_usuario = null;
 	private $clave = null;
+	private $ruta = '../../resources/img/usuarios/';
 
 	//Métodos para sobrecarga de propiedades
 	public function setId($value)
@@ -55,34 +59,74 @@ class Usuarios extends Validator
 		return $this->apellidos;
 	}
 
-	public function setCorreo($value)
-	{
-		if ($this->validateEmail($value)) {
-			$this->correo = $value;
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	public function getCorreo()
-	{
-		return $this->correo;
-	}
-
-	public function setNombre_usuario($value)
+	public function setAlias($value)
 	{
 		if ($this->validateAlphanumeric($value, 1, 50)) {
-			$this->nombre_usuario = $value;
+			$this->alias = $value;
 			return true;
 		} else {
 			return false;
 		}
 	}
 
-	public function getNombre_usuario()
+	public function getAlias()
 	{
-		return $this->nombre_usuario;
+		return $this->alias;
+	}
+
+	public function setFoto($file, $name)
+	{
+		if ($this->validateImageFile($file, $this->ruta, $name, 500, 500)) {
+			$this->imagen = $this->getImageName();
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public function getFoto()
+	{
+		return $this->imagen;
+	}
+
+	public function setFecha_creacion($file, $name)
+	{
+		$this->fecha_creacion = $value;
+	}
+
+	public function getFecha_creacion()
+	{
+		return $this->fecha_creacion;
+	}
+
+	public function setEstado($value)
+	{
+		if ($value == '1' || $value == '0') {
+			$this->estado = $value;
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public function getEstado()
+	{
+		return $this->estado;
+	}
+
+	public function setTipo_usuario($value)
+	{
+		if ($this->validateId($value)) {
+			$this->tipo_usuario = $value;
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public function getTipo_usuario()
+	{
+		return $this->tipo_usuario;
 	}
 
 	public function setClave($value)
@@ -100,10 +144,15 @@ class Usuarios extends Validator
 		return $this->clave;
 	}
 
+	public function getRuta()
+	{
+		return $this->ruta;
+	}
+
 	//Métodos para manejar la sesión del usuario
 	public function checkNombre_Usuario()
 	{
-		$sql = 'SELECT id_usuario FROM usuarios WHERE Nombre_Usuario = ?';
+		$sql = 'SELECT id_usuario FROM usuarios WHERE nombre_usuario = ?';
 		$params = array($this->nombre_usuario);
 		$data = Conexion::getRow($sql, $params);
 		if ($data) {
@@ -116,7 +165,7 @@ class Usuarios extends Validator
 
 	public function checkPassword()
 	{
-		$sql = 'SELECT Clave FROM usuarios WHERE id_usuario = ?';
+		$sql = 'SELECT clave_usuario FROM usuarios WHERE id_usuario = ?';
 		$params = array($this->id);
 		$data = Conexion::getRow($sql, $params);
 		if (password_verify($this->clave, $data['Clave'])) {
@@ -137,7 +186,14 @@ class Usuarios extends Validator
 	//Metodos para manejar el CRUD
 	public function readUsuarios()
 	{
-		$sql = 'SELECT id_usuario, Nombre, Apellido, Correo, Nombre_Usuario  FROM usuarios ORDER BY Apellido';
+		$sql = 'SELECT id_usuario, nombre_usuario, apellido_usuario, alias, estado  FROM usuarios ORDER BY Apellido';
+		$params = array(null);
+		return Conexion::getRows($sql, $params);
+	}
+
+	public function readTipoUsuario()
+	{
+		$sql = 'SELECT id_Tipousuario, tipo, descripcion FROM tipousuario';
 		$params = array(null);
 		return Conexion::getRows($sql, $params);
 	}
@@ -152,8 +208,8 @@ class Usuarios extends Validator
 	public function createUsuario()
 	{
 		$hash = password_hash($this->clave, PASSWORD_DEFAULT);
-		$sql = 'INSERT INTO usuarios(Nombre, Apellido, Nombre_Usuario, Correo, Clave) VALUES(?, ?, ?, ?, ?)';
-		$params = array($this->nombres, $this->apellidos, $this->nombre_usuario, $this->correo, $hash);
+		$sql = 'INSERT INTO usuarios(nombre_usuario, apellido_usuario, alias, foto_usuario, estado_usuario, id_Tipousuario, clave_usuario) VALUES(?, ?, ?, ?, ?, ?, ?)';
+		$params = array($this->nombres, $this->apellidos, $this->alias, $this->foto, $this->estado, $this->tipo_usuario, $hash);
 		return Conexion::executeRow($sql, $params);
 	}
 
