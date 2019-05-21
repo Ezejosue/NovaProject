@@ -4,7 +4,8 @@ $(document).ready(function()
 })
 
 //Constante para establecer la ruta y parámetros de comunicación con la API
-const apiSesion = '../../core/api/usuarios.php?action=';
+const apiSesion = '../core/api/usuarios.php?action=';
+
 
 
 //Función para validar el usuario al momento de iniciar sesión

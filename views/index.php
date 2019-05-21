@@ -26,7 +26,7 @@
                     <div class="login-content">
                         <div class="login-logo">
                             <a href="#">
-                                <img src="../resources/img/logo.png" alt="PizzaNova" />
+                                <img src="../resources/images/logo.png" alt="PizzaNova" />
                             </a>
                         </div>
                         <div class="login-form">

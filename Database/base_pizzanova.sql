@@ -13,8 +13,9 @@ CREATE TABLE Categorias(
     descripcion VARCHAR(1000) NOT NULL,
     foto_categoria VARCHAR(50),
     estado TINYINT (1) NOT NULL DEFAULT 1 comment '1 es activo 0 es inactivo');
+------------------------------------------------
 
-
+-------------------------------------------------
 CREATE TABLE Usuarios(
     id_usuario INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     nombre_usuario VARCHAR(30) NOT NULL,
@@ -24,11 +25,11 @@ CREATE TABLE Usuarios(
     estado TINYINT (1) NOT NULL DEFAULT 1 comment '1 es activo 0 es inactivo',
     id_Tipousuario INT UNSIGNED,
     FOREIGN KEY (id_Tipousuario) REFERENCES TipoUsuario(id_Tipousuario));
-
+---------------------------------------------------
 CREATE TABLE Cargo(
     id_Cargo INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     nombre_Cargo VARCHAR(50));
-
+----------------------------------------------------
 CREATE TABLE Empleados(
     id_empleado INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     nombre_empleado VARCHAR(20) NOT NULL,
@@ -44,22 +45,12 @@ CREATE TABLE Empleados(
     FOREIGN KEY (id_Cargo) REFERENCES Cargo(id_Cargo),
     id_usuario INT UNSIGNED,
     FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario));
-
+----------------------------------------------------------
 CREATE TABLE UnidadMedida(
     id_Medida INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     nombre_medida VARCHAR(40) NOT NULL,
-    descripcion VARCHAR(50)
-);
-
-
-CREATE TABLE MateriasPrimas(
-    idMateria INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-    nombre_materia VARCHAR(50) NOT NULL,
-    descripcion VARCHAR(50),
-    foto VARCHAR(100),
-    id_categoria INT UNSIGNED,
-    FOREIGN KEY (id_categoria) REFERENCES Categorias(id_categoria) 
-);
+    Unidad INT NOT NULL);
+----------------------------------------------------------
 
 CREATE TABLE Receta(
     id_receta INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -69,12 +60,21 @@ CREATE TABLE Receta(
     id_categoria INT UNSIGNED,
     FOREIGN KEY (id_categoria) REFERENCES Categorias(id_categoria),
     dificultad INT(11) NOT NULL,
-    imagen VARCHAR(100) NOT NULL,
-    idMateria INT UNSIGNED,
-    FOREIGN KEY (idMateria) REFERENCES MateriasPrimas(idMateria)
+    imagen VARCHAR(100) NOT NULL
 );
+--------------------------------------------------------
 
-
+CREATE TABLE MateriasPrimas(
+    idMateria INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    nombre_materia VARCHAR(50) NOT NULL,
+    id_Medida INT UNSIGNED,
+    FOREIGN KEY (id_Medida) REFERENCES UnidadMedida(id_Medida),
+    id_categoria INT UNSIGNED,
+    FOREIGN KEY (id_categoria) REFERENCES Categorias(id_categoria),
+    id_receta int UNSIGNED,
+    FOREIGN key (id_receta) REFERENCES Receta(id_receta)   
+);
+--------------------------------------------------------------
 CREATE TABLE Platillos(
     id_platillo INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     nombre_platillo VARCHAR(50) NOT NULL,
@@ -84,7 +84,7 @@ CREATE TABLE Platillos(
     id_categoria INT UNSIGNED,
     FOREIGN KEY (id_categoria) REFERENCES Categorias(id_categoria) 
 );
-
+---------------------------------------------------------------
 /* CREATE TABLE Entradas(
     id_entrada INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     fecha_entrada TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -93,15 +93,18 @@ CREATE TABLE Platillos(
     cantidad INT NOT NULL,
     id_producto INT UNSIGNED,
     FOREIGN KEY (id_producto) REFERENCES productos(id_producto)); */
+--------------------------------------------------------------------
 
+------------------------------------------------------------------
 
+------------------------------------------------------------------
 CREATE TABLE EncabezadoFactura(
     id_EncabezadoFac INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     nombre_cliente VARCHAR(50),
     id_empleado INT UNSIGNED,
     FOREIGN KEY (id_empleado) REFERENCES Empleados(id_empleado)    
 );
-
+----------------------------------------------------------------
 CREATE TABLE DetalleFactura(
     id_detallefac INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     cantidad INT,
@@ -109,7 +112,7 @@ CREATE TABLE DetalleFactura(
     FOREIGN KEY (id_platillo) REFERENCES Platillos(id_platillo),
     subtotal DOUBLE(6,2)
 ); 
-
+--------------------------------------------------------------
 CREATE TABLE Bitacoras(
     id_bitacora INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     usuario VARCHAR(50),
@@ -117,7 +120,7 @@ CREATE TABLE Bitacoras(
     accion VARCHAR(50) NOT NULL,
     id_usuario INT UNSIGNED,
     FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario));
-    
+----------------------------------------------------------------
 
 
 --insert tipo usuarios
@@ -168,28 +171,30 @@ INSERT INTO Empleados(nombre_empleado, apellido_empleado, dui, direccion, telefo
     ('Florine', 'Mills', '49795687-9', 'Ilobasco', 78745896,'F', '1991-02-26', 'El Salvador', 'Florine@mail.com',1,10);
 --Final insert usuarios
 
---insert materia prima
-INSERT INTO MateriasPrimas(nombre_materia, descripcion, foto, id_categoria) VALUES
-    ('Pepperoni', '2', 'pp.png', 1),
-    ('Carne', 'oi', 'gg.png', 1),
-    ('Pepsi', 'ñko', 'dd.png', 1),
-    ('Masa', 'koñ', 'ff.png', 1);
---final insert materia prima
-
 --insert receta
-    INSERT INTO Receta(nombre_receta, tiempo, elaboracion, id_categoria, dificultad, imagen, idMateria) VALUES
-        ('Pizza 4 quesos', '20 min', 'Le das verga a la mesa hasta que quede redonda y le hechas un vergo de queso', 1, 1, 'awdawd.png', 1);
+
+
+INSERT INTO Receta(nombre_receta, tiempo, elaboracion, id_categoria, dificultad, imagen) VALUES
+    ('Pizza 4 quesos', '20 min', 'Le das verga a la mesa hasta que quede redonda y le hechas un vergo de queso', 1, 1, 'awdawd.png');
 --final insert receta
 
 
 --insert unidad de medidad
-INSERT INTO UnidadMedida(nombre_medida, descripcion) VALUES
-    ('Kilogramo', '1000'),
-    ('Gramo', '1'),
-    ('Miligramo', '0001'),
-    ('Litro', '1000');
+INSERT INTO UnidadMedida(nombre_medida, Unidad) VALUES
+    ('Kilogramo', 1000),
+    ('Gramo', 1),
+    ('Miligramo', 0001),
+    ('Litro', 1000);
 --final insert unidad de medidad
 
+
+--insert materia prima
+INSERT INTO MateriasPrimas(nombre_materia, id_Medida, id_categoria, id_receta) VALUES
+    ('Pepperoni', 2, 1, 1),
+    ('Carne', 2, 1, 1),
+    ('Pepsi', 4, 1, 1),
+    ('Masa', 2, 1, 1);
+--final insert materia prima
 
 --insert platillos
 INSERT INTO Platillos(nombre_platillo, precio, idMateria, id_categoria) VALUES
@@ -214,8 +219,9 @@ INSERT INTO DetalleFactura(cantidad, id_platillo, subtotal) VALUES
     (1, 3, '27.00'),
     (4, 4, '22.00');
 --final insert detalle factura
+-------------------------------------------------------------
 
-
+-------------------------------------------------------------
 --TRIGGER INSERT
 CREATE TRIGGER Llenar_bitacora AFTER INSERT ON Empleados
 FOR EACH ROW
@@ -233,8 +239,9 @@ CREATE TRIGGER Llenar_bitacora3 AFTER UPDATE ON Usuarios
 FOR EACH ROW
 INSERT INTO Bitacoras(Usuario, Fecha, Accion) Values ('Josue', now(), 'Modifico un Usuario');
 --FINAL TRIGGER 
+-------------------------------------------------------------
 
-
+-------------------------------------------------------------
 --Procedure
 DELIMITER $$
 CREATE PROCEDURE `EncabezadoFactura` (IN `id_EncabezadoFac` INT UNSIGNED, IN `nombre_cliente` VARCHAR(50), IN `id_empleado` INT UNSIGNED)
@@ -266,7 +273,7 @@ VALUES (id_platillo, nombre_platillo, precio, idMateria, id_categoria);
 END$$
 DELIMITER ;
 --Procedure
-
+-------------------------------------------------------------
 
 SELECT * FROM Usuarios;
 SELECT * FROM UnidadMedida;
