@@ -10,15 +10,12 @@
     <!-- Fontfaces CSS-->
     <link href="../resources/css/font-face.css" rel="stylesheet" media="all">
     <link href="../resources/extras/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
-    <link href="../resources/extras/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
     <!-- Bootstrap CSS-->
     <link href="../resources/extras/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
-    <link href="../resources/extras/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
     <!-- Main CSS-->
     <link href="../resources/css/theme.css" rel="stylesheet" media="all">
     <!-- Vendor CSS-->
     <link href="../resources/extras/animsition/animsition.min.css" rel="stylesheet" media="all">
-    <link href="../resources/css/imagen.css" rel="stylesheet" media="all">
 </head>
 
 <body>
@@ -33,19 +30,15 @@
                             </a>
                         </div>
                         <div class="login-form">
-                            <form action="" method="post">
-                                <div class="form-group">
-                                    <label>Correo electronico</label>
-                                    <input class="au-input au-input--full" type="email" name="email">
-                                </div>
-                                <div class="form-group">
-                                    <label>Contraseña</label>
-                                    <input class="au-input au-input--full" type="password" name="password">
-                                </div>
-                                <a href="inicio.php" class="au-btn au-btn--block au-btn--green m-b-20 text-center"
-                                    type="submit">Iniciar
-                                    Sesión</a>
-
+                            <form method="post" id="form-sesion">
+                                <input type="text" id="usuario" name="usuario" class="validate form-control"
+                                    placeholder="Usuario" required autofocus>
+                                <br>
+                                <input type="password" id="clave" name="clave" class="validate form-control"
+                                    placeholder="Contraseña" required autofocus>
+                                <br>
+                                <button class="btn btn-lg btn-primary btn-block btn-signin tooltipped"
+                                    data-tooltip="Ingresar" type="submit">Iniciar Sesión</button>
                             </form>
                             <div class="container text-center">
                                 <p>
@@ -86,16 +79,14 @@
             </div>
         </div>
     </div>
-    <!-- Jquery JS-->
+
     <script src="../resources/js/jquery-3.2.1.min.js"></script>
-    <!-- Bootstrap JS-->
     <script src="../resources/extras/bootstrap-4.1/bootstrap.min.js"></script>
-    <!-- Vendor JS-->
+    <script src="../resources/js/sweetalert.min.js"></script>
     <script src="../resources/extras/animsition/animsition.min.js"></script>
-    <script src="../resources/extras/perfect-scrollbar/perfect-scrollbar.js"></script>
-    <!-- Main JS-->
-    <script src="../resources/js/main.js"></script>
-    <script src="../resources/js/imagen.js"></script>
+    <script type="text/javascript" src="../core/helpers/functions.js"></script>
+    <script type="text/javascript" src="../core/controllers/account.js"></script>
+    <script type="text/javascript" src="../core/controllers/index.js"></script>
 
 </body>
 

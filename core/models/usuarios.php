@@ -11,7 +11,7 @@ class Usuarios extends Validator
 	private $estado = null;
 	private $tipo_usuario = null;
 	private $clave = null;
-	private $ruta = '../../resources/img/usuarios/';
+	private $ruta = '../resources/img/usuarios/';
 
 	//Métodos para sobrecarga de propiedades
 	public function setId($value)
@@ -77,7 +77,7 @@ class Usuarios extends Validator
 	public function setFoto($file, $name)
 	{
 		if ($this->validateImageFile($file, $this->ruta, $name, 500, 500)) {
-			$this->imagen = $this->getImageName();
+			$this->foto = $this->getImageName();
 			return true;
 		} else {
 			return false;
@@ -86,7 +86,7 @@ class Usuarios extends Validator
 
 	public function getFoto()
 	{
-		return $this->imagen;
+		return $this->foto;
 	}
 
 	public function setFecha_creacion($file, $name)
@@ -150,10 +150,10 @@ class Usuarios extends Validator
 	}
 
 	//Métodos para manejar la sesión del usuario
-	public function checkNombre_Usuario()
+	public function checkAlias()
 	{
-		$sql = 'SELECT id_usuario FROM usuarios WHERE nombre_usuario = ?';
-		$params = array($this->nombre_usuario);
+		$sql = 'SELECT id_usuario FROM usuarios WHERE alias = ?';
+		$params = array($this->alias);
 		$data = Conexion::getRow($sql, $params);
 		if ($data) {
 			$this->id = $data['id_usuario'];
@@ -168,7 +168,7 @@ class Usuarios extends Validator
 		$sql = 'SELECT clave_usuario FROM usuarios WHERE id_usuario = ?';
 		$params = array($this->id);
 		$data = Conexion::getRow($sql, $params);
-		if (password_verify($this->clave, $data['Clave'])) {
+		if (password_verify($this->clave, $data['clave_usuario'])) {
 			return true;
 		} else {
 			return false;
@@ -186,7 +186,7 @@ class Usuarios extends Validator
 	//Metodos para manejar el CRUD
 	public function readUsuarios()
 	{
-		$sql = 'SELECT id_usuario, nombre_usuario, apellido_usuario, alias, estado  FROM usuarios ORDER BY Apellido';
+		$sql = 'SELECT id_usuario, foto_usuario, nombre_usuario, apellido_usuario, alias, estado  FROM usuarios ORDER BY Apellido';
 		$params = array(null);
 		return Conexion::getRows($sql, $params);
 	}
