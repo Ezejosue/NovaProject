@@ -5,7 +5,7 @@ $(document).ready(function()
 })
 
 //Constante para establecer la ruta y parámetros de comunicación con la API
-const apiUsuarios = '../core/api/usuarios.php?site=private&action=';
+const apiUsuarios = '../core/api/usuarios.php?&action=';
 
 //Función para llenar tabla con los datos de los registros
 function fillTable(rows)
