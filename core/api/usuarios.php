@@ -270,17 +270,17 @@ if (isset($_GET['action'])) {
                 break;
                 case 'register':
                 $_POST = $usuario->validateForm($_POST);
-                if ($usuario->setNombres($_POST['create_nombres'])) {
-                    if ($usuario->setApellidos($_POST['create_apellidos'])) {
-                            if ($usuario->setAlias($_POST['create_alias'])) {
-                                if ($usuario->setEstado(isset($_POST['create_estado']) ? 1 : 0)) {
-                                    if ($usuario->setTipo_usuario($_POST['create_tipo'])) {
-                                        if ($_POST['create_clave1'] == $_POST['create_clave2']) {
-                                            if ($usuario->setClave($_POST['create_clave1'])) {
-                                                if (is_uploaded_file($_FILES['create_archivo']['tmp_name'])) {
-                                                    if ($usuario->setFoto($_FILES['create_archivo'], null)) {
+                if ($usuario->setNombres($_POST['nombres'])) {
+                    if ($usuario->setApellidos($_POST['apellidos'])) {
+                            if ($usuario->setAlias($_POST['alias'])) {
+                                if ($usuario->setEstado(isset($_POST['estado']) ? 1 : 0)) {
+                                    if ($usuario->setTipo_usuario($_POST['tipo'])) {
+                                        if ($_POST['clave1'] == $_POST['clave2']) {
+                                            if ($usuario->setClave($_POST['clave1'])) {
+                                                if (is_uploaded_file($_FILES['archivo']['tmp_name'])) {
+                                                    if ($usuario->setFoto($_FILES['archivo'], null)) {
                                                         if ($usuario->createUsuario()) {
-                                                            if ($usuario->saveFile($_FILES['create_archivo'], $usuario->getRuta(), $usuario->getFoto())) {
+                                                            if ($usuario->saveFile($_FILES['archivo'], $usuario->getRuta(), $usuario->getFoto())) {
                                                                 $result['status'] = 1;
                                                             } else {
                                                                 $result['status'] = 2;

@@ -26,27 +26,27 @@
                     <div class="login-content">
                         <div class="login-form text-center">
                             <form method="post" id="form-register">
-                                <input id="create_nombres" type="text" name="create_nombres"
+                                <input id="nombres" type="text" name="nombres"
                                     class="validate form-control" placeholder="Nombres" required>
                                 <br>
-                                <input id="create_apellidos" type="text" name="create_apellidos"
+                                <input id="apellidos" type="text" name="apellidos"
                                     class="validate form-control" placeholder="Apellidos" required>
                                 <br>
-                                <input id="create_alias" type="text" name="create_alias" class="validate form-control"
+                                <input id="alias" type="text" name="alias" class="validate form-control"
                                     placeholder="Nombre De Usuario" required>
                                 <br>
-                                <input id="create_clave1" type="password" name="create_clave1"
+                                <input id="clave1" type="password" name="clave1"
                                     class="validate form-control" placeholder="Contraseña" required>
                                 <br>
-                                <input id="create_clave2" type="password" name="create_clave2"
+                                <input id="clave2" type="password" name="clave2"
                                     class="validate form-control" placeholder="Repetir contraseña" required>
                                 <br>
-                                <select id="create_tipo" name="create_tipo" class="form-control"> </select>
+                                <select id="tipo" name="tipo" class="form-control"> </select>
                                 <br>
                                 <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="create_archivo"
-                                        name="create_archivo">
-                                    <label class="custom-file-label" for="create_archivo">Escoga un archivo</label>
+                                    <input type="file" class="custom-file-input" id="archivo"
+                                        name="archivo">
+                                    <label class="custom-file-label" for="archivo">Escoga un archivo</label>
                                 </div>
                                 <br>
                                 <br>
@@ -56,10 +56,10 @@
                                     </div>
                                     <div class="col-sm-11">
                                         <div class="custom-control custom-switch">
-                                            <input type="checkbox" class="custom-control-input" id="create_estado"
-                                                name="create_estado">
+                                            <input type="checkbox" class="custom-control-input" id="estado"
+                                                name="estado">
 
-                                            <label class="custom-control-label" for="create_estado">
+                                            <label class="custom-control-label" for="estado">
                                                 <i class="fa fa-eye"></i>
                                             </label>
                                         </div>

@@ -1,7 +1,7 @@
 $(document).ready(function()
 {
     checkUsuarios();
-    showSelectTipo('create_tipo', null);
+    showSelectTipo('tipo', null);
 })
 
 //Constante para establecer la ruta y parámetros de comunicación con la API
@@ -82,8 +82,11 @@ $('#form-register').submit(function()
     $.ajax({
         url: apiRegister + 'register',
         type: 'post',
-        data: $('#form-register').serialize(),
-        datatype: 'json'
+        data: new FormData($('#form-register')[0]),
+        datatype: 'json',
+        cache: false,
+        contentType: false,
+        processData: false
     })
     .done(function(response){
         //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
