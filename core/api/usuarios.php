@@ -267,6 +267,55 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Alias incorrecto';
                 }
                 break;
+                case 'register':
+                $_POST = $usuario->validateForm($_POST);
+                if ($usuario->setNombres($_POST['nombres'])) {
+                    if ($usuario->setApellidos($_POST['apellidos'])) {
+                            if ($usuario->setAlias($_POST['alias'])) {
+                                if ($usuario->setEstado(isset($_POST['estado']) ? 1 : 0)) {
+                                    if ($usuario->setTipo_usuario($_POST['tipo'])) {
+                                        if ($_POST['clave1'] == $_POST['clave2']) {
+                                            if ($usuario->setClave($_POST['clave1'])) {
+                                                if (is_uploaded_file($_FILES['archivo']['tmp_name'])) {
+                                                    if ($usuario->setFoto($_FILES['archivo'], null)) {
+                                                        if ($usuario->createUsuario()) {
+                                                            if ($usuario->saveFile($_FILES['archivo'], $usuario->getRuta(), $usuario->getFoto())) {
+                                                                $result['status'] = 1;
+                                                            } else {
+                                                                $result['status'] = 2;
+                                                                $result['exception'] = 'No se guardó el archivo';
+                                                            }
+                                                        } else {
+                                                            $result['exception'] = 'Operación fallida';
+                                                        }
+                                                    } else {
+                                                        $result['exception'] = $usuario->getImageError();;
+                                                    } 
+                                                }   else {
+                                                    $result['exception'] = 'Seleccione una imagen';
+                                                }   
+                                            } else {
+                                                    $result['exception'] = 'Clave menor a 6 caracteres';
+                                            }
+                                        } else {
+                                            $result['exception'] = 'Claves diferentes';
+                                        }
+                                    } else {
+                                        $result['exception'] = 'Seleccione un tipo de usuario';
+                                    }
+                                } else {
+                                    $result['exception'] = 'Estado incorrecto';
+                                }
+                            } else {
+                                $result['exception'] = 'Alias incorrecto';
+                            }
+                        } else {
+                            $result['exception'] = 'Apellidos incorrectos';
+                        }
+                    } else {
+                        $result['exception'] = 'Nombres incorrectos';
+                    }
+                break;
             default:
                 exit('Acción no disponible 2');
         }
