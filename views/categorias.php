@@ -40,7 +40,7 @@
                         <div class="header-wrap2">
                             <div class="logo d-block d-lg-none">
                                 <a href="inicio.php">
-                                    <img src="../resources/images/logo.png" alt="PizzaNova" />
+                                    <img src="../resources/img/logo.png" alt="PizzaNova" />
                                 </a>
                             </div>
 
@@ -50,63 +50,63 @@
                         </div>
                     </div>
                 </div>
-            <aside class="menu-sidebar2 js-right-sidebar d-block d-lg-none">
-                <div class="logo">
-                    <a href="#">
-                        <img src="../resources/images/logo.png" alt="PizzaNova" />
-                    </a>
-                </div>
-                <div class="menu-sidebar2__content js-scrollbar2">
-                    <div class="account2">
-                        <div class="image img-cir img-120">
-                            <img src="resources/images/icon/avatar-big-01.jpg" alt="John Doe" />
-                        </div>
-                        <h4 class="name">john doe</h4>
-                        <a href="index.php">Cerrar Sesión</a>
+                <aside class="menu-sidebar2 js-right-sidebar d-block d-lg-none">
+                    <div class="logo">
+                        <a href="#">
+                            <img src="../resources/img/logo.png" alt="PizzaNova" />
+                        </a>
                     </div>
-                    <nav class="navbar-sidebar2">
-                        <ul class="list-unstyled navbar__list">
-                            <li>
-                                <a href="inicio.php">
-                                    <i class="fas fa-tachometer-alt"></i>Vista General
-                                    <span class="arrow">
+                    <div class="menu-sidebar2__content js-scrollbar2">
+                        <div class="account2">
+                            <div class="image img-cir img-120">
+                                <img src="resources/img/icon/avatar-big-01.jpg" alt="John Doe" />
+                            </div>
+                            <h4 class="name">john doe</h4>
+                            <a href="index.php">Cerrar Sesión</a>
+                        </div>
+                        <nav class="navbar-sidebar2">
+                            <ul class="list-unstyled navbar__list">
+                                <li>
+                                    <a href="inicio.php">
+                                        <i class="fas fa-tachometer-alt"></i>Vista General
+                                        <span class="arrow">
 
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="perfil.php">
-                                    <i class="fas fa-user-circle"></i>Perfil</a>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="perfil.php">
+                                        <i class="fas fa-user-circle"></i>Perfil</a>
 
-                            </li>
-                            <li>
-                                <a href="categorias.php">
-                                    <i class="fas fa-list"></i>Categorías</a>
-                            </li>
-                            <li>
-                                <a href="productos.php">
-                                    <i class="fas fa-shopping-basket"></i>Productos</a>
-                            </li>
-                            <li>
-                                <a href="usuarios.php">
-                                    <i class="fas fa-users"></i>Usuarios</a>
-                            </li>
-                            <li>
-                                <a href="empleados.php">
-                                    <i class="fas fa-id-card"></i>Empleados</a>
-                            </li>
-                            </li>
-                            <li>
-                                <a href="reportes.php">
-                                    <i class="fas fa-chart-bar"></i>Reportes</a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-                
+                                </li>
+                                <li>
+                                    <a href="categorias.php">
+                                        <i class="fas fa-list"></i>Categorías</a>
+                                </li>
+                                <li>
+                                    <a href="productos.php">
+                                        <i class="fas fa-shopping-basket"></i>Productos</a>
+                                </li>
+                                <li>
+                                    <a href="usuarios.php">
+                                        <i class="fas fa-users"></i>Usuarios</a>
+                                </li>
+                                <li>
+                                    <a href="empleados.php">
+                                        <i class="fas fa-id-card"></i>Empleados</a>
+                                </li>
+                                </li>
+                                <li>
+                                    <a href="reportes.php">
+                                        <i class="fas fa-chart-bar"></i>Reportes</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+
             </header>
             </aside>
-            
+
             <!-- Fin Menu Responsive-->
             <br>
             <!-- Contenido-->
@@ -120,7 +120,7 @@
                             <input type="text" id="myInput" class="form-control" placeholder="Buscar">
                         </div>
                         <div class="col-sm-1 col-3">
-                            <a href="#ventana1" class="btn btn-success btn-md" data-toggle="modal">
+                            <a href="#modal-create" class="btn btn-success btn-md" data-toggle="modal">
                                 <span class="btn-label">
                                     <i class="fa fa-plus"></i>
                                 </span>
@@ -133,72 +133,16 @@
                             <p class="card-category">Categorias</p>
                         </div>
                         <div class="card-body table-full-width table-responsive" id="myTable">
-                            <table class="table table-hover table-striped">
+                            <table id="tabla_categorias" class="table table-hover table-striped">
                                 <thead>
                                     <tr>
-                                        <th>Nombre</th>
-                                        <th>Imagen</th>
-                                        <th>Descripción</th>
-                                        <th>Modificar</th>
-                                        <th>Eliminar</th>
+                                        <th>IMAGEN</th>
+                                        <th>NOMBRE</th>
+                                        <th>DESCRIPCIÓN</th>
+                                        <th>ACCIÓN</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Harina</td>
-                                        <th></th>
-                                        <td></td>
-                                        <td>
-                                            <div clas="col-sm-1">
-                                                <a href="#ventana2" class="btn btn-info" data-toggle="modal">
-                                                    <i class="fa fa-edit"></i>
-                                                </a>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div clas="col-sm-1">
-                                                <a href="#ventana3" class="btn btn-danger" data-toggle="modal">
-                                                    <i class="fa fa-times"></i>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Coca-Cola</td>
-                                        <th></th>
-                                        <td></td>
-                                        <td>
-                                            <div clas="col-sm-1">
-                                                <a href="#ventana2" class="btn btn-info" data-toggle="modal">
-                                                    <i class="fa fa-edit"></i>
-                                                </a>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div clas="col-sm-1">
-                                                <a href="#ventana3" class="btn btn-danger" data-toggle="modal">
-                                                    <i class="fa fa-times"></i>
-                                                </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Jamón</td>
-                                        <th> </th>
-                                        <td></td>
-                                        <td>
-                                            <div clas="col-sm-1">
-                                                <a href="#ventana2" class="btn btn-info" data-toggle="modal">
-                                                    <i class="fa fa-edit"></i>
-                                                </a>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div clas="col-sm-1">
-                                                <a href="#ventana3" class="btn btn-danger" data-toggle="modal">
-                                                    <i class="fa fa-times"></i>
-                                                </a>
-                                        </td>
-                                    </tr>
+                                <tbody id="tabla_categorias">
                                 </tbody>
                             </table>
                         </div>
@@ -206,7 +150,7 @@
                 </div>
                 <!-- Modals-->
                 <!-- Modal de Agregar -->
-                <div class="modal fade" id="ventana1">
+                <div class="modal fade" id="modal-create">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -215,54 +159,72 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <div class="modal-body">
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <div class="preview">
+                            <form method="post" id="form-create" enctype="multipart/form-data">
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-sm-1">
+                                            <i class="fa fa-image"></i>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-sm-4"></div>
-                                            <div class="col-sm-4">
-                                                <button id="triggerUpload" class="btn btn-primary"> <i
-                                                        class="fa fa-magic"></i>
-                                                    Subir imagen</button>
-                                                <input type="file" id="filePicker" />
+                                        <div class="col-sm-11">
+                                            <div class="custom-file">
+                                                <input type="file" class="custom-file-input" id="create_archivo"
+                                                    name="create_archivo">
+                                                <label class="custom-file-label" for="create_archivo">Escoga un
+                                                    archivo</label>
                                             </div>
-                                            <div class="col-sm-4"></div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="modal-body">
-                                <div class="row">
-                                    <div class="col-sm-1">
-                                        <i class="fa fa-list"></i>
-                                    </div>
-                                    <div class="col-sm-11">
-                                        <input placeholder="Nombre" class="form-control">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-body">
-                                <div class="row">
-                                    <div class="col-sm-1">
-                                        <i class="fa fa-file-alt"></i>
-                                    </div>
-                                    <div class="col-sm-11">
-                                        <textarea placeholder="Descripción" class="form-control"
-                                            id="exampleFormControlTextarea1" rows="3"></textarea>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-sm-1">
+                                            <i class="fa fa-list"></i>
+                                        </div>
+                                        <div class="col-sm-11">
+                                            <input placeholder="Nombre" class="form-control" id="create_nombre"
+                                                name="create_nombre" for="nombre_categoria">
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                <button type="button" class="btn btn-primary">Aceptar</button>
-                            </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-sm-1">
+                                            <i class="fa fa-file-alt"></i>
+                                        </div>
+                                        <div class="col-sm-11">
+                                            <textarea placeholder="Descripción" class="form-control"
+                                                id="create_descripcion" name="create_descripcion" for="descripcion"
+                                                rows="3"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-sm-1">
+                                            <i class="fa fa-eye-slash"></i>
+                                        </div>
+                                        <div class="col-sm-11">
+                                            <div class="custom-control custom-switch">
+                                                <input type="checkbox" class="custom-control-input" id="create_estado"
+                                                    name="create_estado">
+                                                <label class="custom-control-label" for="create_estado">
+                                                    <i class="fa fa-eye"></i>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-body">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-dismiss="modal">Cancelar</button>
+                                    <button type="submit" class="btn btn-primary">Aceptar</button>
+                                </div>
                         </div>
                     </div>
+                    </form>
                 </div>
                 <!-- Modal de Modificar -->
-                <div class="modal fade" id="ventana2">
+                <div class="modal fade" id="modal-update">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -273,17 +235,15 @@
                             </div>
                             <div class="modal-body">
                                 <div class="row">
-                                    <div class="col-sm-12">
-                                        <div class="preview1">
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-sm-4"></div>
-                                            <div class="col-sm-4">
-                                                <button id="triggerUpload1" class="btn btn-primary">
-                                                    <i class="fa fa-magic"></i>Subir imagen</button>
-                                                <input type="file" id="filePicker1" />
-                                            </div>
-                                            <div class="col-sm-4"></div>
+                                    <div class="col-sm-1">
+                                        <i class="fa fa-image"></i>
+                                    </div>
+                                    <div class="col-sm-11">
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" id="create_archivo"
+                                                name="create_archivo">
+                                            <label class="custom-file-label" for="create_archivo">Escoga un
+                                                archivo</label>
                                         </div>
                                     </div>
                                 </div>
@@ -341,7 +301,13 @@
                 <script src="../resources/js/jquery-3.2.1.min.js"></script>
                 <!-- Bootstrap JS-->
                 <script src="../resources/extras/bootstrap-4.1/bootstrap.min.js"></script>
+
+                <script src="../resources/js/sweetalert.min.js"></script>
                 <!-- Vendor JS-->
+
+                <script src="../core/helpers/functions.js"></script>
+                <script src="../core/controllers/categorias.js"></script>
+                <script src="../core/controllers/account.js"></script>
                 <script src="../resources/extras/animsition/animsition.min.js"></script>
                 <script src="../resources/extras/perfect-scrollbar/perfect-scrollbar.js"></script>
                 <!-- Main JS-->
