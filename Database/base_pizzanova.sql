@@ -48,8 +48,18 @@ CREATE TABLE Empleados(
 CREATE TABLE UnidadMedida(
     id_Medida INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     nombre_medida VARCHAR(40) NOT NULL,
-    Unidad INT NOT NULL);
+    descripcion VARCHAR(50)
+);
 
+
+CREATE TABLE MateriasPrimas(
+    idMateria INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    nombre_materia VARCHAR(50) NOT NULL,
+    descripcion VARCHAR(50),
+    foto VARCHAR(100),
+    id_categoria INT UNSIGNED,
+    FOREIGN KEY (id_categoria) REFERENCES Categorias(id_categoria) 
+);
 
 CREATE TABLE Receta(
     id_receta INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -59,21 +69,11 @@ CREATE TABLE Receta(
     id_categoria INT UNSIGNED,
     FOREIGN KEY (id_categoria) REFERENCES Categorias(id_categoria),
     dificultad INT(11) NOT NULL,
-    imagen VARCHAR(100) NOT NULL
+    imagen VARCHAR(100) NOT NULL,
+    idMateria INT UNSIGNED,
+    FOREIGN KEY (idMateria) REFERENCES MateriasPrimas(idMateria)
 );
 
-
-CREATE TABLE MateriasPrimas(
-    idMateria INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-    nombre_materia VARCHAR(50) NOT NULL,
-    id_Medida INT UNSIGNED,
-    foto VARCHAR(100),
-    FOREIGN KEY (id_Medida) REFERENCES UnidadMedida(id_Medida),
-    id_categoria INT UNSIGNED,
-    FOREIGN KEY (id_categoria) REFERENCES Categorias(id_categoria),
-    id_receta int UNSIGNED,
-    FOREIGN key (id_receta) REFERENCES Receta(id_receta)   
-);
 
 CREATE TABLE Platillos(
     id_platillo INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
@@ -168,30 +168,28 @@ INSERT INTO Empleados(nombre_empleado, apellido_empleado, dui, direccion, telefo
     ('Florine', 'Mills', '49795687-9', 'Ilobasco', 78745896,'F', '1991-02-26', 'El Salvador', 'Florine@mail.com',1,10);
 --Final insert usuarios
 
+--insert materia prima
+INSERT INTO MateriasPrimas(nombre_materia, descripcion, foto, id_categoria) VALUES
+    ('Pepperoni', '2', 'pp.png', 1),
+    ('Carne', 'oi', 'gg.png', 1),
+    ('Pepsi', 'ñko', 'dd.png', 1),
+    ('Masa', 'koñ', 'ff.png', 1);
+--final insert materia prima
+
 --insert receta
-
-
-INSERT INTO Receta(nombre_receta, tiempo, elaboracion, id_categoria, dificultad, imagen) VALUES
-    ('Pizza 4 quesos', '20 min', 'Le das verga a la mesa hasta que quede redonda y le hechas un vergo de queso', 1, 1, 'awdawd.png');
+    INSERT INTO Receta(nombre_receta, tiempo, elaboracion, id_categoria, dificultad, imagen, idMateria) VALUES
+        ('Pizza 4 quesos', '20 min', 'Le das verga a la mesa hasta que quede redonda y le hechas un vergo de queso', 1, 1, 'awdawd.png', 1);
 --final insert receta
 
 
 --insert unidad de medidad
-INSERT INTO UnidadMedida(nombre_medida, Unidad) VALUES
-    ('Kilogramo', 1000),
-    ('Gramo', 1),
-    ('Miligramo', 0001),
-    ('Litro', 1000);
+INSERT INTO UnidadMedida(nombre_medida, descripcion) VALUES
+    ('Kilogramo', '1000'),
+    ('Gramo', '1'),
+    ('Miligramo', '0001'),
+    ('Litro', '1000');
 --final insert unidad de medidad
 
-
---insert materia prima
-INSERT INTO MateriasPrimas(nombre_materia, id_Medida, foto, id_categoria, id_receta) VALUES
-    ('Pepperoni' 2, 'pp.png', 1, 1),
-    ('Carne', 2, 'gg.png', 1, 1),
-    ('Pepsi', 4, 'dd.png', 1, 1),
-    ('Masa', 2, 'ff.png', 1, 1);
---final insert materia prima
 
 --insert platillos
 INSERT INTO Platillos(nombre_platillo, precio, idMateria, id_categoria) VALUES
