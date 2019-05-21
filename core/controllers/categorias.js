@@ -18,13 +18,13 @@ function fillTable(rows)
                 <td>${row.nombre_categoria}</td>
                 <td>${row.descripcion}</td>
                 <td>
-                    <a href="#" onclick="modalUpdate(${row.id_categoria})" class="blue-text tooltipped" data-tooltip="Modificar"><i class="material-icons">mode_edit</i></a>
-                    <a href="#" onclick="confirmDelete(${row.id_categoria}, '${row.imagen_categoria}')" class="red-text tooltipped" data-tooltip="Eliminar"><i class="material-icons">delete</i></a>
+                    <button  href="#" onclick="modalUpdate(${row.id_categoria})" class="blue-text tooltipped" data-tooltip="Modificar">
+                    <button href="#" onclick="confirmDelete(${row.id_categoria}, '${row.foto_categoria}')" class="red-text tooltipped" data-tooltip="Eliminar">Aceptar</button>
                 </td>
             </tr>
         `;
     });
-    $('#tbody-read').html(content);
+    $('#tabla_categorias').html(content);
     $('.materialboxed').materialbox();
     $('.tooltipped').tooltip();
 }

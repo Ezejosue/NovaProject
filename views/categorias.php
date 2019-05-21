@@ -133,72 +133,16 @@
                             <p class="card-category">Categorias</p>
                         </div>
                         <div class="card-body table-full-width table-responsive" id="myTable">
-                            <table class="table table-hover table-striped">
+                            <table id="tabla_categorias" class="table table-hover table-striped">
                                 <thead>
                                     <tr>
-                                        <th>Nombre</th>
-                                        <th>Imagen</th>
-                                        <th>Descripción</th>
-                                        <th>Modificar</th>
-                                        <th>Eliminar</th>
+                                        <th>IMAGEN</th>
+                                        <th>NOMBRE</th>
+                                        <th>DESCRIPCIÓN</th>
+                                        <th>ACCIÓN</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Harina</td>
-                                        <th></th>
-                                        <td></td>
-                                        <td>
-                                            <div clas="col-sm-1">
-                                                <a href="#modal-update" class="btn btn-info" data-toggle="modal">
-                                                    <i class="fa fa-edit"></i>
-                                                </a>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div clas="col-sm-1">
-                                                <a href="#ventana3" class="btn btn-danger" data-toggle="modal">
-                                                    <i class="fa fa-times"></i>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Coca-Cola</td>
-                                        <th></th>
-                                        <td></td>
-                                        <td>
-                                            <div clas="col-sm-1">
-                                                <a href="#modal-update" class="btn btn-info" data-toggle="modal">
-                                                    <i class="fa fa-edit"></i>
-                                                </a>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div clas="col-sm-1">
-                                                <a href="#ventana3" class="btn btn-danger" data-toggle="modal">
-                                                    <i class="fa fa-times"></i>
-                                                </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Jamón</td>
-                                        <th> </th>
-                                        <td></td>
-                                        <td>
-                                            <div clas="col-sm-1">
-                                                <a href="#modal-update" class="btn btn-info" data-toggle="modal">
-                                                    <i class="fa fa-edit"></i>
-                                                </a>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div clas="col-sm-1">
-                                                <a href="#ventana3" class="btn btn-danger" data-toggle="modal">
-                                                    <i class="fa fa-times"></i>
-                                                </a>
-                                        </td>
-                                    </tr>
+                                <tbody id="tabla_categorias">
                                 </tbody>
                             </table>
                         </div>
@@ -237,7 +181,8 @@
                                             <i class="fa fa-list"></i>
                                         </div>
                                         <div class="col-sm-11">
-                                            <input placeholder="Nombre" class="form-control" id="create_nombre" name="create_nombre" for="nombre_categoria">
+                                            <input placeholder="Nombre" class="form-control" id="create_nombre"
+                                                name="create_nombre" for="nombre_categoria">
                                         </div>
                                     </div>
                                 </div>
@@ -248,7 +193,8 @@
                                         </div>
                                         <div class="col-sm-11">
                                             <textarea placeholder="Descripción" class="form-control"
-                                                id="create_descripcion" name="create_descripcion" for="descripcion" rows="3"></textarea>
+                                                id="create_descripcion" name="create_descripcion" for="descripcion"
+                                                rows="3"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -259,7 +205,8 @@
                                         </div>
                                         <div class="col-sm-11">
                                             <div class="custom-control custom-switch">
-                                                <input type="checkbox" class="custom-control-input" id="create_estado" name="create_estado">
+                                                <input type="checkbox" class="custom-control-input" id="create_estado"
+                                                    name="create_estado">
                                                 <label class="custom-control-label" for="create_estado">
                                                     <i class="fa fa-eye"></i>
                                                 </label>
@@ -354,10 +301,10 @@
                 <script src="../resources/js/jquery-3.2.1.min.js"></script>
                 <!-- Bootstrap JS-->
                 <script src="../resources/extras/bootstrap-4.1/bootstrap.min.js"></script>
-                
+
                 <script src="../resources/js/sweetalert.min.js"></script>
                 <!-- Vendor JS-->
-                
+
                 <script src="../core/helpers/functions.js"></script>
                 <script src="../core/controllers/categorias.js"></script>
                 <script src="../core/controllers/account.js"></script>
