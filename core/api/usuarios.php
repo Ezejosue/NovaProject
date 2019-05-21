@@ -224,13 +224,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'No se puede eliminar a sí mismo';
                 }
                 break;
-                case 'readTipoUsuario':
-                if ($result['dataset'] = $usuario->readTipoUsuario()) {
-                    $result['status'] = 1;
-                } else {
-                    $result['exception'] = 'Contenido no disponible';
-                }
-                break;
+                
             default:
                 exit('Acción no disponible 1');
         }
@@ -245,6 +239,13 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'No existen usuarios registrados';
                 }
             break;
+            case 'readTipoUsuario':
+                if ($result['dataset'] = $usuario->readTipoUsuario()) {
+                    $result['status'] = 1;
+                } else {
+                    $result['exception'] = 'Contenido no disponible';
+                }
+                break;
             case 'login':
                 $_POST = $usuario->validateForm($_POST);
                 if ($usuario->setAlias($_POST['usuario'])) {
