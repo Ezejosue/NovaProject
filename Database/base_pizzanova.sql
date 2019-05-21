@@ -187,10 +187,10 @@ INSERT INTO UnidadMedida(nombre_medida, Unidad) VALUES
 
 --insert materia prima
 INSERT INTO MateriasPrimas(nombre_materia, id_Medida, foto, id_categoria, id_receta) VALUES
-    ('Pepperoni', 2, 'pp.png', 1, 1),
-    ('Carne', 2, , 'gg.png', 1, 1),
-    ('Pepsi', 4, , 'dd.png', 1, 1),
-    ('Masa', 2, , 'ff.png', 1, 1);
+    ('Pepperoni' 2, 'pp.png', 1, 1),
+    ('Carne', 2, 'gg.png', 1, 1),
+    ('Pepsi', 4, 'dd.png', 1, 1),
+    ('Masa', 2, 'ff.png', 1, 1);
 --final insert materia prima
 
 --insert platillos

@@ -16,7 +16,12 @@ class Empleados extends Validator
     //Métodos para sobrecarga de propiedades
     public function setId($value)
     {
-        
+        if ($this->ValidateId($value)) {
+            $this->id = $value;
+            return true;
+        }else {
+            return false;
+        }
     }
 }
 
