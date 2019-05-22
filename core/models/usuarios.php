@@ -3,15 +3,13 @@ class Usuarios extends Validator
 {
 	//Declaración de propiedades
 	private $id = null;
-	private $nombres = null;
-	private $apellidos = null;
 	private $alias = null;
 	private $foto = null;
 	private $fecha_creacion = null;
 	private $estado = null;
 	private $tipo_usuario = null;
 	private $clave = null;
-	private $ruta = '../resources/img/usuarios/';
+	private $ruta = '../../resources/img/usuarios/';
 
 	//Métodos para sobrecarga de propiedades
 	public function setId($value)
@@ -27,36 +25,6 @@ class Usuarios extends Validator
 	public function getId()
 	{
 		return $this->id;
-	}
-
-	public function setNombres($value)
-	{
-		if ($this->validateAlphabetic($value, 1, 50)) {
-			$this->nombres = $value;
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	public function getNombres()
-	{
-		return $this->nombres;
-	}
-
-	public function setApellidos($value)
-	{
-		if ($this->validateAlphabetic($value, 1, 50)) {
-			$this->apellidos = $value;
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	public function getApellidos()
-	{
-		return $this->apellidos;
 	}
 
 	public function setAlias($value)
@@ -184,9 +152,16 @@ class Usuarios extends Validator
 	}
 
 	//Metodos para manejar el CRUD
+	public function readUsuariosTipo()
+	{
+		$sql = 'SELECT nombre_categoria, id_producto, imagen_producto, nombre_producto, descripcion_producto, precio_producto FROM productos INNER JOIN categorias USING(id_categoria) WHERE id_categoria = ? AND estado_producto = 1 ORDER BY nombre_producto';
+		$params = array($this->categoria);
+		return Conexion::getRows($sql, $params);
+	}
+
 	public function readUsuarios()
 	{
-		$sql = 'SELECT id_usuario, foto_usuario, nombre_usuario, apellido_usuario, alias, estado_usuario  FROM usuarios ORDER BY Apellido_usuario';
+		$sql = 'SELECT id_usuario, foto_usuario, alias, estado_usuario, fecha_creacion, tipo FROM usuarios INNER JOIN tipousuario USING (id_Tipousuario)';
 		$params = array(null);
 		return Conexion::getRows($sql, $params);
 	}
@@ -198,24 +173,17 @@ class Usuarios extends Validator
 		return Conexion::getRows($sql, $params);
 	}
 
-	public function searchUsuarios($value)
-	{
-		$sql = 'SELECT id_usuario, Nombre, Apellido, Nombre_Usuario, Correo FROM usuarios WHERE apellidos_usuario LIKE ? OR nombres_usuario LIKE ? ORDER BY apellidos_usuario';
-		$params = array("%$value%", "%$value%");
-		return Conexion::getRows($sql, $params);
-	}
-
 	public function createUsuario()
 	{
 		$hash = password_hash($this->clave, PASSWORD_DEFAULT);
-		$sql = 'INSERT INTO usuarios(nombre_usuario, apellido_usuario, alias, foto_usuario, estado_usuario, id_Tipousuario, clave_usuario) VALUES(?, ?, ?, ?, ?, ?, ?)';
-		$params = array($this->nombres, $this->apellidos, $this->alias, $this->foto, $this->estado, $this->tipo_usuario, $hash);
+		$sql = 'INSERT INTO usuarios(alias, foto_usuario, estado_usuario, id_Tipousuario, clave_usuario) VALUES(?, ?, ?, ?, ?)';
+		$params = array($this->alias, $this->foto, $this->estado, $this->tipo_usuario, $hash);
 		return Conexion::executeRow($sql, $params);
 	}
 
 	public function getUsuario()
 	{
-		$sql = 'SELECT id_usuario, Nombre, Apellido, Nombre_Usuario, Correo FROM usuarios WHERE id_usuario = ?';
+		$sql = 'SELECT id_usuario, alias, foto_usuario, fecha_creacion, estado_usuario, id_Tipousuario, clave_usuario FROM usuarios WHERE id_usuario = ?';
 		$params = array($this->id);
 		return Conexion::getRow($sql, $params);
 	}

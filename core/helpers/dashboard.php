@@ -15,11 +15,11 @@ class Dashboard
 			<meta charset="UTF-8">
 			<meta name="viewport" content="width=device-width, initial-scale=1.0">
 			<meta http-equiv="X-UA-Compatible" content="ie=edge">
-			<title>Usuarios</title>
+			<title>Dashboard - '.$title.'</title>
 
 			<!-- Fontfaces CSS-->
 			<link href="../resources/css/font-face.css" rel="stylesheet" media="all">
-			<link href="../resources/extras/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
+			<link href="../resources/css/font-awesome.css" rel="stylesheet" media="all">
 			<link href="../resources/extras/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
 			<!-- Bootstrap CSS-->
 			<link href="../resources/extras/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
@@ -33,6 +33,8 @@ class Dashboard
 			<link href="../resources/css/jquery.dataTables.min.css" rel="stylesheet" media="all">
 
 		</head>
+		<body class="animsition">
+		<div class="page-wrapper">
 		');
 		//Se comprueba si existe una sesión para mostrar el menú de opciones, de lo contrario se muestra un menú vacío
 		if (isset($_SESSION['idUsuario'])) {
