@@ -17,8 +17,7 @@ CREATE TABLE Categorias(
 
 CREATE TABLE Usuarios(
     id_usuario INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-    nombre_usuario VARCHAR(30) NOT NULL,
-    apellido_usuario VARCHAR(30) NOT NULL,
+    alias VARCHAR(50) NOT NULL,
     clave VARCHAR(30) NOT NULL,
     foto_usuario VARCHAR(50),
     fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
