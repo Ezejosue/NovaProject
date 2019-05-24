@@ -3,8 +3,8 @@ USE PizzaNova;
 
 CREATE TABLE TipoUsuario(
     id_Tipousuario INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-    nombre_usuario VARCHAR(20),
-    descripcion VARCHAR(1000),
+    tipo VARCHAR(50) NOT NULL,
+    descripcion VARCHAR(1000) NOT NULL,
     estado TINYINT (1) NOT NULL DEFAULT 1 comment '1 es activo 0 es inactivo');
 
 CREATE TABLE Categorias(
@@ -18,11 +18,11 @@ CREATE TABLE Categorias(
 -------------------------------------------------
 CREATE TABLE Usuarios(
     id_usuario INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-    nombre_usuario VARCHAR(30) NOT NULL,
-    clave VARCHAR(30) NOT NULL,
+    alias VARCHAR(50) NOT NULL,
+    clave_usuario VARCHAR(60) NOT NULL,
     foto_usuario VARCHAR(50),
     fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    estado TINYINT (1) NOT NULL DEFAULT 1 comment '1 es activo 0 es inactivo',
+    estado_usuario TINYINT (1) NOT NULL DEFAULT 1 comment '1 es activo 0 es inactivo',
     id_Tipousuario INT UNSIGNED,
     FOREIGN KEY (id_Tipousuario) REFERENCES TipoUsuario(id_Tipousuario));
 ---------------------------------------------------
