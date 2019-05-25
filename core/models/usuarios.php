@@ -168,7 +168,7 @@ class Usuarios extends Validator
 
 	public function readTipoUsuario()
 	{
-		$sql = 'SELECT id_Tipousuario, tipo, descripcion FROM tipousuario';
+		$sql = 'SELECT id_Tipousuario, tipo, descripcion FROM tipousuario WHERE estado = 1';
 		$params = array(null);
 		return Conexion::getRows($sql, $params);
 	}
@@ -190,8 +190,8 @@ class Usuarios extends Validator
 
 	public function updateUsuario()
 	{
-		$sql = 'UPDATE usuarios SET Nombre = ?, Apellido = ?, Nombre_Usuario = ?, Correo = ? WHERE id_usuario = ?';
-		$params = array($this->nombres, $this->apellidos, $this->nombre_usuario, $this->correo, $this->id);
+		$sql = 'UPDATE usuarios SET alias = ?, foto_usuario = ?, estado_usuario = ?, id_Tipousuario = ? WHERE id_usuario = ?';
+		$params = array($this->alias, $this->foto, $this->estado, $this->tipo_usuario, $this->id);
 		return Conexion::executeRow($sql, $params);
 	}
 
