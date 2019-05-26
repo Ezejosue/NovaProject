@@ -140,7 +140,7 @@ INSERT INTO Cargo(nombre_Cargo) VALUES
 --Final insert cargo
 
 --insert usuario
-INSERT INTO Usuarios(alias, clave, foto_usuario, id_Tipousuario) VALUES
+INSERT INTO Usuarios(alias, clave_usuario, foto_usuario, id_Tipousuario) VALUES
     ('Raik', '123', 'empleado.jpg', 2),    
     ('Conrad', '123', 'empleado.jpg', 1),    
     ('Assuanta', '123', 'empleado.jpg', 2),    
