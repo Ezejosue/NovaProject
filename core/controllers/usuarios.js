@@ -13,15 +13,17 @@ function fillTable(rows)
     let content = '';
     //Se recorren las filas para armar el cuerpo de la tabla y se utiliza comilla invertida para escapar los caracteres especiales
     rows.forEach(function(row){
+        (row.estado_usuario == 1) ? icon = '<i class="fa fa-eye"></i>' : icon = '<i class="fa fa-eye-slash"></i>';
         content += `
             <tr>
-                <td>${row.nombre_usuario}</td>
-                <td>${row.apellido_usuario}</td>
+                <td><img src="../resources/img/usuarios/${row.foto_usuario}" class="materialboxed" height="100"></td>
                 <td>${row.alias}</td>
+                <td>${row.fecha_creacion}</td>
                 <td>${row.tipo}</td>
+                <td><i class="material-icons">${icon}</i></td>
                 <td>
-                    <a href="#" onclick="modalUpdate(${row.id_usuario})" class="btn btn-primary tooltipped" data-tooltip="Modificar"><i class="fa fa-pen"></i></a>
-                    <a href="#" onclick="confirmDelete(${row.id_usuario})" class="btn btn-danger tooltipped" data-tooltip="Eliminar"><i class="fa fa-pen"></i></a>
+                    <a href="#" onclick="modalUpdate(${row.id_usuario})" class="btn btn-info tooltipped" data-tooltip="Modificar"><i class="fa fa-edit"></i></a>
+                    <a href="#" onclick="confirmDelete(${row.id_usuario}, '${row.foto_usuario}')" class="btn btn-danger tooltipped" data-tooltip="Eliminar"><i class="fa fa-times"></i></a>
                 </td>
             </tr>
         `;
@@ -60,42 +62,11 @@ function showTable()
     });
 }
 
-//Función para mostrar los resultados de una búsqueda
-$('#form-search').submit(function()
-{
-    event.preventDefault();
-    $.ajax({
-        url: apiUsuarios + 'search',
-        type: 'post',
-        data: $('#form-search').serialize(),
-        datatype: 'json'
-    })
-    .done(function(response){
-        //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
-        if (isJSONString(response)) {
-            const result = JSON.parse(response);
-            //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
-            if (result.status) {
-                sweetAlert(4, 'Coincidencias: ' + result.dataset.length, null);
-                fillTable(result.dataset);
-            } else {
-                sweetAlert(3, result.exception, null);
-            }
-        } else {
-            console.log(response);
-        }
-    })
-    .fail(function(jqXHR){
-        //Se muestran en consola los posibles errores de la solicitud AJAX
-        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
-    });
-})
-
-//Función para cargar las categorías en el select del formulario
+//Función para cargar los tipos de usuario en el select del formulario
 function showSelectTipo(idSelect, value)
 {
     $.ajax({
-        url: apiUsuarios + 'readTipoUsuario',
+        url: apiUsuarios + 'readTipoUsuario2',
         type: 'post',
         data: null,
         datatype: 'json'
@@ -154,6 +125,7 @@ $('#form-create').submit(function()
                 $('#form-create')[0].reset();
                 $('#modal-create').modal('hide');
                 sweetAlert(1, 'Usuario creado correctamente', null);
+                //Se destruye la tabla de usuarios y se vuelve a crear para que muestre los cambios realizados
                 destroy('#tabla-usuarios');
                 showTable();
             } else {
@@ -161,6 +133,8 @@ $('#form-create').submit(function()
             }
         } else {
             console.log(response);
+            //Se comprueba que el alias no sea repetido
+            sweetAlert(2, error2(response), null);
         }
     })
     .fail(function(jqXHR){
@@ -186,12 +160,12 @@ function modalUpdate(id)
             const result = JSON.parse(response);
             //Se comprueba si el resultado es satisfactorio para mostrar los valores en el formulario, sino se muestra la excepción
             if (result.status) {
-                
+                $('#form-update')[0].reset();
                 $('#id_usuario').val(result.dataset.id_usuario);
-                $('#update_nombres').val(result.dataset.Nombre);
-                $('#update_apellidos').val(result.dataset.Apellido);
-                $('#update_correo').val(result.dataset.Correo);
-                $('#update_alias').val(result.dataset.Nombre_Usuario);
+                $('#update_alias').val(result.dataset.alias);
+                showSelectTipo('update_tipo', result.dataset.id_Tipousuario);
+                $('#foto_usuario').val(result.dataset.foto_usuario);
+                (result.dataset.estado_usuario == 1) ? $('#update_estado').prop('checked', true) : $('#update_estado').prop('checked', false);
                 $('#modal-update').modal('show');
             } else {
                 sweetAlert(2, result.exception, null);
@@ -213,8 +187,11 @@ $('#form-update').submit(function()
     $.ajax({
         url: apiUsuarios + 'update',
         type: 'post',
-        data: $('#form-update').serialize(),
-        datatype: 'json'
+        data: new FormData($('#form-update')[0]),
+        datatype: 'json',
+        cache: false,
+        contentType: false,
+        processData: false
     })
     .done(function(response){
         //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
@@ -224,6 +201,7 @@ $('#form-update').submit(function()
             if (result.status) {
                 $('#modal-update').modal('hide');
                 sweetAlert(1, 'Usuario modificado correctamente', null);
+                //Se destruye la tabla de usuarios y se vuelve a crear para que muestre los cambios realizados
                 destroy('#tabla-usuarios');
                 showTable();
             } else {
@@ -231,6 +209,8 @@ $('#form-update').submit(function()
             }
         } else {
             console.log(response);
+            //Se comprueba que el alias no sea repetido
+            sweetAlert(2, error2(response), null);
         }
     })
     .fail(function(jqXHR){
@@ -282,4 +262,17 @@ function confirmDelete(id)
             });
         }
     });
+}
+
+//Función para verificar que el alias del usuario no se repita ya que es un dato de tipo único
+function error2(response){
+    switch (response){
+        case 'Dato duplicado, no se puede guardar':
+            mensaje = 'Nombre de usuario ya existe';
+            break;
+        default:
+            mensaje = 'Ocurrió un problema, consulte al administrador'
+            break;
+    }
+    return mensaje;
 }

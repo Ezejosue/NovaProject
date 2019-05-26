@@ -26,12 +26,6 @@
                     <div class="login-content">
                         <div class="login-form text-center">
                             <form method="post" id="form-register">
-                                <input id="nombres" type="text" name="nombres"
-                                    class="validate form-control" placeholder="Nombres" required>
-                                <br>
-                                <input id="apellidos" type="text" name="apellidos"
-                                    class="validate form-control" placeholder="Apellidos" required>
-                                <br>
                                 <input id="alias" type="text" name="alias" class="validate form-control"
                                     placeholder="Nombre De Usuario" required>
                                 <br>

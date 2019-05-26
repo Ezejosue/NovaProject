@@ -15,11 +15,11 @@ class Dashboard
 			<meta charset="UTF-8">
 			<meta name="viewport" content="width=device-width, initial-scale=1.0">
 			<meta http-equiv="X-UA-Compatible" content="ie=edge">
-			<title>Usuarios</title>
+			<title>Dashboard - '.$title.'</title>
 
 			<!-- Fontfaces CSS-->
 			<link href="../resources/css/font-face.css" rel="stylesheet" media="all">
-			<link href="../resources/extras/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
+			<link href="../resources/css/font-awesome.css" rel="stylesheet" media="all">
 			<link href="../resources/extras/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
 			<!-- Bootstrap CSS-->
 			<link href="../resources/extras/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
@@ -33,6 +33,8 @@ class Dashboard
 			<link href="../resources/css/jquery.dataTables.min.css" rel="stylesheet" media="all">
 
 		</head>
+		<body class="animsition">
+		<div class="page-wrapper">
 		');
 		//Se comprueba si existe una sesión para mostrar el menú de opciones, de lo contrario se muestra un menú vacío
 		if (isset($_SESSION['idUsuario'])) {
@@ -43,13 +45,13 @@ class Dashboard
                 <aside class="menu-sidebar2">
 					<div id="logo_pizza_nova" class="logo">  
 						<a align="center" href="#">
-							<img src="../resources/images/logo.png" alt="Pizza Nova"/>
+							<img src="../resources/img/logo.png" alt="Pizza Nova"/>
 						</a>
 					</div>
 					<div class="menu-sidebar2__content js-scrollbar1">
 						<div class="account2">
 							<div class="image img-cir img-120">
-								<img src="../resources/images/icon/avatar-big-01.jpg" alt="John Doe" />
+								<img src="../resources/img/icon/avatar-big-01.jpg" alt="John Doe" />
 							</div>
 							<h4 class="name">john doe</h4>
 						</div>
@@ -110,7 +112,7 @@ class Dashboard
 											<div class="header-wrap2">
 												<div class="logo d-block d-lg-none">
 													<a href="inicio.php">
-														<img src="../resources/images/logo.png" alt="PizzaNova" />
+														<img src="../resources/img/logo.png" alt="PizzaNova" />
 													</a>
 												</div>
 
@@ -124,13 +126,13 @@ class Dashboard
 								<aside class="menu-sidebar2 js-right-sidebar d-block d-lg-none">
 									<div class="logo">
 										<a href="#">
-											<img src="../resources/images/logo.png" alt="PizzaNova" />
+											<img src="../resources/img/logo.png" alt="PizzaNova" />
 										</a>
 									</div>
 									<div class="menu-sidebar2__content js-scrollbar2">
 										<div class="account2">
 											<div class="image img-cir img-120">
-												<img src="../resources/images/icon/avatar-big-01.jpg" alt="John Doe" />
+												<img src="../resources/img/icon/avatar-big-01.jpg" alt="John Doe" />
 											</div>
 											<h4 class="name">john doe</h4>
 											<a href="index.php">Cerrar Sesión</a>
