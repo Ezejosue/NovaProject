@@ -281,9 +281,9 @@ SELECT * FROM Cargo;
 SELECT * FROM Bitacoras;
 
 --Consultas multitabla 
-SELECT COUNT(u.id_usuario)N_usuarios, u.alias, p.nombre_usuario
+SELECT COUNT(u.id_usuario)N_usuarios, u.alias, p.tipo
 FROM usuarios u, Tipousuario p
-where u.id_Tipousuario = p.id_Tipousuario GROUP BY p.nombre_usuario;
+where u.id_Tipousuario = p.id_Tipousuario GROUP BY p.tipo;
 
 SELECT AVG(platillos.precio)Precio, c.nombre_categoria
 FROM platillos 

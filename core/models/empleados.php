@@ -194,9 +194,9 @@ class Empleados extends Validator
         return Conexion::getRow($sql, $params);
     }
 
-    public function getEmpleadoUsuario()
+    public function readUsuarios()
     {
-        $sql = 'SELECT alias FROM Usuarios WHERE id_usuario = ? ORDER BY alias';
+        $sql = 'SELECT  alias FROM Usuarios ORDER BY alias';
 		$params = array($this->id_usuario);
 		return Conexion::getRows($sql, $params);
     }
