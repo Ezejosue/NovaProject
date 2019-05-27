@@ -1,13 +1,13 @@
 <?php
-require_once('../helpers/conexion.php');
-require_once('../helpers/validator.php');
-require_once('../models/categorias.php');
+require_once('../../core/helpers/conexion.php');
+require_once('../../core/helpers/validator.php');
+require_once('../../core/models/categorias.php');
 
 // Se comprueba si existe una acción a realizar, de lo contrario se muestra un mensaje de error
 if (isset($_GET['action'])) {
 	session_start();
 	$categoria = new Categorias;
-	$result = array('status' => 0, 'message' => null, 'exception' => null);
+	$result = array('status' => 0, 'exception' => '');
 	// Se verifica si existe una sesión iniciada como administrador para realizar las operaciones correspondientes
 	if (isset($_SESSION['idUsuario'])) {
 		switch ($_GET['action']) {
@@ -71,14 +71,14 @@ if (isset($_GET['action'])) {
 		                if ($categoria->setNombre($_POST['update_nombre'])) {
 							if ($categoria->setDescripcion($_POST['update_descripcion'])) {
 								if (is_uploaded_file($_FILES['update_archivo']['tmp_name'])) {
-									if ($categoria->setImagen($_FILES['update_archivo'], $_POST['imagen_categoria'])) {
+									if ($categoria->setImagen($_FILES['update_archivo'], $_POST['foto_categoria'])) {
 										$archivo = true;
 									} else {
 										$result['exception'] = $categoria->getImageError();
 										$archivo = false;
 									}
 								} else {
-									if (!$categoria->setImagen(null, $_POST['imagen_categoria'])) {
+									if (!$categoria->setImagen(null, $_POST['foto_categoria'])) {
 										$result['exception'] = $categoria->getImageError();
 									}
 									$archivo = false;
@@ -115,7 +115,7 @@ if (isset($_GET['action'])) {
 					if ($categoria->getCategoria()) {
 						if ($categoria->deleteCategoria()) {
 							$result['status'] = 1;
-							if ($categoria->deleteFile($categoria->getRuta(), $_POST['imagen_categoria'])) {
+							if ($categoria->deleteFile($categoria->getRuta(), $_POST['foto_categoria'])) {
 								$result['message'] = 'Categoría eliminada correctamente';
 							} else {
 								$result['message'] = 'Categoría eliminada. No se borró el archivo';

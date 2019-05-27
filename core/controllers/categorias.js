@@ -4,38 +4,68 @@ $(document).ready(function()
 })
 
 // Constante para establecer la ruta y parámetros de comunicación con la API
-const api = '../core/api/categorias.php?action=';
+const apiCategorias = '../core/api/categorias.php?site=private&action=';
 
 // Función para llenar tabla con los datos de los registros
 function fillTable(rows)
 {
     let content = '';
-    // Se recorren las filas para armar el cuerpo de la tabla y se utiliza comilla invertida para escapar los caracteres especiales
+    //Se recorren las filas para armar el cuerpo de la tabla y se utiliza comilla invertida para escapar los caracteres especiales
     rows.forEach(function(row){
+        (row.estado == 1) ? icon = '<i class="fa fa-eye"></i>' : icon = '<i class="fa fa-eye-slash"></i>';
         content += `
             <tr>
                 <td><img src="../resources/img/categorias/${row.foto_categoria}" class="materialboxed" height="100"></td>
                 <td>${row.nombre_categoria}</td>
                 <td>${row.descripcion}</td>
+                <td><i class="material-icons">${icon}</i></td>
                 <td>
-                    <button  href="#" onclick="modalUpdate(${row.id_categoria})" class="blue-text tooltipped" data-tooltip="Modificar">
-                    <button href="#" onclick="confirmDelete(${row.id_categoria}, '${row.foto_categoria}')" class="red-text tooltipped" data-tooltip="Eliminar">Aceptar</button>
+                    <a href="#" onclick="modalUpdate(${row.id_categoria})" class="btn btn-info tooltipped" data-tooltip="Modificar"><i class="fa fa-edit"></i></a>
+                    <a href="#" onclick="confirmDelete(${row.id_categoria}, '${row.foto_categoria}')" class="btn btn-danger tooltipped" data-tooltip="Eliminar"><i class="fa fa-times"></i></a>
                 </td>
             </tr>
         `;
     });
-    $('#tabla_categorias').html(content);
+    $('#tbody-read').html(content);
+    table('#tabla-categorias');
     $('.materialboxed').materialbox();
     $('.tooltipped').tooltip();
 }
 
+//Función para obtener y mostrar los registros disponibles
+function showTable()
+{
+    $.ajax({
+        url: apiCategorias + 'read',
+        type: 'post',
+        data: null,
+        datatype: 'json'
+    })
+    .done(function(response){
+        //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+        if (isJSONString(response)) {
+            const result = JSON.parse(response);
+            //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
+            if (!result.status) {
+                sweetAlert(4, result.exception, null);
+            }
+            fillTable(result.dataset);
+        } else {
+            console.log(response);
+        }
+    })
+    .fail(function(jqXHR){
+        //Se muestran en consola los posibles errores de la solicitud AJAX
+        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+    });
+}
 // Función para crear un nuevo registro
 $('#form-create').submit(function()
 {
     event.preventDefault();
 
     $.ajax({
-        url: api + 'create',
+        url: apiCategorias + 'create',
         type: 'post',
         data: new FormData($('#form-create')[0]),
         datatype: 'json',
@@ -70,7 +100,7 @@ $('#form-create').submit(function()
 function modalUpdate(id)
 {
     $.ajax({
-        url: api + 'get',
+        url: apiCategorias + 'get',
         type: 'post',
         data:{
             id_categoria: id
@@ -85,11 +115,11 @@ function modalUpdate(id)
             if (result.status) {
                 $('#form-update')[0].reset();
                 $('#id_categoria').val(result.dataset.id_categoria);
-                $('#imagen_categoria').val(result.dataset.imagen_categoria);
-                $('#update_nombre').val(result.dataset.nombre_categoria);
-                $('#update_descripcion').val(result.dataset.descripcion_categoria);
-                M.updateTextFields();
-                $('#modal-update').modal('open');
+                $('#foto_categoria').val(result.dataset.foto_categoria);
+                $('#update_nombre_categoria').val(result.dataset.nombre_categoria);
+                $('#update_descripcion').val(result.dataset.descripcion);
+                (result.dataset.estado_usuario == 1) ? $('#update_estado').prop('checked', true) : $('#update_estado').prop('checked', false);
+                $('#modal-update').modal('show');
             } else {
                 sweetAlert(2, result.exception, null);
             }
@@ -108,7 +138,7 @@ $('#form-update').submit(function()
 {
     event.preventDefault();
     $.ajax({
-        url: api + 'update',
+        url: apiCategorias + 'update',
         type: 'post',
         data: new FormData($('#form-update')[0]),
         datatype: 'json',
@@ -122,9 +152,9 @@ $('#form-update').submit(function()
             const result = JSON.parse(response);
             // Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
             if (result.status) {
-                $('#modal-update').modal('close');
-                showTable();
+                $('#modal-update').modal('hide');
                 sweetAlert(1, result.message, null);
+                showTable();
             } else {
                 sweetAlert(2, result.exception, null);
             }
@@ -152,11 +182,11 @@ function confirmDelete(id, file)
     .then(function(value){
         if (value) {
             $.ajax({
-                url: api + 'delete',
+                url: apiCategorias + 'delete',
                 type: 'post',
                 data:{
                     id_categoria: id,
-                    imagen_categoria: file
+                    foto_categoria: file
                 },
                 datatype: 'json'
             })
@@ -166,8 +196,8 @@ function confirmDelete(id, file)
                     const result = JSON.parse(response);
                     // Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
                     if (result.status) {
-                        showTable();
                         sweetAlert(1, result.message, null);
+                        showTable();
                     } else {
                         sweetAlert(2, result.exception, null);
                     }

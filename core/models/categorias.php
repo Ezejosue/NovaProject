@@ -7,7 +7,7 @@ class Categorias extends Validator
 	private $imagen = null;
 	private $descripcion = null;
 	private $estado = null;
-	private $ruta = '../resources/img/categorias/';
+	private $ruta = '../../resources/img/categorias/';
 
 	// Métodos para sobrecarga de propiedades
 	public function setId($value)
@@ -82,16 +82,11 @@ class Categorias extends Validator
 	
 	public function setEstado($value)
 	{
-		if ($value) {
-			if ($this->validateAlphanumeric($value, 1, 200)) {
-				$this->estado = $value;
-				return true;
-			} else {
-				return false;
-			}
-		} else {
-			$this->estado = null;
+		if ($value == 0 || $value == 1) {
+			$this->estado = $value;
 			return true;
+		} else {
+			return false;
 		}
 	}
 

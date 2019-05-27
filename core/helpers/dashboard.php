@@ -248,7 +248,10 @@ class Dashboard
 </html>
 		');
 	}
+<<<<<<< HEAD
 
+=======
+>>>>>>> 589d88c... Mantenimiento de categorias y arreglo de diseño
 	private function modals()
 	{
 		print('

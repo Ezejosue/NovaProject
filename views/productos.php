@@ -1,12 +1,12 @@
 <!-- SIDEBAR-->
 <?php
     require_once('../core/helpers/dashboard.php');
-    Dashboard::headerTemplate('Empleados');
+    Dashboard::headerTemplate('Productos');
 ?>
 <!-- Contenido-->
 <!-- Contenido-->
 <div class="main-content">
-    <div class="section__content section__content--p30">
+    <div class="container">
         <!-- Barra de busqueda -->
         <h2 class="pb-2 display-5 text-center">GESTIÓN DE PRODUCTOS</h2>
         <br>

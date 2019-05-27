@@ -1,7 +1,7 @@
 <!-- SIDEBAR-->
 <?php
     require_once('../core/helpers/dashboard.php');
-    Dashboard::headerTemplate('Empleados');
+    Dashboard::headerTemplate('Reportes');
 ?>
 <!-- Contenido-->
 <div class="main-content">
