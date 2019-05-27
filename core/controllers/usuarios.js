@@ -82,7 +82,7 @@ function showSelectTipo(idSelect, value)
                     content += '<option value="" disabled selected>Seleccione una opción</option>';
                 }
                 result.dataset.forEach(function(row){
-                    if (row.id_categoria != value) {
+                    if (row.id_Tipousuario != value) {
                         content += `<option value="${row.id_Tipousuario}">${row.tipo}</option>`;
                     } else {
                         content += `<option value="${row.id_Tipousuario}" selected>${row.tipo}</option>`;

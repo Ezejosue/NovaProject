@@ -82,6 +82,7 @@ $('#form-create').submit(function()
                 $('#form-create')[0].reset();
                 sweetAlert(1, result.message, null);
                 $('#modal-create').modal('hide');
+                destroy('#tabla-categorias');
                 showTable();
             } else {
                 sweetAlert(2, result.exception, null);
@@ -154,6 +155,7 @@ $('#form-update').submit(function()
             if (result.status) {
                 $('#modal-update').modal('hide');
                 sweetAlert(1, result.message, null);
+                destroy('#tabla-categorias');
                 showTable();
             } else {
                 sweetAlert(2, result.exception, null);
@@ -197,6 +199,7 @@ function confirmDelete(id, file)
                     // Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
                     if (result.status) {
                         sweetAlert(1, result.message, null);
+                        destroy('#tabla-categorias');
                         showTable();
                     } else {
                         sweetAlert(2, result.exception, null);

@@ -146,18 +146,12 @@ class Usuarios extends Validator
 	public function changePassword()
 	{
 		$hash = password_hash($this->clave, PASSWORD_DEFAULT);
-		$sql = 'UPDATE usuarios SET clave = ? WHERE id_usuario = ?';
+		$sql = 'UPDATE usuarios SET clave_usuario = ? WHERE id_usuario = ?';
 		$params = array($hash, $this->id);
 		return Conexion::executeRow($sql, $params);
 	}
 
 	//Metodos para manejar el CRUD
-	public function readUsuariosTipo()
-	{
-		$sql = 'SELECT nombre_categoria, id_producto, imagen_producto, nombre_producto, descripcion_producto, precio_producto FROM productos INNER JOIN categorias USING(id_categoria) WHERE id_categoria = ? AND estado_producto = 1 ORDER BY nombre_producto';
-		$params = array($this->categoria);
-		return Conexion::getRows($sql, $params);
-	}
 
 	public function readUsuarios()
 	{
