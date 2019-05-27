@@ -120,7 +120,7 @@ class Categorias extends Validator
 	public function updateCategoria()
 	{
 		$sql = 'UPDATE categorias SET nombre_categoria = ?, descripcion = ?, foto_categoria = ?, estado=? WHERE id_categoria = ?';
-		$params = array($this->nombre, $this->imagen, $this->descripcion, $this->estado, $this->id);
+		$params = array($this->nombre,  $this->descripcion, $this->imagen, $this->estado, $this->id);
 		return conexion::executeRow($sql, $params);
 	}
 

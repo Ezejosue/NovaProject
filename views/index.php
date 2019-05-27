@@ -31,18 +31,16 @@
                         </div>
                         <div class="login-form">
                             <form method="post" id="form-sesion">
-                                <input type="text" id="usuario" name="usuario" class="validate form-control"
-                                    placeholder="Usuario" required autofocus>
+                                <input type="text" id="usuario" name="usuario" class="validate form-control" placeholder="Usuario" required autofocus>
                                 <br>
-                                <input type="password" id="clave" name="clave" class="validate form-control"
-                                    placeholder="Contraseña" required autofocus>
+                                <input type="password" id="clave" name="clave" class="validate form-control" placeholder="Contraseña" required autofocus>
                                 <br>
-                                <button class="btn btn-lg btn-primary btn-block btn-signin tooltipped"
-                                    data-tooltip="Ingresar" type="submit">Iniciar Sesión</button>
+                                <button class="btn btn-lg btn-primary btn-block btn-signin tooltipped" data-tooltip="Ingresar" type="submit">Iniciar Sesión</button>
                             </form>
                             <div class="container text-center">
                                 <p>
-                                    ¿Olvidaste la contraseña?<br>
+                                    ¿Olvidaste la contraseña?
+                                    <br>
                                     <a href="#recuperar" class="btn btn-sm" data-toggle="modal">Recuperar</a>
                                 </p>
                             </div>

@@ -119,7 +119,7 @@ function modalUpdate(id)
                 $('#foto_categoria').val(result.dataset.foto_categoria);
                 $('#update_nombre_categoria').val(result.dataset.nombre_categoria);
                 $('#update_descripcion').val(result.dataset.descripcion);
-                (result.dataset.estado_usuario == 1) ? $('#update_estado').prop('checked', true) : $('#update_estado').prop('checked', false);
+                (result.dataset.estado == 1) ? $('#update_estado').prop('checked', true) : $('#update_estado').prop('checked', false);
                 $('#modal-update').modal('show');
             } else {
                 sweetAlert(2, result.exception, null);

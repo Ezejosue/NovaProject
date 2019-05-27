@@ -68,10 +68,11 @@ if (isset($_GET['action'])) {
 				$_POST = $categoria->validateForm($_POST);
 				if ($categoria->setId($_POST['id_categoria'])) {
 					if ($categoria->getCategoria()) {
-		                if ($categoria->setNombre($_POST['update_nombre'])) {
+		                if ($categoria->setNombre($_POST['update_nombre_categoria'])) {
 							if ($categoria->setDescripcion($_POST['update_descripcion'])) {
-								if (is_uploaded_file($_FILES['update_archivo']['tmp_name'])) {
-									if ($categoria->setImagen($_FILES['update_archivo'], $_POST['foto_categoria'])) {
+								if ($categoria->setEstado(isset($_POST['update_estado']) ? 1 : 0)) {
+								if (is_uploaded_file($_FILES['foto_categoria']['tmp_name'])) {
+									if ($categoria->setImagen($_FILES['foto_categoria'], $_POST['foto_categoria'])) {
 										$archivo = true;
 									} else {
 										$result['exception'] = $categoria->getImageError();
@@ -97,7 +98,10 @@ if (isset($_GET['action'])) {
 								} else {
 									$result['exception'] = 'Operación fallida';
 								}
-							} else {
+							} else{
+								$result['exception'] = 'Estado incorrecto';
+							} 
+						}else {
 								$result['exception'] = 'Descripción incorrecta';
 							}
 						} else {

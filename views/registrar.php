@@ -26,14 +26,11 @@
                     <div class="login-content">
                         <div class="login-form text-center">
                             <form method="post" id="form-register">
-                                <input id="alias" type="text" name="alias" class="validate form-control"
-                                    placeholder="Nombre De Usuario" required>
+                                <input id="alias" type="text" name="alias" class="validate form-control" placeholder="Nombre De Usuario" required>
                                 <br>
-                                <input id="clave1" type="password" name="clave1" class="validate form-control"
-                                    placeholder="Contraseña" required>
+                                <input id="clave1" type="password" name="clave1" class="validate form-control" placeholder="Contraseña" required>
                                 <br>
-                                <input id="clave2" type="password" name="clave2" class="validate form-control"
-                                    placeholder="Repetir contraseña" required>
+                                <input id="clave2" type="password" name="clave2" class="validate form-control" placeholder="Repetir contraseña" required>
                                 <br>
                                 <select id="tipo" name="tipo" class="form-control"> </select>
                                 <br>
@@ -49,8 +46,7 @@
                                     </div>
                                     <div class="col-sm-11">
                                         <div class="custom-control custom-switch">
-                                            <input type="checkbox" class="custom-control-input" id="estado"
-                                                name="estado">
+                                            <input type="checkbox" class="custom-control-input" id="estado" name="estado">
 
                                             <label class="custom-control-label" for="estado">
                                                 <i class="fa fa-eye"></i>
@@ -59,8 +55,7 @@
                                     </div>
                                 </div>
                                 <br>
-                                <button class="btn btn-lg btn-primary" type="submit"
-                                    data-tooltip="Registrar">Registrarse</button>
+                                <button class="btn btn-lg btn-primary" type="submit" data-tooltip="Registrar">Registrarse</button>
                             </form>
                         </div>
                     </div>
