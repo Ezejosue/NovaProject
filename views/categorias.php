@@ -115,7 +115,7 @@
                         </button>
                     </div>
                     <form method="post" id="form-update" enctype="multipart/form-data">
-                        <input type="text" id="foto_categoria" name="foto_categoria" />
+                        <input type="hidden" id="foto_categoria" name="foto_categoria" />
                         <input type="hidden" id="id_categoria" name="id_categoria" />
                         <div class="modal-body">
                         <div class="row">
