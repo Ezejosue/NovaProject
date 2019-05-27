@@ -55,9 +55,9 @@ class Dashboard
 							</div>
 							<h4 class="name">john doe</h4>
 							<div class="row">
-							<a href="#modal-profile" class="modal-trigger" data-toggle="modal" onclick="modalProfile()"> <h6> <i class="fa fa-edit"></i> |</h6> </a>
-							<a href="#modal-password" class="modal-trigger" data-toggle="modal"> <h6> | <i class="fa fa-key"></i> | </h6> </a>
-							<a href="#" onclick="signOff()"> <h6> | <i class="fa fa-sign-out-alt"></i></h6> </a>
+								<a href="#modal-profile" class="modal-trigger" data-toggle="modal" onclick="modalProfile()"> <h6> <i class="fa fa-edit"></i> |</h6> </a>
+								<a href="#modal-password" class="modal-trigger" data-toggle="modal"> <h6> | <i class="fa fa-key"></i> | </h6> </a>
+								<a href="#" onclick="signOff()"> <h6> | <i class="fa fa-sign-out-alt"></i></h6> </a>
 							</div>
 						</div>
 						<nav class="navbar-sidebar2">
