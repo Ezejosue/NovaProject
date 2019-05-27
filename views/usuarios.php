@@ -54,7 +54,7 @@
                                 <i class="fa fa-user"></i>
                             </div>
                             <div class="col-sm-11">
-                                <input id="create_alias" type="text" name="create_alias" class="validate form-control"
+                                <input id="create_alias" type="text" name="create_alias" class="form-control"
                                     placeholder="Nombre De Usuario" required>
                             </div>
                         </div>
@@ -77,7 +77,7 @@
                             </div>
                             <div class="col-sm-11">
                                 <input id="create_clave2" type="password" name="create_clave2"
-                                    class="validate form-control" placeholder="Repetir contraseña" required>
+                                    class="validate form-control" placeholder="Repetir contraseña" required data-match="#create_clave1">
                             </div>
                         </div>
                     </div>
