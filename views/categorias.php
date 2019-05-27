@@ -115,7 +115,7 @@
                         </button>
                     </div>
                     <form method="post" id="form-update" enctype="multipart/form-data">
-                        <input type="hidden" id="foto_categoria" name="foto_categoria" />
+                        <input type="text" id="foto_categoria" name="foto_categoria" />
                         <input type="hidden" id="id_categoria" name="id_categoria" />
                         <div class="modal-body">
                         <div class="row">
@@ -124,8 +124,8 @@
                             </div>
                             <div class="col-sm-11">
                                 <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="foto_categoria" name="foto_categoria">
-                                    <label class="custom-file-label" for="create_archivo">Escoga un archivo
+                                    <input type="file" class="custom-file-input" id="imagen_categoria" name="imagen_categoria">
+                                    <label class="custom-file-label" for="imagen_categoria">Escoga un archivo
                                     </label>
                                 </div>
                             </div>
@@ -137,7 +137,6 @@
                                     <i class="fa fa-user"></i>
                                 </div>
                                 <div class="col-sm-11">
-
                                     <input id="update_nombre_categoria" type="text" name="update_nombre_categoria" class="validate form-control" placeholder="Nombre de categoria"
                                         required>
                                 </div>

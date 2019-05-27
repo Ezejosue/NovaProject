@@ -71,8 +71,8 @@ if (isset($_GET['action'])) {
 		                if ($categoria->setNombre($_POST['update_nombre_categoria'])) {
 							if ($categoria->setDescripcion($_POST['update_descripcion'])) {
 								if ($categoria->setEstado(isset($_POST['update_estado']) ? 1 : 0)) {
-								if (is_uploaded_file($_FILES['foto_categoria']['tmp_name'])) {
-									if ($categoria->setImagen($_FILES['foto_categoria'], $_POST['foto_categoria'])) {
+								if (is_uploaded_file($_FILES['imagen_categoria']['tmp_name'])) {
+									if ($categoria->setImagen($_FILES['imagen_categoria'], $_POST['foto_categoria'])) {
 										$archivo = true;
 									} else {
 										$result['exception'] = $categoria->getImageError();
@@ -87,7 +87,7 @@ if (isset($_GET['action'])) {
 								if ($categoria->updateCategoria()) {
 									$result['status'] = 1;
 									if ($archivo) {
-										if ($categoria->saveFile($_FILES['update_archivo'], $categoria->getRuta(), $categoria->getImagen())) {
+										if ($categoria->saveFile($_FILES['imagen_categoria'], $categoria->getRuta(), $categoria->getImagen())) {
 											$result['message'] = 'Categoría modificada correctamente';
 										} else {
 											$result['message'] = 'Categoría modificada. No se guardó el archivo';

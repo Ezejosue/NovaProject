@@ -134,6 +134,7 @@ function modalUpdate(id)
     });
 }
 
+$('#pepe')
 // Función para modificar un registro seleccionado previamente
 $('#form-update').submit(function()
 {
