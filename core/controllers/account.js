@@ -1,5 +1,5 @@
 //Constante para establecer la ruta y parámetros de comunicación con la API
-const apiAccount = '../../core/api/usuarios.php?site=private&action=';
+const apiAccount = '../core/api/usuarios.php?site=private&action=';
 
 //Función para cerrar la sesión del usuario
 function signOff()
@@ -43,10 +43,7 @@ function modalProfile()
             const result = JSON.parse(response);
             //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
             if (result.status) {
-                $('#profile_nombres').val(result.dataset.Nombre);
-                $('#profile_apellidos').val(result.dataset.Apellido);
-                $('#profile_correo').val(result.dataset.Correo);
-                $('#profile_alias').val(result.dataset.Nombre_Usuario);
+                $('#profile_alias').val(result.dataset.alias);
                 $('#modal-profile').modal('show');
             } else {
                 sweetAlert(2, result.exception, null);
