@@ -17,12 +17,11 @@ CREATE TABLE Categorias(
 
 CREATE TABLE Usuarios(
     id_usuario INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-    nombre_usuario VARCHAR(30) NOT NULL,
-    apellido_usuario VARCHAR(30) NOT NULL,
-    clave VARCHAR(30) NOT NULL,
+    alias VARCHAR(50) NOT NULL,
+    clave_usuario VARCHAR(60) NOT NULL,
     foto_usuario VARCHAR(50),
     fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    estado TINYINT (1) NOT NULL DEFAULT 1 comment '1 es activo 0 es inactivo',
+    estado_usuario TINYINT (1) NOT NULL DEFAULT 1 comment '1 es activo 0 es inactivo',
     id_Tipousuario INT UNSIGNED,
     FOREIGN KEY (id_Tipousuario) REFERENCES TipoUsuario(id_Tipousuario));
 
@@ -122,7 +121,7 @@ CREATE TABLE Bitacoras(
 
 
 --insert tipo usuarios
-INSERT INTO TipoUsuario(nombre_usuario, descripcion) VALUES
+INSERT INTO TipoUsuario(tipo, descripcion) VALUES
     ('Administrador','Tiene acceso a todas las funciones del programa web'),
     ('Empleado','Tiene acceso a todas las funciones del programa web menos la administracion de clientes');
 --final insert tipo usuarios
@@ -141,7 +140,7 @@ INSERT INTO Cargo(nombre_Cargo) VALUES
 --Final insert cargo
 
 --insert usuario
-INSERT INTO Usuarios(nombre_usuario, clave, foto_usuario, id_Tipousuario) VALUES
+INSERT INTO Usuarios(alias, clave_usuario, foto_usuario, id_Tipousuario) VALUES
     ('Raik', '123', 'empleado.jpg', 2),    
     ('Conrad', '123', 'empleado.jpg', 1),    
     ('Assuanta', '123', 'empleado.jpg', 2),    
@@ -282,9 +281,9 @@ SELECT * FROM Cargo;
 SELECT * FROM Bitacoras;
 
 --Consultas multitabla 
-SELECT COUNT(u.id_usuario)N_usuarios, u.nombre_usuario, p.nombre_usuario
+SELECT COUNT(u.id_usuario)N_usuarios, u.alias, p.tipo
 FROM usuarios u, Tipousuario p
-where u.id_Tipousuario = p.id_Tipousuario GROUP BY p.nombre_usuario;
+where u.id_Tipousuario = p.id_Tipousuario GROUP BY p.tipo;
 
 SELECT AVG(platillos.precio)Precio, c.nombre_categoria
 FROM platillos 

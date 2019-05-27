@@ -163,7 +163,56 @@ class Empleados extends Validator
     {
         return $this->id_cargo 
     }
+
+    public function setUsuario($value) 
+    {
+        if ($this->validateId($value)) {
+            $this->id_usuario = $value
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    public function getUsuario()
+    {
+        return $this->id_usuario
+    }
+
+    //Métodos para manejar la sesión del usuario
+    public function createEmpleado()
+    {
+        $sql = 'INSERT INTO Empleados(nombre_empleado, apellido_empleado, dui, telefono, genero, fecha_nacimiento, nacionalidad, correo, id_cargo, id_usuario) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+        $params = array($this->nombre_empleado, $this->apellido_empleado, $this->dui, $this->telefono, $this->genero, $this->fecha_nacimiento, $this->nacionalidad, $this->correo, $this->id_cargo, $this->id_usuario);
+        return Conexion::executeRow($sql, $params);
+    }
+
+    public function getEmpleado()
+    {
+        $sql = 'SELECT id_empleado, nombre_empleado, apellido_empleado, dui, telefono, genero, fecha_nacimiento, nacionalidad, correo, id_cargo, id_usuario FROM Empleados WHERE id_empleado = ?';
+        $params = array($this ->id);
+        return Conexion::getRow($sql, $params);
+    }
+
+    public function readUsuarios()
+    {
+        $sql = 'SELECT  alias FROM Usuarios ORDER BY alias';
+		$params = array($this->id_usuario);
+		return Conexion::getRows($sql, $params);
+    }
+
+    public function updateEmpleado()
+    {
+        $sql = 'UPDATE Empleados SET nombre_empleado = ?, apellido_empleado = ?, dui = ?, telefono = ?, genero = ?, fecha_nacimiento = ?, nacionalidad = ?, correo = ?, id_cargo = ?, id_usuario = ? WHERE id_empleado = ?';
+        $params = array($this->nombre_empleado, $this->apellido_empleado, $this->dui, $this->telefono, $this->genero, $this->fecha_nacimiento, $this->nacionalidad, $this->correo, $this->id_cargo, $this->id_usuario, $this->id);
+        return Conexion::executeRow($sql, $params);
+    }
+
+    public function deleteEmpleado()
+    {
+        $sql = 'DELETE FROM Empleados WHERE id_empleado = ?';
+        $params = array($this->id);
+        return Conexion::executeRow($sql, $params);
+    }
 }
-
-
 ?>

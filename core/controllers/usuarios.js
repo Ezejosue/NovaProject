@@ -62,11 +62,11 @@ function showTable()
     });
 }
 
-//Función para cargar las categorías en el select del formulario
+//Función para cargar los tipos de usuario en el select del formulario
 function showSelectTipo(idSelect, value)
 {
     $.ajax({
-        url: apiUsuarios + 'readTipoUsuario1',
+        url: apiUsuarios + 'readTipoUsuario2',
         type: 'post',
         data: null,
         datatype: 'json'
@@ -125,6 +125,7 @@ $('#form-create').submit(function()
                 $('#form-create')[0].reset();
                 $('#modal-create').modal('hide');
                 sweetAlert(1, 'Usuario creado correctamente', null);
+                //Se destruye la tabla de usuarios y se vuelve a crear para que muestre los cambios realizados
                 destroy('#tabla-usuarios');
                 showTable();
             } else {
@@ -132,6 +133,8 @@ $('#form-create').submit(function()
             }
         } else {
             console.log(response);
+            //Se comprueba que el alias no sea repetido
+            sweetAlert(2, error2(response), null);
         }
     })
     .fail(function(jqXHR){
@@ -159,9 +162,9 @@ function modalUpdate(id)
             if (result.status) {
                 $('#form-update')[0].reset();
                 $('#id_usuario').val(result.dataset.id_usuario);
-                $('#update_alias').val(result.dataset.alias_usuario);
+                $('#update_alias').val(result.dataset.alias);
                 showSelectTipo('update_tipo', result.dataset.id_Tipousuario);
-                $('#update_archivo').val(result.dataset.foto_usuario);
+                $('#foto_usuario').val(result.dataset.foto_usuario);
                 (result.dataset.estado_usuario == 1) ? $('#update_estado').prop('checked', true) : $('#update_estado').prop('checked', false);
                 $('#modal-update').modal('show');
             } else {
@@ -184,8 +187,11 @@ $('#form-update').submit(function()
     $.ajax({
         url: apiUsuarios + 'update',
         type: 'post',
-        data: $('#form-update').serialize(),
-        datatype: 'json'
+        data: new FormData($('#form-update')[0]),
+        datatype: 'json',
+        cache: false,
+        contentType: false,
+        processData: false
     })
     .done(function(response){
         //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
@@ -195,6 +201,7 @@ $('#form-update').submit(function()
             if (result.status) {
                 $('#modal-update').modal('hide');
                 sweetAlert(1, 'Usuario modificado correctamente', null);
+                //Se destruye la tabla de usuarios y se vuelve a crear para que muestre los cambios realizados
                 destroy('#tabla-usuarios');
                 showTable();
             } else {
@@ -202,6 +209,8 @@ $('#form-update').submit(function()
             }
         } else {
             console.log(response);
+            //Se comprueba que el alias no sea repetido
+            sweetAlert(2, error2(response), null);
         }
     })
     .fail(function(jqXHR){
@@ -255,6 +264,7 @@ function confirmDelete(id)
     });
 }
 
+//Función para verificar que el alias del usuario no se repita ya que es un dato de tipo único
 function error2(response){
     switch (response){
         case 'Dato duplicado, no se puede guardar':
