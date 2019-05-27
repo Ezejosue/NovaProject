@@ -5,6 +5,7 @@ class Empleados extends Validator
     private $nombre_empleado = null;
     private $apellido_empleado = null;
     private $dui = null;
+    private $direccion = null;
     private $telefono = null;
     private $genero = null;
     private $fecha_nacimiento = null;
@@ -41,7 +42,7 @@ class Empleados extends Validator
 
     public function getNombres()
     {
-        return $this->nombre_empleado
+        return $this->nombre_empleado;
     }
 
     public function setApellido($value)
@@ -56,7 +57,7 @@ class Empleados extends Validator
 
     public function getApellido()
     {
-        return $this->apellido_empleado
+        return $this->apellido_empleado;
     }
 
     public function setDui($value)
@@ -71,7 +72,7 @@ class Empleados extends Validator
     
     public function getDui()
     {
-        return $this->dui
+        return $this->dui;
     }
 
     public function setTelefono($value)
@@ -86,7 +87,7 @@ class Empleados extends Validator
     
     public function getTelefono()
     {
-        return $this->telefono
+        return $this->telefono;
     }
 
     public function setGenero($value)
@@ -101,7 +102,7 @@ class Empleados extends Validator
     
     public function getGenero()
     {
-        return $this->genero
+        return $this->genero;
     }
 
     public function setNacimiento($value)
@@ -116,7 +117,7 @@ class Empleados extends Validator
     
     public function getNacimiento()
     {
-        return $this->fecha_nacimiento
+        return $this->fecha_nacimiento;
     }
 
     public function setNacionalidad($value)
@@ -131,7 +132,22 @@ class Empleados extends Validator
 
     public function getNacionalidad()
     {
-        return $this->nacionalidad
+        return $this->nacionalidad;
+    }
+
+    public function setDireccion($value)
+    {
+        if ($this->validateAlphanumeric($value, 1, 50)) {
+			$this->direccion = $value;
+			return true;
+		} else {
+			return false;
+		}
+    }
+
+    public function getDireccion()
+    {
+        return $this->direccion;
     }
 
     public function setCorreo($email)
@@ -146,13 +162,13 @@ class Empleados extends Validator
 
     public function getCorreo()
     {
-        return $this->correo
+        return $this->correo;
     }
 
     public function setCargo($value)
     {
         if ($this->validateId($value)) {
-            $this->id_cargo = $value
+            $this->id_cargo = $value;
             return true;
         }else {
             return false;
@@ -161,13 +177,13 @@ class Empleados extends Validator
 
     public function getCargo()
     {
-        return $this->id_cargo 
+        return $this->id_cargo; 
     }
 
     public function setUsuario($value) 
     {
         if ($this->validateId($value)) {
-            $this->id_usuario = $value
+            $this->id_usuario = $value;
             return true;
         }else {
             return false;
@@ -176,35 +192,56 @@ class Empleados extends Validator
 
     public function getUsuario()
     {
-        return $this->id_usuario
+        return $this->id_usuario;
     }
 
     //Métodos para manejar la sesión del usuario
     public function createEmpleado()
     {
-        $sql = 'INSERT INTO Empleados(nombre_empleado, apellido_empleado, dui, telefono, genero, fecha_nacimiento, nacionalidad, correo, id_cargo, id_usuario) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+        $sql = 'INSERT INTO Empleados(nombre_empleado, apellido_empleado, dui, direccion, telefono, genero, fecha_nacimiento, nacionalidad, correo, id_cargo, id_usuario) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
         $params = array($this->nombre_empleado, $this->apellido_empleado, $this->dui, $this->telefono, $this->genero, $this->fecha_nacimiento, $this->nacionalidad, $this->correo, $this->id_cargo, $this->id_usuario);
         return Conexion::executeRow($sql, $params);
     }
 
     public function getEmpleado()
     {
-        $sql = 'SELECT id_empleado, nombre_empleado, apellido_empleado, dui, telefono, genero, fecha_nacimiento, nacionalidad, correo, id_cargo, id_usuario FROM Empleados WHERE id_empleado = ?';
+        $sql = 'SELECT id_empleado, nombre_empleado, apellido_empleado, dui, direccion,  telefono, genero, fecha_nacimiento, nacionalidad, correo, id_cargo, id_usuario FROM Empleados WHERE id_empleado = ?';
         $params = array($this ->id);
         return Conexion::getRow($sql, $params);
     }
 
     public function readUsuarios()
     {
-        $sql = 'SELECT  alias FROM Usuarios ORDER BY alias';
+        $sql = 'SELECT  id_usuario, alias FROM Usuarios ORDER BY alias';
 		$params = array($this->id_usuario);
 		return Conexion::getRows($sql, $params);
     }
 
+    public function readEmpleados()
+    {
+        $sql = 'SELECT id_empleado, nombre_empleado, apellido_empleado, dui, direccion, telefono From Empleados ORDER BY nombre_empleado';
+        $params = array(null);
+        return Conexion::getRows($sql, $params);
+    }
+
+    public function searchEmpleados()
+    {
+        $sql = 'SELECT * FROM Empleados WHERE nombre_empleado LIKE ? OR apellido_empleado LIKE ? ORDER BY nombre_empleado';
+        $params = array("%$value%", "%$value%");
+        return Conexion::getRows($sql, $params);
+    }
+
+    public function readCargo()
+    {
+        $sql = 'SELECT id_Cargo, nombre_Cargo FROM Cargo ORDER BY nombre_Cargo';
+        $params = array($this->id_cargo);
+        return Conexion::getRows($sql, $params);
+    }
+
     public function updateEmpleado()
     {
-        $sql = 'UPDATE Empleados SET nombre_empleado = ?, apellido_empleado = ?, dui = ?, telefono = ?, genero = ?, fecha_nacimiento = ?, nacionalidad = ?, correo = ?, id_cargo = ?, id_usuario = ? WHERE id_empleado = ?';
-        $params = array($this->nombre_empleado, $this->apellido_empleado, $this->dui, $this->telefono, $this->genero, $this->fecha_nacimiento, $this->nacionalidad, $this->correo, $this->id_cargo, $this->id_usuario, $this->id);
+        $sql = 'UPDATE Empleados SET nombre_empleado = ?, apellido_empleado = ?, dui = ?, direccion = ?, telefono = ?, genero = ?, fecha_nacimiento = ?, nacionalidad = ?, correo = ?, id_cargo = ?, id_usuario = ? WHERE id_empleado = ?';
+        $params = array($this->nombre_empleado, $this->apellido_empleado, $this->dui, $this->direccion, $this->telefono, $this->genero, $this->fecha_nacimiento, $this->nacionalidad, $this->correo, $this->id_cargo, $this->id_usuario, $this->id);
         return Conexion::executeRow($sql, $params);
     }
 
