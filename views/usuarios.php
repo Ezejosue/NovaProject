@@ -5,7 +5,7 @@
 ?>
 <!-- Contenido-->
 <div class="main-content">
-    <div class="section__content section__content--p30">
+    <div class="container">
         <div class="row">
             <div class="col-sm-1 col-3">
                 <a href="#modal-create" class="btn btn-success tooltipped modal-trigger" data-toggle="modal"

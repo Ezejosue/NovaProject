@@ -244,29 +244,6 @@ class Dashboard
 </html>
 		');
 	}
-	public static function inicio()
-	{
-		print('
-
-			<script src="../resources/js/jquery-3.2.1.min.js"></script>
-            <script src="../resources/extras/bootstrap-4.1/bootstrap.min.js"></script>
-            <script src="../resources/extras/animsition/animsition.min.js"></script>
-            <script src="../resources/extras/perfect-scrollbar/perfect-scrollbar.js"></script>
-            <script src="../core/helpers/table.js"></script>
-            <script src="../resources/js/main.js"></script>
-            <script src="../resources/js/jquery.dataTables.min.js"></script>
-            <script src="../resources/js/dataTables.bootstrap4.min.js"></script>
-
-            <script src="../resources/js/sweetalert.min.js"></script>
-            <script type="text/javascript" src="../core/helpers/functions.js"></script>
-            <script type="text/javascript" src="../core/controllers/account.js"></script>
-            <script type="text/javascript" src="../core/controllers/'.$controller.'"></script>
-</body>
-
-</html>
-		');
-	}
-
 	private function modals()
 	{
 		print('
