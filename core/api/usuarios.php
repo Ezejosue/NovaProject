@@ -36,28 +36,28 @@ if (isset($_GET['action'])) {
                 if ($usuario->setId($_SESSION['idUsuario'])) {
                     if ($usuario->getUsuario()) {
                         $_POST = $usuario->validateForm($_POST);
-                        if ($usuario->setNombres($_POST['profile_nombres'])) {
-                            if ($usuario->setApellidos($_POST['profile_apellidos'])) {
-                                if ($usuario->setCorreo($_POST['profile_correo'])) {
-                                    if ($usuario->setNombre_usuario($_POST['profile_alias'])) {
-                                        //Si todo está correcto se ejecuta el método para cambiar el perfil del usuario, de lo contrario se muestra el mensaje de error
-                                        if ($usuario->updateUsuario()) {
-                                            $_SESSION['aliasUsuario'] = $_POST['profile_alias'];
-                                            $result['status'] = 1;
-                                        } else {
-                                            $result['exception'] = 'Operación fallida';
+                        if ($usuario->setAlias($_POST['profile_alias'])) {
+                           //Se comprueba que se haya subido una imagen
+                           if (is_uploaded_file($_FILES['profile_foto']['tmp_name'])) {
+                            if ($usuario->setFoto($_FILES['profile_foto'], null)) {
+                                if ($usuario->updateUsuario()) {
+                                    if ($usuario->saveFile($_FILES['profile_foto'], $usuario->getRuta(), $usuario->getFoto())) {
+                                        $result['status'] = 1;
+                                    } else {
+                                        $result['status'] = 2;
+                                        $result['exception'] = 'No se guardó el archivo';
                                         }
                                     } else {
-                                        $result['exception'] = 'Alias incorrecto';
+                                        $result['exception'] = 'Operación fallida';
                                     }
                                 } else {
-                                    $result['exception'] = 'Correo incorrecto';
-                                }
-                            } else {
-                                $result['exception'] = 'Apellidos incorrectos';
+                                    $result['exception'] = $usuario->getImageError();;
+                                } 
+                            }   else {
+                                $result['exception'] = 'Seleccione una imagen';
                             }
                         } else {
-                            $result['exception'] = 'Nombres incorrectos';
+                            $result['exception'] = 'Alias incorrecto';
                         }
                     } else {
                         $result['exception'] = 'Usuario inexistente';

@@ -43,6 +43,11 @@ class Dashboard
                                     <img src="../resources/img/icon/avatar-big-01.jpg" alt="John Doe" />
                                 </div>
                                 <h4 class="name">john doe</h4>
+                                <div class="row">
+                                    <a href="#modal-profile" class="modal-trigger" data-toggle="modal" onclick="modalProfile()"> <h6> <i class="fa fa-edit"></i> |</h6> </a>
+                                    <a href="#modal-password" class="modal-trigger" data-toggle="modal"> <h6> | <i class="fa fa-key"></i> | </h6> </a>
+                                    <a href="#" onclick="signOff()"> <h6> | <i class="fa fa-sign-out-alt"></i></h6> </a>
+							    </div>
                             </div>
             
                             <nav class="navbar-sidebar2">
@@ -113,5 +118,111 @@ class Dashboard
         }
     }
 }
+private function modals()
+	{
+		print('
+			<div id="modal-profile" class="modal fade">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title">EDITAR PERFIL</h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+						</div>
+						<form method="post" id="form-profile">
+							<div class="modal-body">
+								<div class="row">
+									<div class="col-sm-1">
+										<i class="fa fa-user"></i>
+									</div>
+									<div class="col-sm-11">
+										<input id="profile_alias" type="text" name="profile_alias" class="form-control" required>
+									</div>
+								</div>
+							</div>
+							<div class="modal-body">
+								<div class="row">
+									<div class="col-sm-1">
+										<i class="fa fa-image"></i>
+									</div>
+									<div class="col-sm-11">
+										<div class="custom-file">
+											<input type="file" class="custom-file-input" id="profile_foto"
+												name="profile_foto">
+											<label class="custom-file-label" for="profile_foto">Escoga un archivo</label>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="modal-body text-center">
+								<button type="button" class="btn btn-secondary tooltipped" data-tooltip="Cancelar" data-dismiss="modal">Cancelar</button>
+								<button type="submit" class="btn btn-primary tooltipped" data-tooltip="Guardar">Guardar</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+
+			<div id="modal-password" class="modal fade">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title">CAMBIAR CONTRASEÑA</h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+						</div>
+						<form method="post" id="form-password">
+							<div class="modal-body">
+								<div class="row">
+									<div class="col-sm-1">
+										<i class="fa fa-user"></i>
+									</div>
+									<div class="col-sm-11">
+                            			<input id="clave_actual_1" type="password" name="clave_actual_1" class="form-control validate" required placeholder="Clave Actual">
+									</div>
+								</div>
+							</div>
+							<div class="modal-body">
+								<div class="row">
+									<div class="col-sm-1">
+										<i class="fa fa-user"></i>
+									</div>
+									<div class="col-sm-11">
+                            			<input id="clave_actual_2" type="password" name="clave_actual_2" class="form-control validate" required placeholder="Confirmar Clave">
+									</div>
+								</div>
+							</div>
+							<div class="modal-body">
+								<div class="row">
+									<div class="col-sm-1">
+										<i class="fa fa-user"></i>
+									</div>
+									<div class="col-sm-11">
+                            			<input id="clave_nueva_1" type="password" name="clave_nueva_1" class="form-control validate" required placeholder="Nueva Clave">
+									</div>
+								</div>
+							</div>
+							<div class="modal-body">
+								<div class="row">
+									<div class="col-sm-1">
+										<i class="fa fa-user"></i>
+									</div>
+									<div class="col-sm-11">
+                            			<input id="clave_nueva_2" type="password" name="clave_nueva_2" class="form-control validate" required placeholder="Confirmar Clave">
+									</div>
+								</div>
+							</div>
+								<div class="modal-body text-center">
+                    				<button type="button" class="btn btn-secondary tooltipped" data-tooltip="Cancelar" data-dismiss="modal">Cancelar</button>
+                    				<button type="submit" class="btn btn-primary tooltipped" data-tooltip="Cambiar">Guardar</button>
+                				</div>
+							</div>
+						</form>
+					</div>
+			</div>
+		');
+	}
 }
 ?>
