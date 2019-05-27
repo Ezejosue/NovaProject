@@ -74,11 +74,11 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-1">
-                            <i class="fas fa-id-badge"></i>
+                                <i class="fas fa-id-badge"></i>
                             </div>
                             <div class="col-sm-11">
-                                <input id="create_dui" type="number" name="create_dui"
-                                    class="validate form-control" placeholder="00000000-0" required>
+                                <input id="create_dui" type="number" name="create_dui" class="validate form-control"
+                                    placeholder="00000000-0" required>
                             </div>
                         </div>
                     </div>
@@ -96,7 +96,7 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-1">
-                            <i class="fas fa-id-badge"></i>
+                                <i class="fas fa-id-badge"></i>
                             </div>
                             <div class="col-sm-11">
                                 <input id="create_telefono" type="number" name="create_telefono"
@@ -132,8 +132,8 @@
                                 <i class="fas fa-at"></i>
                             </div>
                             <div class="col-sm-11">
-                                <input id="create_email" type="text" name="create_email"
-                                    class="validate form-control" placeholder="@mail.com" required>
+                                <input id="create_email" type="text" name="create_email" class="validate form-control"
+                                    placeholder="@mail.com" required>
                             </div>
                         </div>
                     </div>

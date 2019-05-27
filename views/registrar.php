@@ -29,17 +29,16 @@
                                 <input id="alias" type="text" name="alias" class="validate form-control"
                                     placeholder="Nombre De Usuario" required>
                                 <br>
-                                <input id="clave1" type="password" name="clave1"
-                                    class="validate form-control" placeholder="Contraseña" required>
+                                <input id="clave1" type="password" name="clave1" class="validate form-control"
+                                    placeholder="Contraseña" required>
                                 <br>
-                                <input id="clave2" type="password" name="clave2"
-                                    class="validate form-control" placeholder="Repetir contraseña" required>
+                                <input id="clave2" type="password" name="clave2" class="validate form-control"
+                                    placeholder="Repetir contraseña" required>
                                 <br>
                                 <select id="tipo" name="tipo" class="form-control"> </select>
                                 <br>
                                 <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="archivo"
-                                        name="archivo">
+                                    <input type="file" class="custom-file-input" id="archivo" name="archivo">
                                     <label class="custom-file-label" for="archivo">Escoga un archivo</label>
                                 </div>
                                 <br>
