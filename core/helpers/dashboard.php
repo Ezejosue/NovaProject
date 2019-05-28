@@ -272,7 +272,14 @@ class Dashboard
 									<span aria-hidden="true">&times;</span>
 								</button>
 						</div>
-						<form method="post" id="form-profile">
+						<form method="post" id="form-profile" enctype="multipart/form-data">
+							<select id="profile_tipo" name="profile_tipo" hidden>
+							<input type="hidden" id="profile_imagen" name="profile_imagen" />
+							<div class="custom-control custom-switch" hidden>
+                                <input type="checkbox" class="custom-control-input" id="profile_estado" name="profile_estado">
+                                <label class="custom-control-label" for="profile_estado">
+                                </label>
+                        	 </div>
 							<div class="modal-body">
 								<div class="row">
 									<div class="col-sm-1">
