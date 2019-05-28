@@ -17,8 +17,8 @@
             </div>
             <br>
             <div class="row">
-                <div class="container">
-                    <table class="display" id="tabla-usuarios">
+                <div class="container col-sm-12 col-md-12">
+                    <table class="display table-responsive" id="tabla-usuarios" width="100%">
                         <thead>
                             <tr>
                                 <th>IMAGEN</th>
