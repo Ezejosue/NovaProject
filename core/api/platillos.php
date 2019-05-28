@@ -142,6 +142,8 @@ if (isset($_GET['action'])) {
 		exit('Acceso no disponible');
 	}
 } else {
-	exit('Recurso denegado');
+    exit('Recurso denegado');
+    
+    
 }
 ?>
