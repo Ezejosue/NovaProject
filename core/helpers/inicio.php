@@ -62,9 +62,21 @@ class Dashboard
                                             <i class="fas fa-list"></i>Categorías</a>
                                     </li>
                                     <li>
-                                        <a href="productos.php">
-                                            <i class="fas fa-shopping-basket"></i>Materia prima</a>
-                                    </li>
+										<a href="#itemsDrop" data-toggle="collapse" class="collapsed"><i class="fas fa-shopping-basket"></i><span>
+										Productos</span><i class="fa fa-caret-down right"></i></a>
+											<div id="itemsDrop" class="collapse">
+												<ul>
+													<li>													
+														<a href="productos.php">
+														<i class="fas fa-shopping-basket"></i>Materia prima</a>
+													</li>
+													<li>
+														<a href="platillos.php">
+														<i class="fas fa-shopping-basket"></i>Platillos</a>
+													</li>
+												</ul>
+											</div>
+                                    	</li>
                                     <li>
                                         <a href="usuarios.php">
                                             <i class="fas fa-users"></i>Usuarios</a>
