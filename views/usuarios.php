@@ -168,8 +168,8 @@
                                 </div>
                                 <div class="col-sm-11">
                                     <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="update_archivo" name="update_archivo">
-                                        <label class="custom-file-label" for="update_archivo">Escoga un archivo</label>
+                                        <input type="file" class="custom-file-input" id="imagen_usuario" name="imagen_usuario">
+                                        <label class="custom-file-label" for="imagen_usuario">Escoga un archivo</label>
                                     </div>
                                 </div>
                             </div>
