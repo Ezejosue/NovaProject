@@ -7,7 +7,7 @@ class Categorias extends Validator
 	private $imagen = null;
 	private $descripcion = null;
 	private $estado = null;
-	private $ruta = '../resources/img/categorias/';
+	private $ruta = '../../resources/img/categorias/';
 
 	// Métodos para sobrecarga de propiedades
 	public function setId($value)
@@ -82,16 +82,11 @@ class Categorias extends Validator
 	
 	public function setEstado($value)
 	{
-		if ($value) {
-			if ($this->validateAlphanumeric($value, 1, 200)) {
-				$this->estado = $value;
-				return true;
-			} else {
-				return false;
-			}
-		} else {
-			$this->estado = null;
+		if ($value == 0 || $value == 1) {
+			$this->estado = $value;
 			return true;
+		} else {
+			return false;
 		}
 	}
 
@@ -125,7 +120,7 @@ class Categorias extends Validator
 	public function updateCategoria()
 	{
 		$sql = 'UPDATE categorias SET nombre_categoria = ?, descripcion = ?, foto_categoria = ?, estado=? WHERE id_categoria = ?';
-		$params = array($this->nombre, $this->imagen, $this->descripcion, $this->estado, $this->id);
+		$params = array($this->nombre,  $this->descripcion, $this->imagen, $this->estado, $this->id);
 		return conexion::executeRow($sql, $params);
 	}
 

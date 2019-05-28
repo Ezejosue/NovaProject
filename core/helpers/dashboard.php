@@ -248,7 +248,6 @@ class Dashboard
 </html>
 		');
 	}
-
 	private function modals()
 	{
 		print('

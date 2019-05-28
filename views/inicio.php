@@ -137,6 +137,9 @@
                             <div class="au-card-inner">
                                 <canvas id="singelBarChart"></canvas>
                             </div>
+                            <!-- END RECENT REPORT 2 -->
+                        </div>
+                        <div class="col-xl-4">
                         </div>
                         <!-- END RECENT REPORT 2 -->
                     </div>
@@ -166,5 +169,5 @@
 <script src="../resources/js/bootstrap-validate.js"></script>
 </body>
 
-</html>
-<!-- end document-->
+    </html>
+    <!-- end document-->
