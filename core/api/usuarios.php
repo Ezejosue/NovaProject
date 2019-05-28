@@ -37,28 +37,45 @@ if (isset($_GET['action'])) {
                     if ($usuario->getUsuario()) {
                         $_POST = $usuario->validateForm($_POST);
                         if ($usuario->setAlias($_POST['profile_alias'])) {
-                           //Se comprueba que se haya subido una imagen
-                           if (is_uploaded_file($_FILES['profile_foto']['tmp_name'])) {
-                            if ($usuario->setFoto($_FILES['profile_foto'], null)) {
-                                if ($usuario->updateUsuario()) {
-                                    if ($usuario->saveFile($_FILES['profile_foto'], $usuario->getRuta(), $usuario->getFoto())) {
-                                        $result['status'] = 1;
+							if ($usuario->setEstado(isset($_POST['profile_estado']) ? 1 : 0)) {
+                                if ($usuario->setTipo_usuario($_POST['profile_tipo'])) {
+                                    //Se comprueba que se haya subido una imagen
+                                    if (is_uploaded_file($_FILES['profile_foto']['tmp_name'])) {
+                                        if ($usuario->setFoto($_FILES['profile_foto'], $_POST['profile_imagen'])) {
+                                            $archivo = true;
+                                        } else {
+                                            $result['exception'] = $usuario->getImageError();
+                                            $archivo = false;
+                                        }
                                     } else {
-                                        $result['status'] = 2;
-                                        $result['exception'] = 'No se guardó el archivo';
+                                        if (!$usuario->setFoto(null, $_POST['profile_imagen'])) {
+                                            $result['exception'] = $usuario->getImageError();
+                                        }
+                                        $archivo = false;
+                                    }
+                                    if ($usuario->updateUsuario()) {
+                                        $result['status'] = 1;
+                                        if ($archivo) {
+                                            if ($usuario->saveFile($_FILES['profile_foto'], $usuario->getRuta(), $usuario->getFoto())) {
+                                                $result['message'] = 'Categoría modificada correctamente';
+                                            } else {
+                                                $result['message'] = 'Categoría modificada. No se guardó el archivo';
+                                            }
+                                        } else {
+                                            $result['message'] = 'Categoría modificada. No se subió ningún archivo';
                                         }
                                     } else {
                                         $result['exception'] = 'Operación fallida';
                                     }
                                 } else {
-                                    $result['exception'] = $usuario->getImageError();;
-                                } 
-                            }   else {
-                                $result['exception'] = 'Seleccione una imagen';
-                            }
-                        } else {
-                            $result['exception'] = 'Alias incorrecto';
-                        }
+                                    $result['exception'] = 'Seleccione un tipo de usuario';
+                                }
+							} else {
+								$result['exception'] = 'Estado incorrecto';
+							}
+						} else {
+							$result['exception'] = 'Alias incorrecto';
+						}
                     } else {
                         $result['exception'] = 'Usuario inexistente';
                     }
@@ -175,31 +192,30 @@ if (isset($_GET['action'])) {
 		                if ($usuario->setAlias($_POST['update_alias'])) {
 							if ($usuario->setEstado(isset($_POST['update_estado']) ? 1 : 0)) {
                                 if ($usuario->setTipo_usuario($_POST['update_tipo'])) {
-                                    if (is_uploaded_file($_FILES['update_archivo']['tmp_name'])) {
-                                        if ($usuario->setFoto($_FILES['update_archivo'], $_POST['foto_usuario'])) {
+                                    //Se comprueba que se haya subido una imagen
+                                    if (is_uploaded_file($_FILES['imagen_usuario']['tmp_name'])) {
+                                        if ($usuario->setFoto($_FILES['imagen_usuario'], $_POST['foto_usuario'])) {
                                             $archivo = true;
                                         } else {
                                             $result['exception'] = $usuario->getImageError();
                                             $archivo = false;
                                         }
                                     } else {
-                                        if ($usuario->setFoto(null, $_POST['foto_usuario'])) {
-                                            $result['exception'] = 'No se subió ningún archivo';
-                                        } else {
+                                        if (!$usuario->setFoto(null, $_POST['foto_usuario'])) {
                                             $result['exception'] = $usuario->getImageError();
                                         }
                                         $archivo = false;
                                     }
                                     if ($usuario->updateUsuario()) {
+                                        $result['status'] = 1;
                                         if ($archivo) {
-                                            if ($usuario->saveFile($_FILES['update_archivo'], $usuario->getRuta(), $usuario->getFoto())) {
-                                                $result['status'] = 1;
+                                            if ($usuario->saveFile($_FILES['imagen_usuario'], $usuario->getRuta(), $usuario->getFoto())) {
+                                                $result['message'] = 'Categoría modificada correctamente';
                                             } else {
-                                                $result['status'] = 2;
-                                                $result['exception'] = 'No se guardó el archivo';
+                                                $result['message'] = 'Categoría modificada. No se guardó el archivo';
                                             }
                                         } else {
-                                            $result['status'] = 3;
+                                            $result['message'] = 'Categoría modificada. No se subió ningún archivo';
                                         }
                                     } else {
                                         $result['exception'] = 'Operación fallida';

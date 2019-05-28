@@ -1,3 +1,8 @@
+$(document).ready(function()
+{
+    showSelectTipoProfile('profile_tipo', null);
+})
+
 //Constante para establecer la ruta y parámetros de comunicación con la API
 const apiAccount = '../core/api/usuarios.php?site=private&action=';
 
@@ -27,6 +32,46 @@ function signOff()
         }
     });
 }
+//Función para cargar los tipos de usuario en el select del formulario
+function showSelectTipoProfile(idSelect, value)
+{
+    $.ajax({
+        url: apiAccount + 'readTipoUsuario2',
+        type: 'post',
+        data: null,
+        datatype: 'json'
+    })
+    .done(function(response){
+        //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+        if (isJSONString(response)) {
+            const result = JSON.parse(response);
+            //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
+            if (result.status) {
+                let content = '';
+                if (!value) {
+                    content += '<option value="" disabled selected>Seleccione una opción</option>';
+                }
+                result.dataset.forEach(function(row){
+                    if (row.id_Tipousuario != value) {
+                        content += `<option value="${row.id_Tipousuario}">${row.tipo}</option>`;
+                    } else {
+                        content += `<option value="${row.id_Tipousuario}" selected>${row.tipo}</option>`;
+                    }
+                });
+                $('#' + idSelect).html(content);
+            } else {
+                $('#' + idSelect).html('<option value="">No hay opciones</option>');
+            }
+            $('select').formSelect();
+        } else {
+            console.log(response);
+        }
+    })
+    .fail(function(jqXHR){
+        //Se muestran en consola los posibles errores de la solicitud AJAX
+        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+    });
+}
 
 //Función para mostrar formulario de perfil de usuario
 function modalProfile()
@@ -43,7 +88,11 @@ function modalProfile()
             const result = JSON.parse(response);
             //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
             if (result.status) {
+                $('#form-profile')[0].reset();
                 $('#profile_alias').val(result.dataset.alias);
+                showSelectTipoProfile('profile_tipo', result.dataset.id_Tipousuario);
+                $('#profile_imagen').val(result.dataset.foto_usuario);
+                (result.dataset.estado_usuario == 1) ? $('#profile_estado').prop('checked', true) : $('#profile_estado').prop('checked', false);
                 $('#modal-profile').modal('show');
             } else {
                 sweetAlert(2, result.exception, null);
@@ -65,8 +114,11 @@ $('#form-profile').submit(function()
     $.ajax({
         url: apiAccount + 'editProfile',
         type: 'post',
-        data: $('#form-profile').serialize(),
-        datatype: 'json'
+        data: new FormData($('#form-profile')[0]),
+        datatype: 'json',
+        cache: false,
+        contentType: false,
+        processData: false
     })
     .done(function(response){
         //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
