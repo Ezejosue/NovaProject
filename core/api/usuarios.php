@@ -128,6 +128,52 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'No hay usuarios registrados';
                 }
                 break;
+
+                //Operación para cambiar la contraseña del usuario que ha iniciado sesión
+            case 'password1':
+            //Se comprueba que el usuario haya iniciado sesión anteriormente
+                if ($usuario->setId($_SESSION['idUsuario'])) {
+                    $_POST = $usuario->validateForm($_POST);
+                    //Se comprueba que las claves actuales sean iguales
+                    if ($_POST['clave_actual'] == $_POST['clave_actual1']) {
+                        if ($usuario->setClave($_POST['clave_actual1'])) {
+                            if ($usuario->checkPassword()) {
+                                //Se comprueba que las nuevas claves sean iguales
+                                if ($_POST['clave_nueva'] == $_POST['clave_nueva1']) {
+                                    if ($usuario->setClave($_POST['clave_nueva'])) {
+                                        //Si todo está correcto se ejecuta el método para cambiar la contraseña, de lo contrario se muestra el mensaje de error
+                                        if ($usuario->changePassword()) {
+                                            $result['status'] = 1;
+                                        } else {
+                                            $result['exception'] = 'Operación fallida';
+                                        }
+                                    } else {
+                                        $result['exception'] = 'Clave nueva menor a 6 caracteres';
+                                    }
+                                } else {
+                                    $result['exception'] = 'Claves nuevas diferentes';
+                                }
+                            } else {
+                                $result['exception'] = 'Clave actual incorrecta';
+                            }
+                        } else {
+                            $result['exception'] = 'Clave actual menor a 6 caracteres';
+                        }
+                    } else {
+                        $result['exception'] = 'Claves actuales diferentes';
+                    }
+                } else {
+                    $result['exception'] = 'Usuario incorrecto';
+                }
+                break;
+            //Operación para comprobar que haya usuarios registrados
+            case 'read':
+                if ($result['dataset'] = $usuario->readUsuarios()) {
+                    $result['status'] = 1;
+                } else {
+                    $result['exception'] = 'No hay usuarios registrados';
+                }
+                break;
             //Operación para crear nuevos usuarios
             case 'create':
                 $_POST = $usuario->validateForm($_POST);
