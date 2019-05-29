@@ -133,6 +133,15 @@ class Validator
 		}
 	}
 
+	public function validateDate($value)
+	{
+		if (!preg_match("/^(0?[1-9]|[12][0-9]|3[01])\/\.- \/\.- \d{2}$/", $value)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	public function validatePassword($value)
 	{
 		if (strlen($value) > 5) {

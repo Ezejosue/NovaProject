@@ -18,19 +18,34 @@ if (isset($_GET['site']) && isset($_GET['action'])) {
 					$result['exception'] = 'No hay empleados registradas';
 				}
 				break;
+
+
+				//Operación para crear nuevos usuarios
 			case 'create':
 				$_POST = $empleado->validateForm($_POST);
-        		if ($empleado->setNombre($_POST['create_nombre'])) {
+        		if ($empleado->setNombres($_POST['create_nombre'])) {
 					if ($empleado->setApellido($_POST['create_apellido'])) {
 						if ($empleado->setDui($_POST['create_dui'])) {
 							if ($empleado->setDireccion($_POST['create_direccion'])) {
 								if ($empleado->setTelefono($_POST['create_telefono'])) {
 									if ($empleado->setGenero($_POST['create_genero'])) {
 										if ($empleado->setNacimiento($_POST['create_fecha'])) {
-											if ($empleado->setCorreo($_POST['create_correo'])) {
-											} else {
-												$result['exception'] = 'Correo incorrecto';
-											}
+											if ($empleado->setNacionalidad($_POST['create_nacionalidad'])) {
+												if ($empleado->setCorreo($_POST['create_email'])) {
+													if ($empleado->setCargo($_POST['create_cargo'])) {
+														if ($empleado->setUsuario($_POST['create_usuario'])) {
+														} else {
+															$result['exception'] = 'Usuario incorrecto';
+													    }
+													} else {
+														$result['exception'] = 'Cargo incorrecto';
+												    } 
+											    } else {
+													$result['exception'] = 'Correo incorrecto';
+											    }
+										    } else {
+												$result['exception'] = 'Nacionalidad incorrecta';
+										    }
 										} else {
 											$result['exception'] = 'Fecha incorrecta';
 										}
@@ -47,71 +62,15 @@ if (isset($_GET['site']) && isset($_GET['action'])) {
 							$result['exception'] = 'Dui incorrecto';
 						}
 					} else {
-						$result['exception'] = 'Apellido incorrecta';
+						$result['exception'] = 'Apellido incorrecto';
 					}
 				} else {
 					$result['exception'] = 'Nombre incorrecto';
 				}
-            	break;
-            case 'get':
-                if ($empleado->setId($_POST['id_categoria'])) {
-                    if ($result['dataset'] = $empleado->getCategoria()) {
-                        $result['status'] = 1;
-                    } else {
-                        $result['exception'] = 'Categoría inexistente';
-                    }
-                } else {
-                    $result['exception'] = 'Categoría incorrecta';
-                }
-            	break;
-			case 'update':
-				$_POST = $empleado->validateForm($_POST);
-				if ($empleado->setId($_POST['id_categoria'])) {
-					if ($empleado->getCategoria()) {
-		                if ($empleado->setNombre($_POST['update_nombre'])) {
-							if ($empleado->setDescripcion($_POST['update_descripcion'])) {
-								if (is_uploaded_file($_FILES['update_archivo']['tmp_name'])) {
-									if ($empleado->setImagen($_FILES['update_archivo'], $_POST['imagen_categoria'])) {
-										$archivo = true;
-									} else {
-										$result['exception'] = $empleado->getImageError();
-										$archivo = false;
-									}
-								} else {
-									if ($empleado->setImagen(null, $_POST['imagen_categoria'])) {
-										$result['exception'] = 'No se subió ningún archivo';
-									} else {
-										$result['exception'] = $empleado->getImageError();
-									}
-									$archivo = false;
-								}
-								if ($empleado->updateCategoria()) {
-									if ($archivo) {
-										if ($empleado->saveFile($_FILES['update_archivo'], $empleado->getRuta(), $empleado->getImagen())) {
-											$result['status'] = 1;
-										} else {
-											$result['status'] = 2;
-											$result['exception'] = 'No se guardó el archivo';
-										}
-									} else {
-										$result['status'] = 3;
-									}
-								} else {
-									$result['exception'] = 'Operación fallida';
-								}
-							} else {
-								$result['exception'] = 'Descripción incorrecta';
-							}
-						} else {
-							$result['exception'] = 'Nombre incorrecto';
-						}
-					} else {
-						$result['exception'] = 'Categoría inexistente';
-					}
-				} else {
-					$result['exception'] = 'Categoría incorrecta';
-				}
-            	break;
+				break;
+				
+
+				
            //Operación para mostrar los tipos de usuario activos en el formulario de modificar usuario
 				 case 'readCargo':
 				 if ($result['dataset'] = $empleado->readCargo()) {
@@ -129,9 +88,6 @@ if (isset($_GET['site']) && isset($_GET['action'])) {
 					 $result['exception'] = 'Contenido no disponible';
 				 }
 				 break;
-				 
-			 default:
-				 exit('Acción no disponible 2');
 				
 		}
 	} else {

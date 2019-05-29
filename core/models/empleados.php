@@ -47,7 +47,7 @@ class Empleados extends Validator
 
     public function setApellido($value)
     {
-        if ($this-validateAlphabetic($value, 1, 50)) {
+        if ($this->validateAlphabetic($value, 1, 50)) {
             $this->apellido_empleado = $value;
             return true;
         } else {
@@ -62,7 +62,7 @@ class Empleados extends Validator
 
     public function setDui($value)
 	{
-		if ($this->validateNumeric($value)) {
+		if ($this->validateAlphanumeric($value, 1, 50)) {
 			$this->dui = $value;
 			return true;
 		} else {
@@ -77,7 +77,7 @@ class Empleados extends Validator
 
     public function setTelefono($value)
 	{
-		if ($this->validateNumeric($value)) {
+		if ($this->validateAlphanumeric($value, 1, 10)) {
 			$this->telefono = $value;
 			return true;
 		} else {
@@ -107,7 +107,7 @@ class Empleados extends Validator
 
     public function setNacimiento($value)
 	{
-		if ($this->validateAlphanumeric($value, 1, 50)) {
+		if ($this->validateDate($value)) {
 			$this->fecha_nacimiento = $value;
 			return true;
 		} else {
@@ -150,10 +150,10 @@ class Empleados extends Validator
         return $this->direccion;
     }
 
-    public function setCorreo($email)
+    public function setCorreo($value)
     {
-        if ($this->validateEmail($email)) {
-            $this->correo = $email;
+        if ($this->validateEmail($value)) {
+            $this->correo = $value;
             return true;
         }else {
             return false;
@@ -233,8 +233,8 @@ class Empleados extends Validator
 
     public function readCargo()
     {
-        $sql = 'SELECT id_Cargo, nombre_Cargo FROM Cargo ORDER BY nombre_Cargo';
-        $params = array($this->id_cargo);
+        $sql = 'SELECT id_Cargo, nombre_Cargo FROM Cargo';
+        $params = array(null);
         return Conexion::getRows($sql, $params);
     }
 

@@ -76,7 +76,7 @@
                                 <i class="fas fa-id-badge"></i>
                             </div>
                             <div class="col-sm-11">
-                                <input id="create_dui" type="number" name="create_dui" class="validate form-control" validate min="00000000"
+                                <input id="create_dui" type="text" name="create_dui" class="validate form-control" validate min="00000000"
                                     placeholder="00000000-0" required>
                             </div>
                         </div>
@@ -98,7 +98,7 @@
                                 <i class="fas fa-id-badge"></i>
                             </div>
                             <div class="col-sm-11">
-                                <input id="create_fecha" type="number" name="create_fecha"
+                                <input id="create_telefono" type="text" name="create_telefono"
                                     class="validate form-control" validate min="00000000" placeholder="00000000" required>
                             </div>
                         </div>
@@ -120,7 +120,7 @@
                             <i class="fas fa-venus-mars"></i>
                             </div>
                             <div class="col-sm-11">
-                                <input id="create_genero" type="date" name="create_genero"
+                                <input id="create_fecha" type="date" name="create_fecha"
                                     class="validate form-control" placeholder="" required>
                             </div>
                         </div>

@@ -1,6 +1,6 @@
 $(document).ready(function () {
     showTable();
-    showSelectTipo('create_cargo', null); 
+    showSelectCargo('create_cargo', null); 
     showSelectTipo1('create_usuario', null); 
 })
 
@@ -60,7 +60,7 @@ function showTable() {
 }
 
 //Función para cargar los tipos de usuario en el select del formulario
-function showSelectTipo(idSelect, value)
+function showSelectCargo(idSelect, value)
 {
     $.ajax({
         url: apiEmpleados + 'readCargo',
@@ -122,7 +122,7 @@ function showSelectTipo1(idSelect, value)
                     if (row.id_usuario != value) {
                         content += `<option value="${row.id_usuario}">${row.alias}</option>`;
                     } else {
-                        content += `<option value="${row.id_usuario}" selected>${row.alias}</option>`;
+                        content += `<option value="${row.id_usuario}"selected>${row.alias}</option>`;
                     }
                 });
                 $('#' + idSelect).html(content);
@@ -139,3 +139,46 @@ function showSelectTipo1(idSelect, value)
         console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
     });
 } 
+
+//Función para crear un nuevo registro
+$('#form-create').submit(function()
+{
+    event.preventDefault();
+    $.ajax({
+        url: apiEmpleados + 'create',
+        type: 'post',
+        data: new FormData($('#form-create')[0]),
+        datatype: 'json',
+        cache: false,
+        contentType: false,
+        processData: false
+    })
+    .done(function(response){
+        //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+        if (isJSONString(response)) {
+            const result = JSON.parse(response);
+            //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
+            if (result.status) {
+                $('#form-create')[0].reset();
+                $('#modal-create').modal('hide');
+                if (result.status == 1) {
+                    sweetAlert(1, 'Empleado creado correctamente', null);
+                } else if(result.status == 2) {
+                    sweetAlert(3, 'Empleado creado. ' + result.exception, null);
+                }
+                //Se destruye la tabla de usuarios y se vuelve a crear para que muestre los cambios realizados
+                destroy('#tabla-empleado');
+                showTable();   
+            } else {
+                sweetAlert(2, result.exception, null);
+            }
+        } else {
+            console.log(response);
+            sweetAlert(2, error2(response), null);
+        }
+    })
+    .fail(function(jqXHR){
+        //Se muestran en consola los posibles errores de la solicitud AJAX
+        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+    });
+})
