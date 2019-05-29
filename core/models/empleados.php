@@ -198,8 +198,8 @@ class Empleados extends Validator
     //Métodos para manejar la sesión del usuario
     public function createEmpleado()
     {
-        $sql = 'INSERT INTO Empleados(nombre_empleado, apellido_empleado, dui, direccion, telefono, genero, fecha_nacimiento, nacionalidad, correo, id_cargo, id_usuario) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-        $params = array($this->nombre_empleado, $this->apellido_empleado, $this->dui, $this->telefono, $this->genero, $this->fecha_nacimiento, $this->nacionalidad, $this->correo, $this->id_cargo, $this->id_usuario);
+        $sql = 'INSERT INTO Empleados(nombre_empleado, apellido_empleado, dui, direccion, telefono, genero, fecha_nacimiento, nacionalidad, correo, id_cargo, id_usuario) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+        $params = array($this->nombre_empleado, $this->apellido_empleado, $this->dui, $this->direccion, $this->telefono, $this->genero, $this->fecha_nacimiento, $this->nacionalidad, $this->correo, $this->id_cargo, $this->id_usuario);
         return Conexion::executeRow($sql, $params);
     }
 
@@ -233,7 +233,7 @@ class Empleados extends Validator
 
     public function readCargo()
     {
-        $sql = 'SELECT id_Cargo, nombre_Cargo FROM Cargo';
+        $sql = 'SELECT id_cargo, nombre_Cargo FROM Cargo';
         $params = array(null);
         return Conexion::getRows($sql, $params);
     }
