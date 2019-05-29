@@ -21,27 +21,33 @@ if (isset($_GET['site']) && isset($_GET['action'])) {
 			case 'create':
 				$_POST = $empleado->validateForm($_POST);
         		if ($empleado->setNombre($_POST['create_nombre'])) {
-					if ($empleado->setDescripcion($_POST['create_descripcion'])) {
-						if (is_uploaded_file($_FILES['create_archivo']['tmp_name'])) {
-							if ($empleado->setImagen($_FILES['create_archivo'], null)) {
-								if ($empleado->createCategoria()) {
-									if ($empleado->saveFile($_FILES['create_archivo'], $empleado->getRuta(), $empleado->getImagen())) {
-										$result['status'] = 1;
+					if ($empleado->setApellido($_POST['create_apellido'])) {
+						if ($empleado->setDui($_POST['create_dui'])) {
+							if ($empleado->setDireccion($_POST['create_direccion'])) {
+								if ($empleado->setTelefono($_POST['create_telefono'])) {
+									if ($empleado->setGenero($_POST['create_genero'])) {
+										if ($empleado->setNacimiento($_POST['create_fecha'])) {
+											if ($empleado->setCorreo($_POST['create_correo'])) {
+											} else {
+												$result['exception'] = 'Correo incorrecto';
+											}
+										} else {
+											$result['exception'] = 'Fecha incorrecta';
+										}
 									} else {
-										$result['status'] = 2;
-										$result['exception'] = 'No se guardó el archivo';
+										$result['exception'] = 'Genero incorrecto';
 									}
 								} else {
-									$result['exception'] = 'Operación fallida';
+									$result['exception'] = 'Telefono incorrecto';
 								}
 							} else {
-								$result['exception'] = $empleado->getImageError();
+								$result['exception'] = 'Direccion incorrecta';
 							}
 						} else {
-							$result['exception'] = 'Seleccione una imagen';
+							$result['exception'] = 'Dui incorrecto';
 						}
 					} else {
-						$result['exception'] = 'Descripción incorrecta';
+						$result['exception'] = 'Apellido incorrecta';
 					}
 				} else {
 					$result['exception'] = 'Nombre incorrecto';
@@ -106,28 +112,27 @@ if (isset($_GET['site']) && isset($_GET['action'])) {
 					$result['exception'] = 'Categoría incorrecta';
 				}
             	break;
-            case 'delete':
-				if ($empleado->setId($_POST['id_categoria'])) {
-					if ($empleado->getCategoria()) {
-						if ($empleado->deleteCategoria()) {
-							if ($empleado->deleteFile($empleado->getRuta(), $_POST['imagen_categoria'])) {
-								$result['status'] = 1;
-							} else {
-								$result['status'] = 2;
-								$result['exception'] = 'No se borró el archivo';
-							}
-						} else {
-							$result['exception'] = 'Operación fallida';
-						}
-					} else {
-						$result['exception'] = 'Categoría inexistente';
-					}
-				} else {
-					$result['exception'] = 'Categoría incorrecta';
-				}
-            	break;
-			default:
-				exit('Acción no disponible');
+           //Operación para mostrar los tipos de usuario activos en el formulario de modificar usuario
+				 case 'readCargo':
+				 if ($result['dataset'] = $empleado->readCargo()) {
+					 $result['status'] = 1;
+				 } else {
+					 $result['exception'] = 'Contenido no disponible';
+				 }
+				 break;
+
+           //Operación para mostrar los tipos de usuario activos en el formulario de modificar usuario
+				 case 'readUsuarios':
+				 if ($result['dataset'] = $empleado->readUsuarios()) {
+					 $result['status'] = 1;
+				 } else {
+					 $result['exception'] = 'Contenido no disponible';
+				 }
+				 break;
+				 
+			 default:
+				 exit('Acción no disponible 2');
+				
 		}
 	} else {
 		exit('Acceso no disponible');
