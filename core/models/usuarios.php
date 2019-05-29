@@ -131,6 +131,19 @@ class Usuarios extends Validator
 		}
 	}
 
+	public function checkEstado()
+	{
+		$sql = 'SELECT id_usuario FROM usuarios WHERE alias = ? AND estado_usuario = 1';
+		$params = array($this->alias);
+		$data = Conexion::getRow($sql, $params);
+		if ($data) {
+			$this->id = $data['id_usuario'];
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	public function checkPassword()
 	{
 		$sql = 'SELECT clave_usuario FROM usuarios WHERE id_usuario = ?';

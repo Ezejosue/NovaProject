@@ -31,7 +31,8 @@ class Dashboard
 			<link href="../resources/css/imagen.css" rel="stylesheet" media="all">
 			<link href="../resources/css/dataTables.bootstrap4.min.css" rel="stylesheet" media="all">
 			<link href="../resources/css/jquery.dataTables.min.css" rel="stylesheet" media="all">
-
+			<body class="animsition">
+			<div class="page-wrapper">
 		</head>
 		');
 		//Se comprueba si existe una sesión para mostrar el menú de opciones, de lo contrario se muestra un menú vacío
