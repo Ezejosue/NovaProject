@@ -21,53 +21,58 @@ if (isset($_GET['site']) && isset($_GET['action'])) {
 
 
 				//Operación para crear nuevos usuarios
-			case 'create':
+		case 'create':
 				$_POST = $empleado->validateForm($_POST);
-        		if ($empleado->setNombres($_POST['create_nombre'])) {
-					if ($empleado->setApellido($_POST['create_apellido'])) {
-						if ($empleado->setDui($_POST['create_dui'])) {
-							if ($empleado->setDireccion($_POST['create_direccion'])) {
-								if ($empleado->setTelefono($_POST['create_telefono'])) {
-									if ($empleado->setGenero($_POST['create_genero'])) {
-										if ($empleado->setNacimiento($_POST['create_fecha'])) {
-											if ($empleado->setNacionalidad($_POST['create_nacionalidad'])) {
-												if ($empleado->setCorreo($_POST['create_email'])) {
-													if ($empleado->setCargo($_POST['create_cargo'])) {
-														if ($empleado->setUsuario($_POST['create_usuario'])) {
+				if ($empleado->setNombres($_POST['create_nombre'])) {
+						if ($empleado->setApellido($_POST['create_apellido'])) {
+								if ($empleado->setDui($_POST['create_dui'])) {
+										if ($empleado->setDireccion($_POST['create_direccion'])) {
+												if ($empleado->setTelefono($_POST['create_telefono'])) {
+														if ($empleado->setGenero($_POST['create_genero'])) {
+																if ($empleado->setNacimiento($_POST['create_fecha'])) {
+																		if ($empleado->setNacionalidad($_POST['create_nacionalidad'])) {
+																				if ($empleado->setCorreo($_POST['create_email'])) {
+																						if ($empleado->setCargo($_POST['create_cargo'])) {
+																								if ($empleado->setUsuario($_POST['create_usuario'])) {
+																									if($empleado->createEmpleado()){
+																									}else{
+																										$result['exception'] = 'Error al insertar';
+																									}
+																								} else {
+																									$result['exception'] = 'Usuario incorrecto';
+																								}
+																						} else {
+																							 $result['exception'] = 'Cargo incorrecto';
+																						}
+																				} else {
+																					 $result['exception'] = 'Correo incorrecto';
+																				}
+																		} else {
+																			$result['exception'] = 'Nacionalidad incorrecta';
+																		}
+																} else {
+																	$result['exception'] = 'Fecha incorrecta';
+																}
 														} else {
-															$result['exception'] = 'Usuario incorrecto';
-													    }
-													} else {
-														$result['exception'] = 'Cargo incorrecto';
-												    } 
-											    } else {
-													$result['exception'] = 'Correo incorrecto';
-											    }
-										    } else {
-												$result['exception'] = 'Nacionalidad incorrecta';
-										    }
+															$result['exception'] = 'Genero incorrecto';
+														}
+												} else {
+													$result['exception'] = 'Telefono incorrecto';
+												}
 										} else {
-											$result['exception'] = 'Fecha incorrecta';
+											$result['exception'] = 'Direccion incorrecto';
 										}
-									} else {
-										$result['exception'] = 'Genero incorrecto';
-									}
 								} else {
-									$result['exception'] = 'Telefono incorrecto';
+									$result['exception'] = 'Dui incorrecto';
 								}
-							} else {
-								$result['exception'] = 'Direccion incorrecta';
-							}
 						} else {
-							$result['exception'] = 'Dui incorrecto';
+							$result['exception'] = 'Apellido incorrecto';
 						}
-					} else {
-						$result['exception'] = 'Apellido incorrecto';
-					}
 				} else {
 					$result['exception'] = 'Nombre incorrecto';
 				}
-				break;
+			
+			break;
 				
 
 				

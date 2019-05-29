@@ -161,21 +161,19 @@ $('#form-create').submit(function()
             if (result.status) {
                 $('#form-create')[0].reset();
                 $('#modal-create').modal('hide');
-                if (result.status == 1) {
-                    sweetAlert(1, 'Empleado creado correctamente', null);
-                } else if(result.status == 2) {
-                    sweetAlert(3, 'Empleado creado. ' + result.exception, null);
-                }
                 //Se destruye la tabla de usuarios y se vuelve a crear para que muestre los cambios realizados
-                destroy('#tabla-empleado');
-                showTable();   
-            } else {
                 sweetAlert(2, result.exception, null);
+            } else {
+                $('#form-create')[0].reset();
+                $('#modal-create').modal('hide');
+                sweetAlert(1, 'Empleado creado correctamente', null);
+                destroy('#tabla-empleados');
+                showTable();
             }
         } else {
             console.log(response);
-            sweetAlert(2, error2(response), null);
         }
+     
     })
     .fail(function(jqXHR){
         //Se muestran en consola los posibles errores de la solicitud AJAX

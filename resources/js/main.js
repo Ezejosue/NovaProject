@@ -24,13 +24,7 @@
     });
   
   
-  })(jQuery);
-(function ($) {
-  // USE STRICT
-  "use strict";
-
   
-
 })(jQuery);
 (function ($) {
   // USE STRICT

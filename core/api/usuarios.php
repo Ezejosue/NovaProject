@@ -343,19 +343,23 @@ if (isset($_GET['action'])) {
                 if ($usuario->setAlias($_POST['usuario'])) {
                     //Se comprueba que el alias exista en la base de datos
                     if ($usuario->checkAlias()) {
-                        //Se valida que la contraseña no sea menor a 6 caracteres
-                        if ($usuario->setClave($_POST['clave'])) {
-                            //Se comprueba que la contraseña coincida con el usuario a iniciar sesión
-                            if ($usuario->checkPassword()) {
-                                //Si todo está correcto se inicia sesión y se llenan las variables de sesión con el id y el alias
-                                $_SESSION['idUsuario'] = $usuario->getId();
-                                $_SESSION['aliasUsuario'] = $usuario->getAlias();
-                                $result['status'] = 1;
+                        if ($usuario->checkEstado()){
+                            //Se valida que la contraseña no sea menor a 6 caracteres
+                            if ($usuario->setClave($_POST['clave'])) {
+                                //Se comprueba que la contraseña coincida con el usuario a iniciar sesión
+                                if ($usuario->checkPassword()) {
+                                    //Si todo está correcto se inicia sesión y se llenan las variables de sesión con el id y el alias
+                                    $_SESSION['idUsuario'] = $usuario->getId();
+                                    $_SESSION['aliasUsuario'] = $usuario->getAlias();
+                                    $result['status'] = 1;
+                                } else {
+                                    $result['exception'] = 'Clave inexistente';
+                                }
                             } else {
-                                $result['exception'] = 'Clave inexistente';
+                                $result['exception'] = 'Clave menor a 6 caracteres';
                             }
                         } else {
-                            $result['exception'] = 'Clave menor a 6 caracteres';
+                            $result['exception'] = 'No tiene acceso al sistema';
                         }
                     } else {
                         $result['exception'] = 'Alias inexistente';
