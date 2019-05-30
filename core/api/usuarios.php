@@ -218,6 +218,7 @@ if (isset($_GET['action'])) {
                         $result['exception'] = 'Alias incorrecto';
                     }                                     
                 break;
+                
             //Operación para saber el usuario que se va a modificar
             case 'get':
                 if ($usuario->setId($_POST['id_usuario'])) {

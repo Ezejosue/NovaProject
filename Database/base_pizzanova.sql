@@ -58,6 +58,7 @@ CREATE TABLE MateriasPrimas(
     descripcion VARCHAR(50),
     foto VARCHAR(100),
     id_categoria INT UNSIGNED,
+    estado TINYINT (1) NOT NULL DEFAULT 1 comment '1 es activo 0 es inactivo',
     FOREIGN KEY (id_categoria) REFERENCES Categorias(id_categoria) 
 );
 
@@ -116,7 +117,8 @@ CREATE TABLE Bitacoras(
     fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     accion VARCHAR(50) NOT NULL,
     id_usuario INT UNSIGNED,
-    FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario));
+    FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario)
+);
     
 
 
