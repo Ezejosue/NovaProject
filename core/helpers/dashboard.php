@@ -76,7 +76,7 @@ class Dashboard
 																<i class="fas fa-list"></i>Categorías</a>
 														</li>
 														<li>													
-															<a href="productos.php">
+															<a href="materia_prima.php">
 															<i class="fas fa-cart-plus"></i>Materia prima</a>
 														</li>
 														<li>
@@ -175,7 +175,7 @@ class Dashboard
 										<i class="fas fa-list"></i>Categorías</a>
 								</li>
 								<li>													
-									<a href="productos.php">
+									<a href="materia_prima.php">
 									<i class="fas fa-cart-plus"></i>Materia prima</a>
 								</li>
 								<li>

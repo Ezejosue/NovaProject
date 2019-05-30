@@ -1,11 +1,11 @@
 $(document).ready(function()
 {
     showTable();
-    showSelectTipo('create_categoria', null);
+    showSelectCategoria('create_categoria', null);
 })
 
 //Constante para establecer la ruta y parámetros de comunicación con la API
-const apiUsuarios = '../core/api/materia_prima.php?site=private&action=';
+const apiMaterias = '../core/api/materia_prima.php?site=private&action=';
 
 //Función para llenar tabla con los datos de los registros
 function fillTable(rows)
@@ -16,7 +16,7 @@ function fillTable(rows)
         (row.estado == 1) ? icon = '<i class="fa fa-eye"></i>' : icon = '<i class="fa fa-eye-slash"></i>';
         content += `
             <tr>
-                <td><img src=" ../resources/img/usuarios/${row.foto} " > </td>
+                <td><img src=" ../resources/img/materia/${row.foto} " > </td>
                 <td>${row.nombre_materia}</td>
                 <td>${row.descripcion}</td>
                 <td>${row.nombre_categoria}</td>
@@ -38,7 +38,7 @@ function fillTable(rows)
 function showTable()
 {
     $.ajax({
-        url: apiUsuarios + 'read',
+        url: apiMaterias + 'read',
         type: 'post',
         data: null,
         datatype: 'json'
@@ -62,11 +62,11 @@ function showTable()
     });
 }
 
-//Función para cargar los tipos de usuario en el select del formulario
-function showSelectTipo(idSelect, value)
+//Función para cargar los tipos de categorias en el select del formulario
+function showSelectCategoria(idSelect, value)
 {
     $.ajax({
-        url: apiUsuarios + 'readCategoria2',
+        url: apiMaterias + 'readCategoria',
         type: 'post',
         data: null,
         datatype: 'json'
@@ -82,10 +82,10 @@ function showSelectTipo(idSelect, value)
                     content += '<option value="" disabled selected>Seleccione una opción</option>';
                 }
                 result.dataset.forEach(function(row){
-                    if (row.id_Tipousuario != value) {
-                        content += `<option value="${row.id_Tipousuario}">${row.tipo}</option>`;
+                    if (row.id_categoria != value) {
+                        content += `<option value="${row.id_categoria}">${row.nombre_categoria}</option>`;
                     } else {
-                        content += `<option value="${row.id_Tipousuario}" selected>${row.tipo}</option>`;
+                        content += `<option value="${row.id_categoria}" selected>${row.nombre_categoria}</option>`;
                     }
                 });
                 $('#' + idSelect).html(content);
@@ -108,7 +108,7 @@ $('#form-create').submit(function()
 {
     event.preventDefault();
     $.ajax({
-        url: apiUsuarios + 'create',
+        url: apiMaterias + 'create',
         type: 'post',
         data: new FormData($('#form-create')[0]),
         datatype: 'json',
@@ -124,9 +124,9 @@ $('#form-create').submit(function()
             if (result.status) {
                 $('#form-create')[0].reset();
                 $('#modal-create').modal('hide');
-                sweetAlert(1, 'Usuario creado correctamente', null);
-                //Se destruye la tabla de usuarios y se vuelve a crear para que muestre los cambios realizados
-                destroy('#tabla-usuarios');
+                sweetAlert(1, 'Materia prima creada correctamente', null);
+                //Se destruye la tabla de materias primas y se vuelve a crear para que muestre los cambios realizados
+                destroy('#tabla-materia_prima');
                 showTable();
             } else {
                 sweetAlert(2, result.exception, null);
@@ -147,10 +147,10 @@ $('#form-create').submit(function()
 function modalUpdate(id)
 {
     $.ajax({
-        url: apiUsuarios + 'get',
+        url: apiMaterias + 'get',
         type: 'post',
         data:{
-            id_usuario: id
+            idMateria: id
         },
         datatype: 'json'
     })
@@ -161,11 +161,12 @@ function modalUpdate(id)
             //Se comprueba si el resultado es satisfactorio para mostrar los valores en el formulario, sino se muestra la excepción
             if (result.status) {
                 $('#form-update')[0].reset();
-                $('#id_usuario').val(result.dataset.id_usuario);
-                $('#update_alias').val(result.dataset.alias);
-                showSelectTipo('update_tipo', result.dataset.id_Tipousuario);
-                $('#foto_usuario').val(result.dataset.foto_usuario);
-                (result.dataset.estado_usuario == 1) ? $('#update_estado').prop('checked', true) : $('#update_estado').prop('checked', false);
+                $('#id_materia').val(result.dataset.idMateria);
+                $('#nombre_materia').val(result.dataset.nombre_materia);
+                $('#descripcion_materia').val(result.dataset.descripcion);
+                showSelectCategoria('update_categoria', result.dataset.id_categoria);
+                $('#foto_materia').val(result.dataset.foto);
+                (result.dataset.estado == 1) ? $('#update_estado').prop('checked', true) : $('#update_estado').prop('checked', false);
                 $('#modal-update').modal('show');
             } else {
                 sweetAlert(2, result.exception, null);
@@ -185,7 +186,7 @@ $('#form-update').submit(function()
 {
     event.preventDefault();
     $.ajax({
-        url: apiUsuarios + 'update',
+        url: apiMaterias + 'update',
         type: 'post',
         data: new FormData($('#form-update')[0]),
         datatype: 'json',
@@ -200,9 +201,9 @@ $('#form-update').submit(function()
             //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
             if (result.status) {
                 $('#modal-update').modal('hide');
-                sweetAlert(1, 'Usuario modificado correctamente', null);
-                //Se destruye la tabla de usuarios y se vuelve a crear para que muestre los cambios realizados
-                destroy('#tabla-usuarios');
+                sweetAlert(1, 'Materia prima modificada correctamente', null);
+                //Se destruye la tabla de materias primas y se vuelve a crear para que muestre los cambios realizados
+                destroy('#tabla-materia_prima');
                 showTable();
             } else {
                 sweetAlert(2, result.exception, null);
@@ -224,7 +225,7 @@ function confirmDelete(id)
 {
     swal({
         title: 'Advertencia',
-        text: '¿Quiere eliminar el usuario?',
+        text: '¿Quiere eliminar esta materia prima?',
         icon: 'warning',
         buttons: ['Cancelar', 'Aceptar'],
         closeOnClickOutside: false,
@@ -233,7 +234,7 @@ function confirmDelete(id)
     .then(function(value){
         if (value) {
             $.ajax({
-                url: apiUsuarios + 'delete',
+                url: apiMaterias + 'delete',
                 type: 'post',
                 data:{
                     idMateria: id
@@ -246,7 +247,7 @@ function confirmDelete(id)
                     const result = JSON.parse(response);
                     //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
                     if (result.status) {
-                        sweetAlert(1, 'Usuario eliminado correctamente', null);
+                        sweetAlert(1, 'Materia prima eliminada correctamente', null);
                         destroy('#tabla-materia_prima');
                         showTable();
                     } else {
@@ -264,11 +265,11 @@ function confirmDelete(id)
     });
 }
 
-//Función para verificar que el alias del usuario no se repita ya que es un dato de tipo único
+//Función para verificar que nombre de la categoria no se repita ya que es un dato de tipo único
 function error2(response){
     switch (response){
         case 'Dato duplicado, no se puede guardar':
-            mensaje = 'Nombre de usuario ya existe';
+            mensaje = 'Nombre de materia prima ya existe';
             break;
         default:
             mensaje = 'Ocurrió un problema, consulte al administrador'
