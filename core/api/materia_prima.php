@@ -23,10 +23,10 @@ if (isset($_GET['action'])) {
             //Operación para crear nuevos usuarios
             case 'create':
                 $_POST = $materia->validateForm($_POST);
-                    if ($materia->setNombre($_POST['create_alias'])) {
+                    if ($materia->setNombre($_POST['create_nombre_materia'])) {
                         if ($materia->setEstado(isset($_POST['create_estado']) ? 1 : 0)) {
-                            if ($materia->setDescripcion($_POST['create_descripcion'])) {
-                                if ($materia->setCategoria($_POST['create_categoria'])) {
+                            if ($materia->setDescripcion($_POST['create_descripcion_materia'])) {
+                                if ($materia->setCategorias($_POST['create_categoria'])) {
                                         if (is_uploaded_file($_FILES['create_archivo']['tmp_name'])) {
                                             if ($materia->setImagen($_FILES['create_archivo'], null)) {
                                                 if ($materia->createMateriaPrima()) {
@@ -74,55 +74,59 @@ if (isset($_GET['action'])) {
             //Operación para actualizar un usuario
             case 'update':
 				$_POST = $materia->validateForm($_POST);
-				if ($materia->setId($_POST['idMateria'])) {
+				if ($materia->setId($_POST['id_materia'])) {
 					if ($materia->getMateriaPrima()) {
-		                if ($materia->setAlias($_POST['update_alias'])) {
-							if ($materia->setEstado(isset($_POST['update_estado']) ? 1 : 0)) {
-                                if ($materia->setTipo_usuario($_POST['update_tipo'])) {
-                                    //Se comprueba que se haya subido una imagen
-                                    if (is_uploaded_file($_FILES['imagen_usuario']['tmp_name'])) {
-                                        if ($usuario->setFoto($_FILES['imagen_usuario'], $_POST['foto_usuario'])) {
-                                            $archivo = true;
-                                        } else {
-                                            $result['exception'] = $usuario->getImageError();
-                                            $archivo = false;
-                                        }
-                                    } else {
-                                        if (!$usuario->setFoto(null, $_POST['foto_usuario'])) {
-                                            $result['exception'] = $usuario->getImageError();
-                                        }
-                                        $archivo = false;
-                                    }
-                                    if ($usuario->updateUsuario()) {
-                                        $result['status'] = 1;
-                                        if ($archivo) {
-                                            if ($usuario->saveFile($_FILES['imagen_usuario'], $usuario->getRuta(), $usuario->getFoto())) {
-                                                $result['message'] = 'Categoría modificada correctamente';
+		                if ($materia->setNombre($_POST['nombre_materia'])) {
+                            if ($materia->setDescripcion($_POST['descripcion_materia'])) {
+                                if ($materia->setEstado(isset($_POST['update_estado']) ? 1 : 0)) {
+                                    if ($materia->setCategorias($_POST['update_categoria'])) {
+                                        //Se comprueba que se haya subido una imagen
+                                        if (is_uploaded_file($_FILES['foto']['tmp_name'])) {
+                                            if ($materia->setImagen($_FILES['foto'], $_POST['foto_materia'])) {
+                                                $archivo = true;
                                             } else {
-                                                $result['message'] = 'Categoría modificada. No se guardó el archivo';
+                                                $result['exception'] = $materia->getImageError();
+                                                $archivo = false;
                                             }
                                         } else {
-                                            $result['message'] = 'Categoría modificada. No se subió ningún archivo';
+                                            if (!$materia->setImagen(null, $_POST['foto_materia'])) {
+                                                $result['exception'] = $materia->getImageError();
+                                            }
+                                            $archivo = false;
+                                        }
+                                        if ($materia->updateMateriaPrima()) {
+                                            $result['status'] = 1;
+                                            if ($archivo) {
+                                                if ($materia->saveFile($_FILES['foto'], $materia->getRuta(), $materia->getImagen())) {
+                                                    $result['message'] = 'Categoría modificada correctamente';
+                                                    } else {
+                                                        $result['message'] = 'Categoría modificada. No se guardó el archivo';
+                                                    }
+                                                } else {
+                                                    $result['message'] = 'Categoría modificada. No se subió ningún archivo';
+                                                }
+                                            } else {
+                                                $result['exception'] = 'Operación fallida';
+                                            }
+                                        } else {
+                                            $result['exception'] = 'Seleccione una categoria';
                                         }
                                     } else {
-                                        $result['exception'] = 'Operación fallida';
-                                    }
-                                } else {
-                                    $result['exception'] = 'Seleccione un tipo de usuario';
-                                }
-							} else {
-								$result['exception'] = 'Estado incorrecto';
-							}
-						} else {
-							$result['exception'] = 'Alias incorrecto';
-						}
-					} else {
-						$result['exception'] = 'Usuario inexistente';
-					}
-				} else {
-					$result['exception'] = 'Usuario incorrecta';
-				}
-                break;
+                                        $result['exception'] = 'Estado incorrecto';
+                                        }
+                                }else {
+                                    $result['exception'] = 'Descripcion incorrecta';
+                                } 
+                            }else {
+                                $result['exception'] = 'Nombre de materia prima incorrecta';
+                            }
+                        } else {
+                            $result['exception'] = 'Materia prima inexistente';
+                        }
+                    } else {
+                        $result['exception'] = 'Materia prima incorrecta';
+                    }
+                    break;
             //Operación para eliminar un usuario
             case 'delete':
             //Se comprueba que el usuario a eliminar no sea igual al que ha iniciado sesión
@@ -141,8 +145,8 @@ if (isset($_GET['action'])) {
                     }
                 break;
             //Operación para mostrar los tipos de usuario activos en el formulario de modificar usuario
-            case 'readTipoUsuario2':
-                if ($result['dataset'] = $usuario->readTipoUsuario()) {
+            case 'readCategoria':
+                if ($result['dataset'] = $materia->readCategoriaMateria()) {
                     $result['status'] = 1;
                 } else {
                     $result['exception'] = 'Contenido no disponible';
@@ -152,30 +156,7 @@ if (isset($_GET['action'])) {
             default:
                 exit('Acción no disponible 1');
         }
-    } else {
-        //Operaciones que se realizan cuando no se ha iniciado sesión
-        switch ($_GET['action']) {
-            case 'read':
-                if ($usuario->readUsuarios()) {
-                    //Cuando existen usuarios registrados no se muestra el formulario de registrar el primer usuario
-                    $result['status'] = 1;
-                    $result['exception'] = 'Existe al menos un usuario registrado';
-                } else {
-                    //Si no existen usuarios se muestra el formulario de registrar el primer usuario
-                    $result['status'] = 2;
-                    $result['exception'] = 'No existen usuarios registrados';
-                }
-            break;
-            //Operación para mostrar los tipos de usuario activos en el formulario de registrar el primer usuario
-            case 'readTipoUsuario':
-                if ($result['dataset'] = $usuario->readTipoUsuario()) {
-                    $result['status'] = 1;
-                } else {
-                    $result['exception'] = 'Contenido no disponible';
-                }
-                break;
-            }
-        }
+    } 
 	print(json_encode($result));
 } else {
 	exit('Recurso denegado');

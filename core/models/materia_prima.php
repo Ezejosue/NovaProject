@@ -136,7 +136,7 @@ class Materias extends Validator
 	
 	public function readCategoriaMateria()
 	{
-		$sql = 'SELECT idMateria, nombre_materia, descripcion FROM materiasprimas WHERE estado = 1';
+		$sql = 'SELECT id_categoria, nombre_categoria, descripcion FROM categorias WHERE estado = 1';
 		$params = array(null);
 		return Conexion::getRows($sql, $params);
 	}
