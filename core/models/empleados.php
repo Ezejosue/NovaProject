@@ -62,7 +62,7 @@ class Empleados extends Validator
 
     public function setDui($value)
 	{
-		if ($this->validateAlphanumeric($value, 1, 50)) {
+		if ($this->validateAlphanumeric($value, 1, 11)) {
 			$this->dui = $value;
 			return true;
 		} else {

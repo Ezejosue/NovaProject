@@ -35,6 +35,7 @@ if (isset($_GET['site']) && isset($_GET['action'])) {
 																						if ($empleado->setCargo($_POST['create_cargo'])) {
 																								if ($empleado->setUsuario($_POST['create_usuario'])) {
 																									if($empleado->createEmpleado()){
+
 																									}else{
 																										$result['exception'] = 'Error al insertar';
 																									}
@@ -93,12 +94,31 @@ if (isset($_GET['site']) && isset($_GET['action'])) {
 					 $result['exception'] = 'Contenido no disponible';
 				 }
 				 break;
+
+				 case 'delete':
+				 if ($empleado->setId($_POST['id_empleado'])) {
+					 if ($empleado->getEmpleado()) {
+						 if ($empleado->deleteEmpleado()) {
+							 $result['message'] = 'Empleado eliminado correctamente';
+						 } else {
+							 $result['exception'] = 'Operación fallida';
+						 }
+					 } else {
+						 $result['exception'] = 'Empleado inexistente';
+					 }
+				 } else {
+					 $result['exception'] = 'Empleado incorrecto';
+				 }
+				 break;
+			 default:
+				 exit('Acción no disponible');
 				
 		}
+	print(json_encode($result));
+
 	} else {
 		exit('Acceso no disponible');
 	}
-	print(json_encode($result));
 } else {
 	exit('Recurso denegado');
 }
