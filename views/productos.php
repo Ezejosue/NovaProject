@@ -6,15 +6,9 @@
     <!-- Contenido-->
     <div class="main-content">
         <div class="container">
-            <!-- Barra de busqueda -->
-            <h2 class="pb-2 display-5 text-center">GESTIÓN DE PRODUCTOS</h2>
-            <br>
             <div class="row">
-                <div class="col-sm-11 col-9">
-                    <input type="text" id="myInput" class="form-control" placeholder="Buscar">
-                </div>
                 <div class="col-sm-1 col-3">
-                    <a href="#ventana1" class="btn btn-success btn-md" data-toggle="modal">
+                    <a href="#modal-create" class="btn btn-success tooltipped modal-trigger" data-toggle="modal" data-tooltip="Agregar">
                         <span class="btn-label">
                             <i class="fa fa-plus"></i>
                         </span>
@@ -22,89 +16,25 @@
                 </div>
             </div>
             <br>
-            <div class="card strpied-tabled-with-hover">
-                <div class="card-header">
-                    <p class="card-category">Productos</p>
-                </div>
-                <div class="card-body table-full-width table-responsive" id="myTable">
-                    <table class="table table-hover table-striped">
+            <div class="row">
+                <div class="container col-sm-12 col-md-12">
+                    <table class="display table-responsive" id="tabla-materia_prima" width="100%">
                         <thead>
                             <tr>
-                                <th>Nombre</th>
-                                <th>Imagen</th>
-                                <th>Categoría</th>
-                                <th>Descripción</th>
-                                <th>Modificar</th>
-                                <th>Eliminar</th>
+                                <th>IMAGEN</th>
+                                <th>NOMBRE</th>
+                                <th>DESCRIPCIÓN</th>
+                                <th>CATEGORIA</th>
+                                <th>ESTADO</th>
+                                <th>ACCIÓN</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>Harina</td>
-                                <th></th>
-                                <td>Materia Prima</td>
-                                <td></td>
-                                <td>
-                                    <div clas="col-sm-1">
-                                        <a href="#ventana2" class="btn btn-info" data-toggle="modal">
-                                            <i class="fa fa-edit"></i>
-                                        </a>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div clas="col-sm-1">
-                                        <a href="#ventana3" class="btn btn-danger" data-toggle="modal">
-                                            <i class="fa fa-times"></i>
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Coca-Cola</td>
-                                <th></th>
-                                <td>Bebidas</td>
-                                <td></td>
-                                <td>
-                                    <div clas="col-sm-1">
-                                        <a href="#ventana2" class="btn btn-info" data-toggle="modal">
-                                            <i class="fa fa-edit"></i>
-                                        </a>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div clas="col-sm-1">
-                                        <a href="#ventana3" class="btn btn-danger" data-toggle="modal">
-                                            <i class="fa fa-times"></i>
-                                        </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Jamón</td>
-                                <th></th>
-                                <td>Materia Prima</td>
-                                <td>Marca Fuji</td>
-                                <td>
-                                    <div clas="col-sm-1">
-                                        <a href="#ventana2" class="btn btn-info" data-toggle="modal">
-                                            <i class="fa fa-edit"></i>
-                                        </a>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div clas="col-sm-1">
-                                        <a href="#ventana3" class="btn btn-danger" data-toggle="modal">
-                                            <i class="fa fa-times"></i>
-                                        </a>
-                                </td>
-                            </tr>
+                        <tbody id="tbody-read">
                         </tbody>
                     </table>
-                    </div>
-                    </div>
                 </div>
             </div>
         </div>
-    </div>
     <!-- Modals-->
     <!-- Modal de Agregar -->
     <div class="modal fade" id="ventana1">
@@ -265,19 +195,6 @@
         </div>
     </div>
 
-
-    <!-- Jquery JS-->
-    <script src="../resources/js/jquery-3.2.1.min.js"></script>
-    <!-- Bootstrap JS-->
-    <script src="../resources/extras/bootstrap-4.1/bootstrap.min.js"></script>
-    <!-- Vendor JS-->
-    <script src="../resources/extras/animsition/animsition.min.js"></script>
-    <script src="../resources/extras/perfect-scrollbar/perfect-scrollbar.js"></script>
-    <!-- Main JS-->
-    <script src="../resources/js/main.js"></script>
-    <script src="../resources/js/imagen.js"></script>
-
-
-    </body>
-
-    </html>
+    <?php
+Dashboard::footerTemplate('materia_prima.js', '#tabla-materia_prima');
+?>
