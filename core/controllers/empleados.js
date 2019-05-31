@@ -159,16 +159,16 @@ $('#form-create').submit(function()
             const result = JSON.parse(response);
             //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
             if (result.status) {
-                $('#form-create')[0].reset();
-                $('#modal-create').modal('hide');
                 //Se destruye la tabla de usuarios y se vuelve a crear para que muestre los cambios realizados
-                sweetAlert(2, result.exception, null);
-            } else {
                 $('#form-create')[0].reset();
                 $('#modal-create').modal('hide');
                 sweetAlert(1, 'Empleado creado correctamente', null);
                 destroy('#tabla-empleados');
                 showTable();
+            } else {
+                sweetAlert(2, result.exception, null);
+                console.log(response);
+               
             }
         } else {
             console.log(response);
@@ -180,3 +180,48 @@ $('#form-create').submit(function()
         console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
     });
 })
+
+// Función para eliminar un registro seleccionado
+function confirmDelete(id)
+{
+    swal({
+        title: 'Advertencia',
+        text: '¿Quiere eliminar el empleado?',
+        icon: 'warning',
+        buttons: ['Cancelar', 'Aceptar'],
+        closeOnClickOutside: false,
+        closeOnEsc: false
+    })
+    .then(function(value){
+        if (value) {
+            $.ajax({
+                url: apiEmpleados + 'delete',
+                type: 'post',
+                data:{
+                    id_empleado: id
+                },
+                datatype: 'json'
+            })
+            .done(function(response){
+                // Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+                if (isJSONString(response)) {
+                    const result = JSON.parse(response);
+                    // Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
+                    if (result.status) {
+                        sweetAlert(1, result.message, null);
+                        destroy('#tabla-empleados');
+                        showTable();
+                    } else {
+                        sweetAlert(2, result.exception, null);
+                    }
+                } else {
+                    console.log(response);
+                }
+            })
+            .fail(function(jqXHR){
+                // Se muestran en consola los posibles errores de la solicitud AJAX
+                console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+            });
+        }
+    });
+}
