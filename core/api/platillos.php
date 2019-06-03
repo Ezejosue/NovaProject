@@ -6,31 +6,31 @@ require_once('../../core/models/platillos.php');
 //Se comprueba si existe una petición del sitio web y la acción a realizar, de lo contrario se muestra una página de error
 if (isset($_GET['action'])) {
     session_start();
-    $materia = new Materias;
+    $platillo = new Platillos;
     $result = array('status' => 0, 'exception' => '');
     //Se verifica si existe una sesión iniciada como administrador para realizar las operaciones correspondientes
     if (isset($_SESSION['idUsuario'])) {
         switch ($_GET['action']) {
             
             case 'read':
-                if ($result['dataset'] = $materia->readMateriaPrima()) {
+                if ($result['dataset'] = $platillo->readPlatillo()) {
                     $result['status'] = 1;
                 } else {
-                    $result['exception'] = 'No hay materia prima registradas';
+                    $result['exception'] = 'No hay platillos registrados';
                 }
                 break;
 
             //Operación para crear nuevos usuarios
             case 'create':
-                $_POST = $materia->validateForm($_POST);
-                    if ($materia->setNombre($_POST['create_nombre_materia'])) {
-                        if ($materia->setEstado(isset($_POST['create_estado']) ? 1 : 0)) {
-                            if ($materia->setDescripcion($_POST['create_descripcion_materia'])) {
-                                if ($materia->setCategorias($_POST['create_categoria'])) {
+                $_POST = $platillo->validateForm($_POST);
+                    if ($platillo->setNombre($_POST['create_nombre_materia'])) {
+                        if ($platillo->setEstado(isset($_POST['create_estado']) ? 1 : 0)) {
+                            if ($platillo->setDescripcion($_POST['create_descripcion_materia'])) {
+                                if ($platillo->setCategorias($_POST['create_categoria'])) {
                                         if (is_uploaded_file($_FILES['create_archivo']['tmp_name'])) {
-                                            if ($materia->setImagen($_FILES['create_archivo'], null)) {
-                                                if ($materia->createMateriaPrima()) {
-                                                    if ($materia->saveFile($_FILES['create_archivo'], $materia->getRuta(), $materia->getImagen())) {
+                                            if ($platillo->setImagen($_FILES['create_archivo'], null)) {
+                                                if ($platillo->createMateriaPrima()) {
+                                                    if ($platillo->saveFile($_FILES['create_archivo'], $platillo->getRuta(), $platillo->getImagen())) {
                                                         $result['status'] = 1;
                                                 } else {
                                                     $result['status'] = 2;
@@ -40,7 +40,7 @@ if (isset($_GET['action'])) {
                                                 $result['exception'] = 'Operación fallida';
                                             }
                                         } else {
-                                            $result['exception'] = $materia->getImageError();;
+                                            $result['exception'] = $platillo->getImageError();;
                                         } 
                                     }   else {
                                         $result['exception'] = 'Seleccione una imagen';
@@ -61,8 +61,8 @@ if (isset($_GET['action'])) {
                 
             //Operación para saber el usuario que se va a modificar
             case 'get':
-                if ($materia->setId($_POST['idMateria'])) {
-                    if ($result['dataset'] = $materia->getMateriaPrima()) {
+                if ($platillo->setId($_POST['idMateria'])) {
+                    if ($result['dataset'] = $platillo->getMateriaPrima()) {
                         $result['status'] = 1;
                     } else {
                         $result['exception'] = 'Materia prima inexistente';
@@ -73,31 +73,31 @@ if (isset($_GET['action'])) {
                 break;
             //Operación para actualizar un usuario
             case 'update':
-				$_POST = $materia->validateForm($_POST);
-				if ($materia->setId($_POST['id_materia'])) {
-					if ($materia->getMateriaPrima()) {
-		                if ($materia->setNombre($_POST['nombre_materia'])) {
-                            if ($materia->setDescripcion($_POST['descripcion_materia'])) {
-                                if ($materia->setEstado(isset($_POST['update_estado']) ? 1 : 0)) {
-                                    if ($materia->setCategorias($_POST['update_categoria'])) {
+				$_POST = $platillo->validateForm($_POST);
+				if ($platillo->setId($_POST['id_materia'])) {
+					if ($platillo->getMateriaPrima()) {
+		                if ($platillo->setNombre($_POST['nombre_materia'])) {
+                            if ($platillo->setDescripcion($_POST['descripcion_materia'])) {
+                                if ($platillo->setEstado(isset($_POST['update_estado']) ? 1 : 0)) {
+                                    if ($platillo->setCategorias($_POST['update_categoria'])) {
                                         //Se comprueba que se haya subido una imagen
                                         if (is_uploaded_file($_FILES['foto']['tmp_name'])) {
-                                            if ($materia->setImagen($_FILES['foto'], $_POST['foto_materia'])) {
+                                            if ($platillo->setImagen($_FILES['foto'], $_POST['foto_materia'])) {
                                                 $archivo = true;
                                             } else {
-                                                $result['exception'] = $materia->getImageError();
+                                                $result['exception'] = $platillo->getImageError();
                                                 $archivo = false;
                                             }
                                         } else {
-                                            if (!$materia->setImagen(null, $_POST['foto_materia'])) {
-                                                $result['exception'] = $materia->getImageError();
+                                            if (!$platillo->setImagen(null, $_POST['foto_materia'])) {
+                                                $result['exception'] = $platillo->getImageError();
                                             }
                                             $archivo = false;
                                         }
-                                        if ($materia->updateMateriaPrima()) {
+                                        if ($platillo->updateMateriaPrima()) {
                                             $result['status'] = 1;
                                             if ($archivo) {
-                                                if ($materia->saveFile($_FILES['foto'], $materia->getRuta(), $materia->getImagen())) {
+                                                if ($platillo->saveFile($_FILES['foto'], $platillo->getRuta(), $platillo->getImagen())) {
                                                     $result['message'] = 'Categoría modificada correctamente';
                                                     } else {
                                                         $result['message'] = 'Categoría modificada. No se guardó el archivo';
@@ -130,9 +130,9 @@ if (isset($_GET['action'])) {
             //Operación para eliminar un usuario
             case 'delete':
             //Se comprueba que el usuario a eliminar no sea igual al que ha iniciado sesión
-                    if ($materia->setId($_POST['idMateria'])) {
-                        if ($materia->getMateriaPrima()) {
-                            if ($materia->deleteMateriaPrima()) {
+                    if ($platillo->setId($_POST['idMateria'])) {
+                        if ($platillo->getMateriaPrima()) {
+                            if ($platillo->deleteMateriaPrima()) {
                                 $result['status'] = 1;
                             } else {
                                 $result['exception'] = 'Operación fallida';
@@ -146,7 +146,7 @@ if (isset($_GET['action'])) {
                 break;
             //Operación para mostrar los tipos de usuario activos en el formulario de modificar usuario
             case 'readCategoria':
-                if ($result['dataset'] = $materia->readCategoriaMateria()) {
+                if ($result['dataset'] = $platillo->readCategoriaMateria()) {
                     $result['status'] = 1;
                 } else {
                     $result['exception'] = 'Contenido no disponible';
