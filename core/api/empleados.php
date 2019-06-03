@@ -4,12 +4,12 @@ require_once('../../core/helpers/validator.php');
 require_once('../../core/models/empleados.php');
 
 //Se comprueba si existe una petición del sitio web y la acción a realizar, de lo contrario se muestra una página de error
-if (isset($_GET['site']) && isset($_GET['action'])) {
+if (isset($_GET['action'])) {
 	session_start();
 	$empleado = new Empleados;
 	$result = array('status' => 0, 'exception' => '');
 	//Se verifica si existe una sesión iniciada como administrador para realizar las operaciones correspondientes
-	if (isset($_SESSION['idUsuario']) && $_GET['site'] == 'private') {
+	if (isset($_SESSION['idUsuario']) && $_GET['action']) {
 		switch ($_GET['action']) {
 			case 'read':
 				if ($result['dataset'] = $empleado->readEmpleados()) {
@@ -35,7 +35,8 @@ if (isset($_GET['site']) && isset($_GET['action'])) {
 																						if ($empleado->setCargo($_POST['create_cargo'])) {
 																								if ($empleado->setUsuario($_POST['create_usuario'])) {
 																									if($empleado->createEmpleado()){
-
+																										$result['status'] = 1;
+																										$result['message'] = 'Categoría creada correctamente';
 																									}else{
 																										$result['exception'] = 'Error al insertar';
 																									}
@@ -114,7 +115,7 @@ if (isset($_GET['site']) && isset($_GET['action'])) {
 				 exit('Acción no disponible');
 				
 		}
-	print(json_encode($result));
+		print(json_encode($result));
 
 	} else {
 		exit('Acceso no disponible');

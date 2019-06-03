@@ -69,8 +69,6 @@ CREATE TABLE Receta(
     elaboracion VARCHAR(350) NOT NULL,
     id_categoria INT UNSIGNED,
     FOREIGN KEY (id_categoria) REFERENCES Categorias(id_categoria),
-    dificultad INT(11) NOT NULL,
-    imagen VARCHAR(100) NOT NULL,
     idMateria INT UNSIGNED,
     FOREIGN KEY (idMateria) REFERENCES MateriasPrimas(idMateria)
 );
@@ -80,8 +78,8 @@ CREATE TABLE Platillos(
     id_platillo INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     nombre_platillo VARCHAR(50) NOT NULL,
     precio DOUBLE(6,2),
-    idMateria INT UNSIGNED,
-    FOREIGN KEY (idMateria) REFERENCES MateriasPrimas(idMateria),
+    id_receta INT UNSIGNED,
+    FOREIGN KEY (id_receta) REFERENCES Receta(id_receta),
     id_categoria INT UNSIGNED,
     FOREIGN KEY (id_categoria) REFERENCES Categorias(id_categoria) 
 );
@@ -194,7 +192,7 @@ INSERT INTO UnidadMedida(nombre_medida, descripcion) VALUES
 
 
 --insert platillos
-INSERT INTO Platillos(nombre_platillo, precio, idMateria, id_categoria) VALUES
+INSERT INTO Platillos(nombre_platillo, precio, id_receta, id_categoria) VALUES
     ('Pizza Cuatro', '12.99', 1, 1),
     ('Pizza carne', '10.00', 2, 1),
     ('Pizza masa suave', '9.00', 4, 1),
