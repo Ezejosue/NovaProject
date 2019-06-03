@@ -5,7 +5,7 @@ $(document).ready(function()
 })
 
 //Constante para establecer la ruta y parámetros de comunicación con la API
-const apiPlatillos = '../core/api/platillos.php?site=private&action=';
+const apiMaterias = '../core/api/materia_prima.php?site=private&action=';
 
 //Función para llenar tabla con los datos de los registros
 function fillTable(rows)
@@ -16,7 +16,7 @@ function fillTable(rows)
         (row.estado == 1) ? icon = '<i class="fa fa-eye"></i>' : icon = '<i class="fa fa-eye-slash"></i>';
         content += `
             <tr>
-                <td><img src=" ../resources/img/materia/${row.foto} alt="imagen" class="rounded float-left"> </td>
+                <td><img src=" ../resources/img/materia/${row.foto}"> </td>
                 <td>${row.nombre_materia}</td>
                 <td>${row.descripcion}</td>
                 <td>${row.nombre_categoria}</td>
