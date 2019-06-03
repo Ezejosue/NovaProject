@@ -1,10 +1,51 @@
 $(document).ready(function()
 {
     showSelectTipoProfile('profile_tipo', null);
+    showDataUser();
 })
 
 //Constante para establecer la ruta y parámetros de comunicación con la API
 const apiAccount = '../core/api/usuarios.php?site=private&action=';
+
+function showDataUser()
+{
+    $.ajax({
+        url: apiAccount + 'readProfile',
+        type: 'post',
+        data: null,
+        datatype: 'json'
+    })
+    .done(function(response){
+        //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+        if (isJSONString(response)) {
+            const result = JSON.parse(response);
+            //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
+            if (result.status) {
+                console.log("Pepe");
+                let content = '';
+                let content2 = '';
+                    content += `
+                    <img src="../resources/img/usuarios/${result.dataset.foto_usuario}" />
+                    `;
+                    content2 += `
+                    <h4 class="name">${result.dataset.alias}</h4>
+                    `;
+                
+                $('#foto-user').html(content);
+                $('#nombre-user').html(content2)
+            } else {
+
+                $('#title').html('<i class="material-icons small">cloud_off</i><span class="red-text">' + result.exception + '</span>');
+            }
+        } else {
+            console.log(response);
+        }
+    })
+    .fail(function(jqXHR){
+        //Se muestran en consola los posibles errores de la solicitud AJAX
+        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+    });
+}
 
 //Función para cerrar la sesión del usuario
 function signOff()
