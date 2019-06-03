@@ -27,7 +27,6 @@ function table(id){
         retrieve: true
        
     });
-    $('select').formSelect();
 }
 
 function destroy(id){

@@ -103,8 +103,8 @@ function showSelectTipoProfile(idSelect, value)
             } else {
                 $('#' + idSelect).html('<option value="">No hay opciones</option>');
             }
-            $('select').formSelect();
-        } else {
+        } 
+        else {
             console.log(response);
         }
     })
@@ -147,6 +147,7 @@ function modalProfile()
         console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
     });
 }
+
 
 //Función para editar el perfil del usuario que ha iniciado sesión
 $('#form-profile').submit(function()
@@ -199,6 +200,38 @@ $('#form-password').submit(function()
             //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
             if (result.status) {
                 $('#modal-password').modal('hide');
+                sweetAlert(1, 'Contraseña cambiada correctamente', 'inicio.php');
+            } else {
+                sweetAlert(2, result.exception, null);
+            }
+        } else {
+            console.log(response);
+        }
+    })
+    .fail(function(jqXHR){
+        //Se muestran en consola los posibles errores de la solicitud AJAX
+        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+    });
+})
+
+
+//Función para cambiar la contraseña del usuario que ha iniciado sesión
+$('#form-password1').submit(function()
+{
+    event.preventDefault();
+    $.ajax({
+        url: apiAccount + 'password1',
+        type: 'post',
+        data: $('#form-password1').serialize(),
+        datatype: 'json'
+    })
+    .done(function(response){
+        //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+        if (isJSONString(response)) {
+            const result = JSON.parse(response);
+            //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
+            if (result.status) {
+                $('#modal-password1').modal('hide');
                 sweetAlert(1, 'Contraseña cambiada correctamente', 'inicio.php');
             } else {
                 sweetAlert(2, result.exception, null);

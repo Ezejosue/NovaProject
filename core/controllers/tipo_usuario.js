@@ -4,7 +4,7 @@ $(document).ready(function()
 })
 
 // Constante para establecer la ruta y parámetros de comunicación con la API
-const apiCategorias = '../core/api/categorias.php?site=private&action=';
+const apiTipo_usuarios = '../core/api/tipo_usuario.php?site=private&action=';
 
 // Función para llenar tabla con los datos de los registros
 function fillTable(rows)
@@ -15,26 +15,25 @@ function fillTable(rows)
         (row.estado == 1) ? icon = '<i class="fa fa-eye"></i>' : icon = '<i class="fa fa-eye-slash"></i>';
         content += `
             <tr>
-                <td><img src="../resources/img/categorias/${row.foto_categoria}" class="materialboxed" height="100"></td>
-                <td>${row.nombre_categoria}</td>
+                <td>${row.tipo}</td>
                 <td>${row.descripcion}</td>
                 <td><i class="material-icons">${icon}</i></td>
                 <td>
-                    <a href="#" onclick="modalUpdate(${row.id_categoria})" class="btn btn-info tooltipped" data-tooltip="Modificar"><i class="fa fa-edit"></i></a>
-                    <a href="#" onclick="confirmDelete(${row.id_categoria}, '${row.foto_categoria}')" class="btn btn-danger tooltipped" data-tooltip="Eliminar"><i class="fa fa-times"></i></a>
+                    <a href="#" onclick="modalUpdate(${row.id_Tipousuario})" class="btn btn-info tooltipped" data-tooltip="Modificar"><i class="fa fa-edit"></i></a>
+                    <a href="#" onclick="confirmDelete(${row.id_Tipousuario})" class="btn btn-danger tooltipped" data-tooltip="Eliminar"><i class="fa fa-times"></i></a>
                 </td>
             </tr>
         `;
     });
     $('#tbody-read').html(content);
-    table('#tabla-categorias');
+    table('#tabla-tipo_usuarios');
 }
 
 //Función para obtener y mostrar los registros disponibles
 function showTable()
 {
     $.ajax({
-        url: apiCategorias + 'read',
+        url: apiTipo_usuarios + 'read',
         type: 'post',
         data: null,
         datatype: 'json'
@@ -63,7 +62,7 @@ $('#form-create').submit(function()
     event.preventDefault();
 
     $.ajax({
-        url: apiCategorias + 'create',
+        url: apiTipo_usuarios + 'create',
         type: 'post',
         data: new FormData($('#form-create')[0]),
         datatype: 'json',
@@ -80,7 +79,7 @@ $('#form-create').submit(function()
                 $('#form-create')[0].reset();
                 sweetAlert(1, result.message, null);
                 $('#modal-create').modal('hide');
-                destroy('#tabla-categorias');
+                destroy('#tabla-tipo_usuarios');
                 showTable();
             } else {
                 sweetAlert(2, result.exception, null);
@@ -99,10 +98,10 @@ $('#form-create').submit(function()
 function modalUpdate(id)
 {
     $.ajax({
-        url: apiCategorias + 'get',
+        url: apiTipo_usuarios + 'get',
         type: 'post',
         data:{
-            id_categoria: id
+            id_Tipousuario: id
         },
         datatype: 'json'
     })
@@ -113,9 +112,8 @@ function modalUpdate(id)
             //Se comprueba si el resultado es satisfactorio para mostrar los valores en el formulario, sino se muestra la excepción
             if (result.status) {
                 $('#form-update')[0].reset();
-                $('#id_categoria').val(result.dataset.id_categoria);
-                $('#foto_categoria').val(result.dataset.foto_categoria);
-                $('#update_nombre_categoria').val(result.dataset.nombre_categoria);
+                $('#id_tipo_usuario').val(result.dataset.id_Tipousuario);
+                $('#update_nombre_tipo').val(result.dataset.tipo);
                 $('#update_descripcion').val(result.dataset.descripcion);
                 (result.dataset.estado == 1) ? $('#update_estado').prop('checked', true) : $('#update_estado').prop('checked', false);
                 $('#modal-update').modal('show');
@@ -137,7 +135,7 @@ $('#form-update').submit(function()
 {
     event.preventDefault();
     $.ajax({
-        url: apiCategorias + 'update',
+        url: apiTipo_usuarios + 'update',
         type: 'post',
         data: new FormData($('#form-update')[0]),
         datatype: 'json',
@@ -153,7 +151,7 @@ $('#form-update').submit(function()
             if (result.status) {
                 $('#modal-update').modal('hide');
                 sweetAlert(1, result.message, null);
-                destroy('#tabla-categorias');
+                destroy('#tabla-tipo_usuarios');
                 showTable();
             } else {
                 sweetAlert(2, result.exception, null);
@@ -169,11 +167,11 @@ $('#form-update').submit(function()
 })
 
 // Función para eliminar un registro seleccionado
-function confirmDelete(id, file)
+function confirmDelete(id)
 {
     swal({
         title: 'Advertencia',
-        text: '¿Quiere eliminar la categoría?',
+        text: '¿Quiere eliminar el tipo de usuario?',
         icon: 'warning',
         buttons: ['Cancelar', 'Aceptar'],
         closeOnClickOutside: false,
@@ -182,11 +180,10 @@ function confirmDelete(id, file)
     .then(function(value){
         if (value) {
             $.ajax({
-                url: apiCategorias + 'delete',
+                url: apiTipo_usuarios + 'delete',
                 type: 'post',
                 data:{
-                    id_categoria: id,
-                    foto_categoria: file
+                    id_Tipousuario: id,
                 },
                 datatype: 'json'
             })
@@ -196,11 +193,11 @@ function confirmDelete(id, file)
                     const result = JSON.parse(response);
                     // Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
                     if (result.status) {
-                        sweetAlert(1, result.message, null);
-                        destroy('#tabla-categorias');
-                        showTable();
-                    } else {
                         sweetAlert(2, result.exception, null);
+                    } else {
+                        sweetAlert(1, result.message, null);
+                        destroy('#tabla-tipo_usuarios');
+                        showTable();
                     }
                 } else {
                     console.log(response);
