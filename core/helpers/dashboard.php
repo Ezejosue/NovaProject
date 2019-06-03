@@ -49,10 +49,10 @@ class Dashboard
 					</div>
 					<div class="menu-sidebar2__content js-scrollbar1">
 						<div class="account2">
-							<div class="image img-cir img-120">
-								<img src="../resources/img/icon/avatar-big-01.jpg" alt="John Doe" />
+							<div class="image img-cir img-120" id="foto-user">
 							</div>
-							<h4 class="name">john doe</h4>
+							<div id="nombre-user">
+							</div>
 							<div class="row">
 								<a href="#modal-profile" class="modal-trigger" data-toggle="modal" onclick="modalProfile()"> <h6> <i class="fa fa-edit"></i> |</h6> </a>
 								<a href="#modal-password" class="modal-trigger" data-toggle="modal"> <h6> | <i class="fa fa-key"></i> | </h6> </a>

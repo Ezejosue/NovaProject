@@ -71,6 +71,6 @@
     <!-- END PAGE CONTAINER-->
 
 <?php
-Dashboard::footerTemplate('','');
+Dashboard::footerTemplate('account.js', '');
 ?>
 <!-- end document-->
