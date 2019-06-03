@@ -111,12 +111,7 @@ class Dashboard
 									<li>
 										<a href="reportes.php">
 											<i class="fas fa-chart-bar"></i>Reportes</a>
-									</li>
-									<li>
-										<a href="index.php">
-											<i class="fas fa-power-off"></i>Cerrar sesion</a>
-									</li>
-									
+									</li>									
 							</ul>
 						</nav>
 					</div>
