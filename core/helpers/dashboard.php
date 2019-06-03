@@ -28,7 +28,6 @@ class Dashboard
 			<link href="../resources/css/theme.css" rel="stylesheet" media="all">
 			<!-- Vendor CSS-->
 			<link href="../resources/extras/animsition/animsition.min.css" rel="stylesheet" media="all">
-			<link href="../resources/css/imagen.css" rel="stylesheet" media="all">
 			<link href="../resources/css/dataTables.bootstrap4.min.css" rel="stylesheet" media="all">
 			<link href="../resources/css/jquery.dataTables.min.css" rel="stylesheet" media="all">
 			<body class="animsition">

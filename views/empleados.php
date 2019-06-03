@@ -17,22 +17,24 @@
             </div>
         </div>
         <br>
-        <div class="row">
-            <div class="container">
-                <table class="display" id="tabla-empleados">
-                    <thead>
-                        <tr>
-                            <th>NOMBRE</th>
-                            <th>APELLIDO</th>
-                            <th>DUI</th>
-                            <th>DIRECCIÓN</th>
-                            <th>TELEFONO</th>
-                            <th>ACCIÓN</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tbody-read">
-                    </tbody>
-                </table>
+        <div class="container">
+            <div class="row">
+                <div class="table-responsive">
+                    <table class="table" id="tabla-empleados" width="100%">
+                        <thead>
+                            <tr>
+                                <th>NOMBRE</th>
+                                <th>APELLIDO</th>
+                                <th>DUI</th>
+                                <th>DIRECCIÓN</th>
+                                <th>TELEFONO</th>
+                                <th>ACCIÓN</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody-read">
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
