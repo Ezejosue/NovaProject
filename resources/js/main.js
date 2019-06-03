@@ -22,6 +22,8 @@
         window.location.href = url;
       }
     });
+
+    
   
   
   
@@ -133,19 +135,13 @@ var triggerUpload = document.getElementById('triggerUpload'),
     upInput = document.getElementById('filePicker'),
     preview = document.querySelector('.preview');
 
-//force triggering the file upload here...
-triggerUpload.onclick = function() {
-  upInput.click();
-};
 
 
-upInput.onchange = function(e) {
 
-  var uploaded = this.value,
-      ext = uploaded.substring(uploaded.lastIndexOf('.') + 1),
+  /* var uploaded = this.value,
       ext = ext.toLowerCase(),
       fileName = uploaded.substring(uploaded.lastIndexOf("\\") + 1),
-      accepted = ["jpg", "png", "gif", "jpeg"];
+      accepted = ["jpg", "png", "gif", "jpeg"]; */
   
   /*
     ::Add in blank img tag and spinner
@@ -165,15 +161,14 @@ upInput.onchange = function(e) {
       document.querySelector('.fileName').innerHTML = fileName + "<b> Uploaded!</b>";
   };
   
-  //only do if supported image file
+/*   //only do if supported image file
   if (new RegExp(accepted.join("|")).test(ext)) {
     showPreview();
   } else {
     preview.innerHTML = "";
     document.querySelector('.fileName').innerHTML = "Hey! Upload an image file, not a <b>." + ext + "</b> file!";
   }
-  
-}
+   */
 
 
 // Botón subir imagen 2
@@ -181,12 +176,12 @@ var triggerUpload1 = document.getElementById('triggerUpload1'),
     upInput1 = document.getElementById('filePicker1'),
     preview1 = document.querySelector('.preview1');
 
-//force triggering the file upload here...
+/* //force triggering the file upload here...
 triggerUpload1.onclick = function() {
   upInput1.click();
 };
 
-
+ *//* 
 upInput1.onchange = function(e) {
 
   var uploaded1 = this.value,
@@ -194,7 +189,7 @@ upInput1.onchange = function(e) {
       ext1 = ext1.toLowerCase(),
       fileName1 = uploaded1.substring(uploaded1.lastIndexOf("\\") + 1),
       accepted1 = ["jpg", "png", "gif", "jpeg"];
-  
+   */
   /*
     ::Add in blank img tag and spinner
     ::Use FileReader to read the img data
@@ -212,16 +207,18 @@ upInput1.onchange = function(e) {
       preview1.removeChild(document.querySelector('.loadingLogo'));
       document.querySelector('.fileName1').innerHTML = fileName1 + "<b> Uploaded!</b>";
   };
+  
+  
+  /* 
   if (new RegExp(accepted1.join("|")).test(ext1)) {
     showPreview1();
   } else {
     preview1.innerHTML = "";
     document.querySelector('.fileName1').innerHTML = "Hey! Upload an image file, not a <b>." + ext1 + "</b> file!";
-  }
-  
-}
+  } */
+  /* 
 
 //Validaciones del lado del cliente
 bootstrapValidate("#create_clave1", "min:6:Ingrese una contraseña mayor a 5 caracteres")
-bootstrapValidate("#create_clave2", "min:6:Ingrese una contraseña mayor a 5 caracteres")
+bootstrapValidate("#create_clave2", "min:6:Ingrese una contraseña mayor a 5 caracteres" )*/
 

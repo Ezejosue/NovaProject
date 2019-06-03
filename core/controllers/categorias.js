@@ -28,8 +28,6 @@ function fillTable(rows)
     });
     $('#tbody-read').html(content);
     table('#tabla-categorias');
-    $('.materialboxed').materialbox();
-    $('.tooltipped').tooltip();
 }
 
 //Función para obtener y mostrar los registros disponibles
