@@ -16,7 +16,11 @@ function fillTable(rows)
         (row.estado == 1) ? icon = '<i class="fa fa-eye"></i>' : icon = '<i class="fa fa-eye-slash"></i>';
         content += `
             <tr>
+<<<<<<< HEAD
                 <td><img src=" ../resources/img/materia/${row.foto} alt="imagen" class="rounded float-left"> </td>
+=======
+                <td><img src=" ../resources/img/materia/${row.foto}"> </td>
+>>>>>>> 6c34d1519fc2ee9f997a5fe960d6586ae45b1c6a
                 <td>${row.nombre_materia}</td>
                 <td>${row.descripcion}</td>
                 <td>${row.nombre_categoria}</td>
