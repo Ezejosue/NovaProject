@@ -30,8 +30,6 @@ function fillTable(rows)
     });
     $('#tbody-read').html(content);
     table('#tabla-usuarios');
-    $('.materialboxed').materialbox();
-    $('.tooltipped').tooltip();
 }
 
 //Función para obtener y mostrar los registros disponibles
@@ -92,7 +90,6 @@ function showSelectTipo(idSelect, value)
             } else {
                 $('#' + idSelect).html('<option value="">No hay opciones</option>');
             }
-            $('select').formSelect();
         } else {
             console.log(response);
         }

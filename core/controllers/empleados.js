@@ -28,8 +28,6 @@ function fillTable(rows) {
     });
     $('#tbody-read').html(content);
     table('#tabla-empleados');
-    $('.materialboxed').materialbox();
-    $('.tooltipped').tooltip();
 }
 
 //Función para obtener y mostrar los registros disponibles
@@ -89,7 +87,6 @@ function showSelectCargo(idSelect, value)
             } else {
                 $('#' + idSelect).html('<option value="">No hay opciones</option>');
             }
-            $('select').formSelect();
         } else {
             console.log(response);
         }
@@ -129,7 +126,6 @@ function showSelectTipo1(idSelect, value)
             } else {
                 $('#' + idSelect).html('<option value="">No hay opciones</option>');
             }
-            $('select').formSelect();
         } else {
             console.log(response);
         }

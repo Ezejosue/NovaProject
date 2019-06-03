@@ -62,8 +62,8 @@ function showSelectTipoProfile(idSelect, value)
             } else {
                 $('#' + idSelect).html('<option value="">No hay opciones</option>');
             }
-            $('select').formSelect();
-        } else {
+        } 
+        else {
             console.log(response);
         }
     })
