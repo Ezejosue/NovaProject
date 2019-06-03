@@ -19,7 +19,8 @@
         <br>
         <div class="row">
             <div class="container">
-                <table class="display" id="tabla-tipo_usuarios">
+            <div class="table-responsive">
+                <table class="table"  id="tabla-tipo_usuarios" width="100%">
                     <thead>
                         <tr>
                             <th>NOMBRE</th>
@@ -33,6 +34,7 @@
                 </table>
             </div>
         </div>
+    </div>
     </div>
     <!-- Modals-->
     <!-- Modal de Agregar -->

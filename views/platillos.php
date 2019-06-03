@@ -1,7 +1,7 @@
 <!-- SIDEBAR-->
 <?php
     require_once('../core/helpers/dashboard.php');
-    Dashboard::headerTemplate('Empleados');
+    Dashboard::headerTemplate('Materia Prima');
 ?>
 <!-- Contenido-->
 <div class="main-content">
@@ -20,14 +20,14 @@
         <div class="container">
             <div class="row">
                 <div class="table-responsive">
-                    <table class="table" id="tabla-empleados" width="100%">
+                    <table class="table" id="tabla-platillos" width="100%">
                         <thead>
                             <tr>
+                                <th>IMAGEN</th>
                                 <th>NOMBRE</th>
-                                <th>APELLIDO</th>
-                                <th>DUI</th>
-                                <th>DIRECCIÓN</th>
-                                <th>TELEFONO</th>
+                                <th>DESCRIPCIÓN</th>
+                                <th>CATEGORIA</th>
+                                <th>ESTADO</th>
                                 <th>ACCIÓN</th>
                             </tr>
                         </thead>
@@ -44,9 +44,9 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">AGREGAR EMPLEADO</h5>
+                    <h5 class="modal-title">MODIFICAR MATERIA PRIMA</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+                        <span aria-hidden="tyrue">&times;</span>
                     </button>
                 </div>
                 <form method="post" id="form-create" enctype="multipart/form-data">
@@ -56,8 +56,9 @@
                                 <i class="fa fa-user"></i>
                             </div>
                             <div class="col-sm-11">
-                                <input id="create_nombre" type="text" name="create_nombre" class="validate form-control"
-                                    placeholder="Nombre De Empleado" required>
+
+                                <input id="create_nombre_materia" type="text" name="create_nombre_materia"
+                                    class="validate form-control" placeholder="Nombre de materia prima" required>
                             </div>
                         </div>
                     </div>
@@ -67,96 +68,20 @@
                                 <i class="fa fa-user"></i>
                             </div>
                             <div class="col-sm-11">
-                                <input id="create_apellido" type="text" name="create_apellido"
-                                    class="validate form-control" placeholder="Apellido" required>
+
+                                <textarea placeholder="Descripción" class="form-control" id="create_descripcion_materia"
+                                    name="create_descripcion_materia" for="create_descripcion_materia"
+                                    rows="3"></textarea>
                             </div>
                         </div>
                     </div>
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-1">
-                                <i class="fas fa-id-badge"></i>
+                                <i class="fas fa-users"></i>
                             </div>
                             <div class="col-sm-11">
-                                <input id="create_dui" type="text" name="create_dui" class="validate form-control"
-                                    validate min="00000000" placeholder="00000000-0" required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-sm-1">
-                                <i class="fas fa-street-view"></i>
-                            </div>
-                            <div class="col-sm-11">
-                                <input id="create_direccion" type="text" name="create_direccion"
-                                    class="validate form-control" placeholder="Dirección" required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-sm-1">
-                                <i class="fas fa-id-badge"></i>
-                            </div>
-                            <div class="col-sm-11">
-                                <input id="create_telefono" type="text" name="create_telefono"
-                                    class="validate form-control" validate min="00000000" placeholder="00000000"
-                                    required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-sm-1">
-                                <i class="fas fa-venus-mars"></i>
-                            </div>
-                            <div class="col-sm-11">
-                                <input id="create_genero" type="text" name="create_genero" class="validate form-control"
-                                    placeholder="M/F" required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-sm-1">
-                                <i class="fas fa-venus-mars"></i>
-                            </div>
-                            <div class="col-sm-11">
-                                <input id="create_fecha" type="date" name="create_fecha" class="validate form-control"
-                                    placeholder="" required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-sm-1">
-                                <i class="fab fa-font-awesome-flag"></i>
-                            </div>
-                            <div class="col-sm-11">
-                                <input id="create_nacionalidad" type="text" name="create_nacionalidad"
-                                    class="validate form-control" placeholder="Nacionalidad" required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-sm-1">
-                                <i class="fas fa-at"></i>
-                            </div>
-                            <div class="col-sm-11">
-                                <input id="create_email" type="text" name="create_email" class="validate form-control"
-                                    placeholder="@mail.com" required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-sm-1">
-                                <i class="fas fa-male"></i>
-                            </div>
-                            <div class="col-sm-11">
-                                <select id="create_cargo" name="create_cargo" class="form-control">
+                                <select id="create_categoria" name="create_categoria" class="form-control">
                                 </select>
                             </div>
                         </div>
@@ -164,11 +89,31 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-1">
-                                <i class="fas fa-user"></i>
+                                <i class="fa fa-image"></i>
                             </div>
                             <div class="col-sm-11">
-                                <select id="create_usuario" name="create_usuario" class="form-control">
-                                </select>
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="create_archivo"
+                                        name="create_archivo">
+                                    <label class="custom-file-label" for="create_archivo">Escoga un archivo</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-1">
+                                <i class="fa fa-eye-slash"></i>
+                            </div>
+                            <div class="col-sm-11">
+                                <div class="custom-control custom-switch">
+                                    <input type="checkbox" class="custom-control-input" id="create_estado"
+                                        name="create_estado">
+
+                                    <label class="custom-control-label" for="create_estado">
+                                        <i class="fa fa-eye"></i>
+                                    </label>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -185,14 +130,14 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">MODIFICAR PRODUCTO</h5>
+                    <h5 class="modal-title">MODIFICAR MATERIA PRIMA</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <form method="post" id="form-update" enctype="multipart/form-data">
-                    <input type="hidden" id="foto_usuario" name="foto_usuario" />
-                    <input type="hidden" id="id_usuario" name="id_usuario" />
+                    <input type="hidden" id="foto_materia" name="foto_materia" />
+                    <input type="hidden" id="id_materia" name="id_materia" />
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-1">
@@ -200,8 +145,20 @@
                             </div>
                             <div class="col-sm-11">
 
-                                <input id="update_alias" type="text" name="update_alias" class="validate form-control"
-                                    placeholder="Nombre De Usuario" required>
+                                <input id="nombre_materia" type="text" name="nombre_materia"
+                                    class="validate form-control" placeholder="Nombre de materia prima" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-1">
+                                <i class="fa fa-user"></i>
+                            </div>
+                            <div class="col-sm-11">
+
+                                <textarea placeholder="Descripción" class="form-control" id="descripcion_materia"
+                                    name="descripcion_materia" for="descripcion_materia" rows="3"></textarea>
                             </div>
                         </div>
                     </div>
@@ -211,7 +168,7 @@
                                 <i class="fas fa-users"></i>
                             </div>
                             <div class="col-sm-11">
-                                <select id="update_tipo" name="update_tipo" class="form-control">
+                                <select id="update_categoria" name="update_categoria" class="form-control">
                                 </select>
                             </div>
                         </div>
@@ -223,9 +180,8 @@
                             </div>
                             <div class="col-sm-11">
                                 <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="update_archivo"
-                                        name="update_archivo">
-                                    <label class="custom-file-label" for="update_archivo">Escoga un archivo</label>
+                                    <input type="file" class="custom-file-input" id="foto" name="foto">
+                                    <label class="custom-file-label" for="foto">Escoga un archivo</label>
                                 </div>
                             </div>
                         </div>
@@ -256,5 +212,5 @@
         </div>
     </div>
     <?php
-Dashboard::footerTemplate('empleados.js', '#tabla-empleados');
+Dashboard::footerTemplate('platillos.js', '#tabla-platillos');
 ?>
