@@ -20,16 +20,15 @@ if (isset($_GET['action'])) {
                 }
                 break;
 
-            //Operación para crear nuevos usuarios
+            //Operación para crear nuevos platillos 
             case 'create':
                 $_POST = $platillo->validateForm($_POST);
                     if ($platillo->setNombre($_POST['create_nombre_materia'])) {
-                        if ($platillo->setEstado(isset($_POST['create_estado']) ? 1 : 0)) {
-                            if ($platillo->setDescripcion($_POST['create_descripcion_materia'])) {
+                            if ($platillo->setPrecio($_POST['create_precio'])) {
                                 if ($platillo->setCategorias($_POST['create_categoria'])) {
                                         if (is_uploaded_file($_FILES['create_archivo']['tmp_name'])) {
                                             if ($platillo->setImagen($_FILES['create_archivo'], null)) {
-                                                if ($platillo->createMateriaPrima()) {
+                                                if ($platillo->createPlatillo()) {
                                                     if ($platillo->saveFile($_FILES['create_archivo'], $platillo->getRuta(), $platillo->getImagen())) {
                                                         $result['status'] = 1;
                                                 } else {
@@ -49,17 +48,14 @@ if (isset($_GET['action'])) {
                                     $result['exception'] = 'Seleccione una categoria';
                                 }  
                                 } else {
-                                    $result['exception'] = 'Descripcion incorrecta';
+                                    $result['exception'] = 'Precio incorrecto';
                                 }
-                            } else {
-                                $result['exception'] = 'Estado incorrecto';
-                            }
                         } else {
                             $result['exception'] = 'Nombre incorrecto';
                         }                                     
                     break;
                 
-            //Operación para saber el usuario que se va a modificar
+            //Operación para saber el platillo a modificar
             case 'get':
                 if ($platillo->setId($_POST['idMateria'])) {
                     if ($result['dataset'] = $platillo->getMateriaPrima()) {

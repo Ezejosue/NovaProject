@@ -1,7 +1,7 @@
 <!-- SIDEBAR-->
 <?php
     require_once('../core/helpers/dashboard.php');
-    Dashboard::headerTemplate('Materia Prima');
+    Dashboard::headerTemplate('Platillos');
 ?>
 <!-- Contenido-->
 <div class="main-content">
