@@ -203,7 +203,14 @@ function confirmDelete(id, file)
                         sweetAlert(2, result.exception, null);
                     }
                 } else {
-                    console.log(response);
+                    swal({
+                        title: 'Advertencia',
+                        text: 'Registro ocupado, no se puede borrar categoria',
+                        icon: 'error',
+                        buttons: ['Aceptar'],
+                        closeOnClickOutside: true,
+                        closeOnEsc: true
+                    })
                 }
             })
             .fail(function(jqXHR){
