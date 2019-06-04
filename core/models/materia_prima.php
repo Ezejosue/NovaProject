@@ -5,6 +5,7 @@ class Materias extends Validator
 	private $id = null;
 	private $nombre = null;
 	private $imagen = null;
+	private $cantidad = null;
 	private $descripcion = null;
 	private $categorias = null;
 	private $estado = null;
@@ -24,6 +25,21 @@ class Materias extends Validator
 	public function getId()
 	{
 		return $this->id;
+	}
+	
+	public function setCantidad($value)
+	{
+		if ($this->validateMoney($value, 1, 2000)) {
+			$this->cantidad = $value;
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public function getCantidad()
+	{
+		return $this->cantidad;
 	}
 
 	public function setCategorias($value)
@@ -114,21 +130,21 @@ class Materias extends Validator
 	// Metodos para el manejo del SCRUD
 	public function readMateriaPrima()
 	{
-		$sql = 'SELECT idMateria , nombre_materia, materiasprimas.descripcion, foto, nombre_categoria, materiasprimas.estado FROM materiasprimas INNER JOIN categorias using (id_categoria)';
+		$sql = 'SELECT idMateria , nombre_materia, materiasprimas.descripcion, cantidad, foto, nombre_categoria, materiasprimas.estado FROM materiasprimas INNER JOIN categorias using (id_categoria)';
 		$params = array(null);
 		return conexion::getRows($sql, $params);
 	}
 
 	public function createMateriaPrima()
 	{
-		$sql = 'INSERT INTO materiasprimas(nombre_materia, descripcion, foto, id_categoria, estado) VALUES(?, ?, ?, ?, ?)';
-		$params = array($this->nombre, $this->descripcion, $this->imagen, $this->categorias,  $this->estado);
+		$sql = 'INSERT INTO materiasprimas(nombre_materia, descripcion, cantidad, foto, id_categoria, estado) VALUES(?, ?, ?, ?, ?, ?)';
+		$params = array($this->nombre, $this->descripcion, $this->cantidad, $this->imagen, $this->categorias,  $this->estado);
 		return conexion::executeRow($sql, $params);
 	}
 
 	public function getMateriaPrima()
 	{
-		$sql = 'SELECT idMateria , nombre_materia , descripcion, foto, id_categoria, estado FROM materiasprimas WHERE idMateria = ?';
+		$sql = 'SELECT idMateria , nombre_materia , descripcion, cantidad, foto, id_categoria, estado FROM materiasprimas WHERE idMateria = ?';
 		$params = array($this->id);
 		return conexion::getRow($sql, $params);
 	}
@@ -143,8 +159,8 @@ class Materias extends Validator
 
 	public function updateMateriaPrima()
 	{
-		$sql = 'UPDATE materiasprimas SET nombre_materia = ?, descripcion = ?, id_categoria = ?, foto = ?, estado=? WHERE idMateria = ?';
-		$params = array($this->nombre,  $this->descripcion, $this->categorias, $this->imagen, $this->estado, $this->id);
+		$sql = 'UPDATE materiasprimas SET nombre_materia = ?, descripcion = ?, cantidad=?, id_categoria = ?, foto = ?, estado=? WHERE idMateria = ?';
+		$params = array($this->nombre,  $this->descripcion, $this->cantidad, $this->categorias, $this->imagen, $this->estado, $this->id);
 		return conexion::executeRow($sql, $params);
 	}
 

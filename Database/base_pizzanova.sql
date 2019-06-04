@@ -56,6 +56,7 @@ CREATE TABLE MateriasPrimas(
     idMateria INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     nombre_materia VARCHAR(50) NOT NULL,
     descripcion VARCHAR(50),
+    cantidad INT,
     foto VARCHAR(100),
     id_categoria INT UNSIGNED,
     estado TINYINT (1) NOT NULL DEFAULT 1 comment '1 es activo 0 es inactivo',
