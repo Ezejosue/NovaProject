@@ -83,6 +83,7 @@ CREATE TABLE Platillos(
     id_receta INT UNSIGNED,
     FOREIGN KEY (id_receta) REFERENCES Receta(id_receta),
     id_categoria INT UNSIGNED,
+    imagen VARCHAR(50),
     FOREIGN KEY (id_categoria) REFERENCES Categorias(id_categoria) 
 );
 
