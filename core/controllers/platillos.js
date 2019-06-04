@@ -293,7 +293,14 @@ function confirmDelete(id)
                         sweetAlert(2, result.exception, null);
                     }
                 } else {
-                    console.log(response);
+                    swal({
+                        title: 'Advertencia',
+                        text: 'Registro ocupado, no se puede borrar platillos.',
+                        icon: 'error',
+                        buttons: ['Aceptar'],
+                        closeOnClickOutside: true,
+                        closeOnEsc: true
+                    })
                 }
             })
             .fail(function(jqXHR){

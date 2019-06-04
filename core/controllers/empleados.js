@@ -163,7 +163,6 @@ $('#form-create').submit(function()
                 showTable();
             } else {
                 sweetAlert(2, result.exception, null);
-                console.log(response);
                
             }
         } else {
@@ -211,7 +210,14 @@ function confirmDelete(id)
                         sweetAlert(2, result.exception, null);
                     }
                 } else {
-                    console.log(response);
+                    swal({
+                        title: 'Advertencia',
+                        text: 'Registro ocupado, no se puede borrar empleado',
+                        icon: 'error',
+                        buttons: ['Aceptar'],
+                        closeOnClickOutside: true,
+                        closeOnEsc: true
+                    })
                 }
             })
             .fail(function(jqXHR){

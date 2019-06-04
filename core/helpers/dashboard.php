@@ -242,13 +242,12 @@ class Dashboard
             <script type="text/javascript" src="../core/controllers/account.js"></script>
 			<script type="text/javascript" src="../core/controllers/'.$controller.'"></script>
 			<script src="../resources/js/bootstrap-validate.js"></script>
+			<script>bootstrapValidate("#clave_actual_1", "min:6:Ingrese una contraseña mayor a 5 caracteres")</script>
+			<script>bootstrapValidate("#clave_actual_2", "min:6:Ingrese una contraseña mayor a 5 caracteres")</script>
+			<script>bootstrapValidate("#clave_nueva_1", "min:6:Ingrese una contraseña mayor a 5 caracteres")</script>
+			<script>bootstrapValidate("#clave_nueva_2", "min:6:Ingrese una contraseña mayor a 5 caracteres")</script>
+			<script>bootstrapValidate("#profile_alias", "required:Ingrese un nombre de usuario")</script>
 			
-			<script> bootstrapValidate("#create_clave1", "min:6:Ingrese una contraseña mayor a 5 caracteres") </script>
-
-
-</body>
-
-</html>
 		');
 	}
 	public static function inicio()
@@ -311,8 +310,9 @@ class Dashboard
 									<div class="col-sm-11">
 										<div class="custom-file">
 											<input type="file" class="custom-file-input" id="profile_foto"
-												name="profile_foto">
+												name="profile_foto" required>
 											<label class="custom-file-label" for="profile_foto">Escoga un archivo</label>
+											<div class="invalid-feedback">Example invalid custom file feedback</div>
 										</div>
 									</div>
 								</div>
