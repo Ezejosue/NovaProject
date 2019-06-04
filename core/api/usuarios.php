@@ -31,6 +31,17 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Usuario incorrecto';
                 }
                 break;
+            case 'readData':
+                if ($usuario->setId($_SESSION['idUsuario'])) {
+                    if ($result['dataset'] = $usuario->getCantidadProductos()) {
+                        $result['status'] = 1;
+                    } else {
+                        $result['exception'] = '';
+                    }
+                } else {
+                    $result['exception'] = 'Usuario incorrecto';
+                }
+                break;
             //Operación para editar el perfil del usuario que ha iniciado sesión
             case 'editProfile':
                 if ($usuario->setId($_SESSION['idUsuario'])) {

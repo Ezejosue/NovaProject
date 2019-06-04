@@ -9,25 +9,15 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-6 col-lg-3">
-                <div class="statistic__item">
-                    <h2 class="number">688</h2>
-                    <span class="desc">Productos</span>
-                    <div class="icon">
-                        <i class="zmdi zmdi-shopping-basket"></i>
-                    </div>
+                <div class="statistic__item" id="data-productos">
                 </div>
             </div>
             <div class="col-md-6 col-lg-3">
-                <div class="statistic__item">
-                    <h2 class="number">15</h2>
-                    <span class="desc">Categorías</span>
-                    <div class="icon">
-                        <i class="zmdi zmdi-view-list"></i>
-                    </div>
+                <div class="statistic__item" id="data-categorias">
                 </div>
             </div>
             <div class="col-md-6 col-lg-3">
-                <div class="statistic__item">
+                <div class="statistic__item" id="data-usuarios">
                     <h2 class="number">10,368</h2>
                     <span class="desc">Usuarios</span>
                     <div class="icon">
@@ -36,11 +26,11 @@
                 </div>
             </div>
             <div class="col-md-6 col-lg-3">
-                <div class="statistic__item">
-                    <h2 class="number">$1,060,386</h2>
-                    <span class="desc">Ganancias</span>
+                <div class="statistic__item" id="data-">
+                    <h2 class="number">0000</h2>
+                    <span class="desc">Empleados</span>
                     <div class="icon">
-                        <i class="zmdi zmdi-money"></i>
+                        <i class="zmdi zmdi-accounts"></i>
                     </div>
                 </div>
             </div>
