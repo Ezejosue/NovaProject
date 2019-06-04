@@ -27,7 +27,7 @@
                                 <th>APELLIDO</th>
                                 <th>DUI</th>
                                 <th>DIRECCIÓN</th>
-                                <th>TELEFONO</th>
+                                <th>FECHA</th>
                                 <th>ACCIÓN</th>
                             </tr>
                         </thead>
