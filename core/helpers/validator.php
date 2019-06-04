@@ -134,6 +134,15 @@ class Validator
 		}
 	}
 
+	public function validateTelefono($value)
+	{
+		if (preg_match('/^[0-9]{4}+(-)+[0-9]{4}$/', $value)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	public function validateGenero($value)
 	{
 		if (preg_match('/^[MF]$/', $value)) {

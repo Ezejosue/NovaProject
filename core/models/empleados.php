@@ -77,7 +77,7 @@ class Empleados extends Validator
 
     public function setTelefono($value)
 	{
-		if ($this->validateAlphanumeric($value, 1, 10)) {
+		if ($this->validateTelefono($value)) {
 			$this->telefono = $value;
 			return true;
 		} else {

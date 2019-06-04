@@ -97,11 +97,11 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-1">
-                                <i class="fas fa-id-badge"></i>
+                             <i class="fas fa-phone-volume"></i>
                             </div>
                             <div class="col-sm-11">
                                 <input id="create_telefono" type="text" name="create_telefono"
-                                    class="validate form-control" validate min="00000000" placeholder="00000000"
+                                    class="validate form-control" placeholder="0000-0000"
                                     required>
                             </div>
                         </div>
@@ -120,11 +120,11 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-1">
-                                <i class="fas fa-venus-mars"></i>
+                            <i class="far fa-calendar-alt"></i>
                             </div>
                             <div class="col-sm-11">
                                 <input id="create_fecha" type="date" name="create_fecha" class="validate form-control"
-                                    placeholder="" required>
+                                min="01/01/1919" max="31/12/2018">
                             </div>
                         </div>
                     </div>
