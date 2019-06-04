@@ -23,55 +23,64 @@ if (isset($_GET['action'])) {
             //Operación para crear nuevos platillos 
             case 'create':
                 $_POST = $platillo->validateForm($_POST);
-                    if ($platillo->setNombre($_POST['create_nombre_materia'])) {
+                    if ($platillo->setNombre($_POST['create_platillos'])) {
                             if ($platillo->setPrecio($_POST['create_precio'])) {
-                                if ($platillo->setCategorias($_POST['create_categoria'])) {
-                                        if (is_uploaded_file($_FILES['create_archivo']['tmp_name'])) {
-                                            if ($platillo->setImagen($_FILES['create_archivo'], null)) {
-                                                if ($platillo->createPlatillo()) {
-                                                    if ($platillo->saveFile($_FILES['create_archivo'], $platillo->getRuta(), $platillo->getImagen())) {
-                                                        $result['status'] = 1;
+                                if ($platillo->setCategoria($_POST['create_categoria'])) {
+                                    if ($platillo->setReceta($_POST['create_receta'])) {
+                                        if ($platillo->setEstado(isset($_POST['estado']) ? 1:0)) {
+                                            if (is_uploaded_file($_FILES['create_archivo']['tmp_name'])) {
+                                                if ($platillo->setImagen($_FILES['create_archivo'], null)) {
+                                                    if ($platillo->createPlatillo()) {
+                                                        if ($platillo->saveFile($_FILES['create_archivo'], $platillo->getRuta(), $platillo->getImagen())) {
+                                                            $result['status'] = 1;
+                                                    } else {
+                                                        $result['status'] = 2;
+                                                        $result['exception'] = 'No se guardó el archivo';
+                                                    }
                                                 } else {
-                                                    $result['status'] = 2;
-                                                    $result['exception'] = 'No se guardó el archivo';
+                                                    $result['exception'] = 'Operación fallida';
                                                 }
                                             } else {
-                                                $result['exception'] = 'Operación fallida';
-                                            }
+                                                $result['exception'] = $platillo->getImageError();;
+                                                } 
+                                            }   else {
+                                            $result['exception'] = 'Seleccione una imagen';
+                                                } 
+                                            
                                         } else {
-                                            $result['exception'] = $platillo->getImageError();;
-                                        } 
-                                    }   else {
-                                        $result['exception'] = 'Seleccione una imagen';
-                                            } 
+                                            $result['exception'] = 'Estado incorrecto';
+                                        }  
                                     } else {
-                                    $result['exception'] = 'Seleccione una categoria';
-                                }  
+                                        $result['exception'] = 'Seleccione una receta';
+                                    }  
                                 } else {
-                                    $result['exception'] = 'Precio incorrecto';
-                                }
-                        } else {
-                            $result['exception'] = 'Nombre incorrecto';
-                        }                                     
+                                $result['exception'] = 'Seleccione una categoria';
+                            }  
+                            } else {
+                                $result['exception'] = 'Precio incorrecto';
+                            }
+                    } else {
+                        $result['exception'] = 'Nombre incorrecto';
+                    }                                     
                     break;
                 
             //Operación para saber el platillo a modificar
             case 'get':
-                if ($platillo->setId($_POST['idMateria'])) {
-                    if ($result['dataset'] = $platillo->getMateriaPrima()) {
+                if ($platillo->setId($_POST['id_platillo'])) {
+                    if ($result['dataset'] = $platillo->getPlatillo()) {
                         $result['status'] = 1;
                     } else {
-                        $result['exception'] = 'Materia prima inexistente';
+                        $result['exception'] = 'Platillos inexistente';
                     }
                 } else {
-                    $result['exception'] = 'Materia prima incorrecta';
+                    $result['exception'] = 'Platillo incorrecto';
                 }
                 break;
-            //Operación para actualizar un usuario
+            //Operación para actualizar un platillo
             case 'update':
 				$_POST = $platillo->validateForm($_POST);
-				if ($platillo->setId($_POST['id_materia'])) {
-					if ($platillo->getMateriaPrima()) {
+				if ($platillo->setId($_POST['id_platillo'])) {
+					if ($platillo->getPlatillo()) {
 		                if ($platillo->setNombre($_POST['nombre_materia'])) {
                             if ($platillo->setDescripcion($_POST['descripcion_materia'])) {
                                 if ($platillo->setEstado(isset($_POST['update_estado']) ? 1 : 0)) {
@@ -90,7 +99,7 @@ if (isset($_GET['action'])) {
                                             }
                                             $archivo = false;
                                         }
-                                        if ($platillo->updateMateriaPrima()) {
+                                        if ($platillo->updatePlatillo()) {
                                             $result['status'] = 1;
                                             if ($archivo) {
                                                 if ($platillo->saveFile($_FILES['foto'], $platillo->getRuta(), $platillo->getImagen())) {
@@ -140,9 +149,17 @@ if (isset($_GET['action'])) {
                         $result['exception'] = 'Materia prima incorrecta';
                     }
                 break;
-            //Operación para mostrar los tipos de usuario activos en el formulario de modificar usuario
+            //Operación para mostrar los tipos de categorias en la tabla
+            case 'readReceta':
+                if ($result['dataset'] = $platillo->readReceta()) {
+                    $result['status'] = 1;
+                } else {
+                    $result['exception'] = 'Contenido no disponible';
+                }
+                break;
+                //Operacion para mostrar los tipos de receta en el tabla
             case 'readCategoria':
-                if ($result['dataset'] = $platillo->readCategoriaMateria()) {
+                if ($result['dataset'] = $platillo->readCategoria()) {
                     $result['status'] = 1;
                 } else {
                     $result['exception'] = 'Contenido no disponible';
