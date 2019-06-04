@@ -2,6 +2,7 @@ $(document).ready(function()
 {
     showSelectTipoProfile('profile_tipo', null);
     showDataUser();
+    showDataInicio();
 })
 
 //Constante para establecer la ruta y parámetros de comunicación con la API
@@ -21,7 +22,6 @@ function showDataUser()
             const result = JSON.parse(response);
             //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
             if (result.status) {
-                console.log("Pepe");
                 let content = '';
                 let content2 = '';
                     content += `
@@ -245,3 +245,51 @@ $('#form-password1').submit(function()
         console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
     });
 })
+
+function showDataInicio(){
+    $.ajax({
+        url: apiAccount + 'readData',
+        type: 'post',
+        data: null,
+        datatype: 'json'
+    })
+    .done(function(response){
+        //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+        if (isJSONString(response)) {
+            const result = JSON.parse(response);
+            //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
+            if (result.status) {
+                let content_produtos = '';
+                let content_categorias = '';
+                
+                    content_produtos += `
+                    <h2 class="number">${result.dataset.registros_produtos}</h2>
+                    <span class="desc">Productos</span>
+                    <div class="icon">
+                        <i class="zmdi zmdi-shopping-basket"></i>
+                    </div>
+                    `;
+
+                    content_categorias += `
+                    <h2 class="number">${result.dataset.registros_categoris}</h2>
+                    <span class="desc">Categorías</span>
+                    <div class="icon">
+                        <i class="zmdi zmdi-view-list"></i>
+                    </div>
+                    `;
+                
+                $('#data-productos').html(content_produtos);
+                $('#data-categorias').html(content_categorias);
+            } else {
+
+                $('#title').html('<i class="material-icons small">cloud_off</i><span class="red-text">' + result.exception + '</span>');
+            }
+        } else {
+            console.log(response);
+        }
+    })
+    .fail(function(jqXHR){
+        //Se muestran en consola los posibles errores de la solicitud AJAX
+        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+    });
+}
