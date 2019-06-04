@@ -219,7 +219,7 @@ class Empleados extends Validator
 
     public function readEmpleados()
     {
-        $sql = 'SELECT id_empleado, nombre_empleado, apellido_empleado, dui, direccion, telefono From Empleados ORDER BY nombre_empleado';
+        $sql = 'SELECT id_empleado, nombre_empleado, apellido_empleado, dui, direccion, fecha_nacimiento From Empleados ORDER BY nombre_empleado';
         $params = array(null);
         return Conexion::getRows($sql, $params);
     }
