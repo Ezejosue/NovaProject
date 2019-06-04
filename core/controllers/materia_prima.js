@@ -19,6 +19,7 @@ function fillTable(rows)
                 <td><img src=" ../resources/img/materia/${row.foto}"> </td>
                 <td>${row.nombre_materia}</td>
                 <td>${row.descripcion}</td>
+                <td>${row.cantidad}</td>
                 <td>${row.nombre_categoria}</td>
                 <td><i class="material-icons">${icon}</i></td>
                 <td>
@@ -161,6 +162,7 @@ function modalUpdate(id)
                 $('#id_materia').val(result.dataset.idMateria);
                 $('#nombre_materia').val(result.dataset.nombre_materia);
                 $('#descripcion_materia').val(result.dataset.descripcion);
+                $('#cantidad').val(result.dataset.cantidad);
                 showSelectCategoria('update_categoria', result.dataset.id_categoria);
                 $('#foto_materia').val(result.dataset.foto);
                 (result.dataset.estado == 1) ? $('#update_estado').prop('checked', true) : $('#update_estado').prop('checked', false);
