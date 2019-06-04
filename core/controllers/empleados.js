@@ -163,7 +163,6 @@ $('#form-create').submit(function()
                 showTable();
             } else {
                 sweetAlert(2, result.exception, null);
-                console.log(response);
                
             }
         } else {

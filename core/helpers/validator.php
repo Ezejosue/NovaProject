@@ -106,6 +106,7 @@ class Validator
 		}
 	}
 
+	
 	public function validateAlphabetic($value, $minimum, $maximum)
 	{
 		if (preg_match('/^[a-zA-ZñÑáÁéÉíÍóÓúÚ\s]{'.$minimum.','.$maximum.'}$/', $value)) {
@@ -118,6 +119,33 @@ class Validator
 	public function validateAlphanumeric($value, $minimum, $maximum)
 	{
 		if (preg_match('/^[a-zA-Z0-9ñÑáÁéÉíÍóÓúÚ\s\.]{'.$minimum.','.$maximum.'}$/', $value)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public function validateDui($value)
+	{
+		if (preg_match('/^[0-9]{8}+(-)+[0-9]{1}$/', $value)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public function validateTelefono($value)
+	{
+		if (preg_match('/^[0-9]{4}+(-)+[0-9]{4}$/', $value)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public function validateGenero($value)
+	{
+		if (preg_match('/^[MF]$/', $value)) {
 			return true;
 		} else {
 			return false;

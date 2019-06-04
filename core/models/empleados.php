@@ -62,7 +62,7 @@ class Empleados extends Validator
 
     public function setDui($value)
 	{
-		if ($this->validateAlphanumeric($value, 1, 11)) {
+		if ($this->validateDui($value)) {
 			$this->dui = $value;
 			return true;
 		} else {
@@ -77,7 +77,7 @@ class Empleados extends Validator
 
     public function setTelefono($value)
 	{
-		if ($this->validateAlphanumeric($value, 1, 10)) {
+		if ($this->validateTelefono($value)) {
 			$this->telefono = $value;
 			return true;
 		} else {
@@ -92,7 +92,7 @@ class Empleados extends Validator
 
     public function setGenero($value)
 	{
-		if ($this->validateAlphabetic($value, 1, 50)) {
+		if ($this->validateGenero($value)) {
 			$this->genero = $value;
 			return true;
 		} else {
