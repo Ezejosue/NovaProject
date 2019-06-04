@@ -82,6 +82,10 @@ class Dashboard
 															<a href="platillos.php">
 															<i class="fas fa-shopping-basket"></i>Platillos</a>
 														</li>
+														<li>
+															<a href="recetas.php">
+															<i class="fas fa-shopping-basket"></i>Recetas</a>
+													</li>
 													</ul>
 												</div>
                                     	</li>
