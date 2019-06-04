@@ -188,7 +188,7 @@ function modalUpdate(id)
         url: apiPlatillos + 'get',
         type: 'post',
         data:{
-            id_Platillo: id
+            id_platillo: id
         },
         datatype: 'json'
     })
@@ -200,8 +200,8 @@ function modalUpdate(id)
             if (result.status) {
                 $('#form-update')[0].reset();
                 $('#id_platillo').val(result.dataset.id_platillo);
-                $('#nombre_platillo').val(result.dataset.nombre_platillo);
-                $('#precio').val(result.dataset.precio);
+                $('#update_nombre_platillo').val(result.dataset.nombre_platillo);
+                $('#update_precio').val(result.dataset.precio);
                 showSelectCategoria('update_categoria', result.dataset.id_categoria);
                 showSelectReceta('update_receta', result.dataset.id_receta);
                 $('#update_estado').val(result.dataset.estado);
@@ -276,7 +276,7 @@ function confirmDelete(id)
                 url: apiPlatillos + 'delete',
                 type: 'post',
                 data:{
-                    id_Platillo: id
+                    id_platillo: id
                 },
                 datatype: 'json'
             })

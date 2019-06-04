@@ -145,8 +145,8 @@
                     </button>
                 </div>
                 <form method="post" id="form-update" enctype="multipart/form-data">
-                    <input type="hidden" id="foto_materia" name="foto_materia" />
-                    <input type="hidden" id="id_materia" name="id_materia" />
+                    <input type="hidden" id="imagen" name="imagen" />
+                    <input type="hidden" id="id_platillo" name="id_platillo" />
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-1">
@@ -154,20 +154,18 @@
                             </div>
                             <div class="col-sm-11">
 
-                                <input id="nombre_materia" type="text" name="nombre_materia"
-                                    class="validate form-control" placeholder="Nombre de materia prima" required>
+                                <input id="update_nombre_platillo" type="text" name="update_nombre_platillo"
+                                    class="validate form-control" placeholder="Nombre del platillo" required>
                             </div>
                         </div>
                     </div>
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-1">
-                                <i class="fa fa-user"></i>
+                                <i class="fa fa-dollar-sign"></i>
                             </div>
                             <div class="col-sm-11">
-
-                                <textarea placeholder="Descripción" class="form-control" id="descripcion_materia"
-                                    name="descripcion_materia" for="descripcion_materia" rows="3"></textarea>
+                            <input id="update_precio" type="number" name="update_precio" class="validate form-control" max="999.99" min="0.01" step="any" required/>
                             </div>
                         </div>
                     </div>
@@ -185,28 +183,23 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-1">
-                                <i class="fa fa-image"></i>
+                                <i class="fas fa-users"></i>
                             </div>
                             <div class="col-sm-11">
-                                <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="foto" name="foto">
-                                    <label class="custom-file-label" for="foto">Escoga un archivo</label>
-                                </div>
+                                <select id="update_receta" name="update_receta" class="form-control">
+                                </select>
                             </div>
                         </div>
                     </div>
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-1">
-                                <i class="fa fa-eye-slash"></i>
+                                <i class="fa fa-image"></i>
                             </div>
                             <div class="col-sm-11">
-                                <div class="custom-control custom-switch">
-                                    <input type="checkbox" class="custom-control-input" id="estado"
-                                        name="estado">
-                                    <label class="custom-control-label" for="estado">
-                                        <i class="fa fa-eye"></i>
-                                    </label>
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="update_imagen" name="update_imagen">
+                                    <label class="custom-file-label" for="update_imagen">Escoga un archivo</label>
                                 </div>
                             </div>
                         </div>

@@ -81,72 +81,76 @@ if (isset($_GET['action'])) {
 				$_POST = $platillo->validateForm($_POST);
 				if ($platillo->setId($_POST['id_platillo'])) {
 					if ($platillo->getPlatillo()) {
-		                if ($platillo->setNombre($_POST['nombre_materia'])) {
-                            if ($platillo->setDescripcion($_POST['descripcion_materia'])) {
-                                if ($platillo->setEstado(isset($_POST['update_estado']) ? 1 : 0)) {
-                                    if ($platillo->setCategorias($_POST['update_categoria'])) {
-                                        //Se comprueba que se haya subido una imagen
-                                        if (is_uploaded_file($_FILES['foto']['tmp_name'])) {
-                                            if ($platillo->setImagen($_FILES['foto'], $_POST['foto_materia'])) {
-                                                $archivo = true;
+		                if ($platillo->setNombre($_POST['update_nombre_platillo'])) {
+                            if ($platillo->setPrecio($_POST['update_precio'])) {
+                                if ($platillo->setCategoria($_POST['update_categoria'])) {
+                                     if ($platillo->setReceta($_POST['update_receta'])) {
+                                    if ($platillo->setEstado(isset($_POST['update_estado']) ? 1 : 0)) {
+                                            //Se comprueba que se haya subido una imagen
+                                            if (is_uploaded_file($_FILES['update_imagen']['tmp_name'])) {
+                                                if ($platillo->setImagen($_FILES['update_imagen'], $_POST['imagen'])) {
+                                                    $archivo = true;
+                                                } else {
+                                                    $result['exception'] = $platillo->getImageError();
+                                                    $archivo = false;
+                                                }
                                             } else {
-                                                $result['exception'] = $platillo->getImageError();
+                                                if (!$platillo->setImagen(null, $_POST['imagen'])) {
+                                                    $result['exception'] = $platillo->getImageError();
+                                                }
                                                 $archivo = false;
                                             }
-                                        } else {
-                                            if (!$platillo->setImagen(null, $_POST['foto_materia'])) {
-                                                $result['exception'] = $platillo->getImageError();
-                                            }
-                                            $archivo = false;
-                                        }
                                         if ($platillo->updatePlatillo()) {
                                             $result['status'] = 1;
                                             if ($archivo) {
-                                                if ($platillo->saveFile($_FILES['foto'], $platillo->getRuta(), $platillo->getImagen())) {
+                                                if ($platillo->saveFile($_FILES['imagen'], $platillo->getRuta(), $platillo->getImagen())) {
                                                     $result['message'] = 'Categoría modificada correctamente';
+                                                        } else {
+                                                            $result['message'] = 'Categoría modificada. No se guardó el archivo';
+                                                        }
                                                     } else {
-                                                        $result['message'] = 'Categoría modificada. No se guardó el archivo';
+                                                        $result['message'] = 'Categoría modificada. No se subió ningún archivo';
                                                     }
                                                 } else {
-                                                    $result['message'] = 'Categoría modificada. No se subió ningún archivo';
+                                                    $result['exception'] = 'Operación fallida';
                                                 }
                                             } else {
-                                                $result['exception'] = 'Operación fallida';
+                                                $result['exception'] = 'Estado incorrecto';
                                             }
                                         } else {
-                                            $result['exception'] = 'Seleccione una categoria';
-                                        }
-                                    } else {
-                                        $result['exception'] = 'Estado incorrecto';
-                                        }
+                                            $result['exception'] = 'Seleccione una receta';
+                                            }
+                                    }else {
+                                        $result['exception'] = 'Seleccione una categoria';
+                                    } 
                                 }else {
-                                    $result['exception'] = 'Descripcion incorrecta';
-                                } 
+                                    $result['exception'] = 'Precio incorrecto';
+                                }
                             }else {
-                                $result['exception'] = 'Nombre de materia prima incorrecta';
+                                $result['exception'] = 'Nombre de platillo incorrecto';
                             }
                         } else {
-                            $result['exception'] = 'Materia prima inexistente';
+                            $result['exception'] = 'Platillos inexistente';
                         }
                     } else {
-                        $result['exception'] = 'Materia prima incorrecta';
+                        $result['exception'] = 'Platillo incorrecto';
                     }
                     break;
             //Operación para eliminar un usuario
             case 'delete':
-            //Se comprueba que el usuario a eliminar no sea igual al que ha iniciado sesión
-                    if ($platillo->setId($_POST['idMateria'])) {
-                        if ($platillo->getMateriaPrima()) {
-                            if ($platillo->deleteMateriaPrima()) {
+            //El caso a elimiar es el de deleteplatillo
+                    if ($platillo->setId($_POST['id_platillo'])) {
+                        if ($platillo->getId()) {
+                            if ($platillo->deletePlatillo()) {
                                 $result['status'] = 1;
                             } else {
                                 $result['exception'] = 'Operación fallida';
                             }
                         } else {
-                            $result['exception'] = 'Materia prima inexistente';
+                            $result['exception'] = 'Platillo inexistente';
                         }
                     } else {
-                        $result['exception'] = 'Materia prima incorrecta';
+                        $result['exception'] = 'Platillo incorrecto';
                     }
                 break;
             //Operación para mostrar los tipos de categorias en la tabla

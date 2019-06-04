@@ -149,7 +149,7 @@ class Platillos extends Validator
         return Conexion::getRows($sql, $params);
     }
 
-    public function searchEmpleados()
+    public function searchPlatillo()
     {
         $sql = 'SELECT * FROM Platillos WHERE nombre_platillo LIKE ? OR precio';
         $params = array("%$value%", "%$value%");
@@ -171,8 +171,8 @@ class Platillos extends Validator
 
     public function updatePlatillo()
     {
-        $sql = 'UPDATE Empleados SET nombre_empleado = ?, apellido_empleado = ?, dui = ?, direccion = ?, telefono = ?, genero = ?, fecha_nacimiento = ?, nacionalidad = ?, correo = ?, id_cargo = ?, id_usuario = ? WHERE id_empleado = ?';
-        $params = array($this->nombre_empleado, $this->apellido_empleado, $this->dui, $this->direccion, $this->telefono, $this->genero, $this->fecha_nacimiento, $this->nacionalidad, $this->correo, $this->id_cargo, $this->id_usuario, $this->id);
+        $sql = 'UPDATE platillos SET nombre_platillo = ?, precio = ?, id_categoria = ?, id_receta = ?, estado = ?, imagen =? WHERE id_platillo = ?';
+        $params = array($this->nombre, $this->precio, $this->id_categoria, $this->id_receta, $this->estado,$this->estado,  $this->id);
         return Conexion::executeRow($sql, $params);
     }
 
