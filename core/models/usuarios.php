@@ -239,5 +239,19 @@ class Usuarios extends Validator
 		$params = array($this->cantidad_categorias);
 		return Conexion::getRow($sql, $params);
 	}
+
+	public function getCantidadUsuarios()
+	{
+		$sql = 'SELECT COUNT(id_usuario) as registros_usuarios FROM usuarios';
+		$params = array($this->cantidad_categorias);
+		return Conexion::getRow($sql, $params);
+	}
+
+	public function getCantidadEmpleados()
+	{
+		$sql = 'SELECT COUNT(id_empleado) as registros_empleados FROM empleados';
+		$params = array($this->cantidad_categorias);
+		return Conexion::getRow($sql, $params);
+	}
 }
 ?>

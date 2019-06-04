@@ -18,20 +18,10 @@
             </div>
             <div class="col-md-6 col-lg-3">
                 <div class="statistic__item" id="data-usuarios">
-                    <h2 class="number">10,368</h2>
-                    <span class="desc">Usuarios</span>
-                    <div class="icon">
-                        <i class="zmdi zmdi-account-o"></i>
-                    </div>
                 </div>
             </div>
             <div class="col-md-6 col-lg-3">
-                <div class="statistic__item" id="data-">
-                    <h2 class="number">0000</h2>
-                    <span class="desc">Empleados</span>
-                    <div class="icon">
-                        <i class="zmdi zmdi-accounts"></i>
-                    </div>
+                <div class="statistic__item" id="data-empleados">
                 </div>
             </div>
         </div>
