@@ -31,6 +31,50 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Usuario incorrecto';
                 }
                 break;
+            case 'readDataProducts':
+                if ($usuario->setId($_SESSION['idUsuario'])) {
+                    if ($result['dataset'] = $usuario->getCantidadProductos()) {
+                        $result['status'] = 1;
+                    } else {
+                        $result['exception'] = '';
+                    }
+                } else {
+                    $result['exception'] = 'Usuario incorrecto';
+                }
+                break;
+            case 'readDataCategories':
+                if ($usuario->setId($_SESSION['idUsuario'])) {
+                    if ($result['dataset'] = $usuario->getCantidadCategorias()) {
+                        $result['status'] = 1;
+                    } else {
+                        $result['exception'] = '';
+                    }
+                } else {
+                    $result['exception'] = 'Usuario incorrecto';
+                }
+                break;
+            case 'readDataUsers':
+                if ($usuario->setId($_SESSION['idUsuario'])) {
+                    if ($result['dataset'] = $usuario->getCantidadUsuarios()) {
+                        $result['status'] = 1;
+                    } else {
+                        $result['exception'] = '';
+                    }
+                } else {
+                    $result['exception'] = 'Usuario incorrecto';
+                }
+                break;
+            case 'readDataEmployees':
+                if ($usuario->setId($_SESSION['idUsuario'])) {
+                    if ($result['dataset'] = $usuario->getCantidadEmpleados()) {
+                        $result['status'] = 1;
+                    } else {
+                        $result['exception'] = '';
+                    }
+                } else {
+                    $result['exception'] = 'Usuario incorrecto';
+                }
+                break;
             //Operación para editar el perfil del usuario que ha iniciado sesión
             case 'editProfile':
                 if ($usuario->setId($_SESSION['idUsuario'])) {

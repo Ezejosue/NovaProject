@@ -2,6 +2,10 @@ $(document).ready(function()
 {
     showSelectTipoProfile('profile_tipo', null);
     showDataUser();
+    showCountProducts();
+    showCountCategories();
+    showCountUsers();
+    showCountEmployees();
 })
 
 //Constante para establecer la ruta y parámetros de comunicación con la API
@@ -21,7 +25,6 @@ function showDataUser()
             const result = JSON.parse(response);
             //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
             if (result.status) {
-                console.log("Pepe");
                 let content = '';
                 let content2 = '';
                     content += `
@@ -245,3 +248,150 @@ $('#form-password1').submit(function()
         console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
     });
 })
+
+function showCountProducts(){
+    $.ajax({
+        url: apiAccount + 'readDataProducts',
+        type: 'post',
+        data: null,
+        datatype: 'json'
+    })
+    .done(function(response){
+        //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+        if (isJSONString(response)) {
+            const result = JSON.parse(response);
+            //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
+            if (result.status) {
+                let content_produtos = '';
+                
+                    content_produtos += `
+                    <h2 class="number">${result.dataset.registros_produtos}</h2>
+                    <span class="desc">Productos</span>
+                    <div class="icon">
+                        <i class="zmdi zmdi-shopping-basket"></i>
+                    </div>
+                    `;
+                
+                $('#data-productos').html(content_produtos);
+            } else {
+
+            }
+        } else {
+            console.log(response);
+        }
+    })
+    .fail(function(jqXHR){
+        //Se muestran en consola los posibles errores de la solicitud AJAX
+        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+    });
+}
+
+function showCountCategories(){
+    $.ajax({
+        url: apiAccount + 'readDataCategories',
+        type: 'post',
+        data: null,
+        datatype: 'json'
+    })
+    .done(function(response){
+        //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+        if (isJSONString(response)) {
+            const result = JSON.parse(response);
+            //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
+            if (result.status) {
+                let content_categorias = '';
+                
+                content_categorias += `
+                    <h2 class="number">${result.dataset.registros_categorias}</h2>
+                    <span class="desc">Categorías</span>
+                    <div class="icon">
+                        <i class="zmdi zmdi-view-list"></i>
+                    </div>
+                    `;
+                
+                $('#data-categorias').html(content_categorias);
+            } else {
+
+            }
+        } else {
+            console.log(response);
+        }
+    })
+    .fail(function(jqXHR){
+        //Se muestran en consola los posibles errores de la solicitud AJAX
+        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+    });
+}
+
+function showCountUsers(){
+    $.ajax({
+        url: apiAccount + 'readDataUsers',
+        type: 'post',
+        data: null,
+        datatype: 'json'
+    })
+    .done(function(response){
+        //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+        if (isJSONString(response)) {
+            const result = JSON.parse(response);
+            //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
+            if (result.status) {
+                let content_usuarios = '';
+                
+                content_usuarios += `
+                    <h2 class="number">${result.dataset.registros_usuarios}</h2>
+                    <span class="desc">Usuarios</span>
+                    <div class="icon">
+                        <i class="zmdi zmdi-account-o"></i>
+                    </div>
+                    `;
+                
+                $('#data-usuarios').html(content_usuarios);
+            } else {
+
+            }
+        } else {
+            console.log(response);
+        }
+    })
+    .fail(function(jqXHR){
+        //Se muestran en consola los posibles errores de la solicitud AJAX
+        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+    });
+}
+
+function showCountEmployees(){
+    $.ajax({
+        url: apiAccount + 'readDataEmployees',
+        type: 'post',
+        data: null,
+        datatype: 'json'
+    })
+    .done(function(response){
+        //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+        if (isJSONString(response)) {
+            const result = JSON.parse(response);
+            //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
+            if (result.status) {
+                let content_empleados = '';
+                
+                content_empleados += `
+                    <h2 class="number">${result.dataset.registros_empleados}</h2>
+                    <span class="desc">Empleados</span>
+                    <div class="icon">
+                        <i class="zmdi zmdi-accounts"></i>
+                    </div>
+                    `;
+                $('#data-empleados').html(content_empleados);
+            } else {
+
+            }
+        } else {
+            console.log(response);
+        }
+    })
+    .fail(function(jqXHR){
+        //Se muestran en consola los posibles errores de la solicitud AJAX
+        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+    });
+}

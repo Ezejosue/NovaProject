@@ -9,6 +9,8 @@ class Usuarios extends Validator
 	private $estado = null;
 	private $tipo_usuario = null;
 	private $clave = null;
+	private $cantidad_productos = null;
+	private $cantidad_categorias = null;
 	private $ruta = '../../resources/img/usuarios/';
 
 	//Métodos para sobrecarga de propiedades
@@ -116,6 +118,21 @@ class Usuarios extends Validator
 	{
 		return $this->ruta;
 	}
+	
+	public function setCantidad_Produtos($value)
+	{
+		if ($this->validateId($value)) {
+			$this->cantidad_productos = $value;
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public function getCantidad_Productos()
+	{
+		return $this->cantidad_productos;
+	}
 
 	//Métodos para manejar la sesión del usuario
 	public function checkAlias()
@@ -207,6 +224,34 @@ class Usuarios extends Validator
 		$sql = 'DELETE FROM usuarios WHERE id_usuario = ?';
 		$params = array($this->id);
 		return Conexion::executeRow($sql, $params);
+	}
+
+	public function getCantidadProductos()
+	{
+		$sql = 'SELECT COUNT(idMateria) as registros_produtos FROM materiasprimas';
+		$params = array($this->cantidad_productos);
+		return Conexion::getRow($sql, $params);
+	}
+
+	public function getCantidadCategorias()
+	{
+		$sql = 'SELECT COUNT(id_categoria) as registros_categorias FROM categorias';
+		$params = array($this->cantidad_categorias);
+		return Conexion::getRow($sql, $params);
+	}
+
+	public function getCantidadUsuarios()
+	{
+		$sql = 'SELECT COUNT(id_usuario) as registros_usuarios FROM usuarios';
+		$params = array($this->cantidad_categorias);
+		return Conexion::getRow($sql, $params);
+	}
+
+	public function getCantidadEmpleados()
+	{
+		$sql = 'SELECT COUNT(id_empleado) as registros_empleados FROM empleados';
+		$params = array($this->cantidad_categorias);
+		return Conexion::getRow($sql, $params);
 	}
 }
 ?>
