@@ -25,10 +25,11 @@
                             <tr>
                                 <th>IMAGEN</th>
                                 <th>NOMBRE</th>
-                                <th>DESCRIPCIÓN</th>
+                                <th>PRECIO</th>
                                 <th>CATEGORIA</th>
+                                <th>RECETA</th>
                                 <th>ESTADO</th>
-                                <th>ACCIÓN</th>
+                                <th>ACCIONES</th>
                             </tr>
                         </thead>
                         <tbody id="tbody-read">
@@ -44,7 +45,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">MODIFICAR MATERIA PRIMA</h5>
+                    <h5 class="modal-title">AGREGAR PLATILLOS</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="tyrue">&times;</span>
                     </button>
@@ -57,21 +58,18 @@
                             </div>
                             <div class="col-sm-11">
 
-                                <input id="create_nombre_materia" type="text" name="create_nombre_materia"
-                                    class="validate form-control" placeholder="Nombre de materia prima" required>
+                                <input id="create_platillos" type="text" name="create_platillos"
+                                    class="validate form-control" placeholder="Nombre de Platillo" required>
                             </div>
                         </div>
                     </div>
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-1">
-                                <i class="fa fa-user"></i>
+                                <i class="fa fa-dollar-sign"></i>
                             </div>
                             <div class="col-sm-11">
-
-                                <textarea placeholder="Descripción" class="form-control" id="create_descripcion_materia"
-                                    name="create_descripcion_materia" for="create_descripcion_materia"
-                                    rows="3"></textarea>
+                            <input id="create_precio" type="number" name="create_precio" class="validate form-control" max="999.99" min="0.01" step="any" required/>
                             </div>
                         </div>
                     </div>
@@ -82,6 +80,17 @@
                             </div>
                             <div class="col-sm-11">
                                 <select id="create_categoria" name="create_categoria" class="form-control">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-1">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="col-sm-11">
+                                <select id="create_receta" name="create_receta" class="form-control">
                                 </select>
                             </div>
                         </div>
@@ -100,6 +109,7 @@
                             </div>
                         </div>
                     </div>
+                    
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-1">
@@ -107,10 +117,9 @@
                             </div>
                             <div class="col-sm-11">
                                 <div class="custom-control custom-switch">
-                                    <input type="checkbox" class="custom-control-input" id="create_estado"
-                                        name="create_estado">
-
-                                    <label class="custom-control-label" for="create_estado">
+                                    <input type="checkbox" class="custom-control-input" id="estado"
+                                        name="estado">
+                                    <label class="custom-control-label" for="estado">
                                         <i class="fa fa-eye"></i>
                                     </label>
                                 </div>
@@ -130,7 +139,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">MODIFICAR MATERIA PRIMA</h5>
+                    <h5 class="modal-title">MODIFICAR PLATILLOS</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -193,9 +202,24 @@
                             </div>
                             <div class="col-sm-11">
                                 <div class="custom-control custom-switch">
+                                    <input type="checkbox" class="custom-control-input" id="estado"
+                                        name="estado">
+                                    <label class="custom-control-label" for="estado">
+                                        <i class="fa fa-eye"></i>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-1">
+                                <i class="fa fa-eye-slash"></i>
+                            </div>
+                            <div class="col-sm-11">
+                                <div class="custom-control custom-switch">
                                     <input type="checkbox" class="custom-control-input" id="update_estado"
                                         name="update_estado">
-
                                     <label class="custom-control-label" for="update_estado">
                                         <i class="fa fa-eye"></i>
                                     </label>

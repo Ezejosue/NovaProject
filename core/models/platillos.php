@@ -6,9 +6,10 @@ class Platillos extends Validator
 	private $nombre = null;
 	private $imagen = null;
 	private $precio = null;
-	private $id_categotia = null;
+	private $id_categoria = null;
 	private $id_receta = null;
-	private $ruta = '../../resources/img/categorias/';
+	private $estado = null;
+	private $ruta = '../../resources/img/platillos/';
 
 	// Métodos para sobrecarga de propiedades de el metodo platillos
 	public function setId($value)
@@ -50,6 +51,23 @@ class Platillos extends Validator
 			return false;
 		}
 	}
+
+	
+	public function setEstado($value)
+	{
+		if ($value == 0 || $value == 1) {
+			$this->estado = $value;
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public function getEstado()
+	{
+		return $this->estado;
+	}
+
 
 	public function getImagen()
 	{
@@ -94,7 +112,7 @@ class Platillos extends Validator
 		return $this->id_categoria;
 	}
 
-	public functoin setReceta($value)
+	public function setReceta($value)
 	{
 		if($this->validateId($value)){
 			$this->id_receta= $value;
@@ -106,35 +124,27 @@ class Platillos extends Validator
 	}
 	public function getReceta()
 	{
-		return $this->id_receta
+		return $this->id_receta;
 	}
 
 
 	// Metodos para el manejo del SCRUD
 	public function createPlatillo()
     {
-        $sql = 'INSERT INTO Platillos(nombre_platillo, precio, imagen, id_categoria, id_receta) VALUES (?, ?, ?, ?, ?)';
-        $params = array($this->nombre_platillo, $this->precio, $this->imagen, $this->id_categoria, $this->id_receta);
+        $sql = 'INSERT INTO platillos(nombre_platillo, precio, id_receta, id_categoria, estado, imagen) VALUES (?, ?, ?, ?, ?, ?)';
+        $params = array($this->nombre, $this->precio, $this->id_receta, $this->id_categoria, $this->estado, $this->imagen);
         return Conexion::executeRow($sql, $params);
     }
 
     public function getPlatillo()
     {
-        $sql = 'SELECT id_platillo, nombre_platillo, imagen, precio, id_categoria, id_receta FROM Platillos WHERE id_platillo = ?';
+        $sql = 'SELECT id_platillo, nombre_platillo, imagen, precio, estado, id_receta, id_categoria FROM Platillos WHERE id_platillo = ?';
         $params = array($this ->id);
         return Conexion::getRow($sql, $params);
     }
-
     public function readPlatillo()
     {
-        $sql = 'SELECT  id_platillo, nombre_platillo FROM Platillos ORDER BY nombre_platillo';
-		$params = array($this->id_platillo);
-		return Conexion::getRows($sql, $params);
-    }
-
-    public function readPlatillo()
-    {
-        $sql = 'SELECT id_platillo, nombre_platillo, precio, imagen From Platillos ORDER BY nombre_platillo';
+        $sql = 'SELECT id_platillo, nombre_platillo, precio, receta.nombre_receta, categorias.nombre_categoria, imagen, platillos.estado From Platillos INNER JOIN categorias USING (id_categoria) INNER JOIN receta USING (id_receta) ORDER BY nombre_platillo';
         $params = array(null);
         return Conexion::getRows($sql, $params);
     }
@@ -149,6 +159,12 @@ class Platillos extends Validator
     public function readCategoria()
     {
         $sql = 'SELECT id_categoria, nombre_categoria FROM Categorias';
+        $params = array(null);
+        return Conexion::getRows($sql, $params);
+	}
+	public function readReceta()
+    {
+        $sql = 'SELECT id_receta, nombre_receta FROM Receta';
         $params = array(null);
         return Conexion::getRows($sql, $params);
     }

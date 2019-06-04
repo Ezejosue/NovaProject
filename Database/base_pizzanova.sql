@@ -78,6 +78,7 @@ CREATE TABLE Platillos(
     id_platillo INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     nombre_platillo VARCHAR(50) NOT NULL,
     precio DOUBLE(6,2),
+    estado TINYINT (1) NOT NULL DEFAULT 1 comment '1 es activo 0 es inactivo',
     id_receta INT UNSIGNED,
     FOREIGN KEY (id_receta) REFERENCES Receta(id_receta),
     id_categoria INT UNSIGNED,
@@ -177,8 +178,8 @@ INSERT INTO MateriasPrimas(nombre_materia, descripcion, foto, id_categoria) VALU
 --final insert materia prima
 
 --insert receta
-    INSERT INTO Receta(nombre_receta, tiempo, elaboracion, id_categoria, dificultad, imagen, idMateria) VALUES
-        ('Pizza 4 quesos', '20 min', 'Le das verga a la mesa hasta que quede redonda y le hechas un vergo de queso', 1, 1, 'awdawd.png', 1);
+    INSERT INTO Receta(nombre_receta, tiempo, elaboracion, id_categoria, idMateria) VALUES
+        ('Pizza 4 quesos', '20 min', 'Le das verga a la mesa hasta que quede redonda y le hechas un vergo de queso',1, 1);
 --final insert receta
 
 
@@ -192,7 +193,7 @@ INSERT INTO UnidadMedida(nombre_medida, descripcion) VALUES
 
 
 --insert platillos
-INSERT INTO Platillos(nombre_platillo, precio, id_receta, id_categoria) VALUES
+INSERT INTO Platillos(nombre_platillo, precio, id_receta, id_categoria,imagen) VALUES
     ('Pizza Cuatro', '12.99', 1, 1),
     ('Pizza carne', '10.00', 2, 1),
     ('Pizza masa suave', '9.00', 4, 1),
