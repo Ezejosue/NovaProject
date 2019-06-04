@@ -17,28 +17,25 @@
             </div>
         </div>
         <br>
-        <div class="container">
-            <div class="row">
-                <div class="table-responsive">
-                    <table class="table" id="tabla-usuarios" width="100%">
-                        <thead>
-                            <tr>
-                                <th>IMAGEN</th>
-                                <th>ALIAS</th>
-                                <th>FECHA DE CREACIÓN</th>
-                                <th>TIPO DE USUARIO</th>
-                                <th>ESTADO</th>
-                                <th>ACCIÓN</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tbody-read">
-                        </tbody>
-                    </table>
-                </div>
+        <div class="row">
+            <div class="container col-sm-12 col-md-12">
+                <table class="display table-responsive" id="tabla-usuarios" width="100%">
+                    <thead>
+                        <tr>
+                            <th>IMAGEN</th>
+                            <th>ALIAS</th>
+                            <th>FECHA DE CREACIÓN</th>
+                            <th>TIPO DE USUARIO</th>
+                            <th>ESTADO</th>
+                            <th>ACCIÓN</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody-read">
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
-
     <!-- Modals-->
     <!-- Modal de Agregar -->
     <div class="modal fade" id="modal-create">
@@ -68,8 +65,13 @@
                                 <i class="fa fa-lock"></i>
                             </div>
                             <div class="col-sm-11">
+<<<<<<< HEAD
                                 <input id="create_clave1" type="password" name="create_clave1"
                                     class="validate form-control" placeholder="Contraseña" required>
+=======
+                                <input id="create_clave1" type="password" name="create_clave1" class="form-control"
+                                    placeholder="Contraseña" required>
+>>>>>>> a0480dc... Haciendo funcioar validaciones  en usuarios
                             </div>
                         </div>
                     </div>
@@ -210,6 +212,17 @@
             </div>
         </div>
     </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> a0480dc... Haciendo funcioar validaciones  en usuarios
     <?php
 Dashboard::footerTemplate('usuarios.js', '#tabla-usuarios');
 ?>
+
+    <script>bootstrapValidate("#create_clave1", "min:6:Ingrese una contraseña mayor a 5 caracteres")</script>
+    <script>bootstrapValidate("#create_clave2", "min:6:Ingrese una contraseña mayor a 5 caracteres")</script>
+
+    </body>
+
+    </html>

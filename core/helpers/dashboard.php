@@ -242,13 +242,6 @@ class Dashboard
             <script type="text/javascript" src="../core/controllers/account.js"></script>
 			<script type="text/javascript" src="../core/controllers/'.$controller.'"></script>
 			<script src="../resources/js/bootstrap-validate.js"></script>
-			
-			<script> bootstrapValidate("#create_clave1", "min:6:Ingrese una contraseña mayor a 5 caracteres") </script>
-
-
-</body>
-
-</html>
 		');
 	}
 	public static function inicio()
