@@ -96,6 +96,39 @@ if (isset($_GET['action'])) {
 				 }
 				 break;
 
+
+				case 'get':
+					 if ($empleado->setId($_POST['id_empleado']) 
+					 ) {
+						if ($result['dataset'] = 
+						$empleado->getEmpleado()) {
+							$result['status'] = 1;
+						} else {
+							$result['exception'] = 'Empleado no existente';
+ 						}
+					 } else {
+						 $result['exception'] = 'Empleado incorrecot';
+					 }
+					break;
+
+				case 'update':
+					$_POST = $empleado->validateForm($_POST);
+					if ($empleado->setId($_POST['id_empleado'])) 
+					{
+						if ($empleado->getEmpleado()) {
+							if ($empleado->setNombre($_POST['update_nombre'])) {
+								if ($empleado->setApellido($_POST['update_apellido'])) {
+									if ($empleado->setDui($_POST['update_dui'])) {
+										# code...
+									}
+								}
+							}
+						} 
+						
+					}
+					break;
+
+
 				 case 'delete':
 				 if ($empleado->setId($_POST['id_empleado'])) {
 					 if ($empleado->getEmpleado()) {

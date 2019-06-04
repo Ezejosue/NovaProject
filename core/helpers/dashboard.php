@@ -28,7 +28,6 @@ class Dashboard
 			<link href="../resources/css/theme.css" rel="stylesheet" media="all">
 			<!-- Vendor CSS-->
 			<link href="../resources/extras/animsition/animsition.min.css" rel="stylesheet" media="all">
-			<link href="../resources/css/imagen.css" rel="stylesheet" media="all">
 			<link href="../resources/css/dataTables.bootstrap4.min.css" rel="stylesheet" media="all">
 			<link href="../resources/css/jquery.dataTables.min.css" rel="stylesheet" media="all">
 			<body class="animsition">
@@ -112,12 +111,7 @@ class Dashboard
 									<li>
 										<a href="reportes.php">
 											<i class="fas fa-chart-bar"></i>Reportes</a>
-									</li>
-									<li>
-										<a href="index.php">
-											<i class="fas fa-power-off"></i>Cerrar sesion</a>
-									</li>
-									
+									</li>									
 							</ul>
 						</nav>
 					</div>
