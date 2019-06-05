@@ -116,12 +116,55 @@ if (isset($_GET['action'])) {
 					if ($empleado->setId($_POST['id_empleado'])) 
 					{
 						if ($empleado->getEmpleado()) {
-							if ($empleado->setNombre($_POST['update_nombre'])) {
+							if ($empleado->setNombres($_POST['update_nombre'])) {
 								if ($empleado->setApellido($_POST['update_apellido'])) {
 									if ($empleado->setDui($_POST['update_dui'])) {
-										# code...
+										if ($empleado->setDireccion($_POST['update_direccion'])) {
+											if ($empleado->setTelefono($_POST['update_telefono'])) {
+												if ($empleado->setGenero($_POST['update_genero'])) {
+													if ($empleado->setNacimiento($_POST['update_fecha'])) {
+														if ($empleado->setNacionalidad($_POST['update_nacionalidad'])) {
+															if ($empleado->setCorreo($_POST['update_email'])) {
+																if ($empleado->setCargo($_POST['update_cargo'])) {
+																	if ($empleado->setUsuario($_POST['update_usuario'])) {
+																		if ($empleado->updateEmpleado()) {
+																			$result['status'] = 1;
+																			$result['message'] = 'Empleado modificado correctamente';
+																		} else {
+																				$result['exception'] = 'Operación fallida';	
+																		}
+																	} else {
+																		$result['exception'] = 'Usuario fallido';
+																	}
+																} else {
+																	$result['exception'] = 'Cargo incorrecot';
+																}
+															}	else {
+																$result['exception'] = 'Correo Incorrecto';
+															}
+														}	else {
+															$result['exception'] = 'Nacionalidad incorrecta';
+														}
+													}	else {
+														$result['exception'] = 'Fecha incorrecta';
+													}
+												}	else {
+													$result['exception'] = 'Genero Correcto';
+												}
+											}	else {
+												$result['exception'] = 'Telefono incorrecto';
+											}
+										}	else {
+											$result['exception'] = 'Direccion incorrecta';
+										}
+									}	else {
+										$result['exception'] = 'Dui incorrecto';
 									}
+								}	else {
+									$result['exception'] = 'Apellido incorrecto';
 								}
+							}	else {
+								$result['exception'] = 'Nombre incorrecto';
 							}
 						} 
 						

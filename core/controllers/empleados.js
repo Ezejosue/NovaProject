@@ -18,7 +18,7 @@ function fillTable(rows) {
                 <td>${row.apellido_empleado}</td>
                 <td>${row.dui}</td>
                 <td>${row.direccion}</td>
-                <td>${row.fecha_nacimiento}</td>
+                <td>${row.telefono}</td>
                 <td>
                     <a href="#" onclick="modalUpdate(${row.id_empleado})" class="btn btn-info   tooltipped" data-tooltip="Modificar"><i  class="fa fa-edit"></i></a>
                     <a href="#" onclick="confirmDelete(${row.id_empleado})"class="btn btn-danger tooltipped" data-tooltip="Eliminar"><i class="fa fa-times"></i></a>
@@ -163,6 +163,7 @@ $('#form-create').submit(function()
                 showTable();
             } else {
                 sweetAlert(2, result.exception, null);
+                console.log(response);
                
             }
         } else {
@@ -210,14 +211,7 @@ function confirmDelete(id)
                         sweetAlert(2, result.exception, null);
                     }
                 } else {
-                    swal({
-                        title: 'Advertencia',
-                        text: 'Registro ocupado, no se puede borrar empleado',
-                        icon: 'error',
-                        buttons: ['Aceptar'],
-                        closeOnClickOutside: true,
-                        closeOnEsc: true
-                    })
+                    console.log(response);
                 }
             })
             .fail(function(jqXHR){
@@ -227,3 +221,84 @@ function confirmDelete(id)
         }
     });
 }
+
+// Función para mostrar formulario con registro a modificar
+function modalUpdate(id)
+{
+    $.ajax({
+        url: apiEmpleados + 'get',
+        type: 'post',
+        data:{
+            id_empleado: id
+        },
+        datatype: 'json'
+    })
+    .done(function(response){
+        // Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+        if (isJSONString(response)) {
+            const result = JSON.parse(response);
+            //Se comprueba si el resultado es satisfactorio para mostrar los valores en el formulario, sino se muestra la excepción
+            if (result.status) {
+                $('#form-update')[0].reset();
+                $('#id_empleado').val(result.dataset.id_empleado);
+                $('#update_nombre').val(result.dataset.nombre_empleado);
+                $('#update_apellido').val(result.dataset.apellido_empleado);
+                $('#update_dui').val(result.dataset.dui);
+                $('#update_direccion').val(result.dataset.direccion);
+                $('#update_telefono').val(result.dataset.telefono);
+                $('#update_genero').val(result.dataset.genero);
+                $('#update_fecha').val(result.dataset.fecha_nacimiento);
+                $('#update_nacionalidad').val(result.dataset.nacionalidad);
+                $('#update_email').val(result.dataset.correo);
+                showSelectCargo('update_cargo', result.dataset.id_cargo);
+                showSelectTipo1('update_usuario', result.dataset.id_usuario);
+                $('#modal-update').modal('show');
+            } else {
+                sweetAlert(2, result.exception, null);
+            }
+        } else {
+            console.log(response);
+        }
+    })
+    .fail(function(jqXHR){
+        // Se muestran en consola los posibles errores de la solicitud AJAX
+        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+    });
+}
+
+// Función para modificar un registro seleccionado previamente
+$('#form-update').submit(function()
+{
+    event.preventDefault();
+    $.ajax({
+        url: apiEmpleados + 'update',
+        type: 'post',
+        data: new FormData($('#form-update')[0]),
+        datatype: 'json',
+        cache: false,
+        contentType: false,
+        processData: false
+    })
+    .done(function(response){
+        // Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+        if (isJSONString(response)) {
+            const result = JSON.parse(response);
+            // Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
+            if (result.status) {
+                $('#modal-update').modal('hide');
+                sweetAlert(1, result.message, null);
+                destroy('#tabla-empleados');
+                showTable();
+            } else {
+                sweetAlert(2, result.exception, null);
+            }
+        } else {
+            console.log(response);
+        }
+    })
+    .fail(function(jqXHR){
+        // Se muestran en consola los posibles errores de la solicitud AJAX
+        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+    });
+})
+
