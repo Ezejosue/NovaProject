@@ -18,7 +18,7 @@ function fillTable(rows) {
                 <td>${row.apellido_empleado}</td>
                 <td>${row.dui}</td>
                 <td>${row.direccion}</td>
-                <td>${row.telefono}</td>
+                <td>${row.fecha_nacimiento}</td>
                 <td>
                     <a href="#" onclick="modalUpdate(${row.id_empleado})" class="btn btn-info   tooltipped" data-tooltip="Modificar"><i  class="fa fa-edit"></i></a>
                     <a href="#" onclick="confirmDelete(${row.id_empleado})"class="btn btn-danger tooltipped" data-tooltip="Eliminar"><i class="fa fa-times"></i></a>

@@ -35,7 +35,7 @@ CREATE TABLE Empleados(
     apellido_empleado VARCHAR(20) NOT NULL,
     dui VARCHAR(10) NOT NULL,
     direccion VARCHAR(100) NOT NULL,
-    telefono INT NOT NULL,
+    telefono VARCHAR(9) NOT NULL,
     genero ENUM('M', 'F') NULL,
     fecha_nacimiento DATE NOT NULL,
     nacionalidad VARCHAR(50) NOT NULL,
