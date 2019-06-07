@@ -28,10 +28,10 @@ class Dashboard
 			<link href="../resources/css/theme.css" rel="stylesheet" media="all">
 			<!-- Vendor CSS-->
 			<link href="../resources/extras/animsition/animsition.min.css" rel="stylesheet" media="all">
-			<link href="../resources/css/imagen.css" rel="stylesheet" media="all">
 			<link href="../resources/css/dataTables.bootstrap4.min.css" rel="stylesheet" media="all">
 			<link href="../resources/css/jquery.dataTables.min.css" rel="stylesheet" media="all">
-
+			<body class="animsition">
+			<div class="page-wrapper">
 		</head>
 		');
 		//Se comprueba si existe una sesión para mostrar el menú de opciones, de lo contrario se muestra un menú vacío
@@ -48,10 +48,10 @@ class Dashboard
 					</div>
 					<div class="menu-sidebar2__content js-scrollbar1">
 						<div class="account2">
-							<div class="image img-cir img-120">
-								<img src="../resources/img/icon/avatar-big-01.jpg" alt="John Doe" />
+							<div class="image img-cir img-120" id="foto-user">
 							</div>
-							<h4 class="name">john doe</h4>
+							<div id="nombre-user">
+							</div>
 							<div class="row">
 								<a href="#modal-profile" class="modal-trigger" data-toggle="modal" onclick="modalProfile()"> <h6> <i class="fa fa-edit"></i> |</h6> </a>
 								<a href="#modal-password" class="modal-trigger" data-toggle="modal"> <h6> | <i class="fa fa-key"></i> | </h6> </a>
@@ -65,22 +65,22 @@ class Dashboard
 										<i class="fas fa-tachometer-alt"></i>Vista General
 									</a>
 								</li>
-								<li>
-									<a href="categorias.php">
-										<i class="fas fa-list"></i>Categorías</a>
-								</li>
 										<li>
-											<a href="#itemsDrop" data-toggle="collapse" class="collapsed"><i class="fas fa-shopping-basket"></i><span>
+											<a href="#itemsDrop" data-toggle="collapse" class="collapsed"><i class="fab fa-dropbox"></i><span>
 											Productos</span></a>
 												<div id="itemsDrop" class="collapse">
 													<ul>
+													<li>
+															<a href="categorias.php">
+																<i class="fas fa-list"></i>Categorías</a>
+														</li>
 														<li>													
-															<a href="productos.php">
-															<i class="fas fa-shopping-basket"></i>Materia prima</a>
+															<a href="materia_prima.php">
+															<i class="fas fa-cart-plus"></i>Materia prima</a>
 														</li>
 														<li>
 															<a href="platillos.php">
-															<i class="fas fa-shopping-basket"></i>Platillos</a>
+															<i class="fas fa-utensils"></i>Platillos</a>
 														</li>
 														<li>
 															<a href="recetas.php">
@@ -88,30 +88,34 @@ class Dashboard
 													</li>
 													</ul>
 												</div>
-                                    	</li>
+										</li>
 										<li>
+											<a href="#itemsDrop1" data-toggle="collapse" class="collapsed"><i class="fas fa-user-circle"></i><span>
+											Perfiles</span></a>
+												<div id="itemsDrop1" class="collapse">
+													<ul>
+													<li>
 											<a href="usuarios.php">
-												<i class="fas fa-users"></i>Usuarios</a>
+												<i class="fas fa-user-plus"></i>Usuarios</a>
 										</li>
 										<li>
 											<a href="tipo_usuarios.php">
-												<i class="fa fa-th	
-												"></i>Tipo de usuarios</a>
+											<i class="fas fa-users"></i>Tipo de usuarios</a>
 										</li>
 										<li>
 											<a href="empleados.php">
 												<i class="fas fa-id-card"></i>Empleados</a>
 										</li>
 									</li>
+													</ul>
+												</div>
+										</li>
+										
+										
 									<li>
 										<a href="reportes.php">
 											<i class="fas fa-chart-bar"></i>Reportes</a>
-									</li>
-									<li>
-										<a href="index.php">
-											<i class="fas fa-power-off"></i>Cerrar sesion</a>
-									</li>
-									
+									</li>									
 							</ul>
 						</nav>
 					</div>
@@ -132,8 +136,11 @@ class Dashboard
 									<div class="header-button-item mr-0 js-sidebar-btn">
 										<i class="zmdi zmdi-menu"></i>
 									</div>
+									
 								</div>
+								
 							</div>
+							
 						</div>
 					</header>
 					<aside class="menu-sidebar2 js-right-sidebar d-block d-lg-none">
@@ -142,47 +149,55 @@ class Dashboard
 								<img src="../resources/img/logo.png" alt="PizzaNova" />
 							</a>
 						</div>
-						<div class="menu-sidebar2__content js-scrollbar2">
-							<div class="account2">
-								<div class="image img-cir img-120">
-									<img src="../resources/img/icon/avatar-big-01.jpg" alt="John Doe" />
-								</div>
-								<h4 class="name">john doe</h4>
-								<a href="index.php">Cerrar Sesión</a>
+						<div class="menu-sidebar2__content js-scrollbar1">
+						<div class="account2">
+							<div class="image img-cir img-120">
+								<img src="../resources/img/icon/avatar-big-01.jpg" alt="John Doe" />
 							</div>
+							<h4 class="name">john doe</h4>
+							<div class="row">
+								<a href="#modal-profile" class="modal-trigger" data-toggle="modal" onclick="modalProfile()"> <h6> <i class="fa fa-edit"></i> |</h6> </a>
+								<a href="#modal-password1" class="modal-trigger" data-toggle="modal"> <h6> | <i class="fa fa-key"></i> | </h6> </a>
+								<a href="#" onclick="signOff()"> <h6> | <i class="fa fa-sign-out-alt"></i></h6> </a>
+							</div>
+						</div>
 							<nav class="navbar-sidebar2">
-								<ul class="list-unstyled navbar__list">
-									<li>
-										<a href="inicio.php">
-											<i class="fas fa-tachometer-alt"></i>Vista General
-											<span class="arrow">
-
-											</span>
-										</a>
-									</li>
-									<li>
-										<a href="categorias.php">
-											<i class="fas fa-list"></i>Categorías</a>
-									</li>
-									<li>
-										<a href="productos.php">
-											<i class="fas fa-shopping-basket"></i>Productos</a>
-									</li>
-									<li>
-										<a href="usuarios.php">
-											<i class="fas fa-users"></i>Usuarios</a>
-									</li>
-									<li>
-										<a href="empleados.php">
-											<i class="fas fa-id-card"></i>Empleados</a>
-									</li>
-									</li>
-									<li>
-										<a href="reportes.php">
-											<i class="fas fa-chart-bar"></i>Reportes</a>
-									</li>
-								</ul>
-							</nav>
+							<ul class="list-unstyled navbar__list">
+								<li>
+									<a href="inicio.php">
+										<i class="fas fa-tachometer-alt"></i>Vista General
+									</a>
+								</li>
+								<li>
+									<a href="categorias.php">
+										<i class="fas fa-list"></i>Categorías</a>
+								</li>
+								<li>													
+									<a href="materia_prima.php">
+									<i class="fas fa-cart-plus"></i>Materia prima</a>
+								</li>
+								<li>
+									<a href="platillos.php">
+									<i class="fas fa-utensils"></i>Platillos</a>
+								</li>
+								<li>
+									<a href="usuarios.php">
+										<i class="fas fa-user-plus"></i>Usuarios</a>
+								</li>
+								<li>
+									<a href="tipo_usuarios.php">
+									<i class="fas fa-users"></i>Tipo de usuarios</a>
+								</li>
+								<li>
+									<a href="empleados.php">
+										<i class="fas fa-id-card"></i>Empleados</a>
+								</li>
+								<li>
+									<a href="reportes.php">
+										<i class="fas fa-chart-bar"></i>Reportes</a>
+								</li>
+							</ul>
+						</nav>
 						</div>
 					</aside>
 					<!-- Fin Menu Responsive-->
@@ -231,13 +246,12 @@ class Dashboard
             <script type="text/javascript" src="../core/controllers/account.js"></script>
 			<script type="text/javascript" src="../core/controllers/'.$controller.'"></script>
 			<script src="../resources/js/bootstrap-validate.js"></script>
+			<script>bootstrapValidate("#clave_actual_1", "min:6:Ingrese una contraseña mayor a 5 caracteres")</script>
+			<script>bootstrapValidate("#clave_actual_2", "min:6:Ingrese una contraseña mayor a 5 caracteres")</script>
+			<script>bootstrapValidate("#clave_nueva_1", "min:6:Ingrese una contraseña mayor a 5 caracteres")</script>
+			<script>bootstrapValidate("#clave_nueva_2", "min:6:Ingrese una contraseña mayor a 5 caracteres")</script>
+			<script>bootstrapValidate("#profile_alias", "required:Ingrese un nombre de usuario")</script>
 			
-			<script> bootstrapValidate("#create_clave1", "min:6:Ingrese una contraseña mayor a 5 caracteres") </script>
-
-
-</body>
-
-</html>
 		');
 	}
 	public static function inicio()
@@ -300,8 +314,9 @@ class Dashboard
 									<div class="col-sm-11">
 										<div class="custom-file">
 											<input type="file" class="custom-file-input" id="profile_foto"
-												name="profile_foto">
+												name="profile_foto" required>
 											<label class="custom-file-label" for="profile_foto">Escoga un archivo</label>
+											<div class="invalid-feedback">Example invalid custom file feedback</div>
 										</div>
 									</div>
 								</div>
@@ -372,7 +387,69 @@ class Dashboard
 							</div>
 						</form>
 					</div>
+				</div>
 			</div>
+
+			<div id="modal-password1" class="modal fade">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title">CAMBIAR CONTRASEÑA</h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+						</div>
+						<form method="post" id="form-password1">
+							<div class="modal-body">
+								<div class="row">
+									<div class="col-sm-1">
+										<i class="fa fa-user"></i>
+									</div>
+									<div class="col-sm-11">
+                            			<input id="clave_actual" type="password" name="clave_actual" class="form-control validate" required placeholder="Clave Actual">
+									</div>
+								</div>
+							</div>
+							<div class="modal-body">
+								<div class="row">
+									<div class="col-sm-1">
+										<i class="fa fa-user"></i>
+									</div>
+									<div class="col-sm-11">
+                            			<input id="clave_actual1" type="password" name="clave_actual1" class="form-control validate" required placeholder="Confirmar Clave">
+									</div>
+								</div>
+							</div>
+							<div class="modal-body">
+								<div class="row">
+									<div class="col-sm-1">
+										<i class="fa fa-user"></i>
+									</div>
+									<div class="col-sm-11">
+                            			<input id="clave_nueva" type="password" name="clave_nueva" class="form-control validate" required placeholder="Nueva Clave">
+									</div>
+								</div>
+							</div>
+							<div class="modal-body">
+								<div class="row">
+									<div class="col-sm-1">
+										<i class="fa fa-user"></i>
+									</div>
+									<div class="col-sm-11">
+                            			<input id="clave_nueva1" type="password" name="clave_nueva1" class="form-control validate" required placeholder="Confirmar Clave">
+									</div>
+								</div>
+							</div>
+								<div class="modal-body text-center">
+                    				<button type="button" class="btn btn-secondary tooltipped" data-tooltip="Cancelar" data-dismiss="modal">Cancelar</button>
+                    				<button type="submit" class="btn btn-primary tooltipped" data-tooltip="Cambiar">Guardar</button>
+                				</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
 		');
 	}
 }

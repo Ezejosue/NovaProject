@@ -16,7 +16,7 @@ function fillTable(rows)
         (row.estado_usuario == 1) ? icon = '<i class="fa fa-eye"></i>' : icon = '<i class="fa fa-eye-slash"></i>';
         content += `
             <tr>
-                <td><img src=" ../resources/img/usuarios/${row.foto_usuario} " > </td>
+                <td><img src=" ../resources/img/usuarios/${row.foto_usuario}"> </td>
                 <td>${row.alias}</td>
                 <td>${row.fecha_creacion}</td>
                 <td>${row.tipo}</td>
@@ -30,8 +30,6 @@ function fillTable(rows)
     });
     $('#tbody-read').html(content);
     table('#tabla-usuarios');
-    $('.materialboxed').materialbox();
-    $('.tooltipped').tooltip();
 }
 
 //Función para obtener y mostrar los registros disponibles
@@ -92,7 +90,6 @@ function showSelectTipo(idSelect, value)
             } else {
                 $('#' + idSelect).html('<option value="">No hay opciones</option>');
             }
-            $('select').formSelect();
         } else {
             console.log(response);
         }

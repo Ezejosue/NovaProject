@@ -42,11 +42,11 @@
                                 <br>
                                 <div class="row">
                                     <div class="col-sm-1">
-                                        <i class="fa fa-eye-slash"></i>
+                                        <i class="fa fa-eye-slash" hidden></i>
                                     </div>
                                     <div class="col-sm-11">
-                                        <div class="custom-control custom-switch">
-                                            <input type="checkbox" class="custom-control-input" id="estado" name="estado">
+                                        <div class="custom-control custom-switch" hidden>
+                                            <input type="checkbox" class="custom-control-input" id="estado" name="estado" checked>
 
                                             <label class="custom-control-label" for="estado">
                                                 <i class="fa fa-eye"></i>
