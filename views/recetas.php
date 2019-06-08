@@ -26,7 +26,7 @@
                             <th>TIEMPO</th>
                             <th>ELABORACIÓN</th>
                             <th>CATEGORIA</th>
-                            <th>MATERIA PRIMA</th>
+                            <th>MATERIA PRIMA</th> 
                             <th>MEDIDA</th>
                             <th>ACCIÓN</th>
                         </tr>
