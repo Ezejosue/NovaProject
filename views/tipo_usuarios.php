@@ -19,7 +19,8 @@
         <br>
         <div class="row">
             <div class="container">
-                <table class="display" id="tabla-tipo_usuarios">
+            <div class="table-responsive">
+                <table class="table"  id="tabla-tipo_usuarios" width="100%">
                     <thead>
                         <tr>
                             <th>NOMBRE</th>
@@ -33,6 +34,7 @@
                 </table>
             </div>
         </div>
+    </div>
     </div>
     <!-- Modals-->
     <!-- Modal de Agregar -->
@@ -149,26 +151,6 @@
                         <button type="submit" class="btn btn-primary tooltipped" data-tooltip="Crear">Aceptar</button>
                     </div>
                 </form>
-            </div>
-        </div>
-    </div>
-    <!-- Modal de Eliminar -->
-    <div class="modal fade" id="ventana3">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">ELIMINAR CATEGORIA</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <h6>¿Está seguro de que desea eliminar esta categoria?</h6>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-primary">Aceptar</button>
-                </div>
             </div>
         </div>
     </div>

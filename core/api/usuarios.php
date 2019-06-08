@@ -31,6 +31,50 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Usuario incorrecto';
                 }
                 break;
+            case 'readDataProducts':
+                if ($usuario->setId($_SESSION['idUsuario'])) {
+                    if ($result['dataset'] = $usuario->getCantidadProductos()) {
+                        $result['status'] = 1;
+                    } else {
+                        $result['exception'] = '';
+                    }
+                } else {
+                    $result['exception'] = 'Usuario incorrecto';
+                }
+                break;
+            case 'readDataCategories':
+                if ($usuario->setId($_SESSION['idUsuario'])) {
+                    if ($result['dataset'] = $usuario->getCantidadCategorias()) {
+                        $result['status'] = 1;
+                    } else {
+                        $result['exception'] = '';
+                    }
+                } else {
+                    $result['exception'] = 'Usuario incorrecto';
+                }
+                break;
+            case 'readDataUsers':
+                if ($usuario->setId($_SESSION['idUsuario'])) {
+                    if ($result['dataset'] = $usuario->getCantidadUsuarios()) {
+                        $result['status'] = 1;
+                    } else {
+                        $result['exception'] = '';
+                    }
+                } else {
+                    $result['exception'] = 'Usuario incorrecto';
+                }
+                break;
+            case 'readDataEmployees':
+                if ($usuario->setId($_SESSION['idUsuario'])) {
+                    if ($result['dataset'] = $usuario->getCantidadEmpleados()) {
+                        $result['status'] = 1;
+                    } else {
+                        $result['exception'] = '';
+                    }
+                } else {
+                    $result['exception'] = 'Usuario incorrecto';
+                }
+                break;
             //Operación para editar el perfil del usuario que ha iniciado sesión
             case 'editProfile':
                 if ($usuario->setId($_SESSION['idUsuario'])) {
@@ -128,6 +172,52 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'No hay usuarios registrados';
                 }
                 break;
+
+                //Operación para cambiar la contraseña del usuario que ha iniciado sesión
+            case 'password1':
+            //Se comprueba que el usuario haya iniciado sesión anteriormente
+                if ($usuario->setId($_SESSION['idUsuario'])) {
+                    $_POST = $usuario->validateForm($_POST);
+                    //Se comprueba que las claves actuales sean iguales
+                    if ($_POST['clave_actual'] == $_POST['clave_actual1']) {
+                        if ($usuario->setClave($_POST['clave_actual1'])) {
+                            if ($usuario->checkPassword()) {
+                                //Se comprueba que las nuevas claves sean iguales
+                                if ($_POST['clave_nueva'] == $_POST['clave_nueva1']) {
+                                    if ($usuario->setClave($_POST['clave_nueva'])) {
+                                        //Si todo está correcto se ejecuta el método para cambiar la contraseña, de lo contrario se muestra el mensaje de error
+                                        if ($usuario->changePassword()) {
+                                            $result['status'] = 1;
+                                        } else {
+                                            $result['exception'] = 'Operación fallida';
+                                        }
+                                    } else {
+                                        $result['exception'] = 'Clave nueva menor a 6 caracteres';
+                                    }
+                                } else {
+                                    $result['exception'] = 'Claves nuevas diferentes';
+                                }
+                            } else {
+                                $result['exception'] = 'Clave actual incorrecta';
+                            }
+                        } else {
+                            $result['exception'] = 'Clave actual menor a 6 caracteres';
+                        }
+                    } else {
+                        $result['exception'] = 'Claves actuales diferentes';
+                    }
+                } else {
+                    $result['exception'] = 'Usuario incorrecto';
+                }
+                break;
+            //Operación para comprobar que haya usuarios registrados
+            case 'read':
+                if ($result['dataset'] = $usuario->readUsuarios()) {
+                    $result['status'] = 1;
+                } else {
+                    $result['exception'] = 'No hay usuarios registrados';
+                }
+                break;
             //Operación para crear nuevos usuarios
             case 'create':
                 $_POST = $usuario->validateForm($_POST);
@@ -172,6 +262,7 @@ if (isset($_GET['action'])) {
                         $result['exception'] = 'Alias incorrecto';
                     }                                     
                 break;
+                
             //Operación para saber el usuario que se va a modificar
             case 'get':
                 if ($usuario->setId($_POST['id_usuario'])) {
@@ -297,19 +388,23 @@ if (isset($_GET['action'])) {
                 if ($usuario->setAlias($_POST['usuario'])) {
                     //Se comprueba que el alias exista en la base de datos
                     if ($usuario->checkAlias()) {
-                        //Se valida que la contraseña no sea menor a 6 caracteres
-                        if ($usuario->setClave($_POST['clave'])) {
-                            //Se comprueba que la contraseña coincida con el usuario a iniciar sesión
-                            if ($usuario->checkPassword()) {
-                                //Si todo está correcto se inicia sesión y se llenan las variables de sesión con el id y el alias
-                                $_SESSION['idUsuario'] = $usuario->getId();
-                                $_SESSION['aliasUsuario'] = $usuario->getAlias();
-                                $result['status'] = 1;
+                        if ($usuario->checkEstado()){
+                            //Se valida que la contraseña no sea menor a 6 caracteres
+                            if ($usuario->setClave($_POST['clave'])) {
+                                //Se comprueba que la contraseña coincida con el usuario a iniciar sesión
+                                if ($usuario->checkPassword()) {
+                                    //Si todo está correcto se inicia sesión y se llenan las variables de sesión con el id y el alias
+                                    $_SESSION['idUsuario'] = $usuario->getId();
+                                    $_SESSION['aliasUsuario'] = $usuario->getAlias();
+                                    $result['status'] = 1;
+                                } else {
+                                    $result['exception'] = 'Clave inexistente';
+                                }
                             } else {
-                                $result['exception'] = 'Clave inexistente';
+                                $result['exception'] = 'Clave menor a 6 caracteres';
                             }
                         } else {
-                            $result['exception'] = 'Clave menor a 6 caracteres';
+                            $result['exception'] = 'No tiene acceso al sistema';
                         }
                     } else {
                         $result['exception'] = 'Alias inexistente';

@@ -106,6 +106,7 @@ class Validator
 		}
 	}
 
+	
 	public function validateAlphabetic($value, $minimum, $maximum)
 	{
 		if (preg_match('/^[a-zA-ZñÑáÁéÉíÍóÓúÚ\s]{'.$minimum.','.$maximum.'}$/', $value)) {
@@ -124,9 +125,45 @@ class Validator
 		}
 	}
 
+	public function validateDui($value)
+	{
+		if (preg_match('/^[0-9]{8}+(-)+[0-9]{1}$/', $value)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public function validateTelefono($value)
+	{
+		if (preg_match('/^[0-9]{4}+(-)+[0-9]{4}$/', $value)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public function validateGenero($value)
+	{
+		if (preg_match('/^[MF]$/', $value)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	public function validateMoney($value)
 	{
 		if (preg_match('/^[0-9]+(?:\.[0-9]{1,2})?$/', $value)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public function validateDate($value)
+	{
+		if (!preg_match("/^(0?[1-9]|[12][0-9]|3[01])\/\.- \/\.- \d{2}$/", $value)) {
 			return true;
 		} else {
 			return false;

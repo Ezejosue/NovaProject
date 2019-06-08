@@ -2,11 +2,10 @@ $(document).ready(function()
 {
     showTable();
     showSelectCategoria('create_categoria', null);
-    showSelectReceta('create_receta', null);
 })
 
 //Constante para establecer la ruta y parámetros de comunicación con la API
-const apiPlatillos = '../core/api/platillos.php?site=private&action=';
+const apiMaterias = '../core/api/materia_prima.php?site=private&action=';
 
 //Función para llenar tabla con los datos de los registros
 function fillTable(rows)
@@ -17,28 +16,28 @@ function fillTable(rows)
         (row.estado == 1) ? icon = '<i class="fa fa-eye"></i>' : icon = '<i class="fa fa-eye-slash"></i>';
         content += `
             <tr>
-                <td><img src=" ../resources/img/platillos/${row.imagen}"></td>
-                <td>${row.nombre_platillo}</td>
-                <td>${row.precio}</td>
+                <td><img src=" ../resources/img/materia/${row.foto}"> </td>
+                <td>${row.nombre_materia}</td>
+                <td>${row.descripcion}</td>
+                <td>${row.cantidad}</td>
                 <td>${row.nombre_categoria}</td>
-                <td>${row.nombre_receta}</td>
                 <td><i class="material-icons">${icon}</i></td>
                 <td>
-                    <a href="#" onclick="modalUpdate(${row.id_platillo})" class="btn btn-info tooltipped" data-tooltip="Modificar"><i class="fa fa-edit"></i></a>
-                    <a href="#" onclick="confirmDelete(${row.id_platillo}, '${row.imagen}')" class="btn btn-danger tooltipped" data-tooltip="Eliminar"><i class="fa fa-times"></i></a>
+                    <a href="#" onclick="modalUpdate(${row.idMateria})" class="btn btn-info tooltipped" data-tooltip="Modificar"><i class="fa fa-edit"></i></a>
+                    <a href="#" onclick="confirmDelete(${row.idMateria}, '${row.foto}')" class="btn btn-danger tooltipped" data-tooltip="Eliminar"><i class="fa fa-times"></i></a>
                 </td>
             </tr>
         `;
     });
     $('#tbody-read').html(content);
-    table('#tabla-platillos');
+    table('#tabla-materia_prima');
 }
 
 //Función para obtener y mostrar los registros disponibles
 function showTable()
 {
     $.ajax({
-        url: apiPlatillos + 'read',
+        url: apiMaterias + 'read',
         type: 'post',
         data: null,
         datatype: 'json'
@@ -66,7 +65,7 @@ function showTable()
 function showSelectCategoria(idSelect, value)
 {
     $.ajax({
-        url: apiPlatillos + 'readCategoria',
+        url: apiMaterias + 'readCategoria',
         type: 'post',
         data: null,
         datatype: 'json'
@@ -101,52 +100,13 @@ function showSelectCategoria(idSelect, value)
         console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
     });
 }
-//Función para cargar los tipos de recetas en el select del formulario
-function showSelectReceta(idSelect, value)
-{
-    $.ajax({
-        url: apiPlatillos + 'readReceta',
-        type: 'post',
-        data: null,
-        datatype: 'json'
-    })
-    .done(function(response){
-        //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
-        if (isJSONString(response)) {
-            const result = JSON.parse(response);
-            //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
-            if (result.status) {
-                let content = '';
-                if (!value) {
-                    content += '<option value="" disabled selected>Seleccione una opción</option>';
-                }
-                result.dataset.forEach(function(row){
-                    if (row.id_receta != value) {
-                        content += `<option value="${row.id_receta}">${row.nombre_receta}</option>`;
-                    } else {
-                        content += `<option value="${row.id_receta}" selected>${row.nombre_receta}</option>`;
-                    }
-                });
-                $('#' + idSelect).html(content);
-            } else {
-                $('#' + idSelect).html('<option value="">No hay opciones</option>');
-            }
-        } else {
-            console.log(response);
-        }
-    })
-    .fail(function(jqXHR){
-        //Se muestran en consola los posibles errores de la solicitud AJAX
-        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
-    });
-}
 
 //Función para crear un nuevo registro
 $('#form-create').submit(function()
 {
     event.preventDefault();
     $.ajax({
-        url: apiPlatillos + 'create',
+        url: apiMaterias + 'create',
         type: 'post',
         data: new FormData($('#form-create')[0]),
         datatype: 'json',
@@ -162,9 +122,9 @@ $('#form-create').submit(function()
             if (result.status) {
                 $('#form-create')[0].reset();
                 $('#modal-create').modal('hide');
-                sweetAlert(1, 'Platillos creado correctamente', null);
+                sweetAlert(1, 'Materia prima creada correctamente', null);
                 //Se destruye la tabla de materias primas y se vuelve a crear para que muestre los cambios realizados
-                destroy('#tabla-platillos');
+                destroy('#tabla-materia_prima');
                 showTable();
             } else {
                 sweetAlert(2, result.exception, null);
@@ -181,14 +141,14 @@ $('#form-create').submit(function()
     });
 })
 
-//Función para mostrar formulario con registro a modificar de platillos
+//Función para mostrar formulario con registro a modificar
 function modalUpdate(id)
 {
     $.ajax({
-        url: apiPlatillos + 'get',
+        url: apiMaterias + 'get',
         type: 'post',
         data:{
-            id_platillo: id
+            idMateria: id
         },
         datatype: 'json'
     })
@@ -199,13 +159,13 @@ function modalUpdate(id)
             //Se comprueba si el resultado es satisfactorio para mostrar los valores en el formulario, sino se muestra la excepción
             if (result.status) {
                 $('#form-update')[0].reset();
-                $('#id_platillo').val(result.dataset.id_platillo);
-                $('#update_nombre_platillo').val(result.dataset.nombre_platillo);
-                $('#update_precio').val(result.dataset.precio);
+                $('#id_materia').val(result.dataset.idMateria);
+                $('#nombre_materia').val(result.dataset.nombre_materia);
+                $('#descripcion_materia').val(result.dataset.descripcion);
+                $('#cantidad').val(result.dataset.cantidad);
                 showSelectCategoria('update_categoria', result.dataset.id_categoria);
-                showSelectReceta('update_receta', result.dataset.id_receta);
-                $('#update_estado').val(result.dataset.estado);
-                $('#imagen').val(result.dataset.imagen);
+                $('#foto_materia').val(result.dataset.foto);
+                (result.dataset.estado == 1) ? $('#update_estado').prop('checked', true) : $('#update_estado').prop('checked', false);
                 $('#modal-update').modal('show');
             } else {
                 sweetAlert(2, result.exception, null);
@@ -225,7 +185,7 @@ $('#form-update').submit(function()
 {
     event.preventDefault();
     $.ajax({
-        url: apiPlatillos + 'update',
+        url: apiMaterias + 'update',
         type: 'post',
         data: new FormData($('#form-update')[0]),
         datatype: 'json',
@@ -240,9 +200,9 @@ $('#form-update').submit(function()
             //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
             if (result.status) {
                 $('#modal-update').modal('hide');
-                sweetAlert(1, 'Platillos modificada correctamente', null);
+                sweetAlert(1, 'Materia prima modificada correctamente', null);
                 //Se destruye la tabla de materias primas y se vuelve a crear para que muestre los cambios realizados
-                destroy('#tabla-platillos');
+                destroy('#tabla-materia_prima');
                 showTable();
             } else {
                 sweetAlert(2, result.exception, null);
@@ -273,10 +233,10 @@ function confirmDelete(id)
     .then(function(value){
         if (value) {
             $.ajax({
-                url: apiPlatillos + 'delete',
+                url: apiMaterias + 'delete',
                 type: 'post',
                 data:{
-                    id_platillo: id
+                    idMateria: id
                 },
                 datatype: 'json'
             })
@@ -286,8 +246,8 @@ function confirmDelete(id)
                     const result = JSON.parse(response);
                     //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
                     if (result.status) {
-                        sweetAlert(1, 'Platillos eliminado correctamente', null);
-                        destroy('#tabla-platillos');
+                        sweetAlert(1, 'Materia prima eliminada correctamente', null);
+                        destroy('#tabla-materia_prima');
                         showTable();
                     } else {
                         sweetAlert(2, result.exception, null);
@@ -295,7 +255,7 @@ function confirmDelete(id)
                 } else {
                     swal({
                         title: 'Advertencia',
-                        text: 'Registro ocupado, no se puede borrar platillos.',
+                        text: 'Registro ocupado, no se puede borrar materia prima.',
                         icon: 'error',
                         buttons: ['Aceptar'],
                         closeOnClickOutside: true,
@@ -315,7 +275,7 @@ function confirmDelete(id)
 function error2(response){
     switch (response){
         case 'Dato duplicado, no se puede guardar':
-            mensaje = 'Nombre de platillo ya existe';
+            mensaje = 'Nombre de materia prima ya existe';
             break;
         default:
             mensaje = 'Ocurrió un problema, consulte al administrador'

@@ -15,7 +15,7 @@ function fillTable(rows)
         (row.estado == 1) ? icon = '<i class="fa fa-eye"></i>' : icon = '<i class="fa fa-eye-slash"></i>';
         content += `
             <tr>
-                <td><img src="../resources/img/categorias/${row.foto_categoria}" class="materialboxed" height="100"></td>
+                <td><img src="../resources/img/categorias/${row.foto_categoria}"></td>
                 <td>${row.nombre_categoria}</td>
                 <td>${row.descripcion}</td>
                 <td><i class="material-icons">${icon}</i></td>
@@ -28,8 +28,6 @@ function fillTable(rows)
     });
     $('#tbody-read').html(content);
     table('#tabla-categorias');
-    $('.materialboxed').materialbox();
-    $('.tooltipped').tooltip();
 }
 
 //Función para obtener y mostrar los registros disponibles
@@ -205,7 +203,14 @@ function confirmDelete(id, file)
                         sweetAlert(2, result.exception, null);
                     }
                 } else {
-                    console.log(response);
+                    swal({
+                        title: 'Advertencia',
+                        text: 'Registro ocupado, no se puede borrar categoria',
+                        icon: 'error',
+                        buttons: ['Aceptar'],
+                        closeOnClickOutside: true,
+                        closeOnEsc: true
+                    })
                 }
             })
             .fail(function(jqXHR){

@@ -27,8 +27,6 @@ function fillTable(rows)
     });
     $('#tbody-read').html(content);
     table('#tabla-tipo_usuarios');
-    $('.materialboxed').materialbox();
-    $('.tooltipped').tooltip();
 }
 
 //Función para obtener y mostrar los registros disponibles
