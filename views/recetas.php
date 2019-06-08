@@ -22,7 +22,7 @@
                 <table class="display" id="tabla-recetas">
                     <thead>
                         <tr>
-                            <th>NOMBRE</th>
+                            <th>NOMBRE</th> 
                             <th>TIEMPO</th>
                             <th>ELABORACIÓN</th>
                             <th>CATEGORIA</th>

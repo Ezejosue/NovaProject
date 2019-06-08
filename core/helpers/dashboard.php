@@ -85,7 +85,7 @@ class Dashboard
 														<li>
 															<a href="recetas.php">
 															<i class="fas fa-shopping-basket"></i>Recetas</a>
-													</li>
+													</li> 
 													</ul>
 												</div>
                                     	</li>
