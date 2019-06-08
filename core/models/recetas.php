@@ -112,7 +112,7 @@ class Recetas extends Validator
 		$sql = 'SELECT id_receta, nombre_receta, tiempo, elaboracion, id_categoria, idMateria FROM receta ORDER BY nombre_receta';
 		$params = array(null);
 		return conexion::getRows($sql, $params);
-	}
+	} 
 
 	public function createRecetas()
 	{
