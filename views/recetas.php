@@ -56,7 +56,18 @@
                             </div>
                             <div class="col-sm-11">
                                 <input placeholder="Nombre de receta" class="form-control" id="create_nombre" name="create_nombre"
-                                    for="nombre_receta">
+                                    for="nombre_receta" require>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-1">
+                                <i class="fa fa-clock"></i>
+                            </div>
+                            <div class="col-sm-11">
+                                <input placeholder="Tiempo de elaboración" class="form-control" id="create_tiempo" name="create_tiempo"
+                                    for="tiempo" require>
                             </div>
                         </div>
                     </div>
@@ -77,8 +88,19 @@
                                 <i class="fa fa-file-alt"></i>
                             </div>
                             <div class="col-sm-11">
-                                <textarea placeholder="Tiempo de elaboración" class="form-control" id="create_tiempo"
-                                    name="create_tiempo" for="tiempo" rows="3"></textarea>
+                                <textarea placeholder="Elaboración" class="form-control" id="create_elab"
+                                    name="create_elab" for="elaboracion" rows="3" require></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-1">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="col-sm-11">
+                                <select id="create_categoria" name="create_categoria" class="form-control" require>
+                                </select>
                             </div>
                         </div>
                     </div>
