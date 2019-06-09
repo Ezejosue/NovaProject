@@ -1,4 +1,5 @@
 <?php
+//aqui es donde se llama la conexion, el modal de platillos y el archivo para validaciones
 require_once('../../core/helpers/conexion.php');
 require_once('../../core/helpers/validator.php');
 <<<<<<< HEAD
@@ -224,7 +225,8 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Platillo incorrecto';
                 }
                 break;
-            //Operación para actualizar un platillo
+            //Operación para actualizar un platillo donde se actualiza
+            //cada campos a operar
             case 'update':
 				$_POST = $platillo->validateForm($_POST);
 				if ($platillo->setId($_POST['id_platillo'])) {
@@ -284,7 +286,8 @@ if (isset($_GET['action'])) {
                         $result['exception'] = 'Platillo incorrecto';
                     }
                     break;
-            //Operación para eliminar un usuario
+            //Operación para eliminar un platillo esto lo hace atraves del id
+            //platillo que mandamos a traer desde el getId
             case 'delete':
             //El caso a elimiar es el de deleteplatillo
                     if ($platillo->setId($_POST['id_platillo'])) {

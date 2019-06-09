@@ -107,7 +107,7 @@ class Empleados extends Validator
 
     public function setNacimiento($value)
 	{
-		if ($this->validateDate($value)) {
+		if ($this->validateFecha($value)) {
 			$this->fecha_nacimiento = $value;
 			return true;
 		} else {
@@ -195,59 +195,59 @@ class Empleados extends Validator
         return $this->id_usuario;
     }
 
-    //Métodos para manejar la sesión del usuario
+    //Métodos para manejar SCRUD
     public function createEmpleado()
     {
-        $sql = 'INSERT INTO Empleados(nombre_empleado, apellido_empleado, dui, direccion, telefono, genero, fecha_nacimiento, nacionalidad, correo, id_cargo, id_usuario) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+        $sql = 'INSERT INTO empleados(nombre_empleado, apellido_empleado, dui, direccion, telefono, genero, fecha_nacimiento, nacionalidad, correo, id_cargo, id_usuario) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
         $params = array($this->nombre_empleado, $this->apellido_empleado, $this->dui, $this->direccion, $this->telefono, $this->genero, $this->fecha_nacimiento, $this->nacionalidad, $this->correo, $this->id_cargo, $this->id_usuario);
         return Conexion::executeRow($sql, $params);
     }
 
     public function getEmpleado()
     {
-        $sql = 'SELECT id_empleado, nombre_empleado, apellido_empleado, dui, direccion,  telefono, genero, fecha_nacimiento, nacionalidad, correo, id_cargo, id_usuario FROM Empleados WHERE id_empleado = ?';
+        $sql = 'SELECT id_empleado, nombre_empleado, apellido_empleado, dui, direccion,  telefono, genero, fecha_nacimiento, nacionalidad, correo, id_cargo, id_usuario FROM empleados WHERE id_empleado = ?';
         $params = array($this ->id);
         return Conexion::getRow($sql, $params);
     }
 
     public function readUsuarios()
     {
-        $sql = 'SELECT  id_usuario, alias FROM Usuarios ORDER BY alias';
+        $sql = 'SELECT  id_usuario, alias FROM usuarios ORDER BY alias';
 		$params = array($this->id_usuario);
 		return Conexion::getRows($sql, $params);
     }
 
     public function readEmpleados()
     {
-        $sql = 'SELECT id_empleado, nombre_empleado, apellido_empleado, dui, direccion, fecha_nacimiento From Empleados ORDER BY nombre_empleado';
+        $sql = 'SELECT id_empleado, nombre_empleado, apellido_empleado, dui, direccion, fecha_nacimiento From empleados ORDER BY nombre_empleado';
         $params = array(null);
         return Conexion::getRows($sql, $params);
     }
 
     public function searchEmpleados()
     {
-        $sql = 'SELECT * FROM Empleados WHERE nombre_empleado LIKE ? OR apellido_empleado LIKE ? ORDER BY nombre_empleado';
+        $sql = 'SELECT * FROM empleados WHERE nombre_empleado LIKE ? OR apellido_empleado LIKE ? ORDER BY nombre_empleado';
         $params = array("%$value%", "%$value%");
         return Conexion::getRows($sql, $params);
     }
 
     public function readCargo()
     {
-        $sql = 'SELECT id_cargo, nombre_Cargo FROM Cargo';
+        $sql = 'SELECT id_cargo, nombre_Cargo FROM cargo';
         $params = array(null);
         return Conexion::getRows($sql, $params);
     }
 
     public function updateEmpleado()
     {
-        $sql = 'UPDATE Empleados SET nombre_empleado = ?, apellido_empleado = ?, dui = ?, direccion = ?, telefono = ?, genero = ?, fecha_nacimiento = ?, nacionalidad = ?, correo = ?, id_cargo = ?, id_usuario = ? WHERE id_empleado = ?';
+        $sql = 'UPDATE empleados SET nombre_empleado = ?, apellido_empleado = ?, dui = ?, direccion = ?, telefono = ?, genero = ?, fecha_nacimiento = ?, nacionalidad = ?, correo = ?, id_cargo = ?, id_usuario = ? WHERE id_empleado = ?';
         $params = array($this->nombre_empleado, $this->apellido_empleado, $this->dui, $this->direccion, $this->telefono, $this->genero, $this->fecha_nacimiento, $this->nacionalidad, $this->correo, $this->id_cargo, $this->id_usuario, $this->id);
         return Conexion::executeRow($sql, $params);
     }
 
     public function deleteEmpleado()
     {
-        $sql = 'DELETE FROM Empleados WHERE id_empleado = ?';
+        $sql = 'DELETE FROM empleados WHERE id_empleado = ?';
         $params = array($this->id);
         return Conexion::executeRow($sql, $params);
     }
