@@ -89,7 +89,7 @@ class Dashboard
 													<li>
 															<a href="unidadmedida.php">
 															<i class="fas fa-cc"></i>Unidades de medida</a>
-													</li> 
+
 													</ul>
 												</div>
 										</li>
