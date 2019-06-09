@@ -170,6 +170,18 @@ class Validator
 		}
 	}
 
+	public function validateFecha($value)
+	{
+		$fecha = strtotime(date("01-01-2001"));
+		$value = strtotime($value);
+
+		if ($fecha > $value) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	public function validatePassword($value)
 	{
 		if (strlen($value) > 5) {

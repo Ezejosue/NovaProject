@@ -107,7 +107,7 @@ class Empleados extends Validator
 
     public function setNacimiento($value)
 	{
-		if ($this->validateDate($value)) {
+		if ($this->validateFecha($value)) {
 			$this->fecha_nacimiento = $value;
 			return true;
 		} else {
