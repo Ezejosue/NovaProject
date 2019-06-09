@@ -1,7 +1,7 @@
 <!-- SIDEBAR-->
 <?php
     require_once('../core/helpers/dashboard.php');
-    Dashboard::headerTemplate('Recetas');
+    Dashboard::headerTemplate('Unidades de medida');
 ?>
 <!-- Contenido-->
 <div class="main-content">
@@ -19,16 +19,12 @@
         <br>
         <div class="row">
             <div class="container">
-                <table class="display" id="tabla-recetas">
+                <table class="display" id="tabla-unidad">
                     <thead>
                         <tr>
                             <th>NOMBRE</th> 
-                            <th>TIEMPO</th>
-                            <th>ELABORACIÓN</th>
-                            <th>CATEGORIA</th>
-                            <th>MATERIA PRIMA</th> 
-                            <th>MEDIDA</th>
-                            <th>ACCIÓN</th>
+                            <th>ABREVIATURA</th>
+                            <th>ACCIONES</th>
                         </tr>
                     </thead>
                     <tbody id="tbody-read">
@@ -43,7 +39,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">AGREGAR RECETAS</h5>
+                    <h5 class="modal-title">AGREGAR UNIDAD DE MEDIDA</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -55,57 +51,19 @@
                                 <i class="fa fa-list"></i>
                             </div>
                             <div class="col-sm-11">
-                                <input placeholder="Nombre de receta" class="form-control" id="create_nombre" name="create_nombre"
-                                    for="nombre_receta" require>
+                                <input placeholder="Nombre de unidad" class="form-control" id="create_nombre" name="create_nombre"
+                                    for="nombre_medida" required>
                             </div>
                         </div>
                     </div>
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-1">
-                                <i class="fa fa-clock"></i>
+                                <i class="fa fa-cc"></i>
                             </div>
                             <div class="col-sm-11">
-                                <input placeholder="Tiempo de elaboración" class="form-control" id="create_tiempo" name="create_tiempo"
-                                    for="tiempo" require>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-sm-1">
-                                <i class="fa fa-file-alt"></i>
-                            </div>
-                            <div class="col-sm-11">
-                                <textarea placeholder="Elaboración" class="form-control" id="create_elab"
-                                    name="create_elab" for="elaboracion" rows="3" require></textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-sm-1">
-                                <i class="fas fa-users"></i>
-                            </div>
-                            <div class="col-sm-11">
-                                <select id="create_categoria" name="create_categoria" class="form-control" require>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-sm-1">
-                                <i class="fa fa-eye-slash"></i>
-                            </div>
-                            <div class="col-sm-11">
-                                <div class="custom-control custom-switch">
-                                    <input type="checkbox" class="custom-control-input" id="create_estado"
-                                        name="create_estado">
-                                    <label class="custom-control-label" for="create_estado">
-                                        <i class="fa fa-eye"></i>
-                                    </label>
-                                </div>
+                                <input placeholder="Abreviatura. Ejm:(Kg)" class="form-control" id="create_descripcion" name="create_descripcion"
+                                    for="descripcion" required>
                             </div>
                         </div>
                     </div>
@@ -122,21 +80,21 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">MODIFICAR CATEGORIAS</h5>
+                    <h5 class="modal-title">MODIFICAR UNIDAD</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <form method="post" id="form-update">
-                    <input type="hidden" id="id_tipo_usuario" name="id_tipo_usuario" />
+                    <input type="hidden" id="id_unidad" name="id_unidad" />
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-1">
                                 <i class="fa fa-user"></i>
                             </div>
                             <div class="col-sm-11">
-                                <input id="update_nombre_tipo" type="text" name="update_nombre_tipo"
-                                    class="validate form-control" placeholder="Tipo de usuario" required>
+                                <input id="update_unidad" type="text" name="update_unidad"
+                                    class="validate form-control" placeholder="Unidad de medida" required>
                             </div>
                         </div>
                     </div>
@@ -148,24 +106,7 @@
                             <div class="col-sm-11">
 
                                 <input id="update_descripcion" type="text" name="update_descripcion"
-                                    class="validate form-control" placeholder="Descripcion" required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-sm-1">
-                                <i class="fa fa-eye-slash"></i>
-                            </div>
-                            <div class="col-sm-11">
-                                <div class="custom-control custom-switch">
-                                    <input type="checkbox" class="custom-control-input" id="update_estado"
-                                        name="update_estado">
-
-                                    <label class="custom-control-label" for="update_estado">
-                                        <i class="fa fa-eye"></i>
-                                    </label>
-                                </div>
+                                    class="validate form-control" placeholder="Abreviatura. Ejm:(Kg)" required>
                             </div>
                         </div>
                     </div>
@@ -182,13 +123,13 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">ELIMINAR CATEGORIA</h5>
+                    <h5 class="modal-title">ELIMINAR UNIDAD</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <h6>¿Está seguro de que desea eliminar esta categoria?</h6>
+                    <h6>¿Está seguro de que desea eliminar esta unidad de medida?</h6>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
@@ -198,5 +139,5 @@
         </div>
     </div>
     <?php
-Dashboard::footerTemplate('recetas.js', '#tabla-recetas');
+Dashboard::footerTemplate('unidadmedida.js', '#tabla-unidad');
 ?>

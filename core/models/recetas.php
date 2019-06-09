@@ -13,7 +13,7 @@ class Recetas extends Validator
 	public function setIdReceta($value)
 	{
 		if ($this->validateId($value)) {
-			$this->id = $value;
+			$this->idreceta = $value;
 			return true;
 		} else {
 			return false;
