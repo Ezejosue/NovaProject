@@ -144,7 +144,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form method="post" id="form-update" enctype="multipart/form-data">
+                <form class="was-validated" method="post" id="form-update" enctype="multipart/form-data">
                     <input type="hidden" id="imagen" name="imagen" />
                     <input type="hidden" id="id_platillo" name="id_platillo" />
                     <div class="modal-body">
@@ -231,3 +231,9 @@
     <?php
 Dashboard::footerTemplate('platillos.js', '#tabla-platillos');
 ?>
+    <script>bootstrapValidate("#create_precio", "required:Ingrese un precio correcto")</script>
+    <script>bootstrapValidate('#create_platillos', 'required:Ingrese un nombre de un platillo')</script>
+
+    </body>
+
+    </html>
