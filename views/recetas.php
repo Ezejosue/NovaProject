@@ -63,6 +63,17 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-1">
+                                <i class="fa fa-list"></i>
+                            </div>
+                            <div class="col-sm-11">
+                                <input placeholder="Tiempo de elaboración" class="time" class="form-control" id="create_tiempo" name="create_tiempo"
+                                    for="tiempo">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-1">
                                 <i class="fa fa-file-alt"></i>
                             </div>
                             <div class="col-sm-11">
