@@ -57,7 +57,7 @@ function showTable() {
         });
 }
 
-//Función para cargar los tipos de usuario en el select del formulario
+//Función para cargar los cargos en el select del formulario
 function showSelectCargo(idSelect, value)
 {
     $.ajax({
@@ -97,6 +97,7 @@ function showSelectCargo(idSelect, value)
     });
 } 
 
+//Función para cargar los usuarios en el select del formulario
 function showSelectTipo1(idSelect, value)
 {
     $.ajax({
