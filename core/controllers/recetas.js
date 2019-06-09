@@ -2,11 +2,10 @@ $(document).ready(function()
 {
     showTable();
     showSelectCategoria('create_categoria', null);
-    showSelectReceta('create_receta', null);
 })
 
 //Constante para establecer la ruta y parámetros de comunicación con la API
-const apiPlatillos = '../core/api/platillos.php?site=private&action=';
+const apiRecetas = '../core/api/recetas.php?site=private&action=';
 
 //Función para llenar tabla con los datos de los registros
 function fillTable(rows)
@@ -31,14 +30,14 @@ function fillTable(rows)
         `;
     });
     $('#tbody-read').html(content);
-    table('#tabla-platillos');
+    table('#tabla-recetas');
 }
 
 //Función para obtener y mostrar los registros disponibles
 function showTable()
 {
     $.ajax({
-        url: apiPlatillos + 'read',
+        url: apiRecetas + 'read',
         type: 'post',
         data: null,
         datatype: 'json'
@@ -66,7 +65,7 @@ function showTable()
 function showSelectCategoria(idSelect, value)
 {
     $.ajax({
-        url: apiPlatillos + 'readCategoria',
+        url: apiRecetas + 'readCategoria',
         type: 'post',
         data: null,
         datatype: 'json'
@@ -105,7 +104,7 @@ function showSelectCategoria(idSelect, value)
 function showSelectReceta(idSelect, value)
 {
     $.ajax({
-        url: apiPlatillos + 'readReceta',
+        url: apiRecetas + 'readReceta',
         type: 'post',
         data: null,
         datatype: 'json'
@@ -146,7 +145,7 @@ $('#form-create').submit(function()
 {
     event.preventDefault();
     $.ajax({
-        url: apiPlatillos + 'create',
+        url: apiRecetas + 'create',
         type: 'post',
         data: new FormData($('#form-create')[0]),
         datatype: 'json',
@@ -185,7 +184,7 @@ $('#form-create').submit(function()
 function modalUpdate(id)
 {
     $.ajax({
-        url: apiPlatillos + 'get',
+        url: apiRecetas + 'get',
         type: 'post',
         data:{
             id_platillo: id
@@ -225,7 +224,7 @@ $('#form-update').submit(function()
 {
     event.preventDefault();
     $.ajax({
-        url: apiPlatillos + 'update',
+        url: apiRecetas + 'update',
         type: 'post',
         data: new FormData($('#form-update')[0]),
         datatype: 'json',
@@ -273,7 +272,7 @@ function confirmDelete(id)
     .then(function(value){
         if (value) {
             $.ajax({
-                url: apiPlatillos + 'delete',
+                url: apiRecetas + 'delete',
                 type: 'post',
                 data:{
                     id_platillo: id

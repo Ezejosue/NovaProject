@@ -1,13 +1,13 @@
 CREATE DATABASE IF NOT EXISTS PizzaNova;
 USE PizzaNova;
 
-CREATE TABLE TipoUsuario(
+CREATE TABLE tipousuario(
     id_Tipousuario INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     tipo VARCHAR(20),
     descripcion VARCHAR(1000),
     estado TINYINT (1) NOT NULL DEFAULT 1 comment '1 es activo 0 es inactivo');
 
-CREATE TABLE Categorias(
+CREATE TABLE categorias(
     id_categoria INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     nombre_categoria VARCHAR(50) NOT NULL,
     descripcion VARCHAR(1000) NOT NULL,
@@ -15,7 +15,7 @@ CREATE TABLE Categorias(
     estado TINYINT (1) NOT NULL DEFAULT 1 comment '1 es activo 0 es inactivo');
 
 
-CREATE TABLE Usuarios(
+CREATE TABLE usuarios(
     id_usuario INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     alias VARCHAR(50) NOT NULL,
     clave_usuario VARCHAR(60) NOT NULL,
@@ -23,13 +23,13 @@ CREATE TABLE Usuarios(
     fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     estado_usuario TINYINT (1) NOT NULL DEFAULT 1 comment '1 es activo 0 es inactivo',
     id_Tipousuario INT UNSIGNED,
-    FOREIGN KEY (id_Tipousuario) REFERENCES TipoUsuario(id_Tipousuario));
+    FOREIGN KEY (id_Tipousuario) REFERENCES tipousuario(id_Tipousuario));
 
-CREATE TABLE Cargo(
+CREATE TABLE cargo(
     id_Cargo INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     nombre_Cargo VARCHAR(50));
 
-CREATE TABLE Empleados(
+CREATE TABLE empleados(
     id_empleado INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     nombre_empleado VARCHAR(20) NOT NULL,
     apellido_empleado VARCHAR(20) NOT NULL,
@@ -41,18 +41,18 @@ CREATE TABLE Empleados(
     nacionalidad VARCHAR(50) NOT NULL,
     correo VARCHAR(100) NOT NULL,
     id_Cargo INT UNSIGNED,
-    FOREIGN KEY (id_Cargo) REFERENCES Cargo(id_Cargo),
+    FOREIGN KEY (id_Cargo) REFERENCES cargo(id_Cargo),
     id_usuario INT UNSIGNED,
-    FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario));
+    FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario));
 
-CREATE TABLE UnidadMedida(
+CREATE TABLE unidadmedida(
     id_Medida INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     nombre_medida VARCHAR(40) NOT NULL,
     descripcion VARCHAR(50)
 );
 
 
-CREATE TABLE MateriasPrimas(
+CREATE TABLE materiasprimas(
     idMateria INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     nombre_materia VARCHAR(50) NOT NULL,
     descripcion VARCHAR(50),
@@ -60,61 +60,61 @@ CREATE TABLE MateriasPrimas(
     foto VARCHAR(100),
     id_categoria INT UNSIGNED,
     estado TINYINT (1) NOT NULL DEFAULT 1 comment '1 es activo 0 es inactivo',
-    FOREIGN KEY (id_categoria) REFERENCES Categorias(id_categoria) 
+    FOREIGN KEY (id_categoria) REFERENCES categorias(id_categoria) 
 );
 
-CREATE TABLE Receta(
+CREATE TABLE receta(
     id_receta INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
     nombre_receta VARCHAR(1000) NOT NULL,
     tiempo VARCHAR(11) NOT NULL,
     elaboracion VARCHAR(350) NOT NULL,
     id_categoria INT UNSIGNED,
-    FOREIGN KEY (id_categoria) REFERENCES Categorias(id_categoria),
+    FOREIGN KEY (id_categoria) REFERENCES categorias(id_categoria),
     idMateria INT UNSIGNED,
-    FOREIGN KEY (idMateria) REFERENCES MateriasPrimas(idMateria)
+    FOREIGN KEY (idMateria) REFERENCES materiasprimas(idMateria)
 );
 
 
-CREATE TABLE Platillos(
+CREATE TABLE platillos(
     id_platillo INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     nombre_platillo VARCHAR(50) NOT NULL,
     precio DOUBLE(6,2),
     estado TINYINT (1) NOT NULL DEFAULT 1 comment '1 es activo 0 es inactivo',
     id_receta INT UNSIGNED,
-    FOREIGN KEY (id_receta) REFERENCES Receta(id_receta),
+    FOREIGN KEY (id_receta) REFERENCES receta(id_receta),
     id_categoria INT UNSIGNED,
     imagen VARCHAR(50),
-    FOREIGN KEY (id_categoria) REFERENCES Categorias(id_categoria) 
+    FOREIGN KEY (id_categoria) REFERENCES categorias(id_categoria) 
 );
 
-CREATE TABLE EncabezadoFactura(
+CREATE TABLE encabezadoFactura(
     id_EncabezadoFac INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     nombre_cliente VARCHAR(50),
     id_empleado INT UNSIGNED,
-    FOREIGN KEY (id_empleado) REFERENCES Empleados(id_empleado)    
+    FOREIGN KEY (id_empleado) REFERENCES empleados(id_empleado)    
 );
 
-CREATE TABLE DetalleFactura(
+CREATE TABLE detalleFactura(
     id_detallefac INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     cantidad INT,
     id_platillo INT UNSIGNED,
-    FOREIGN KEY (id_platillo) REFERENCES Platillos(id_platillo),
+    FOREIGN KEY (id_platillo) REFERENCES platillos(id_platillo),
     subtotal DOUBLE(6,2)
 ); 
 
-CREATE TABLE Bitacoras(
+CREATE TABLE bitacoras(
     id_bitacora INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     usuario VARCHAR(50),
     fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     accion VARCHAR(50) NOT NULL,
     id_usuario INT UNSIGNED,
-    FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario)
+    FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario)
 );
     
 
 
 --insert tipo usuarios
-INSERT INTO TipoUsuario(tipo, descripcion) VALUES
+INSERT INTO tipousuario(tipo, descripcion) VALUES
     ('Administrador','Tiene acceso a todas las funciones del programa web'),
     ('Empleado','Tiene acceso a todas las funciones del programa web menos la administracion de clientes');
 --final insert tipo usuarios

@@ -27,7 +27,7 @@
                                 <th>APELLIDO</th>
                                 <th>DUI</th>
                                 <th>DIRECCIÓN</th>
-                                <th>TELEFONO</th>
+                                <th>FECHA</th>
                                 <th>ACCIÓN</th>
                             </tr>
                         </thead>
@@ -97,7 +97,7 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-1">
-                             <i class="fas fa-phone-volume"></i>
+                            <i class="fas fa-phone-volume"></i>
                             </div>
                             <div class="col-sm-11">
                                 <input id="create_telefono" type="text" name="create_telefono"
@@ -124,7 +124,7 @@
                             </div>
                             <div class="col-sm-11">
                                 <input id="create_fecha" type="date" name="create_fecha" class="validate form-control"
-                                min="01/01/1919" max="31/12/2018">
+                                    placeholder="" required>
                             </div>
                         </div>
                     </div>
@@ -164,7 +164,7 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-1">
-                                <i class="fas fa-user"></i>
+                                <i class="fas fa-users"></i>
                             </div>
                             <div class="col-sm-11">
                                 <select id="create_usuario" name="create_usuario" class="form-control">
@@ -222,7 +222,7 @@
                                 </div>
                                 <div class="col-sm-11">
                                     <input id="update_dui" type="text" name="update_dui" class="validate form-control"
-                                        validate min="00000000" placeholder="00000000-0" required>
+                                     placeholder="00000000-0" required>
                                 </div>
                             </div>
                         </div>
@@ -240,11 +240,11 @@
                         <div class="modal-body">
                             <div class="row">
                                 <div class="col-sm-1">
-                                    <i class="fas fa-id-badge"></i>
+                                <i class="fas fa-phone-volume"></i>
                                 </div>
                                 <div class="col-sm-11">
                                     <input id="update_telefono" type="text" name="update_telefono"
-                                        class="validate form-control" validate min="00000000" placeholder="00000000"
+                                        class="validate form-control" validate placeholder="0000-0000"
                                         required>
                                 </div>
                             </div>
@@ -263,7 +263,7 @@
                         <div class="modal-body">
                             <div class="row">
                                 <div class="col-sm-1">
-                                    <i class="fas fa-venus-mars"></i>
+                                <i class="far fa-calendar-alt"></i>
                                 </div>
                                 <div class="col-sm-11">
                                     <input id="update_fecha" type="date" name="update_fecha"
@@ -299,7 +299,7 @@
                                     <i class="fas fa-male"></i>
                                 </div>
                                 <div class="col-sm-11">
-                                    <select id="create_cargo" name="create_cargo" class="form-control">
+                                    <select id="update_cargo" name="update_cargo" class="form-control">
                                     </select>
                                 </div>
                             </div>
@@ -307,10 +307,10 @@
                         <div class="modal-body">
                             <div class="row">
                                 <div class="col-sm-1">
-                                    <i class="fas fa-user"></i>
+                                    <i class="fas fa-users"></i>
                                 </div>
                                 <div class="col-sm-11">
-                                    <select id="create_usuario" name="create_usuario" class="form-control">
+                                    <select id="update_usuario" name="update_usuario" class="form-control">
                                     </select>
                                 </div>
                             </div>

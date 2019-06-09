@@ -82,6 +82,17 @@ class Dashboard
 															<a href="platillos.php">
 															<i class="fas fa-utensils"></i>Platillos</a>
 														</li>
+<<<<<<< HEAD
+=======
+														<li>
+															<a href="recetas.php">
+															<i class="fas fa-bars"></i>Recetas</a>
+													</li> 
+													<li>
+															<a href="unidadmedida.php">
+															<i class="fas fa-cc"></i>Unidades de medida</a>
+													</li> 
+>>>>>>> 3c31cb0... creando CRUD unidades  de medida, falta delete
 													</ul>
 												</div>
 										</li>
