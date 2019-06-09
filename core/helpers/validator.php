@@ -173,9 +173,10 @@ class Validator
 	public function validateFecha($value)
 	{
 		$fecha = strtotime(date("01-01-2001"));
+		$fmax = strtotime(date("01-01-1952"));
 		$value = strtotime($value);
 
-		if ($fecha > $value) {
+		if ($fecha > $value && $value > $fmax) {
 			return true;
 		} else {
 			return false;
