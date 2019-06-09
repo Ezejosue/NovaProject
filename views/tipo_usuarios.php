@@ -99,7 +99,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">MODIFICAR CATEGORIAS</h5>
+                    <h5 class="modal-title">MODIFICAR TIPO DE USUARIO</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -157,3 +157,30 @@
     <?php
 Dashboard::footerTemplate('tipo_usuario.js', '#tabla-tipo_usuarioss');
 ?>
+
+<script>
+        bootstrapValidate("#create_nombre", "min:3:Ingrese un tipo de usuario mayor a 3 caracteres",
+            "max:80:Ingrese un tipo de usuario menor de 80 caracteres")
+    </script>
+    <script>
+        bootstrapValidate("#create_descripcion", "min:6:Ingrese un tipo de usuario mayor de 6 caracteres",
+            "max:30:Ingrese una descripción menor a 30 caracteres")
+    </script>
+    <script>
+        bootstrapValidate('#create_nombre', 'required:Ingrese un tipo de usuario')
+    </script>
+    <script>
+        bootstrapValidate("#update_nombre_tipo", "min:3:Ingrese un tipo de usuario mayor a 3 caracteres",
+            "max:80:Ingrese un tipo de usuario menor de 80 caracteres")
+    </script>
+    <script>
+        bootstrapValidate("#update_descripcion", "min:6:Ingrese una descripción mayor de 6 caracteres",
+            "max:80:Ingrese una descripción menor a 80 caracteres")
+    </script>
+    <script>
+        bootstrapValidate('#update_nombre_tipo', 'required:Ingrese un tipo de usuario')
+    </script>
+
+    </body>
+
+    </html>

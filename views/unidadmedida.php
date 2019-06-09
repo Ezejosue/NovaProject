@@ -141,3 +141,31 @@
     <?php
 Dashboard::footerTemplate('unidadmedida.js', '#tabla-unidad');
 ?>
+
+
+<script>
+        bootstrapValidate("#create_nombre", "min:3:Ingrese un nombre mayor a 3 caracteres",
+            "max:30:Ingrese un nombre menor de 30 caracteres")
+    </script>
+    <script>
+        bootstrapValidate("#create_descripcion", "min:1:Ingrese una abreviación mayor de 0 caracteres",
+            "max:30:Ingrese una descripción menor a 30 caracteres")
+    </script>
+    <script>
+        bootstrapValidate('#create_nombre', 'required:Ingrese una unidad de medida')
+    </script>
+    <script>
+        bootstrapValidate("#update_unidad", "min:3:Ingrese un nombre mayor a 3 caracteres",
+            "max:30:Ingrese un nombre menor de 30 caracteres")
+    </script>
+    <script>
+        bootstrapValidate("#update_descripcion", "min:1:Ingrese una abreviación mayor de 0 caracteres",
+            "max:30:Ingrese una descripción menor a 30 caracteres")
+    </script>
+    <script>
+        bootstrapValidate('#update_unidad', 'required:Ingrese una categoria')
+    </script>
+
+    </body>
+
+    </html>
