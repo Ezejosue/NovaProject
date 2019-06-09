@@ -215,6 +215,7 @@
                                 <!-- vemos el campo para poder cambiar la imagen siempre en el modal de update platillos -->
                                     <input type="file" class="custom-file-input" id="update_imagen" name="update_imagen">
                                     <label class="custom-file-label" for="update_imagen">Escoga un archivo</label>
+                                    <div class="invalid-feedback">Tipo de archivo a subir invalido</div>
                                 </div>
                             </div>
                         </div>
