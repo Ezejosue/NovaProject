@@ -211,3 +211,7 @@
     <?php
 Dashboard::footerTemplate('recetas.js', '#tabla-recetas');
 ?>
+
+    </body>
+
+    </html>
