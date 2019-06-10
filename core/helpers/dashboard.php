@@ -171,11 +171,6 @@ class Dashboard
 										<i class="fas fa-tachometer-alt"></i>Vista General
 									</a>
 								</li>
-								<li>
-									<a href="#itemsDrop-responsive" data-toggle="collapse" class="collapsed"><i class="fab fa-dropbox"></i><span>
-									Productos</span></a>
-									<div id="itemsDrop-responsive" class="collapse">
-										<ul>
 											<li>
 												<a href="categorias.php">
 												<i class="fas fa-list"></i>Categorías</a>
@@ -196,14 +191,7 @@ class Dashboard
 												<a href="unidadmedida.php">
 												<i class="fas fa-balance-scale"></i>Unidades de medida</a>
 											</li> 
-										</ul>
-									</div>
-								</li>
-								<li>
-									<a href="#itemsDrop1" data-toggle="collapse" class="collapsed"><i class="fas fa-user-circle"></i><span>
-									Perfiles</span></a>
-										<div id="itemsDrop1" class="collapse">
-											<ul>
+								
 												<li>
 													<a href="usuarios.php">
 													<i class="fas fa-user-plus"></i>Usuarios</a>
@@ -217,9 +205,6 @@ class Dashboard
 													<i class="fas fa-id-card"></i>Empleados</a>
 												</li>
 												</li>
-											</ul>
-										</div>
-										</li>
 										<li>
 											<a href="reportes.php">
 											<i class="fas fa-chart-bar"></i>Reportes</a>
