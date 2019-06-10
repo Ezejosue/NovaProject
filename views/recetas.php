@@ -48,7 +48,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form method="post" id="form-create">
+                <form class="was-validated" method="post" id="form-create">
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-1">
@@ -56,7 +56,7 @@
                             </div>
                             <div class="col-sm-11">
                                 <input placeholder="Nombre de receta" class="form-control" id="create_nombre" name="create_nombre"
-                                    for="nombre_receta" require>
+                                    for="nombre_receta" required>
                             </div>
                         </div>
                     </div>
@@ -67,7 +67,7 @@
                             </div>
                             <div class="col-sm-11">
                                 <input placeholder="Tiempo de elaboración" class="form-control" id="create_tiempo" name="create_tiempo"
-                                    for="tiempo" require>
+                                    for="tiempo" required>
                             </div>
                         </div>
                     </div>
@@ -78,7 +78,7 @@
                             </div>
                             <div class="col-sm-11">
                                 <input placeholder="Tiempo de elaboración" class="time" class="form-control" id="create_tiempo" name="create_tiempo"
-                                    for="tiempo">
+                                    for="tiempo" required>
                             </div>
                         </div>
                     </div>
@@ -89,7 +89,7 @@
                             </div>
                             <div class="col-sm-11">
                                 <textarea placeholder="Elaboración" class="form-control" id="create_elab"
-                                    name="create_elab" for="elaboracion" rows="3" require></textarea>
+                                    name="create_elab" for="elaboracion" rows="3" required></textarea>
                             </div>
                         </div>
                     </div>

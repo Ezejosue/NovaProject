@@ -44,7 +44,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form method="post" id="form-create">
+                <form class="was-validated" method="post" id="form-create">
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-1">
