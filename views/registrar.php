@@ -25,17 +25,17 @@
                 <div class="login-wrap">
                     <div class="login-content">
                         <div class="login-form text-center">
-                            <form method="post" id="form-register">
+                            <form class="was-validated" method="post" id="form-register">
                                 <input id="alias" type="text" name="alias" class="validate form-control" placeholder="Nombre De Usuario" required>
                                 <br>
                                 <input id="clave1" type="password" name="clave1" class="validate form-control" placeholder="Contraseña" required>
                                 <br>
                                 <input id="clave2" type="password" name="clave2" class="validate form-control" placeholder="Repetir contraseña" required>
                                 <br>
-                                <select id="tipo" name="tipo" class="form-control"> </select>
+                                <select id="tipo" name="tipo" class="form-control" required> </select>
                                 <br>
                                 <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="archivo" name="archivo">
+                                    <input type="file" class="custom-file-input" id="archivo" name="archivo" required>
                                     <label class="custom-file-label" for="archivo">Escoga un archivo</label>
                                 </div>
                                 <br>
@@ -99,6 +99,21 @@
     <script type="text/javascript" src="../core/controllers/account.js"></script>
     <script type="text/javascript" src="../core/controllers/register.js"></script>
 
+    <script>
+        bootstrapValidate("clave1", "min:6:Ingrese una contraseña mayor a 5 caracteres")
+    </script>
+    <script>
+        bootstrapValidate("clave2", "min:6:Ingrese una contraseña mayor a 5 caracteres")
+    </script>
+    <script>
+        bootstrapValidate('alias', "min:3:Ingrese un nombre mayor a 3 caracteres")
+    </script>
+    <script>
+        bootstrapValidate('alias', 'required:Ingrese un nombre de usuario')
+    </script>
+     <script>
+        bootstrapValidate('tipo', 'required:Ingrese un tipo de usuario')
+    </script>
 </body>
 
 </html>

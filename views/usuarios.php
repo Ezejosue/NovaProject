@@ -91,7 +91,7 @@
                                 <i class="fas fa-users"></i>
                             </div>
                             <div class="col-sm-11">
-                                <select id="create_tipo" name="create_tipo" class="form-control">
+                                <select id="create_tipo" name="create_tipo" class="form-control" required>
                                 </select>
                             </div>
                         </div>
@@ -223,7 +223,16 @@ Dashboard::footerTemplate('usuarios.js', '#tabla-usuarios');
         bootstrapValidate("#create_clave2", "min:6:Ingrese una contraseña mayor a 5 caracteres")
     </script>
     <script>
+        bootstrapValidate('#create_alias', "min:3:Ingrese un nombre mayor a 3 caracteres")
+    </script>
+    <script>
         bootstrapValidate('#create_alias', 'required:Ingrese un nombre de usuario')
+    </script>
+     <script>
+        bootstrapValidate('#update_alias', 'required:Ingrese un nombre de usuario')
+    </script>
+    <script>
+        bootstrapValidate('#update_alias', "min:3:Ingrese un nombre mayor a 3 caracteres", "max:80:Ingrese un nombre menor a 80 caracteres")
     </script>
 
     </body>
