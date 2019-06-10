@@ -25,9 +25,6 @@
                             <th>NOMBRE</th> 
                             <th>TIEMPO</th>
                             <th>ELABORACIÓN</th>
-                            <th>CATEGORIA</th>
-                            <th>MATERIA PRIMA</th> 
-                            <th>MEDIDA</th>
                             <th>ACCIÓN</th>
                         </tr>
                     </thead>
@@ -48,7 +45,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form class="was-validated" method="post" id="form-create">
+                <form method="post" id="form-create">
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-1">
@@ -56,7 +53,7 @@
                             </div>
                             <div class="col-sm-11">
                                 <input placeholder="Nombre de receta" class="form-control" id="create_nombre" name="create_nombre"
-                                    for="nombre_receta" required>
+                                    for="nombre_receta" require>
                             </div>
                         </div>
                     </div>
@@ -67,7 +64,7 @@
                             </div>
                             <div class="col-sm-11">
                                 <input placeholder="Tiempo de elaboración" class="form-control" id="create_tiempo" name="create_tiempo"
-                                    for="tiempo" required>
+                                    for="tiempo" require>
                             </div>
                         </div>
                     </div>
@@ -78,6 +75,7 @@
                             </div>
                             <div class="col-sm-11">
 <<<<<<< HEAD
+<<<<<<< HEAD
                                 <input placeholder="Tiempo de elaboración" class="time" class="form-control" id="create_tiempo" name="create_tiempo"
                                     for="tiempo" required>
 =======
@@ -87,6 +85,14 @@
                                     </fieldset>
                                 </form>
 >>>>>>> 90358cd... avance de recetas
+=======
+                            <label><b>Lista de materias primas</b></label>
+                            <form method="post">
+                                <fieldset id="show_materias" name="materias">
+                                
+                                </fieldset>
+                            </form> 
+>>>>>>> 40d948a... estructura de modal create de recetas
                             </div>
                         </div>
                     </div>
@@ -97,37 +103,11 @@
                             </div>
                             <div class="col-sm-11">
                                 <textarea placeholder="Elaboración" class="form-control" id="create_elab"
-                                    name="create_elab" for="elaboracion" rows="3" required></textarea>
+                                    name="create_elab" for="elaboracion" rows="3" require></textarea>
                             </div>
                         </div>
                     </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-sm-1">
-                                <i class="fas fa-users"></i>
-                            </div>
-                            <div class="col-sm-11">
-                                <select id="create_categoria" name="create_categoria" class="form-control" require>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-sm-1">
-                                <i class="fa fa-eye-slash"></i>
-                            </div>
-                            <div class="col-sm-11">
-                                <div class="custom-control custom-switch">
-                                    <input type="checkbox" class="custom-control-input" id="create_estado"
-                                        name="create_estado">
-                                    <label class="custom-control-label" for="create_estado">
-                                        <i class="fa fa-eye"></i>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    
                     <div class="modal-body">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                         <button type="submit" class="btn btn-primary">Aceptar</button>
@@ -219,7 +199,3 @@
     <?php
 Dashboard::footerTemplate('recetas.js', '#tabla-recetas');
 ?>
-
-    </body>
-
-    </html>
