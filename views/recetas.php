@@ -79,7 +79,7 @@
                                 <fieldset id="show_materias" name="materias">
                                 
                                 </fieldset>
-                            </form> 
+                            </form>
                             </div>
                         </div>
                     </div>
