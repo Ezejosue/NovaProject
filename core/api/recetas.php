@@ -13,10 +13,10 @@ if (isset($_GET['action'])) {
         switch ($_GET['action']) {
             
             case 'read':
-                if ($result['dataset'] = $recetas->readMateriaPrima()) {
+                if ($result['dataset'] = $recetas->readRecetas()) {
                     $result['status'] = 1;
                 } else {
-                    $result['exception'] = 'No hay materia prima registradas';
+                    $result['exception'] = 'No hay recetas registradas';
                 }
                 break;
 
@@ -161,8 +161,8 @@ if (isset($_GET['action'])) {
                     }
                 break;
             //Operación para mostrar los tipos de usuario activos en el formulario de modificar usuario
-            case 'readCategoria':
-                if ($result['dataset'] = $recetas->readCategoriaMateria()) {
+            case 'readMateriaPrima':
+                if ($result['dataset'] = $recetas->readMateriaPrima()) {
                     $result['status'] = 1;
                 } else {
                     $result['exception'] = 'Contenido no disponible';

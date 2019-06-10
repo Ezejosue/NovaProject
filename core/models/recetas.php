@@ -142,10 +142,8 @@ class Recetas extends Validator
 	// Metodos para el manejo del SCRUD
 	public function readRecetas()
 	{
-		$sql = 'SELECT id_receta, nombre_receta, tiempo, elaboracion, m.nombre_materia, u.nombre_medida, r.cantidad 
+		$sql = 'SELECT id_receta, nombre_receta, tiempo, elaboracion
 				FROM receta r 
-				INNER JOIN materiasprimas m ON m.idMateria = r.idMateria 
-				INNER JOIN unidadmedida u ON u.id_Medida = m.id_Medida 
 				ORDER BY nombre_receta';
 		$params = array(null);
 		return conexion::getRows($sql, $params);
@@ -172,9 +170,9 @@ class Recetas extends Validator
 
 	public function readMateriaPrima()
 	{
-		$sql = 'SELECT idMateria, nombre_materia, u.nombre_medida 
+		$sql = 'SELECT idMateria, nombre_materia, u.descripcion 
 				FROM materiasprimas m 
-				INNER JOIN unidadmedida u
+				INNER JOIN unidadmedida u ON m.id_Medida = u.id_Medida
 				WHERE estado = 1';
 		$params = array(null);
 		return Conexion::getRows($sql, $params);
