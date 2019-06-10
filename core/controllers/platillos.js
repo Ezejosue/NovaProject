@@ -1,3 +1,4 @@
+//se declara la funcion para mostrar la tabla y tambien mandar a llamar el selectcategoria y el select receta
 $(document).ready(function()
 {
     showTable();
@@ -6,6 +7,7 @@ $(document).ready(function()
 })
 
 //Constante para establecer la ruta y parámetros de comunicación con la API
+//en este caso manda a llamar la api de platillos
 const apiPlatillos = '../core/api/platillos.php?site=private&action=';
 
 //Función para llenar tabla con los datos de los registros
@@ -14,6 +16,7 @@ function fillTable(rows)
     let content = '';
     //Se recorren las filas para armar el cuerpo de la tabla y se utiliza comilla invertida para escapar los caracteres especiales
     rows.forEach(function(row){
+        //aqui de delcara la funcion para que muestre los datos en el modal
         (row.estado == 1) ? icon = '<i class="fa fa-eye"></i>' : icon = '<i class="fa fa-eye-slash"></i>';
         content += `
             <tr>
@@ -35,6 +38,7 @@ function fillTable(rows)
 }
 
 //Función para obtener y mostrar los registros disponibles
+//se hace la funcion para poder tener los datos del showtable y lee de la apiplatillos los datos via ajax
 function showTable()
 {
     $.ajax({
