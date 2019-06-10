@@ -13,18 +13,14 @@ function fillTable(rows)
     let content = '';
     //Se recorren las filas para armar el cuerpo de la tabla y se utiliza comilla invertida para escapar los caracteres especiales
     rows.forEach(function(row){
-        (row.estado == 1) ? icon = '<i class="fa fa-eye"></i>' : icon = '<i class="fa fa-eye-slash"></i>';
         content += `
             <tr>
-                <td><img src=" ../resources/img/platillos/${row.imagen}"></td>
-                <td>${row.nombre_platillo}</td>
-                <td>${row.precio}</td>
-                <td>${row.nombre_categoria}</td>
                 <td>${row.nombre_receta}</td>
-                <td><i class="material-icons">${icon}</i></td>
+                <td>${row.tiempo}</td>
+                <td>${row.elaboracion}</td>
                 <td>
-                    <a href="#" onclick="modalUpdate(${row.id_platillo})" class="btn btn-info tooltipped" data-tooltip="Modificar"><i class="fa fa-edit"></i></a>
-                    <a href="#" onclick="confirmDelete(${row.id_platillo}, '${row.imagen}')" class="btn btn-danger tooltipped" data-tooltip="Eliminar"><i class="fa fa-times"></i></a>
+                    <a href="#" onclick="modalUpdate(${row.id_receta})" class="btn btn-info tooltipped" data-tooltip="Modificar"><i class="fa fa-edit"></i></a>
+                    <a href="#" onclick="confirmDelete(${row.id_receta})" class="btn btn-danger tooltipped" data-tooltip="Eliminar"><i class="fa fa-times"></i></a>
                 </td>
             </tr>
         `;
@@ -81,9 +77,18 @@ function showMateriasPrimas(idCheck)
                 result.dataset.forEach(function(row){
 
                         content += 
-                                `<input type="checkbox" name="materia" value="${row.idMateria}">${row.nombre_materia} (${row.nombre_medida})<br>`;
+                                `<label><input type="checkbox" name="materia" id="materia_prima" value="${row.idMateria}" required> ${row.nombre_materia} (${row.descripcion})</label>
+                                <label><input id="cantidad" type="number" name="cantidad" class="validate form-control"
+                                placeholder="Cantidad" max="100" min="1" disabled></label><br>`;
 
                 });
+                if ($("#materia_prima").on( 'change', function(){
+                    if( $(this).is(':checked') ) {
+                        // Hacer algo si el checkbox ha sido seleccionado
+                        $("#cantidad").removeAttr("disabled");
+                    } 
+
+                }));
                 $('#' + idCheck).html(content);
             } else {
                 $('#' + idCheck).html('<label>NO EXISTEN MATERIAS PRIMAS</label>');
@@ -97,6 +102,8 @@ function showMateriasPrimas(idCheck)
         console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
     });
 }
+
+
 
 //Función para crear un nuevo registro
 $('#form-create').submit(function()
