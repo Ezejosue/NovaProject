@@ -1,7 +1,7 @@
 $(document).ready(function()
 {
     showTable();
-    showSelectCategoria('create_categoria', null);
+    showMateriasPrimas('show_materias');
 })
 
 //Constante para establecer la ruta y parámetros de comunicación con la API
@@ -62,10 +62,10 @@ function showTable()
 }
 
 //Función para cargar los tipos de categorias en el select del formulario
-function showSelectCategoria(idSelect, value)
+function showMateriasPrimas(idCheck)
 {
     $.ajax({
-        url: apiRecetas + 'readCategoria',
+        url: apiRecetas + 'readMateriaPrima',
         type: 'post',
         data: null,
         datatype: 'json'
@@ -77,58 +77,16 @@ function showSelectCategoria(idSelect, value)
             //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
             if (result.status) {
                 let content = '';
-                if (!value) {
-                    content += '<option value="" disabled selected>Seleccione una opción</option>';
-                }
+
                 result.dataset.forEach(function(row){
-                    if (row.id_categoria != value) {
-                        content += `<option value="${row.id_categoria}">${row.nombre_categoria}</option>`;
-                    } else {
-                        content += `<option value="${row.id_categoria}" selected>${row.nombre_categoria}</option>`;
-                    }
+
+                        content += 
+                                `<input type="checkbox" name="materia" value="${row.idMateria}">${row.nombre_materia} (${row.nombre_medida})<br>`;
+
                 });
-                $('#' + idSelect).html(content);
+                $('#' + idCheck).html(content);
             } else {
-                $('#' + idSelect).html('<option value="">No hay opciones</option>');
-            }
-        } else {
-            console.log(response);
-        }
-    })
-    .fail(function(jqXHR){
-        //Se muestran en consola los posibles errores de la solicitud AJAX
-        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
-    });
-}
-//Función para cargar los tipos de recetas en el select del formulario
-function showSelectReceta(idSelect, value)
-{
-    $.ajax({
-        url: apiRecetas + 'readReceta',
-        type: 'post',
-        data: null,
-        datatype: 'json'
-    })
-    .done(function(response){
-        //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
-        if (isJSONString(response)) {
-            const result = JSON.parse(response);
-            //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
-            if (result.status) {
-                let content = '';
-                if (!value) {
-                    content += '<option value="" disabled selected>Seleccione una opción</option>';
-                }
-                result.dataset.forEach(function(row){
-                    if (row.id_receta != value) {
-                        content += `<option value="${row.id_receta}">${row.nombre_receta}</option>`;
-                    } else {
-                        content += `<option value="${row.id_receta}" selected>${row.nombre_receta}</option>`;
-                    }
-                });
-                $('#' + idSelect).html(content);
-            } else {
-                $('#' + idSelect).html('<option value="">No hay opciones</option>');
+                $('#' + idCheck).html('<label>NO EXISTEN MATERIAS PRIMAS</label>');
             }
         } else {
             console.log(response);

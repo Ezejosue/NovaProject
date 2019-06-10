@@ -6,8 +6,9 @@ class Recetas extends Validator
 	private $nombrereceta = null;
 	private $tiempo = null;
 	private $elaboracion = null;
-	private $idcategoria = null;
 	private $idmateria = null;
+	private $idmedida = null;
+	private $cantidad = null;
 
 	// Métodos para sobrecarga de propiedades
 	public function setIdReceta($value)
@@ -62,7 +63,7 @@ class Recetas extends Validator
 
 	public function setTiempo($value)
 	{
-		if($this->validateAlphanumeric($value, 1, 50)) {
+		if($this->validateAlphanumeric($value, 1, 500)) {
 			$this->tiempo = $value;
 			return true;
 		} else {
@@ -105,27 +106,78 @@ class Recetas extends Validator
 		return $this->idmateria;
 	}
 
+	public function setIdMedida($value)
+	{
+		if ($this->validateId($value)) {
+			$this->idmedida = $value;
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public function getIdMedida()
+	{
+		return $this->idmedida;
+	}
+
+	public function setCantidad($value)
+	{
+		if ($this->validateId($value)) {
+			$this->idmedida = $value;
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public function getCantidad()
+	{
+		return $this->idmedida;
+	}
+
+	
+
 
 	// Metodos para el manejo del SCRUD
 	public function readRecetas()
 	{
-		$sql = 'SELECT id_receta, nombre_receta, tiempo, elaboracion, id_categoria, idMateria FROM receta ORDER BY nombre_receta';
+		$sql = 'SELECT id_receta, nombre_receta, tiempo, elaboracion, m.nombre_materia, u.nombre_medida, r.cantidad 
+				FROM receta r 
+				INNER JOIN materiasprimas m ON m.idMateria = r.idMateria 
+				INNER JOIN unidadmedida u ON u.id_Medida = m.id_Medida 
+				ORDER BY nombre_receta';
 		$params = array(null);
 		return conexion::getRows($sql, $params);
 	} 
 
 	public function createRecetas()
 	{
-		$sql = 'INSERT INTO receta(nombre_receta, tiempo, elaboracion, id_categoria, idMateria) VALUES(?, ?, ?, ?, ?)';
-		$params = array($this->nombrereceta, $this->tiempo, $this->elaboracion, $this->idcategoria, $this->idmateria);
+		$sql = 'INSERT INTO receta(nombre_receta, tiempo, elaboracion, idMateria, cantidad) VALUES(?, ?, ?, ?, ?)';
+		$params = array($this->nombrereceta, $this->tiempo, $this->elaboracion, $this->idmateria, $this->cantidad);
 		return conexion::executeRow($sql, $params);
 	}
 
 	public function getReceta()
 	{
-		$sql = 'SELECT id_receta, nombre_receta, tiempo, elaboracion, id_categoria, idMateria FROM receta WHERE id_receta = ?';
+		$sql = 'SELECT id_receta, nombre_receta, tiempo, elaboracion, m.nombre_materia, u.nombre_medida, r.cantidad 
+				FROM receta r 
+				INNER JOIN materiasprimas m ON m.idMateria = r.idMateria 
+				INNER JOIN unidadmedida u ON u.id_Medida = m.id_Medida 
+				ORDER BY nombre_receta
+				WHERE id_receta = ?';
 		$params = array($this->idreceta);
 		return conexion::getRow($sql, $params);
+	}
+
+	public function readMateriaPrima()
+	{
+		$sql = 'SELECT idMateria, nombre_materia, u.nombre_medida 
+				FROM materiasprimas m 
+				INNER JOIN unidadmedida u
+				WHERE estado = 1';
+		$params = array(null);
+		return Conexion::getRows($sql, $params);
 	}
 
 	public function updateReceta()
