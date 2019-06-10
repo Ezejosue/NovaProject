@@ -22,11 +22,11 @@
                 <table class="display" id="tabla-recetas">
                     <thead>
                         <tr>
-                            <th>NOMBRE</th> 
+                            <th>NOMBRE</th>
                             <th>TIEMPO</th>
                             <th>ELABORACIÓN</th>
                             <th>CATEGORIA</th>
-                            <th>MATERIA PRIMA</th> 
+                            <th>MATERIA PRIMA</th>
                             <th>MEDIDA</th>
                             <th>ACCIÓN</th>
                         </tr>
@@ -55,8 +55,8 @@
                                 <i class="fa fa-list"></i>
                             </div>
                             <div class="col-sm-11">
-                                <input placeholder="Nombre de receta" class="form-control" id="create_nombre" name="create_nombre"
-                                    for="nombre_receta" required>
+                                <input placeholder="Nombre de receta" class="form-control" id="create_nombre"
+                                    name="create_nombre" for="nombre_receta" required>
                             </div>
                         </div>
                     </div>
@@ -66,8 +66,8 @@
                                 <i class="fa fa-clock"></i>
                             </div>
                             <div class="col-sm-11">
-                                <input placeholder="Tiempo de elaboración" class="form-control" id="create_tiempo" name="create_tiempo"
-                                    for="tiempo" required>
+                                <input placeholder="Tiempo de elaboración" class="form-control" id="create_tiempo"
+                                    name="create_tiempo" for="tiempo" required>
                             </div>
                         </div>
                     </div>
@@ -77,8 +77,13 @@
                                 <i class="fa fa-list"></i>
                             </div>
                             <div class="col-sm-11">
-                                <input placeholder="Tiempo de elaboración" class="time" class="form-control" id="create_tiempo" name="create_tiempo"
-                                    for="tiempo" required>
+                                <input placeholder="Tiempo de elaboración" class="time" class="form-control"
+                                    id="create_tiempo" name="create_tiempo" for="tiempo" required>
+                                <form method="post">
+                                    <fieldset id="show_materias">
+                                        <legend> Lista de materias primas </legend>
+                                    </fieldset>
+                                </form>
                             </div>
                         </div>
                     </div>
