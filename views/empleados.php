@@ -27,7 +27,7 @@
                                 <th>APELLIDO</th>
                                 <th>DUI</th>
                                 <th>DIRECCIÓN</th>
-                                <th>TELEFONO</th>
+                                <th>FECHA</th>
                                 <th>ACCIÓN</th>
                             </tr>
                         </thead>
@@ -49,7 +49,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form method="post" id="form-create" enctype="multipart/form-data">
+                <form class="was-validated" method="post" id="form-create" enctype="multipart/form-data">
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-1">
@@ -97,12 +97,11 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-1">
-                                <i class="fas fa-id-badge"></i>
+                                <i class="fas fa-phone-volume"></i>
                             </div>
                             <div class="col-sm-11">
                                 <input id="create_telefono" type="text" name="create_telefono"
-                                    class="validate form-control" validate min="00000000" placeholder="00000000"
-                                    required>
+                                    class="validate form-control" placeholder="0000-0000" required>
                             </div>
                         </div>
                     </div>
@@ -120,7 +119,7 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-1">
-                                <i class="fas fa-venus-mars"></i>
+                                <i class="far fa-calendar-alt"></i>
                             </div>
                             <div class="col-sm-11">
                                 <input id="create_fecha" type="date" name="create_fecha" class="validate form-control"
@@ -164,7 +163,7 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-1">
-                                <i class="fas fa-user"></i>
+                                <i class="fas fa-users"></i>
                             </div>
                             <div class="col-sm-11">
                                 <select id="create_usuario" name="create_usuario" class="form-control">
@@ -222,7 +221,7 @@
                                 </div>
                                 <div class="col-sm-11">
                                     <input id="update_dui" type="text" name="update_dui" class="validate form-control"
-                                        validate min="00000000" placeholder="00000000-0" required>
+                                        placeholder="00000000-0" required>
                                 </div>
                             </div>
                         </div>
@@ -240,12 +239,11 @@
                         <div class="modal-body">
                             <div class="row">
                                 <div class="col-sm-1">
-                                    <i class="fas fa-id-badge"></i>
+                                    <i class="fas fa-phone-volume"></i>
                                 </div>
                                 <div class="col-sm-11">
                                     <input id="update_telefono" type="text" name="update_telefono"
-                                        class="validate form-control" validate min="00000000" placeholder="00000000"
-                                        required>
+                                        class="validate form-control" validate placeholder="0000-0000" required>
                                 </div>
                             </div>
                         </div>
@@ -263,7 +261,7 @@
                         <div class="modal-body">
                             <div class="row">
                                 <div class="col-sm-1">
-                                    <i class="fas fa-venus-mars"></i>
+                                    <i class="far fa-calendar-alt"></i>
                                 </div>
                                 <div class="col-sm-11">
                                     <input id="update_fecha" type="date" name="update_fecha"
@@ -299,7 +297,7 @@
                                     <i class="fas fa-male"></i>
                                 </div>
                                 <div class="col-sm-11">
-                                    <select id="create_cargo" name="create_cargo" class="form-control">
+                                    <select id="update_cargo" name="update_cargo" class="form-control">
                                     </select>
                                 </div>
                             </div>
@@ -307,10 +305,10 @@
                         <div class="modal-body">
                             <div class="row">
                                 <div class="col-sm-1">
-                                    <i class="fas fa-user"></i>
+                                    <i class="fas fa-users"></i>
                                 </div>
                                 <div class="col-sm-11">
-                                    <select id="create_usuario" name="create_usuario" class="form-control">
+                                    <select id="update_usuario" name="update_usuario" class="form-control">
                                     </select>
                                 </div>
                             </div>
@@ -327,3 +325,66 @@
     <?php
 Dashboard::footerTemplate('empleados.js', '#tabla-empleados');
 ?>
+    <!-- validaciones del lado del cliente en el modal de agregar empleados -->
+    <script>
+        bootstrapValidate("#create_nombre", "min:3:Ingrese un nombre mayor a 3 caracteres",
+            "max:30:Ingrese un nombre menor de 30 caracteres")
+    </script>
+
+    <script>
+        bootstrapValidate("#create_apellido", " min:3:Ingrese un apellido mayor a 3 caracteres",
+            "max:30:Ingrese un nombre menor de 30 caracteres")
+    </script>
+    <script>
+        bootstrapValidate("#create_dui", "min:9:Ingrese su DUI completo.", "max:9:Ingrese su DUI completo.")
+    </script>
+    <script>
+        bootstrapValidate("#create_direccion", "min:5:Ingrese una dirección mayor a 5 caracteres",
+            "max:30:Ingrese una dirección menor de 30 caracteres")
+    </script>
+    <script>
+        bootstrapValidate("#create_telefono", "min:8:Ingrese un telefono mayor a 8 caracteres",
+            "max:12:Ingrese un telefono menor de 12 caracteres")
+    </script>
+    <script>
+        bootstrapValidate("#create_nacionalidad", "min:3:Ingrese una nacionalidad mayor a 3 caracteres",
+            "max:80:Ingrese una nacionalidad menor de 80 caracteres")
+    </script>
+    <script>
+        bootstrapValidate("#create_email", "min:20:Ingrese un correo mayor a 20 caracteres",
+            "max:100:Ingrese un correo menor de 100 caracteres")
+    </script>
+
+    <!-- validaciones del lado del cliente en el modal de modificar empleados -->
+    <script>
+        bootstrapValidate("#update_nombre", "min:3:Ingrese un nombre mayor a 3 caracteres",
+            "max:30:Ingrese un nombre menor de 30 caracteres")
+    </script>
+
+    <script>
+        bootstrapValidate("#update_apellido", "min:3:Ingrese un apellido mayor a 3 caracteres",
+            "max:30:Ingrese un apellido menor de 30 caracteres", )
+    </script>
+    <script>
+        bootstrapValidate("#update_dui", "min:9:Ingrese su DUI completo.", "max:9:Ingrese su DUI completo.")
+    </script>
+    <script>
+        bootstrapValidate("#update_direccion", "min:5:Ingrese una dirección mayor a 5 caracteres",
+            "max:30:Ingrese una direccion menor de 30 caracteres")
+    </script>
+    <script>
+        bootstrapValidate("#update_telefono", "min:8:Ingrese un telefono mayor a 8 caracteres",
+            "max:12:Ingrese un telefono menor de 12 caracteres")
+    </script>
+    <script>
+        bootstrapValidate("#update_nacionalidad", "min:3:Ingrese una nacionalidad mayor a 3 caracteres",
+            "max:80:Ingrese una nacionalidad menor de 80 caracteres")
+    </script>
+    <script>
+        bootstrapValidate("#update_email", "min:20:Ingrese un correo mayor a 20 caracteres",
+            "max:100:Ingrese un correo menor de 100 caracteres")
+    </script>
+
+    </body>
+
+    </html>

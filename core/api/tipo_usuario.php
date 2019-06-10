@@ -18,6 +18,8 @@ if (isset($_GET['action'])) {
 					$result['exception'] = 'No hay tipos de usuarios registrados';
 				}
 				break;
+
+				/* Operacion para crear un tipo_usuario */
 			case 'create':
 				$_POST = $tipo_usuario->validateForm($_POST);
         		if ($tipo_usuario->setNombre($_POST['create_nombre'])) {
@@ -39,7 +41,9 @@ if (isset($_GET['action'])) {
 				} else {
 					$result['exception'] = 'Nombre incorrecto';
 				}
-            	break;
+				break;
+				
+				/* Operacion para obtener el tipo_usuario */
             case 'get':
                 if ($tipo_usuario->setId($_POST['id_Tipousuario'])) {
                     if ($result['dataset'] = $tipo_usuario->getTipo_usuario()) {
@@ -50,7 +54,9 @@ if (isset($_GET['action'])) {
                 } else {
                     $result['exception'] = 'Tipo de usuario incorrecto';
                 }
-            	break;
+				break;
+				
+				/* Operacion para actualizar un tipo_usuario */
 			case 'update':
 				$_POST = $tipo_usuario->validateForm($_POST);
 				if ($tipo_usuario->setId($_POST['id_tipo_usuario'])) {
@@ -81,6 +87,8 @@ if (isset($_GET['action'])) {
 				}
 				break;
 				
+
+				/* Operacion para eliminar un tipo_usuario */
             case 'delete':
 				if ($tipo_usuario->setId($_POST['id_Tipousuario'])) {
 					if ($tipo_usuario->getTipo_usuario()) {

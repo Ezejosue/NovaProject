@@ -50,7 +50,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form method="post" id="form-create" enctype="multipart/form-data">
+                <form class="was-validated" method="post" id="form-create" enctype="multipart/form-data">
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-1">
@@ -91,7 +91,7 @@
                                 <i class="fas fa-users"></i>
                             </div>
                             <div class="col-sm-11">
-                                <select id="create_tipo" name="create_tipo" class="form-control">
+                                <select id="create_tipo" name="create_tipo" class="form-control" required>
                                 </select>
                             </div>
                         </div>
@@ -104,8 +104,9 @@
                             <div class="col-sm-11">
                                 <div class="custom-file">
                                     <input type="file" class="custom-file-input" id="create_archivo"
-                                        name="create_archivo">
+                                        name="create_archivo" required>
                                     <label class="custom-file-label" for="create_archivo">Escoga un archivo</label>
+                                    <div class="invalid-feedback">Por favor seleccione una imagen</div>
                                 </div>
                             </div>
                         </div>
@@ -140,7 +141,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">MODIFICAR PRODUCTO</h5>
+                    <h5 class="modal-title">MODIFICAR USUARIO</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -212,13 +213,28 @@
         </div>
     </div>
 
-<?php
+    <?php
 Dashboard::footerTemplate('usuarios.js', '#tabla-usuarios');
 ?>
 
-    <script>bootstrapValidate("#create_clave1", "min:6:Ingrese una contraseña mayor a 5 caracteres")</script>
-    <script>bootstrapValidate("#create_clave2", "min:6:Ingrese una contraseña mayor a 5 caracteres")</script>
-    <script>bootstrapValidate('#create_alias', 'required:Ingrese un nombre de usuario')</script>
+    <script>
+        bootstrapValidate("#create_clave1", "min:6:Ingrese una contraseña mayor a 5 caracteres")
+    </script>
+    <script>
+        bootstrapValidate("#create_clave2", "min:6:Ingrese una contraseña mayor a 5 caracteres")
+    </script>
+    <script>
+        bootstrapValidate('#create_alias', "min:3:Ingrese un nombre mayor a 3 caracteres")
+    </script>
+    <script>
+        bootstrapValidate('#create_alias', 'required:Ingrese un nombre de usuario')
+    </script>
+     <script>
+        bootstrapValidate('#update_alias', 'required:Ingrese un nombre de usuario')
+    </script>
+    <script>
+        bootstrapValidate('#update_alias', "min:3:Ingrese un nombre mayor a 3 caracteres", "max:80:Ingrese un nombre menor a 80 caracteres")
+    </script>
 
     </body>
 

@@ -1,12 +1,11 @@
 $(document).ready(function()
 {
     showTable();
-    showSelectCategoria('create_categoria', 0);
-    showSelectUnidad('create_unidad', 0);
+    showSelectCategoria('create_categoria', null);
 })
 
 //Constante para establecer la ruta y parámetros de comunicación con la API
-const apiMaterias = '../core/api/materia_prima.php?site=private&action=';
+const apiRecetas = '../core/api/recetas.php?site=private&action=';
 
 //Función para llenar tabla con los datos de los registros
 function fillTable(rows)
@@ -17,29 +16,28 @@ function fillTable(rows)
         (row.estado == 1) ? icon = '<i class="fa fa-eye"></i>' : icon = '<i class="fa fa-eye-slash"></i>';
         content += `
             <tr>
-                <td><img src=" ../resources/img/materia/${row.foto}"> </td>
-                <td>${row.nombre_materia}</td>
-                <td>${row.descripcion}</td>
-                <td>${row.cantidad}</td>
+                <td><img src=" ../resources/img/platillos/${row.imagen}"></td>
+                <td>${row.nombre_platillo}</td>
+                <td>${row.precio}</td>
                 <td>${row.nombre_categoria}</td>
-                <td>${row.nombre_medida}</td>
+                <td>${row.nombre_receta}</td>
                 <td><i class="material-icons">${icon}</i></td>
                 <td>
-                    <a href="#" onclick="modalUpdate(${row.idMateria})" class="btn btn-info tooltipped" data-tooltip="Modificar"><i class="fa fa-edit"></i></a>
-                    <a href="#" onclick="confirmDelete(${row.idMateria}, '${row.foto}')" class="btn btn-danger tooltipped" data-tooltip="Eliminar"><i class="fa fa-times"></i></a>
+                    <a href="#" onclick="modalUpdate(${row.id_platillo})" class="btn btn-info tooltipped" data-tooltip="Modificar"><i class="fa fa-edit"></i></a>
+                    <a href="#" onclick="confirmDelete(${row.id_platillo}, '${row.imagen}')" class="btn btn-danger tooltipped" data-tooltip="Eliminar"><i class="fa fa-times"></i></a>
                 </td>
             </tr>
         `;
     });
     $('#tbody-read').html(content);
-    table('#tabla-materia_prima');
+    table('#tabla-recetas');
 }
 
 //Función para obtener y mostrar los registros disponibles
 function showTable()
 {
     $.ajax({
-        url: apiMaterias + 'read',
+        url: apiRecetas + 'read',
         type: 'post',
         data: null,
         datatype: 'json'
@@ -67,7 +65,7 @@ function showTable()
 function showSelectCategoria(idSelect, value)
 {
     $.ajax({
-        url: apiMaterias + 'readCategoria',
+        url: apiRecetas + 'readCategoria',
         type: 'post',
         data: null,
         datatype: 'json'
@@ -102,13 +100,11 @@ function showSelectCategoria(idSelect, value)
         console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
     });
 }
-
-
-//Función para cargar los tipos de unidad de medida en el select del formulario
-function showSelectUnidad(idSelect, value)
+//Función para cargar los tipos de recetas en el select del formulario
+function showSelectReceta(idSelect, value)
 {
     $.ajax({
-        url: apiMaterias + 'readUnidad',
+        url: apiRecetas + 'readReceta',
         type: 'post',
         data: null,
         datatype: 'json'
@@ -124,10 +120,10 @@ function showSelectUnidad(idSelect, value)
                     content += '<option value="" disabled selected>Seleccione una opción</option>';
                 }
                 result.dataset.forEach(function(row){
-                    if (row.id_categoria != value) {
-                        content += `<option value="${row.id_Medida}">${row.nombre_medida}</option>`;
+                    if (row.id_receta != value) {
+                        content += `<option value="${row.id_receta}">${row.nombre_receta}</option>`;
                     } else {
-                        content += `<option value="${row.id_Medida}" selected>${row.nombre_medida}</option>`;
+                        content += `<option value="${row.id_receta}" selected>${row.nombre_receta}</option>`;
                     }
                 });
                 $('#' + idSelect).html(content);
@@ -149,7 +145,7 @@ $('#form-create').submit(function()
 {
     event.preventDefault();
     $.ajax({
-        url: apiMaterias + 'create',
+        url: apiRecetas + 'create',
         type: 'post',
         data: new FormData($('#form-create')[0]),
         datatype: 'json',
@@ -165,9 +161,9 @@ $('#form-create').submit(function()
             if (result.status) {
                 $('#form-create')[0].reset();
                 $('#modal-create').modal('hide');
-                sweetAlert(1, 'Materia prima creada correctamente', null);
+                sweetAlert(1, 'Platillos creado correctamente', null);
                 //Se destruye la tabla de materias primas y se vuelve a crear para que muestre los cambios realizados
-                destroy('#tabla-materia_prima');
+                destroy('#tabla-platillos');
                 showTable();
             } else {
                 sweetAlert(2, result.exception, null);
@@ -184,14 +180,14 @@ $('#form-create').submit(function()
     });
 })
 
-//Función para mostrar formulario con registro a modificar
+//Función para mostrar formulario con registro a modificar de platillos
 function modalUpdate(id)
 {
     $.ajax({
-        url: apiMaterias + 'get',
+        url: apiRecetas + 'get',
         type: 'post',
         data:{
-            idMateria: id
+            id_platillo: id
         },
         datatype: 'json'
     })
@@ -201,16 +197,14 @@ function modalUpdate(id)
             const result = JSON.parse(response);
             //Se comprueba si el resultado es satisfactorio para mostrar los valores en el formulario, sino se muestra la excepción
             if (result.status) {
-                console.log(result.dataset);
                 $('#form-update')[0].reset();
-                $('#id_materia').val(result.dataset.idMateria);
-                $('#nombre_materia').val(result.dataset.nombre_materia);
-                $('#descripcion_materia').val(result.dataset.descripcion);
-                $('#cantidad').val(result.dataset.cantidad);
+                $('#id_platillo').val(result.dataset.id_platillo);
+                $('#update_nombre_platillo').val(result.dataset.nombre_platillo);
+                $('#update_precio').val(result.dataset.precio);
                 showSelectCategoria('update_categoria', result.dataset.id_categoria);
-                showSelectUnidad('update_unidad', result.dataset.id_Medida);
-                $('#foto_materia').val(result.dataset.foto);
-                (result.dataset.estado == 1) ? $('#update_estado').prop('checked', true) : $('#update_estado').prop('checked', false);
+                showSelectReceta('update_receta', result.dataset.id_receta);
+                $('#update_estado').val(result.dataset.estado);
+                $('#imagen').val(result.dataset.imagen);
                 $('#modal-update').modal('show');
             } else {
                 sweetAlert(2, result.exception, null);
@@ -230,7 +224,7 @@ $('#form-update').submit(function()
 {
     event.preventDefault();
     $.ajax({
-        url: apiMaterias + 'update',
+        url: apiRecetas + 'update',
         type: 'post',
         data: new FormData($('#form-update')[0]),
         datatype: 'json',
@@ -245,9 +239,9 @@ $('#form-update').submit(function()
             //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
             if (result.status) {
                 $('#modal-update').modal('hide');
-                sweetAlert(1, 'Materia prima modificada correctamente', null);
+                sweetAlert(1, 'Platillos modificada correctamente', null);
                 //Se destruye la tabla de materias primas y se vuelve a crear para que muestre los cambios realizados
-                destroy('#tabla-materia_prima');
+                destroy('#tabla-platillos');
                 showTable();
             } else {
                 sweetAlert(2, result.exception, null);
@@ -278,10 +272,10 @@ function confirmDelete(id)
     .then(function(value){
         if (value) {
             $.ajax({
-                url: apiMaterias + 'delete',
+                url: apiRecetas + 'delete',
                 type: 'post',
                 data:{
-                    idMateria: id
+                    id_platillo: id
                 },
                 datatype: 'json'
             })
@@ -291,8 +285,8 @@ function confirmDelete(id)
                     const result = JSON.parse(response);
                     //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
                     if (result.status) {
-                        sweetAlert(1, 'Materia prima eliminada correctamente', null);
-                        destroy('#tabla-materia_prima');
+                        sweetAlert(1, 'Platillos eliminado correctamente', null);
+                        destroy('#tabla-platillos');
                         showTable();
                     } else {
                         sweetAlert(2, result.exception, null);
@@ -300,7 +294,7 @@ function confirmDelete(id)
                 } else {
                     swal({
                         title: 'Advertencia',
-                        text: 'Registro ocupado, no se puede borrar materia prima.',
+                        text: 'Registro ocupado, no se puede borrar platillos.',
                         icon: 'error',
                         buttons: ['Aceptar'],
                         closeOnClickOutside: true,
@@ -320,7 +314,7 @@ function confirmDelete(id)
 function error2(response){
     switch (response){
         case 'Dato duplicado, no se puede guardar':
-            mensaje = 'Nombre de materia prima ya existe';
+            mensaje = 'Nombre de platillo ya existe';
             break;
         default:
             mensaje = 'Ocurrió un problema, consulte al administrador'

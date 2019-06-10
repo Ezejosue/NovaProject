@@ -4,7 +4,7 @@ $(document).ready(function()
 })
 
 // Constante para establecer la ruta y parámetros de comunicación con la API
-const apiCategorias = '../core/api/categorias.php?site=private&action=';
+const apiUnidad = '../core/api/unidadmedida.php?site=private&action=';
 
 // Función para llenar tabla con los datos de los registros
 function fillTable(rows)
@@ -12,29 +12,26 @@ function fillTable(rows)
     let content = '';
     //Se recorren las filas para armar el cuerpo de la tabla y se utiliza comilla invertida para escapar los caracteres especiales
     rows.forEach(function(row){
-        (row.estado == 1) ? icon = '<i class="fa fa-eye"></i>' : icon = '<i class="fa fa-eye-slash"></i>';
         content += `
             <tr>
-                <td><img src="../resources/img/categorias/${row.foto_categoria}"></td>
-                <td>${row.nombre_categoria}</td>
+                <td>${row.nombre_medida}</td>
                 <td>${row.descripcion}</td>
-                <td><i class="material-icons">${icon}</i></td>
                 <td>
-                    <a href="#" onclick="modalUpdate(${row.id_categoria})" class="btn btn-info tooltipped" data-tooltip="Modificar"><i class="fa fa-edit"></i></a>
-                    <a href="#" onclick="confirmDelete(${row.id_categoria}, '${row.foto_categoria}')" class="btn btn-danger tooltipped" data-tooltip="Eliminar"><i class="fa fa-times"></i></a>
+                    <a href="#" onclick="modalUpdate(${row.id_Medida})" class="btn btn-info tooltipped" data-tooltip="Modificar"><i class="fa fa-edit"></i></a>
+                    <a href="#" onclick="confirmDelete(${row.id_Medida})" class="btn btn-danger tooltipped" data-tooltip="Eliminar"><i class="fa fa-times"></i></a>
                 </td>
             </tr>
         `;
     });
     $('#tbody-read').html(content);
-    table('#tabla-categorias');
+    table('#tabla-unidad');
 }
 
 //Función para obtener y mostrar los registros disponibles
 function showTable()
 {
     $.ajax({
-        url: apiCategorias + 'read',
+        url: apiUnidad + 'read',
         type: 'post',
         data: null,
         datatype: 'json'
@@ -63,7 +60,7 @@ $('#form-create').submit(function()
     event.preventDefault();
 
     $.ajax({
-        url: apiCategorias + 'create',
+        url: apiUnidad + 'create',
         type: 'post',
         data: new FormData($('#form-create')[0]),
         datatype: 'json',
@@ -80,13 +77,15 @@ $('#form-create').submit(function()
                 $('#form-create')[0].reset();
                 sweetAlert(1, result.message, null);
                 $('#modal-create').modal('hide');
-                destroy('#tabla-categorias');
+                destroy('#tabla-unidad');
                 showTable();
             } else {
                 sweetAlert(2, result.exception, null);
             }
         } else {
             console.log(response);
+            //Se comprueba que el alias no sea repetido
+            sweetAlert(2, error2(response), null);
         }
     })
     .fail(function(jqXHR){
@@ -99,10 +98,10 @@ $('#form-create').submit(function()
 function modalUpdate(id)
 {
     $.ajax({
-        url: apiCategorias + 'get',
+        url: apiUnidad + 'get',
         type: 'post',
         data:{
-            id_categoria: id
+            id_Medida: id
         },
         datatype: 'json'
     })
@@ -113,11 +112,9 @@ function modalUpdate(id)
             //Se comprueba si el resultado es satisfactorio para mostrar los valores en el formulario, sino se muestra la excepción
             if (result.status) {
                 $('#form-update')[0].reset();
-                $('#id_categoria').val(result.dataset.id_categoria);
-                $('#foto_categoria').val(result.dataset.foto_categoria);
-                $('#update_nombre_categoria').val(result.dataset.nombre_categoria);
+                $('#id_unidad').val(result.dataset.id_Medida);
+                $('#update_unidad').val(result.dataset.nombre_medida);
                 $('#update_descripcion').val(result.dataset.descripcion);
-                (result.dataset.estado == 1) ? $('#update_estado').prop('checked', true) : $('#update_estado').prop('checked', false);
                 $('#modal-update').modal('show');
             } else {
                 sweetAlert(2, result.exception, null);
@@ -137,7 +134,7 @@ $('#form-update').submit(function()
 {
     event.preventDefault();
     $.ajax({
-        url: apiCategorias + 'update',
+        url: apiUnidad + 'update',
         type: 'post',
         data: new FormData($('#form-update')[0]),
         datatype: 'json',
@@ -153,7 +150,7 @@ $('#form-update').submit(function()
             if (result.status) {
                 $('#modal-update').modal('hide');
                 sweetAlert(1, result.message, null);
-                destroy('#tabla-categorias');
+                destroy('#tabla-unidad');
                 showTable();
             } else {
                 sweetAlert(2, result.exception, null);
@@ -169,11 +166,11 @@ $('#form-update').submit(function()
 })
 
 // Función para eliminar un registro seleccionado
-function confirmDelete(id, file)
+function confirmDelete(id)
 {
     swal({
         title: 'Advertencia',
-        text: '¿Quiere eliminar la categoría?',
+        text: '¿Quiere eliminar esta materia prima?',
         icon: 'warning',
         buttons: ['Cancelar', 'Aceptar'],
         closeOnClickOutside: false,
@@ -182,22 +179,21 @@ function confirmDelete(id, file)
     .then(function(value){
         if (value) {
             $.ajax({
-                url: apiCategorias + 'delete',
+                url: apiUnidad + 'delete',
                 type: 'post',
                 data:{
-                    id_categoria: id,
-                    foto_categoria: file
+                    id_Medida: id
                 },
                 datatype: 'json'
             })
             .done(function(response){
-                // Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+                //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
                 if (isJSONString(response)) {
                     const result = JSON.parse(response);
-                    // Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
+                    //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
                     if (result.status) {
-                        sweetAlert(1, result.message, null);
-                        destroy('#tabla-categorias');
+                        sweetAlert(1, 'Unidad de medida eliminada correctamente', null);
+                        destroy('#tabla-unidad');
                         showTable();
                     } else {
                         sweetAlert(2, result.exception, null);
@@ -205,7 +201,7 @@ function confirmDelete(id, file)
                 } else {
                     swal({
                         title: 'Advertencia',
-                        text: 'Registro ocupado, no se puede borrar categoria',
+                        text: 'Registro ocupado, no se puede borrar la unidad de medida.',
                         icon: 'error',
                         buttons: ['Aceptar'],
                         closeOnClickOutside: true,
@@ -214,9 +210,23 @@ function confirmDelete(id, file)
                 }
             })
             .fail(function(jqXHR){
-                // Se muestran en consola los posibles errores de la solicitud AJAX
+                //Se muestran en consola los posibles errores de la solicitud AJAX
                 console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
             });
         }
     });
+}
+
+
+//Función para verificar que nombre de la categoria no se repita ya que es un dato de tipo único
+function error2(response){
+    switch (response){
+        case 'Dato duplicado, no se puede guardar':
+            mensaje = 'Nombre de materia prima ya existe';
+            break;
+        default:
+            mensaje = 'Ocurrió un problema, consulte al administrador'
+            break;
+    }
+    return mensaje;
 }

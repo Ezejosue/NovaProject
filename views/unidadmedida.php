@@ -1,7 +1,7 @@
 <!-- SIDEBAR-->
 <?php
     require_once('../core/helpers/dashboard.php');
-    Dashboard::headerTemplate('Tipo de usuarios');
+    Dashboard::headerTemplate('Unidades de medida');
 ?>
 <!-- Contenido-->
 <div class="main-content">
@@ -19,14 +19,12 @@
         <br>
         <div class="row">
             <div class="container">
-            <div class="table-responsive">
-                <table class="table"  id="tabla-tipo_usuarios" width="100%">
+                <table class="display" id="tabla-unidad">
                     <thead>
                         <tr>
-                            <th>NOMBRE</th>
-                            <th>DESCRIPCION</th>
-                            <th>ESTADO</th>
-                            <th>ACCIÓN</th>
+                            <th>NOMBRE</th> 
+                            <th>ABREVIATURA</th>
+                            <th>ACCIONES</th>
                         </tr>
                     </thead>
                     <tbody id="tbody-read">
@@ -35,54 +33,37 @@
             </div>
         </div>
     </div>
-    </div>
     <!-- Modals-->
     <!-- Modal de Agregar -->
     <div class="modal fade" id="modal-create">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">AGREGAR TIPO DE USUARIO</h5>
+                    <h5 class="modal-title">AGREGAR UNIDAD DE MEDIDA</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form method="post" id="form-create">
+                <form class="was-validated" method="post" id="form-create">
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-1">
                                 <i class="fa fa-list"></i>
                             </div>
                             <div class="col-sm-11">
-                                <input placeholder="Nombre" class="form-control" id="create_nombre" name="create_nombre"
-                                    for="nombre_categoria">
+                                <input placeholder="Nombre de unidad" class="form-control" id="create_nombre" name="create_nombre"
+                                    for="nombre_medida" required>
                             </div>
                         </div>
                     </div>
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-1">
-                                <i class="fa fa-file-alt"></i>
+                                <i class="fa fa-cc"></i>
                             </div>
                             <div class="col-sm-11">
-                                <textarea placeholder="Descripción" class="form-control" id="create_descripcion"
-                                    name="create_descripcion" for="descripcion" rows="3"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-sm-1">
-                                <i class="fa fa-eye-slash"></i>
-                            </div>
-                            <div class="col-sm-11">
-                                <div class="custom-control custom-switch">
-                                    <input type="checkbox" class="custom-control-input" id="create_estado"
-                                        name="create_estado">
-                                    <label class="custom-control-label" for="create_estado">
-                                        <i class="fa fa-eye"></i>
-                                    </label>
-                                </div>
+                                <input placeholder="Abreviatura. Ejm:(Kg)" class="form-control" id="create_descripcion" name="create_descripcion"
+                                    for="descripcion" required>
                             </div>
                         </div>
                     </div>
@@ -99,21 +80,21 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">MODIFICAR TIPO DE USUARIO</h5>
+                    <h5 class="modal-title">MODIFICAR UNIDAD</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form method="post" class="was-validated" id="form-update">
-                    <input type="hidden" id="id_tipo_usuario" name="id_tipo_usuario" />
+                <form method="post" id="form-update">
+                    <input type="hidden" id="id_unidad" name="id_unidad" />
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-1">
                                 <i class="fa fa-user"></i>
                             </div>
                             <div class="col-sm-11">
-                                <input id="update_nombre_tipo" type="text" name="update_nombre_tipo"
-                                    class="validate form-control" placeholder="Tipo de usuario" required>
+                                <input id="update_unidad" type="text" name="update_unidad"
+                                    class="validate form-control" placeholder="Unidad de medida" required>
                             </div>
                         </div>
                     </div>
@@ -125,24 +106,7 @@
                             <div class="col-sm-11">
 
                                 <input id="update_descripcion" type="text" name="update_descripcion"
-                                    class="validate form-control" placeholder="Descripcion" required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-sm-1">
-                                <i class="fa fa-eye-slash"></i>
-                            </div>
-                            <div class="col-sm-11">
-                                <div class="custom-control custom-switch">
-                                    <input type="checkbox" class="custom-control-input" id="update_estado"
-                                        name="update_estado">
-
-                                    <label class="custom-control-label" for="update_estado">
-                                        <i class="fa fa-eye"></i>
-                                    </label>
-                                </div>
+                                    class="validate form-control" placeholder="Abreviatura. Ejm:(Kg)" required>
                             </div>
                         </div>
                     </div>
@@ -154,31 +118,52 @@
             </div>
         </div>
     </div>
+    <!-- Modal de Eliminar -->
+    <div class="modal fade" id="ventana3">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">ELIMINAR UNIDAD</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h6>¿Está seguro de que desea eliminar esta unidad de medida?</h6>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <?php
-Dashboard::footerTemplate('tipo_usuario.js', '#tabla-tipo_usuarioss');
+Dashboard::footerTemplate('unidadmedida.js', '#tabla-unidad');
 ?>
 
+
 <script>
-        bootstrapValidate("#create_nombre", "min:3:Ingrese un tipo de usuario mayor a 3 caracteres",
-            "max:80:Ingrese un tipo de usuario menor de 80 caracteres")
+        bootstrapValidate("#create_nombre", "min:3:Ingrese un nombre mayor a 3 caracteres",
+            "max:30:Ingrese un nombre menor de 30 caracteres")
     </script>
     <script>
-        bootstrapValidate("#create_descripcion", "min:6:Ingrese un tipo de usuario mayor de 6 caracteres",
+        bootstrapValidate("#create_descripcion", "min:1:Ingrese una abreviación mayor de 0 caracteres",
             "max:30:Ingrese una descripción menor a 30 caracteres")
     </script>
     <script>
-        bootstrapValidate('#create_nombre', 'required:Ingrese un tipo de usuario')
+        bootstrapValidate('#create_nombre', 'required:Ingrese una unidad de medida')
     </script>
     <script>
-        bootstrapValidate("#update_nombre_tipo", "min:3:Ingrese un tipo de usuario mayor a 3 caracteres",
-            "max:80:Ingrese un tipo de usuario menor de 80 caracteres")
+        bootstrapValidate("#update_unidad", "min:3:Ingrese un nombre mayor a 3 caracteres",
+            "max:30:Ingrese un nombre menor de 30 caracteres")
     </script>
     <script>
-        bootstrapValidate("#update_descripcion", "min:6:Ingrese una descripción mayor de 6 caracteres",
-            "max:80:Ingrese una descripción menor a 80 caracteres")
+        bootstrapValidate("#update_descripcion", "min:1:Ingrese una abreviación mayor de 0 caracteres",
+            "max:30:Ingrese una descripción menor a 30 caracteres")
     </script>
     <script>
-        bootstrapValidate('#update_nombre_tipo', 'required:Ingrese un tipo de usuario')
+        bootstrapValidate('#update_unidad', 'required:Ingrese una categoria')
     </script>
 
     </body>
