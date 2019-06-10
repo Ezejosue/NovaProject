@@ -84,11 +84,11 @@ class Dashboard
 														</li>
 														<li>
 															<a href="recetas.php">
-															<i class="fas fa-bars"></i>Recetas</a>
+															<i class="fas fa-book"></i>Recetas</a>
 													</li> 
 													<li>
 															<a href="unidadmedida.php">
-															<i class="fas fa-cc"></i>Unidades de medida</a>
+															<i class="fas fa-balance-scale"></i>Unidades de medida</a>
 													</li> 
 													</ul>
 												</div>

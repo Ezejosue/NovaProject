@@ -48,7 +48,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form method="post" id="form-create" enctype="multipart/form-data">
+                <form class="was-validated" method="post" id="form-create" enctype="multipart/form-data">
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-1">
@@ -57,9 +57,9 @@
                             <div class="col-sm-11">
                                 <div class="custom-file">
                                     <input type="file" class="custom-file-input" id="create_archivo"
-                                        name="create_archivo">
-                                    <label class="custom-file-label" for="create_archivo">Escoga un archivo
-                                    </label>
+                                        name="create_archivo" required>
+                                    <label class="custom-file-label" for="create_archivo">Escoga un archivo</label>
+                                    <div class="invalid-feedback">Por favor seleccione una imagen</div>
                                 </div>
                             </div>
                         </div>
@@ -70,8 +70,8 @@
                                 <i class="fa fa-list"></i>
                             </div>
                             <div class="col-sm-11">
-                                <input placeholder="Nombre" class="form-control" id="create_nombre" name="create_nombre"
-                                    for="nombre_categoria">
+                                <input id="create_nombre" name="create_nombre" class="form-control"
+                                    placeholder="Nombre" required>
                             </div>
                         </div>
                     </div>
@@ -82,7 +82,7 @@
                             </div>
                             <div class="col-sm-11">
                                 <textarea placeholder="Descripción" class="form-control" id="create_descripcion"
-                                    name="create_descripcion" for="descripcion" rows="3"></textarea>
+                                    name="create_descripcion" for="descripcion" rows="3" required></textarea>
                             </div>
                         </div>
                     </div>
@@ -120,7 +120,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form method="post" id="form-update" enctype="multipart/form-data">
+                <form class="was-validated" method="post" id="form-update" enctype="multipart/form-data">
                     <input type="hidden" id="foto_categoria" name="foto_categoria" />
                     <input type="hidden" id="id_categoria" name="id_categoria" />
                     <div class="modal-body">
@@ -132,8 +132,8 @@
                                 <div class="custom-file">
                                     <input type="file" class="custom-file-input" id="imagen_categoria"
                                         name="imagen_categoria">
-                                    <label class="custom-file-label" for="imagen_categoria">Escoga un archivo
-                                    </label>
+                                    <label class="custom-file-label" for="imagen_categoria">Escoga un archivo</label>
+                                    <div class="invalid-feedback">Por favor seleecione una imagen.</div>
                                 </div>
                             </div>
                         </div>
@@ -146,7 +146,6 @@
                             <div class="col-sm-11">
                                 <input id="update_nombre_categoria" type="text" name="update_nombre_categoria"
                                     class="validate form-control" placeholder="Nombre de categoria" required>
-
                             </div>
                         </div>
                     </div>
@@ -187,6 +186,37 @@
             </div>
         </div>
     </div>
+
+
+
     <?php
 Dashboard::footerTemplate('categorias.js', '#tabla-categorias');
 ?>
+
+
+    <script>
+        bootstrapValidate("#create_nombre", "min:3:Ingrese un nombre mayor a 3 caracteres",
+            "max:30:Ingrese un nombre menor de 30 caracteres")
+    </script>
+    <script>
+        bootstrapValidate("#create_descripcion", "min:6:Ingrese una descripción mayor de 6 caracteres",
+            "max:80:Ingrese una descripción menor a 80 caracteres")
+    </script>
+    <script>
+        bootstrapValidate('#create_nombre', 'required:Ingrese una categoria')
+    </script>
+    <script>
+        bootstrapValidate("#update_nombre_categoria", "min:3:Ingrese un nombre mayor a 3 caracteres",
+            "max:30:Ingrese un nombre menor de 30 caracteres")
+    </script>
+    <script>
+        bootstrapValidate("#update_descripcion", "min:6:Ingrese una descripción mayor de 6 caracteres",
+            "max:80:Ingrese una descripción menor a 80 caracteres")
+    </script>
+    <script>
+        bootstrapValidate('#update_nombre_categoria', 'required:Ingrese una categoria')
+    </script>
+
+    </body>
+
+    </html>

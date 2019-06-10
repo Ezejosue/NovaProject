@@ -26,7 +26,7 @@
                             <th>TIEMPO</th>
                             <th>ELABORACIÓN</th>
                             <th>CATEGORIA</th>
-                            <th>MATERIA PRIMA</th>
+                            <th>MATERIA PRIMA</th> 
                             <th>MEDIDA</th>
                             <th>ACCIÓN</th>
                         </tr>
@@ -68,6 +68,17 @@
                             <div class="col-sm-11">
                                 <input placeholder="Tiempo de elaboración" class="form-control" id="create_tiempo" name="create_tiempo"
                                     for="tiempo" require>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-1">
+                                <i class="fa fa-list"></i>
+                            </div>
+                            <div class="col-sm-11">
+                                <input placeholder="Tiempo de elaboración" class="time" class="form-control" id="create_tiempo" name="create_tiempo"
+                                    for="tiempo">
                             </div>
                         </div>
                     </div>
@@ -122,7 +133,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">MODIFICAR CATEGORIAS</h5>
+                    <h5 class="modal-title">MODIFICAR RECETAS</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

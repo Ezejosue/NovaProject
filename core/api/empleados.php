@@ -20,7 +20,7 @@ if (isset($_GET['action'])) {
 				break;
 
 
-				//Operación para crear nuevos usuarios
+				//Operación para crear nuevos Empleado
 		case 'create':
 				$_POST = $empleado->validateForm($_POST);
 				if ($empleado->setNombres($_POST['create_nombre'])) {
@@ -78,7 +78,7 @@ if (isset($_GET['action'])) {
 				
 
 				
-           //Operación para mostrar los tipos de usuario activos en el formulario de modificar usuario
+           //Operación para mostrar los cargos activos en el formulario de modificar Empleado
 				 case 'readCargo':
 				 if ($result['dataset'] = $empleado->readCargo()) {
 					 $result['status'] = 1;
@@ -87,7 +87,7 @@ if (isset($_GET['action'])) {
 				 }
 				 break;
 
-           //Operación para mostrar los tipos de usuario activos en el formulario de modificar usuario
+           //Operación para mostrar los tipos de usuario activos en el formulario de modificar Empleado
 				 case 'readUsuarios':
 				 if ($result['dataset'] = $empleado->readUsuarios()) {
 					 $result['status'] = 1;
@@ -96,7 +96,7 @@ if (isset($_GET['action'])) {
 				 }
 				 break;
 
-
+				 /* Operacion para obtener el id del empleado */
 				case 'get':
 					 if ($empleado->setId($_POST['id_empleado']) 
 					 ) {
@@ -111,6 +111,7 @@ if (isset($_GET['action'])) {
 					 }
 					break;
 
+				 /* Operacion para actualizar un empleado */
 				case 'update':
 					$_POST = $empleado->validateForm($_POST);
 					if ($empleado->setId($_POST['id_empleado'])) 
@@ -171,12 +172,13 @@ if (isset($_GET['action'])) {
 					}
 					break;
 
-
+				 /* Operacion para eliminar un empleado */
 				 case 'delete':
 				 if ($empleado->setId($_POST['id_empleado'])) {
 					 if ($empleado->getEmpleado()) {
 						 if ($empleado->deleteEmpleado()) {
-							 $result['message'] = 'Empleado eliminado correctamente';
+							$result['status'] = 1;
+							$result['message'] = 'Empleado modificado correctamente';
 						 } else {
 							 $result['exception'] = 'Operación fallida';
 						 }
