@@ -1,7 +1,8 @@
 $(document).ready(function()
 {
     showTable();
-    showSelectCategoria('create_categoria', null);
+    showSelectCategoria('create_categoria', 0);
+    showSelectUnidad('create_unidad', 0);
 })
 
 //Constante para establecer la ruta y parámetros de comunicación con la API
@@ -21,6 +22,7 @@ function fillTable(rows)
                 <td>${row.descripcion}</td>
                 <td>${row.cantidad}</td>
                 <td>${row.nombre_categoria}</td>
+                <td>${row.nombre_medida}</td>
                 <td><i class="material-icons">${icon}</i></td>
                 <td>
                     <a href="#" onclick="modalUpdate(${row.idMateria})" class="btn btn-info tooltipped" data-tooltip="Modificar"><i class="fa fa-edit"></i></a>
@@ -101,6 +103,47 @@ function showSelectCategoria(idSelect, value)
     });
 }
 
+
+//Función para cargar los tipos de unidad de medida en el select del formulario
+function showSelectUnidad(idSelect, value)
+{
+    $.ajax({
+        url: apiMaterias + 'readUnidad',
+        type: 'post',
+        data: null,
+        datatype: 'json'
+    })
+    .done(function(response){
+        //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+        if (isJSONString(response)) {
+            const result = JSON.parse(response);
+            //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
+            if (result.status) {
+                let content = '';
+                if (!value) {
+                    content += '<option value="" disabled selected>Seleccione una opción</option>';
+                }
+                result.dataset.forEach(function(row){
+                    if (row.id_categoria != value) {
+                        content += `<option value="${row.id_Medida}">${row.nombre_medida}</option>`;
+                    } else {
+                        content += `<option value="${row.id_Medida}" selected>${row.nombre_medida}</option>`;
+                    }
+                });
+                $('#' + idSelect).html(content);
+            } else {
+                $('#' + idSelect).html('<option value="">No hay opciones</option>');
+            }
+        } else {
+            console.log(response);
+        }
+    })
+    .fail(function(jqXHR){
+        //Se muestran en consola los posibles errores de la solicitud AJAX
+        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+    });
+}
+
 //Función para crear un nuevo registro
 $('#form-create').submit(function()
 {
@@ -158,12 +201,14 @@ function modalUpdate(id)
             const result = JSON.parse(response);
             //Se comprueba si el resultado es satisfactorio para mostrar los valores en el formulario, sino se muestra la excepción
             if (result.status) {
+                console.log(result.dataset);
                 $('#form-update')[0].reset();
                 $('#id_materia').val(result.dataset.idMateria);
                 $('#nombre_materia').val(result.dataset.nombre_materia);
                 $('#descripcion_materia').val(result.dataset.descripcion);
                 $('#cantidad').val(result.dataset.cantidad);
                 showSelectCategoria('update_categoria', result.dataset.id_categoria);
+                showSelectUnidad('update_unidad', result.dataset.id_Medida);
                 $('#foto_materia').val(result.dataset.foto);
                 (result.dataset.estado == 1) ? $('#update_estado').prop('checked', true) : $('#update_estado').prop('checked', false);
                 $('#modal-update').modal('show');

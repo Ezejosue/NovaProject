@@ -28,6 +28,7 @@ if (isset($_GET['action'])) {
                             if ($materia->setDescripcion($_POST['create_descripcion_materia'])) {
                                 if ($materia->setCantidad($_POST['create_cantidad'])) {
                                     if ($materia->setCategorias($_POST['create_categoria'])) {
+                                        if ($materia->setIdMedida($_POST['create_unidad'])) {
                                             if (is_uploaded_file($_FILES['create_archivo']['tmp_name'])) {
                                                 if ($materia->setImagen($_FILES['create_archivo'], null)) {
                                                     if ($materia->createMateriaPrima()) {
@@ -46,6 +47,9 @@ if (isset($_GET['action'])) {
                                             }   else {
                                                 $result['exception'] = 'Seleccione una imagen';
                                                     } 
+                                                } else {
+                                                    $result['exception'] = 'Seleccione una unidad de medida';
+                                                } 
                                             } else {
                                             $result['exception'] = 'Seleccione una categoria';
                                         }  
@@ -85,6 +89,7 @@ if (isset($_GET['action'])) {
                                 if ($materia->setCantidad($_POST['cantidad'])) {
                                     if ($materia->setEstado(isset($_POST['update_estado']) ? 1 : 0)) {
                                         if ($materia->setCategorias($_POST['update_categoria'])) {
+                                            if ($materia->setIdMedida($_POST['update_unidad'])) {
                                             //Se comprueba que se haya subido una imagen
                                             if (is_uploaded_file($_FILES['foto']['tmp_name'])) {
                                                 if ($materia->setImagen($_FILES['foto'], $_POST['foto_materia'])) {
@@ -113,6 +118,9 @@ if (isset($_GET['action'])) {
                                                 } else {
                                                     $result['exception'] = 'Operación fallida';
                                                 }
+                                            } else {
+                                                $result['exception'] = 'Seleccione una unidad de medida';
+                                            }
                                             } else {
                                                 $result['exception'] = 'Seleccione una categoria';
                                             }
@@ -155,6 +163,14 @@ if (isset($_GET['action'])) {
             //Operación para mostrar los tipos de usuario activos en el formulario de modificar usuario
             case 'readCategoria':
                 if ($result['dataset'] = $materia->readCategoriaMateria()) {
+                    $result['status'] = 1;
+                } else {
+                    $result['exception'] = 'Contenido no disponible';
+                }
+                break;
+
+            case 'readUnidad':
+                if ($result['dataset'] = $materia->readMedidaMateria()) {
                     $result['status'] = 1;
                 } else {
                     $result['exception'] = 'Contenido no disponible';
