@@ -28,6 +28,7 @@
                                 <th>DESCRIPCIÓN</th>
                                 <th>CANTIDAD</th>
                                 <th>CATEGORIA</th>
+                                <th>UNIDAD DE MEDIDA</th>
                                 <th>ESTADO</th>
                                 <th>ACCIÓN</th>
                             </tr>
@@ -95,6 +96,17 @@
                             </div>
                             <div class="col-sm-11">
                                 <select id="create_categoria" name="create_categoria" class="form-control">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-1">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="col-sm-11">
+                                <select id="create_unidad" name="create_unidad" class="form-control">
                                 </select>
                             </div>
                         </div>
@@ -194,6 +206,17 @@
                             </div>
                             <div class="col-sm-11">
                                 <select id="update_categoria" name="update_categoria" class="form-control">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-1">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="col-sm-11">
+                                <select id="update_unidad" name="update_unidad" class="form-control">
                                 </select>
                             </div>
                         </div>
