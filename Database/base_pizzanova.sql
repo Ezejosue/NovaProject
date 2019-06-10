@@ -59,8 +59,10 @@ CREATE TABLE MateriasPrimas(
     cantidad INT,
     foto VARCHAR(100),
     id_categoria INT UNSIGNED,
+    id_Medida INT UNSIGNED,
     estado TINYINT (1) NOT NULL DEFAULT 1 comment '1 es activo 0 es inactivo',
     FOREIGN KEY (id_categoria) REFERENCES Categorias(id_categoria) 
+    FOREIGN KEY (id_Medida) REFERENCES UnidadMedida(id_Medida) 
 );
 
 CREATE TABLE Receta(
