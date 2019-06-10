@@ -104,7 +104,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form method="post" id="form-update">
+                <form method="post" class="was-validated" id="form-update">
                     <input type="hidden" id="id_tipo_usuario" name="id_tipo_usuario" />
                     <div class="modal-body">
                         <div class="row">

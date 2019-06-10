@@ -193,7 +193,7 @@
 Dashboard::footerTemplate('categorias.js', '#tabla-categorias');
 ?>
 
-
+<!-- validaciones del lado de cliente para agregar categorias -->
     <script>
         bootstrapValidate("#create_nombre", "min:3:Ingrese un nombre mayor a 3 caracteres",
             "max:30:Ingrese un nombre menor de 30 caracteres")
@@ -205,6 +205,8 @@ Dashboard::footerTemplate('categorias.js', '#tabla-categorias');
     <script>
         bootstrapValidate('#create_nombre', 'required:Ingrese una categoria')
     </script>
+
+<!-- validaciones del lado de cliente para modificar categorias -->
     <script>
         bootstrapValidate("#update_nombre_categoria", "min:3:Ingrese un nombre mayor a 3 caracteres",
             "max:30:Ingrese un nombre menor de 30 caracteres")
