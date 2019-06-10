@@ -124,7 +124,6 @@ class Dashboard
 						</nav>
 					</div>
 				</aside>
-
 				<div class="page-container2">
 					<!-- Menu Responsive-->
 					<header class="header-desktop2">
@@ -155,10 +154,10 @@ class Dashboard
 						</div>
 						<div class="menu-sidebar2__content js-scrollbar1">
 						<div class="account2">
-							<div class="image img-cir img-120">
-								<img src="../resources/img/icon/avatar-big-01.jpg" alt="John Doe" />
+							<div class="image img-cir img-120" id="foto-user-responsive">
 							</div>
-							<h4 class="name">john doe</h4>
+							<div id="nombre-user-responsive">
+							</div>
 							<div class="row">
 								<a href="#modal-profile" class="modal-trigger" data-toggle="modal" onclick="modalProfile()"> <h6> <i class="fa fa-edit"></i> |</h6> </a>
 								<a href="#modal-password1" class="modal-trigger" data-toggle="modal"> <h6> | <i class="fa fa-key"></i> | </h6> </a>
@@ -173,33 +172,58 @@ class Dashboard
 									</a>
 								</li>
 								<li>
-									<a href="categorias.php">
-										<i class="fas fa-list"></i>Categorías</a>
-								</li>
-								<li>													
-									<a href="materia_prima.php">
-									<i class="fas fa-cart-plus"></i>Materia prima</a>
+									<a href="#itemsDrop-responsive" data-toggle="collapse" class="collapsed"><i class="fab fa-dropbox"></i><span>
+									Productos</span></a>
+									<div id="itemsDrop-responsive" class="collapse">
+										<ul>
+											<li>
+												<a href="categorias.php">
+												<i class="fas fa-list"></i>Categorías</a>
+											</li>
+											<li>													
+												<a href="materia_prima.php">
+												<i class="fas fa-cart-plus"></i>Materia prima</a>
+											</li>
+											<li>
+												<a href="platillos.php">
+												<i class="fas fa-utensils"></i>Platillos</a>
+											</li>
+											<li>
+												<a href="recetas.php">
+												<i class="fas fa-book"></i>Recetas</a>
+											</li> 
+											<li>
+												<a href="unidadmedida.php">
+												<i class="fas fa-balance-scale"></i>Unidades de medida</a>
+											</li> 
+										</ul>
+									</div>
 								</li>
 								<li>
-									<a href="platillos.php">
-									<i class="fas fa-utensils"></i>Platillos</a>
-								</li>
-								<li>
-									<a href="usuarios.php">
-										<i class="fas fa-user-plus"></i>Usuarios</a>
-								</li>
-								<li>
-									<a href="tipo_usuarios.php">
-									<i class="fas fa-users"></i>Tipo de usuarios</a>
-								</li>
-								<li>
-									<a href="empleados.php">
-										<i class="fas fa-id-card"></i>Empleados</a>
-								</li>
-								<li>
-									<a href="reportes.php">
-										<i class="fas fa-chart-bar"></i>Reportes</a>
-								</li>
+									<a href="#itemsDrop1" data-toggle="collapse" class="collapsed"><i class="fas fa-user-circle"></i><span>
+									Perfiles</span></a>
+										<div id="itemsDrop1" class="collapse">
+											<ul>
+												<li>
+													<a href="usuarios.php">
+													<i class="fas fa-user-plus"></i>Usuarios</a>
+												</li>
+												<li>
+													<a href="tipo_usuarios.php">
+													<i class="fas fa-users"></i>Tipo de usuarios</a>
+												</li>
+												<li>
+													<a href="empleados.php">
+													<i class="fas fa-id-card"></i>Empleados</a>
+												</li>
+												</li>
+											</ul>
+										</div>
+										</li>
+										<li>
+											<a href="reportes.php">
+											<i class="fas fa-chart-bar"></i>Reportes</a>
+										</li>
 							</ul>
 						</nav>
 						</div>
