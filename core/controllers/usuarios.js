@@ -1,3 +1,4 @@
+//Inicialización de las funciones que muestran la tabla y el tipo de usuario
 $(document).ready(function()
 {
     showTable();
@@ -262,7 +263,8 @@ function confirmDelete(id)
 }
 
 //Función para verificar que el alias del usuario no se repita ya que es un dato de tipo único
-function error2(response){
+function error2(response)
+{
     switch (response){
         case 'Dato duplicado, no se puede guardar':
             mensaje = 'Nombre de usuario ya existe';
