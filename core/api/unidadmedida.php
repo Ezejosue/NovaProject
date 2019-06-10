@@ -74,7 +74,7 @@ if (isset($_GET['action'])) {
 				}
             	break;
             case 'delete':
-				if ($unidad->setIdMedida($_POST['id_unidad'])) {
+				if ($unidad->setIdMedida($_POST['id_Medida'])) {
 					if ($unidad->getMedida()) {
 						if ($unidad->deleteMedida()) {
                                 $result['status'] = 1;
