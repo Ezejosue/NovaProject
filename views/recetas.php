@@ -77,8 +77,11 @@
                                 <i class="fa fa-list"></i>
                             </div>
                             <div class="col-sm-11">
-                                <input placeholder="Tiempo de elaboración" class="time" class="form-control" id="create_tiempo" name="create_tiempo"
-                                    for="tiempo">
+                                <form method="post">
+                                    <fieldset id="show_materias">
+                                        <legend> Lista de materias primas </legend>
+                                    </fieldset>
+                                </form>
                             </div>
                         </div>
                     </div>
