@@ -325,19 +325,6 @@
 Dashboard::footerTemplate('empleados.js', '#tabla-empleados');
 ?>
     <!-- validaciones del lado del cliente en el modal de agregar empleados -->
-    <script>
-        bootstrapValidate("#create_nombre", "min:3:Ingrese un nombre mayor a 3 caracteres",
-            "max:30:Ingrese un nombre menor de 30 caracteres")
-    </script>
-
-    <script>
-        bootstrapValidate("#create_apellido", " min:3:Ingrese un apellido mayor a 3 caracteres",
-            "max:30:Ingrese un nombre menor de 30 caracteres")
-    </script>
-
-    <script>
-        bootstrapValidate('#create_genero', 'alphanum:Please only enter alphanumeric characters!')
-    </script>
 
     <script>
         bootstrapValidate("#create_dui", "min:9:Ingrese su DUI completo.", "max:9:Ingrese su DUI completo.")
@@ -358,10 +345,7 @@ Dashboard::footerTemplate('empleados.js', '#tabla-empleados');
         bootstrapValidate('#create_email', 'email:Ingrese un email valido')
     </script>
 
-    <script>
-        bootstrapValidate('#create_fecha', 'ISO8601: Ingrese la fecha en este formato DD-MM-AAAA');
-        bootstrapValidate('#create_fecha', 'max:01-01-2001:Deber ser mayor de 18 años');
-    </script>
+
 
     <!-- validaciones del lado del cliente en el modal de modificar empleados -->
     <script>
@@ -370,16 +354,9 @@ Dashboard::footerTemplate('empleados.js', '#tabla-empleados');
     </script>
 
     <script>
-        bootstrapValidate("#update_apellido", "min:3:Ingrese un apellido mayor a 3 caracteres",
-            "max:30:Ingrese un apellido menor de 30 caracteres", )
-    </script>
-    <script>
         bootstrapValidate("#update_dui", "min:9:Ingrese su DUI completo.", "max:9:Ingrese su DUI completo.")
     </script>
-    <script>
-        bootstrapValidate("#update_direccion", "min:5:Ingrese una dirección mayor a 5 caracteres",
-            "max:30:Ingrese una direccion menor de 30 caracteres")
-    </script>
+   
     <script>
         bootstrapValidate("#update_telefono", "min:8:Ingrese un telefono mayor a 8 caracteres",
             "max:12:Ingrese un telefono menor de 12 caracteres")
@@ -389,8 +366,7 @@ Dashboard::footerTemplate('empleados.js', '#tabla-empleados');
             "max:80:Ingrese una nacionalidad menor de 80 caracteres")
     </script>
     <script>
-        bootstrapValidate("#update_email", "min:20:Ingrese un correo mayor a 20 caracteres",
-            "max:100:Ingrese un correo menor de 100 caracteres")
+        bootstrapValidate("#update_email", "email:Ingrese un email valido")
     </script>
 
     </body>
