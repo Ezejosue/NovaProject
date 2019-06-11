@@ -328,7 +328,7 @@ class Dashboard
 										<div class="custom-file">
 											<input type="file" class="custom-file-input" id="profile_foto"
 												name="profile_foto" required>
-											<label class="custom-file-label" for="profile_foto">Escoga un archivo</label>
+											<label class="custom-file-label" for="profile_foto">Escoge un archivo</label>
 											<div class="invalid-feedback">Example invalid custom file feedback</div>
 										</div>
 									</div>

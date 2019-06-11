@@ -7,11 +7,12 @@ class Validator
 	private $imageError = null;
 	private $imageName = null;
 
+	//función que obtiene el nombre de la imagen
 	public function getImageName()
 	{
 		return $this->imageName;
 	}
-
+	//función para obtener el error al momento de subir una imagen incorrecta
 	public function getImageError()
 	{
 		switch ($this->imageError) {
@@ -30,6 +31,7 @@ class Validator
 			default:
 				$error = 'Ocurrió un problema con la imagen';
 		}
+		//la función retorna el error con su respectivo mensaje
 		return $error;
 	}
 
@@ -42,6 +44,7 @@ class Validator
 		return $fields;
 	}
 
+	//validación para que el id sea mayor a 1.
 	public function validateId($value)
 	{
 		if (filter_var($value, FILTER_VALIDATE_INT, array('min_range' => 1))) {
@@ -97,6 +100,7 @@ class Validator
 		}
 	}
 
+	//se validan direcciones de correo electrónico con la sintaxis de RFC 822, con la excepción de no admitir el plegamiento de comentarios y espacios en blanco.
 	public function validateEmail($email)
 	{
 		if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -106,7 +110,7 @@ class Validator
 		}
 	}
 
-	
+	//validación que permite ingresar solamente letras.
 	public function validateAlphabetic($value, $minimum, $maximum)
 	{
 		if (preg_match('/^[a-zA-ZñÑáÁéÉíÍóÓúÚ\s]{'.$minimum.','.$maximum.'}$/', $value)) {
@@ -116,6 +120,7 @@ class Validator
 		}
 	}
 
+	//validación que permite ingresar solamente letras y números.
 	public function validateAlphanumeric($value, $minimum, $maximum)
 	{
 		if (preg_match('/^[a-zA-Z0-9ñÑáÁéÉíÍóÓúÚ\s\.]{'.$minimum.','.$maximum.'}$/', $value)) {
@@ -125,6 +130,7 @@ class Validator
 		}
 	}
 
+	//validación para el DUI que permite ingresar números del 0 al 9 sin espacios en blanco y permitiendo el guión.
 	public function validateDui($value)
 	{
 		if (preg_match('/^[0-9]{8}+(-)+[0-9]{1}$/', $value)) {
@@ -134,6 +140,7 @@ class Validator
 		}
 	}
 
+	//validación para el teléfono que permite números del 0 al 9, ingresando 4 números con un guión y los otro 4 números restantes.
 	public function validateTelefono($value)
 	{
 		if (preg_match('/^[0-9]{4}+(-)+[0-9]{4}$/', $value)) {
@@ -143,6 +150,7 @@ class Validator
 		}
 	}
 
+	//validación para el género que permite solo las letras M y F (M: masculino, F: femenino)
 	public function validateGenero($value)
 	{
 		if (preg_match('/^[MF]$/', $value)) {
@@ -152,6 +160,7 @@ class Validator
 		}
 	}
 
+	//validación para los datos de tipo money que permite números del 0 al 9 y dos decimales
 	public function validateMoney($value)
 	{
 		if (preg_match('/^[0-9]+(?:\.[0-9]{1,2})?$/', $value)) {
@@ -170,9 +179,12 @@ class Validator
 		}
 	}
 
+	//validación para la fecha que no permite ingresar fechas mayores al año 1952 y 2001, para mayores de 18 años y personas que no tengan 100 años
 	public function validateFecha($value)
 	{
+		//validación para mayores de 18 años
 		$fecha = strtotime(date("01-01-2001"));
+		//validación para que la fecha minima sea 1952 y que la edad no pueda ser más de 100 años
 		$fmax = strtotime(date("01-01-1952"));
 		$value = strtotime($value);
 
@@ -183,6 +195,7 @@ class Validator
 		}
 	}
 
+	//validación para la contraseña que valida que sea mayor a 5 caracteres.
 	public function validatePassword($value)
 	{
 		if (strlen($value) > 5) {
@@ -192,6 +205,7 @@ class Validator
 		}
 	}
 
+	//validación para las imágenes en donde no aceptan valores nulos.
 	public function saveFile($file, $path, $name)
     {
 		if (file_exists($path)) {
@@ -205,6 +219,7 @@ class Validator
 		}
   	}
 
+	//validación para eliminar una imagen en donde la imagen debe de existir para ser eliminada  
 	public function deleteFile($path, $name)
     {
 		if (file_exists($path)) {

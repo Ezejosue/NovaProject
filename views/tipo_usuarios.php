@@ -19,22 +19,22 @@
         <br>
         <div class="row">
             <div class="container">
-            <div class="table-responsive">
-                <table class="table"  id="tabla-tipo_usuarios" width="100%">
-                    <thead>
-                        <tr>
-                            <th>NOMBRE</th>
-                            <th>DESCRIPCION</th>
-                            <th>ESTADO</th>
-                            <th>ACCIÓN</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tbody-read">
-                    </tbody>
-                </table>
+                <div class="table-responsive">
+                    <table class="table" id="tabla-tipo_usuarios" width="100%">
+                        <thead>
+                            <tr>
+                                <th>NOMBRE</th>
+                                <th>DESCRIPCIÓN</th>
+                                <th>ESTADO</th>
+                                <th>ACCIÓN</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody-read">
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
-    </div>
     </div>
     <!-- Modals-->
     <!-- Modal de Agregar -->
@@ -158,7 +158,7 @@
 Dashboard::footerTemplate('tipo_usuario.js', '#tabla-tipo_usuarioss');
 ?>
 
-<script>
+    <script>
         bootstrapValidate("#create_nombre", "min:3:Ingrese un tipo de usuario mayor a 3 caracteres",
             "max:80:Ingrese un tipo de usuario menor de 80 caracteres")
     </script>

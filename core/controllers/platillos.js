@@ -1,4 +1,4 @@
-//se declara la funcion para mostrar la tabla y tambien mandar a llamar el selectcategoria y el select receta
+//se declara la funcion para mostrar la tabla y también mandar a llamar el select categoría y el select receta
 $(document).ready(function()
 {
     showTable();
@@ -38,7 +38,7 @@ function fillTable(rows)
 }
 
 //Función para obtener y mostrar los registros disponibles
-//se hace la funcion para poder tener los datos del showtable y lee de la apiplatillos los datos via ajax
+//se hace la función para poder tener los datos del showtable y lee de la api platillos los datos via ajax
 function showTable()
 {
     $.ajax({
@@ -66,7 +66,7 @@ function showTable()
     });
 }
 
-//Función para cargar los tipos de categorias en el select del formulario
+//Función para cargar los tipos de categorías en el select del formulario
 function showSelectCategoria(idSelect, value)
 {
     $.ajax({

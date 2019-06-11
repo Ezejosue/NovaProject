@@ -27,7 +27,7 @@
                                 <th>NOMBRE</th>
                                 <th>DESCRIPCIÓN</th>
                                 <th>CANTIDAD</th>
-                                <th>CATEGORIA</th>
+                                <th>CATEGORÍA</th>
                                 <th>UNIDAD DE MEDIDA</th>
                                 <th>ESTADO</th>
                                 <th>ACCIÓN</th>
@@ -119,8 +119,8 @@
                                 <div class="custom-file">
                                     <input type="file" class="custom-file-input" id="create_archivo"
                                         name="create_archivo" required>
-                                    <label class="custom-file-label" for="create_archivo">Escoga un archivo</label>
-                                    <div class="invalid-feedback">Por favor seleccione una imagen</div>
+                                    <label class="custom-file-label" for="create_archivo">Escoge un archivo</label>
+                                    <div class="invalid-feedback">Por favor seleccione una imagen 500 x 500</div>
                                 </div>
                             </div>
                         </div>
@@ -229,7 +229,7 @@
                             <div class="col-sm-11">
                                 <div class="custom-file">
                                     <input type="file" class="custom-file-input" id="foto" name="foto">
-                                    <label class="custom-file-label" for="foto">Escoga un archivo</label>
+                                    <label class="custom-file-label" for="foto">Escoge un archivo</label>
                                 </div>
                             </div>
                         </div>

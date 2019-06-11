@@ -261,7 +261,7 @@ $('#form-password').submit(function()
 })
 
 
-//Función para cambiar la contraseña del usuario que ha iniciado sesión
+//Función para cambiar la contraseña del usuario que ha iniciado sesión en el menú responsive
 $('#form-password1').submit(function()
 {
     event.preventDefault();

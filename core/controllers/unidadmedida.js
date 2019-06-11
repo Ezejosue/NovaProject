@@ -1,3 +1,4 @@
+//Inicializando la función para mostrar la tabla de unidad de medida
 $(document).ready(function()
 {
     showTable();
@@ -217,8 +218,7 @@ function confirmDelete(id)
     });
 }
 
-
-//Función para verificar que nombre de la categoria no se repita ya que es un dato de tipo único
+//Función para verificar que nombre de la unidad de medida no se repita ya que es un dato de tipo único
 function error2(response){
     switch (response){
         case 'Dato duplicado, no se puede guardar':

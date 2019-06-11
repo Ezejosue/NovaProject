@@ -1,3 +1,4 @@
+//Inicializando la función para mostrar la tabla de empleados
 $(document).ready(function () {
     showTable();
     showSelectCargo('create_cargo', null); 
@@ -165,7 +166,6 @@ $('#form-create').submit(function()
             } else {
                 sweetAlert(2, result.exception, null);
                 console.log(response);
-               
             }
         } else {
             console.log(response);
@@ -309,6 +309,7 @@ $('#form-update').submit(function()
     });
 })
 
+//Función que muestra el mensaje de error cuando un dato de tipo único está repetido
 function error2(response)
 {
     switch (response) {

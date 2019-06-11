@@ -36,7 +36,7 @@
                                 <br>
                                 <div class="custom-file">
                                     <input type="file" class="custom-file-input" id="archivo" name="archivo" required>
-                                    <label class="custom-file-label" for="archivo">Escoga un archivo</label>
+                                    <label class="custom-file-label" for="archivo">Escoge un archivo</label>
                                 </div>
                                 <br>
                                 <br>
