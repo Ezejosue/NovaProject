@@ -105,7 +105,7 @@
                                 <i class="fas fa-users"></i>
                             </div>
                             <div class="col-sm-11">
-                                <select id="create_unidad" name="create_unidad" class="form-control">
+                                <select id="create_unidad" name="create_unidad" class="form-control" required>
                                 </select>
                             </div>
                         </div>

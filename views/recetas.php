@@ -53,7 +53,7 @@
                             </div>
                             <div class="col-sm-11">
                                 <input placeholder="Nombre de receta" class="form-control" id="create_nombre"
-                                    name="create_nombre" for="nombre_receta" require>
+                                    name="create_nombre" for="nombre_receta" required>
                             </div>
                         </div>
                     </div>
@@ -64,7 +64,7 @@
                             </div>
                             <div class="col-sm-11">
                                 <input placeholder="Tiempo de elaboración" class="form-control" id="create_tiempo"
-                                    name="create_tiempo" for="tiempo" require>
+                                    name="create_tiempo" for="tiempo" required>
                             </div>
                         </div>
                     </div>
@@ -74,9 +74,9 @@
                                 <i class="fa fa-list"></i>
                             </div>
                             <div class="col-sm-11">
-                                <label><b>Lista de materias primas</b></label>
                                 <form method="post">
-                                    <fieldset id="show_materias" name="materias">
+                                    <fieldset id="show_materias">
+                                        <label><b>Lista de materias primas</b></label>
                                     </fieldset>
                                 </form>
                             </div>
