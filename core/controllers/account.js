@@ -1,3 +1,4 @@
+//Inicialización de las funciones
 $(document).ready(function()
 {
     showSelectTipoProfile('profile_tipo', null);
@@ -12,6 +13,7 @@ $(document).ready(function()
 //Constante para establecer la ruta y parámetros de comunicación con la API
 const apiAccount = '../core/api/usuarios.php?site=private&action=';
 
+//Función que muestra la foto de perfil y nombre del usuario que ha iniciado sesión
 function showDataUser()
 {
     $.ajax({
@@ -34,9 +36,49 @@ function showDataUser()
                     content2 += `
                     <h4 class="name">${result.dataset.alias}</h4>
                     `;
-                
+                //Se especifica en que parte se desea colocar los elementos
                 $('#foto-user').html(content);
                 $('#nombre-user').html(content2)
+            } else {
+
+                console.log(result.exception);
+            }
+        } else {
+            console.log(response);
+        }
+    })
+    .fail(function(jqXHR){
+        //Se muestran en consola los posibles errores de la solicitud AJAX
+        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+    });
+}
+
+//Función que muestra la foto de perfil y nombre del usuario que ha iniciado sesión en el menú responsive
+function showDataUser_Responsive()
+{
+    $.ajax({
+        url: apiAccount + 'readProfile',
+        type: 'post',
+        data: null,
+        datatype: 'json'
+    })
+    .done(function(response){
+        //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+        if (isJSONString(response)) {
+            const result = JSON.parse(response);
+            //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
+            if (result.status) {
+                let content = '';
+                let content2 = '';
+                    content += `
+                    <img src="../resources/img/usuarios/${result.dataset.foto_usuario}" />
+                    `;
+                    content2 += `
+                    <h4 class="name">${result.dataset.alias}</h4>
+                    `;
+                //Se especifica en que parte se desea colocar los elementos
+                $('#foto-user-responsive').html(content);
+                $('#nombre-user-responsive').html(content2)
             } else {
 
                 $('#title').html('<i class="material-icons small">cloud_off</i><span class="red-text">' + result.exception + '</span>');
@@ -258,7 +300,7 @@ $('#form-password').submit(function()
 })
 
 
-//Función para cambiar la contraseña del usuario que ha iniciado sesión
+//Función para cambiar la contraseña del usuario que ha iniciado sesión en el menú responsive
 $('#form-password1').submit(function()
 {
     event.preventDefault();
@@ -289,6 +331,7 @@ $('#form-password1').submit(function()
     });
 })
 
+//Función para mostrar el número de productos en inicio
 function showCountProducts(){
     $.ajax({
         url: apiAccount + 'readDataProducts',
@@ -326,6 +369,7 @@ function showCountProducts(){
     });
 }
 
+//Función para mostrar el número de categorias en inicio
 function showCountCategories(){
     $.ajax({
         url: apiAccount + 'readDataCategories',
@@ -363,6 +407,7 @@ function showCountCategories(){
     });
 }
 
+//Función para mostrar el número de usuarios en inicio
 function showCountUsers(){
     $.ajax({
         url: apiAccount + 'readDataUsers',
@@ -400,6 +445,7 @@ function showCountUsers(){
     });
 }
 
+//Función para mostrar el número de empleados en inicio
 function showCountEmployees(){
     $.ajax({
         url: apiAccount + 'readDataEmployees',

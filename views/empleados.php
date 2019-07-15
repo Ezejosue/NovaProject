@@ -122,8 +122,8 @@
                                 <i class="far fa-calendar-alt"></i>
                             </div>
                             <div class="col-sm-11">
-                                <input id="create_fecha" type="date" name="create_fecha" class="validate form-control"
-                                    placeholder="" required>
+                                <input id="create_fecha" type="date" min="01/01/1952" max="01/01/2001"
+                                    name="create_fecha" class="validate form-control">
                             </div>
                         </div>
                     </div>
@@ -326,63 +326,58 @@
 Dashboard::footerTemplate('empleados.js', '#tabla-empleados');
 ?>
     <!-- validaciones del lado del cliente en el modal de agregar empleados -->
-    <script>
-        bootstrapValidate("#create_nombre", "min:3:Ingrese un nombre mayor a 3 caracteres",
-            "max:30:Ingrese un nombre menor de 30 caracteres")
-    </script>
 
-    <script>
-        bootstrapValidate("#create_apellido", " min:3:Ingrese un apellido mayor a 3 caracteres",
-            "max:30:Ingrese un nombre menor de 30 caracteres")
-    </script>
     <script>
         bootstrapValidate("#create_dui", "min:9:Ingrese su DUI completo.", "max:9:Ingrese su DUI completo.")
     </script>
     <script>
-        bootstrapValidate("#create_direccion", "min:5:Ingrese una dirección mayor a 5 caracteres",
-            "max:30:Ingrese una dirección menor de 30 caracteres")
+        bootstrapValidate("#create_dui", "max:10:Ingrese su DUI correctamente.")
     </script>
     <script>
-        bootstrapValidate("#create_telefono", "min:8:Ingrese un telefono mayor a 8 caracteres",
-            "max:12:Ingrese un telefono menor de 12 caracteres")
+        bootstrapValidate("#create_direccion", "max:30:Ingrese una dirección menor de 30 caracteres")
     </script>
     <script>
-        bootstrapValidate("#create_nacionalidad", "min:3:Ingrese una nacionalidad mayor a 3 caracteres",
-            "max:80:Ingrese una nacionalidad menor de 80 caracteres")
+        bootstrapValidate("#create_telefono", "min:8:Ingrese un telefono mayor a 8 caracteres")
     </script>
     <script>
-        bootstrapValidate("#create_email", "min:20:Ingrese un correo mayor a 20 caracteres",
-            "max:100:Ingrese un correo menor de 100 caracteres")
+        bootstrapValidate("#create_telefono", "max:13:Ingrese un telefono menor de 12 caracteres")
     </script>
+    <script>
+        bootstrapValidate("#create_nacionalidad", "min:3:Ingrese una nacionalidad mayor a 3 caracteres")
+    </script>
+    <script>
+        bootstrapValidate("#create_nacionalidad", "max:80:Ingrese una nacionalidad menor de 80 caracteres")
+    </script>
+    <script>
+        bootstrapValidate('#create_email', 'email:Ingrese un email valido')
+    </script>
+
+
 
     <!-- validaciones del lado del cliente en el modal de modificar empleados -->
-    <script>
-        bootstrapValidate("#update_nombre", "min:3:Ingrese un nombre mayor a 3 caracteres",
-            "max:30:Ingrese un nombre menor de 30 caracteres")
-    </script>
-
-    <script>
-        bootstrapValidate("#update_apellido", "min:3:Ingrese un apellido mayor a 3 caracteres",
-            "max:30:Ingrese un apellido menor de 30 caracteres", )
-    </script>
     <script>
         bootstrapValidate("#update_dui", "min:9:Ingrese su DUI completo.", "max:9:Ingrese su DUI completo.")
     </script>
     <script>
-        bootstrapValidate("#update_direccion", "min:5:Ingrese una dirección mayor a 5 caracteres",
-            "max:30:Ingrese una direccion menor de 30 caracteres")
+        bootstrapValidate("#update_dui", "max:10:Ingrese su DUI correctamente.")
     </script>
     <script>
-        bootstrapValidate("#update_telefono", "min:8:Ingrese un telefono mayor a 8 caracteres",
-            "max:12:Ingrese un telefono menor de 12 caracteres")
+        bootstrapValidate("#update_direccion", "max:30:Ingrese una dirección menor de 30 caracteres")
     </script>
     <script>
-        bootstrapValidate("#update_nacionalidad", "min:3:Ingrese una nacionalidad mayor a 3 caracteres",
-            "max:80:Ingrese una nacionalidad menor de 80 caracteres")
+        bootstrapValidate("#update_telefono", "min:8:Ingrese un telefono mayor a 8 caracteres")
     </script>
     <script>
-        bootstrapValidate("#update_email", "min:20:Ingrese un correo mayor a 20 caracteres",
-            "max:100:Ingrese un correo menor de 100 caracteres")
+        bootstrapValidate("#update_telefono", "max:13:Ingrese un telefono menor de 12 caracteres")
+    </script>
+    <script>
+        bootstrapValidate("#update_nacionalidad", "min:3:Ingrese una nacionalidad mayor a 3 caracteres")
+    </script>
+    <script>
+        bootstrapValidate("#update_nacionalidad", "max:80:Ingrese una nacionalidad menor de 80 caracteres")
+    </script>
+    <script>
+        bootstrapValidate('#update_email', 'email:Ingrese un email valido')
     </script>
 
     </body>

@@ -1,7 +1,8 @@
+//Inicializando la función para mostrar la tabla de recetas
 $(document).ready(function()
 {
     showTable();
-    showSelectCategoria('create_categoria', null);
+    showMateriasPrimas('show_materias');
 })
 
 //Constante para establecer la ruta y parámetros de comunicación con la API
@@ -13,18 +14,14 @@ function fillTable(rows)
     let content = '';
     //Se recorren las filas para armar el cuerpo de la tabla y se utiliza comilla invertida para escapar los caracteres especiales
     rows.forEach(function(row){
-        (row.estado == 1) ? icon = '<i class="fa fa-eye"></i>' : icon = '<i class="fa fa-eye-slash"></i>';
         content += `
             <tr>
-                <td><img src=" ../resources/img/platillos/${row.imagen}"></td>
-                <td>${row.nombre_platillo}</td>
-                <td>${row.precio}</td>
-                <td>${row.nombre_categoria}</td>
                 <td>${row.nombre_receta}</td>
-                <td><i class="material-icons">${icon}</i></td>
+                <td>${row.tiempo}</td>
+                <td>${row.elaboracion}</td>
                 <td>
-                    <a href="#" onclick="modalUpdate(${row.id_platillo})" class="btn btn-info tooltipped" data-tooltip="Modificar"><i class="fa fa-edit"></i></a>
-                    <a href="#" onclick="confirmDelete(${row.id_platillo}, '${row.imagen}')" class="btn btn-danger tooltipped" data-tooltip="Eliminar"><i class="fa fa-times"></i></a>
+                    <a href="#" onclick="modalUpdate(${row.id_receta})" class="btn btn-info tooltipped" data-tooltip="Modificar"><i class="fa fa-edit"></i></a>
+                    <a href="#" onclick="confirmDelete(${row.id_receta})" class="btn btn-danger tooltipped" data-tooltip="Eliminar"><i class="fa fa-times"></i></a>
                 </td>
             </tr>
         `;
@@ -61,11 +58,11 @@ function showTable()
     });
 }
 
-//Función para cargar los tipos de categorias en el select del formulario
-function showSelectCategoria(idSelect, value)
+//Función para cargar los tipos de categorías en el select del formulario
+function showMateriasPrimas(idCheck)
 {
     $.ajax({
-        url: apiRecetas + 'readCategoria',
+        url: apiRecetas + 'readMateriaPrima',
         type: 'post',
         data: null,
         datatype: 'json'
@@ -77,58 +74,25 @@ function showSelectCategoria(idSelect, value)
             //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
             if (result.status) {
                 let content = '';
-                if (!value) {
-                    content += '<option value="" disabled selected>Seleccione una opción</option>';
-                }
+
                 result.dataset.forEach(function(row){
-                    if (row.id_categoria != value) {
-                        content += `<option value="${row.id_categoria}">${row.nombre_categoria}</option>`;
-                    } else {
-                        content += `<option value="${row.id_categoria}" selected>${row.nombre_categoria}</option>`;
-                    }
+
+                        content += 
+                                `<label><input type="checkbox" name="materia" id="materia_prima" value="${row.idMateria}" required> ${row.nombre_materia} (${row.descripcion})</label>
+                                <label><input id="cantidad" type="number" name="cantidad" class="validate form-control"
+                                placeholder="Cantidad" max="100" min="1"></label><br>`;
+
                 });
-                $('#' + idSelect).html(content);
+                if ($("#materia_prima").on( 'change', function(){
+                    if( $(this).is(':checked') ) {
+                        // Hacer algo si el checkbox ha sido seleccionado
+                        $("#cantidad").removeAttr("disabled");
+                    } 
+
+                }));
+                $('#' + idCheck).html(content);
             } else {
-                $('#' + idSelect).html('<option value="">No hay opciones</option>');
-            }
-        } else {
-            console.log(response);
-        }
-    })
-    .fail(function(jqXHR){
-        //Se muestran en consola los posibles errores de la solicitud AJAX
-        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
-    });
-}
-//Función para cargar los tipos de recetas en el select del formulario
-function showSelectReceta(idSelect, value)
-{
-    $.ajax({
-        url: apiRecetas + 'readReceta',
-        type: 'post',
-        data: null,
-        datatype: 'json'
-    })
-    .done(function(response){
-        //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
-        if (isJSONString(response)) {
-            const result = JSON.parse(response);
-            //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
-            if (result.status) {
-                let content = '';
-                if (!value) {
-                    content += '<option value="" disabled selected>Seleccione una opción</option>';
-                }
-                result.dataset.forEach(function(row){
-                    if (row.id_receta != value) {
-                        content += `<option value="${row.id_receta}">${row.nombre_receta}</option>`;
-                    } else {
-                        content += `<option value="${row.id_receta}" selected>${row.nombre_receta}</option>`;
-                    }
-                });
-                $('#' + idSelect).html(content);
-            } else {
-                $('#' + idSelect).html('<option value="">No hay opciones</option>');
+                $('#' + idCheck).html('<label>NO EXISTEN MATERIAS PRIMAS</label>');
             }
         } else {
             console.log(response);
@@ -310,7 +274,7 @@ function confirmDelete(id)
     });
 }
 
-//Función para verificar que nombre de la categoria no se repita ya que es un dato de tipo único
+//Función para verificar que nombre de la categoría no se repita ya que es un dato de tipo único
 function error2(response){
     switch (response){
         case 'Dato duplicado, no se puede guardar':

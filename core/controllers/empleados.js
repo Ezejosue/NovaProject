@@ -1,3 +1,4 @@
+//Inicializando la función para mostrar la tabla de empleados
 $(document).ready(function () {
     showTable();
     showSelectCargo('create_cargo', null); 
@@ -165,10 +166,13 @@ $('#form-create').submit(function()
             } else {
                 sweetAlert(2, result.exception, null);
                 console.log(response);
-               
             }
         } else {
             console.log(response);
+
+            //Se comprueba que el dui no este repetido
+            sweetAlert(2, error2(response), null);
+
         }
      
     })
@@ -205,7 +209,7 @@ function confirmDelete(id)
                     const result = JSON.parse(response);
                     // Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
                     if (result.status) {
-                        sweetAlert(1, result.message, null);
+                        sweetAlert(1, 'Empleado eliminado correctamente', null);
                         destroy('#tabla-empleados');
                         showTable();
                     } else {
@@ -295,11 +299,27 @@ $('#form-update').submit(function()
             }
         } else {
             console.log(response);
-        }
+             //Se comprueba que el dui no este repetido
+             sweetAlert(2, error2(response), null);
+        } 
     })
     .fail(function(jqXHR){
         // Se muestran en consola los posibles errores de la solicitud AJAX
         console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
     });
 })
+
+//Función que muestra el mensaje de error cuando un dato de tipo único está repetido
+function error2(response)
+{
+    switch (response) {
+        case 'Dato duplicado, no se puede guardar':
+            mensaje = 'Datos de empleado duplicados';
+            break;
+        default:
+            mensaje = 'Ocurrió un problema, consulte al admin';
+            break;
+    }
+    return mensaje;
+}
 

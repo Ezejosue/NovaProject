@@ -6,7 +6,7 @@
     <!-- Contenido-->
     <div class="main-content">
         <div class="section__content section__content--p30">
-            <!-- Barra de busqueda -->
+            <!-- Barra de búsqueda -->
             <h2 class="pb-2 display-5 text-center">REPORTES</h2>
             <br>
             <div class="col-lg-12">

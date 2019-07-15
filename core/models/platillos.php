@@ -153,12 +153,6 @@ class Platillos extends Validator
         return Conexion::getRows($sql, $params);
     }
 
-    public function searchPlatillo()
-    { //se hace la funcion para poder utiliza el buscador 
-        $sql = 'SELECT * FROM Platillos WHERE nombre_platillo LIKE ? OR precio';
-        $params = array("%$value%", "%$value%");
-        return Conexion::getRows($sql, $params);
-    }
 
     public function readCategoria()
     {//se hace el readCategoria para traer el id desde la tabla categoria

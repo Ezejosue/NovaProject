@@ -1,3 +1,4 @@
+//Inicializando la función para mostrar la tabla de tipo de usuario
 $(document).ready(function()
 {
     showTable();
@@ -86,6 +87,8 @@ $('#form-create').submit(function()
             }
         } else {
             console.log(response);
+            //Se comprueba que el nombre no esté repetido
+            sweetAlert(2, error2(response), null);
         }
     })
     .fail(function(jqXHR){
@@ -158,6 +161,8 @@ $('#form-update').submit(function()
             }
         } else {
             console.log(response);
+            //Se comprueba que el nombre no esté repetido
+            sweetAlert(2, error2(response), null);
         }
     })
     .fail(function(jqXHR){
@@ -209,4 +214,18 @@ function confirmDelete(id)
             });
         }
     });
+}
+
+//Función para verificar que el tipo de usuario no se repita ya que es un dato de tipo único
+function error2(response)
+{
+    switch (response){
+        case 'Dato duplicado, no se puede guardar':
+            mensaje = 'Nombre de tipo de usuario ya existe';
+            break;
+        default:
+            mensaje = 'Ocurrió un problema, consulte al administrador'
+            break;
+    }
+    return mensaje;
 }

@@ -65,6 +65,11 @@ class Dashboard
 										<i class="fas fa-tachometer-alt"></i>Vista General
 									</a>
 								</li>
+								<li>
+									<a href="mesas.php">
+										<i class="fas fa-book"></i>Ordenes
+									</a>
+								</li>
 										<li>
 											<a href="#itemsDrop" data-toggle="collapse" class="collapsed"><i class="fab fa-dropbox"></i><span>
 											Productos</span></a>
@@ -171,11 +176,6 @@ class Dashboard
 										<i class="fas fa-tachometer-alt"></i>Vista General
 									</a>
 								</li>
-								<li>
-									<a href="#itemsDrop-responsive" data-toggle="collapse" class="collapsed"><i class="fab fa-dropbox"></i><span>
-									Productos</span></a>
-									<div id="itemsDrop-responsive" class="collapse">
-										<ul>
 											<li>
 												<a href="categorias.php">
 												<i class="fas fa-list"></i>Categorías</a>
@@ -196,14 +196,7 @@ class Dashboard
 												<a href="unidadmedida.php">
 												<i class="fas fa-balance-scale"></i>Unidades de medida</a>
 											</li> 
-										</ul>
-									</div>
-								</li>
-								<li>
-									<a href="#itemsDrop1" data-toggle="collapse" class="collapsed"><i class="fas fa-user-circle"></i><span>
-									Perfiles</span></a>
-										<div id="itemsDrop1" class="collapse">
-											<ul>
+								
 												<li>
 													<a href="usuarios.php">
 													<i class="fas fa-user-plus"></i>Usuarios</a>
@@ -217,9 +210,6 @@ class Dashboard
 													<i class="fas fa-id-card"></i>Empleados</a>
 												</li>
 												</li>
-											</ul>
-										</div>
-										</li>
 										<li>
 											<a href="reportes.php">
 											<i class="fas fa-chart-bar"></i>Reportes</a>
@@ -343,7 +333,7 @@ class Dashboard
 										<div class="custom-file">
 											<input type="file" class="custom-file-input" id="profile_foto"
 												name="profile_foto" required>
-											<label class="custom-file-label" for="profile_foto">Escoga un archivo</label>
+											<label class="custom-file-label" for="profile_foto">Escoge un archivo</label>
 											<div class="invalid-feedback">Example invalid custom file feedback</div>
 										</div>
 									</div>

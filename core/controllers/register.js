@@ -1,3 +1,4 @@
+//Inicializando la función para verificar el inicio de sesión de usuario y el select del tipo de usuario en el formulario
 $(document).ready(function()
 {
     checkUsuarios();

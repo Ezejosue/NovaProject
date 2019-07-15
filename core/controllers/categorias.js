@@ -1,3 +1,4 @@
+//Inicializando la función para mostrar la tabla de categorías
 $(document).ready(function()
 {
     showTable();

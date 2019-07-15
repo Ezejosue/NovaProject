@@ -25,7 +25,7 @@
                             <tr>
                                 <th>IMAGEN</th>
                                 <th>NOMBRE</th>
-                                <th>DESCRIPCION</th>
+                                <th>DESCRIPCIÓN</th>
                                 <th>ESTADO</th>
                                 <th>ACCIÓN</th>
                             </tr>
@@ -43,7 +43,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">AGREGAR CATEGORIA</h5>
+                    <h5 class="modal-title">AGREGAR CATEGORÍA</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -58,8 +58,8 @@
                                 <div class="custom-file">
                                     <input type="file" class="custom-file-input" id="create_archivo"
                                         name="create_archivo" required>
-                                    <label class="custom-file-label" for="create_archivo">Escoga un archivo</label>
-                                    <div class="invalid-feedback">Por favor seleccione una imagen</div>
+                                    <label class="custom-file-label" for="create_archivo">Escoge un archivo</label>
+                                    <div class="invalid-feedback">Por favor seleccione una imagen 500 x 500</div>
                                 </div>
                             </div>
                         </div>
@@ -70,8 +70,8 @@
                                 <i class="fa fa-list"></i>
                             </div>
                             <div class="col-sm-11">
-                                <input id="create_nombre" name="create_nombre" class="form-control"
-                                    placeholder="Nombre" required>
+                                <input id="create_nombre" name="create_nombre" class="form-control" placeholder="Nombre"
+                                    required>
                             </div>
                         </div>
                     </div>
@@ -115,7 +115,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">MODIFICAR CATEGORIAS</h5>
+                    <h5 class="modal-title">MODIFICAR CATEGORÍAS</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -132,8 +132,8 @@
                                 <div class="custom-file">
                                     <input type="file" class="custom-file-input" id="imagen_categoria"
                                         name="imagen_categoria">
-                                    <label class="custom-file-label" for="imagen_categoria">Escoga un archivo</label>
-                                    <div class="invalid-feedback">Por favor seleecione una imagen.</div>
+                                    <label class="custom-file-label" for="imagen_categoria">Escoge un archivo</label>
+                                    <div class="invalid-feedback">Por favor seleccione una imagen 500 x 500</div>
                                 </div>
                             </div>
                         </div>
@@ -193,7 +193,7 @@
 Dashboard::footerTemplate('categorias.js', '#tabla-categorias');
 ?>
 
-<!-- validaciones del lado de cliente para agregar categorias -->
+    <!-- validaciones del lado de cliente para agregar categorías -->
     <script>
         bootstrapValidate("#create_nombre", "min:3:Ingrese un nombre mayor a 3 caracteres",
             "max:30:Ingrese un nombre menor de 30 caracteres")
@@ -206,7 +206,7 @@ Dashboard::footerTemplate('categorias.js', '#tabla-categorias');
         bootstrapValidate('#create_nombre', 'required:Ingrese una categoria')
     </script>
 
-<!-- validaciones del lado de cliente para modificar categorias -->
+    <!-- validaciones del lado de cliente para modificar categorías -->
     <script>
         bootstrapValidate("#update_nombre_categoria", "min:3:Ingrese un nombre mayor a 3 caracteres",
             "max:30:Ingrese un nombre menor de 30 caracteres")
