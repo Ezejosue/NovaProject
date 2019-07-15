@@ -19,7 +19,7 @@ class Dashboard
 
 			<!-- Fontfaces CSS-->
 			<link href="../resources/css/font-face.css" rel="stylesheet" media="all">
-			<link href="../resources/css/font-awesome.css" rel="stylesheet" media="all">
+			<link href="../resources/css/all.css" rel="stylesheet" media="all">
 			<link href="../resources/extras/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
 			<!-- Bootstrap CSS-->
 			<link href="../resources/extras/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
@@ -30,6 +30,7 @@ class Dashboard
 			<link href="../resources/extras/animsition/animsition.min.css" rel="stylesheet" media="all">
 			<link href="../resources/css/dataTables.bootstrap4.min.css" rel="stylesheet" media="all">
 			<link href="../resources/css/jquery.dataTables.min.css" rel="stylesheet" media="all">
+			<link href="../resources/css/main.css" rel="stylesheet" media="all">
 			<body class="animsition">
 			<div class="page-wrapper">
 		</head>
@@ -257,7 +258,8 @@ class Dashboard
             <script src="../core/helpers/table.js"></script>
             <script src="../resources/js/main.js"></script>
             <script src="../resources/js/jquery.dataTables.min.js"></script>
-            <script src="../resources/js/dataTables.bootstrap4.min.js"></script>
+			<script src="../resources/js/dataTables.bootstrap4.min.js"></script>
+			<script src="../resources/js/all.js"></script>
 
             <script src="../resources/js/sweetalert.min.js"></script>
             <script type="text/javascript" src="../core/helpers/functions.js"></script>
