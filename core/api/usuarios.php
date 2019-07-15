@@ -388,6 +388,7 @@ if (isset($_GET['action'])) {
                 if ($usuario->setAlias($_POST['usuario'])) {
                     //Se comprueba que el alias exista en la base de datos
                     if ($usuario->checkAlias()) {
+                        //Se comprueba que el estado del usuario este activo
                         if ($usuario->checkEstado()){
                             //Se valida que la contraseña no sea menor a 6 caracteres
                             if ($usuario->setClave($_POST['clave'])) {

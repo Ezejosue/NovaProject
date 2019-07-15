@@ -95,7 +95,7 @@ class Categorias extends Validator
 		return $this->estado;
 	}
 
-	// Metodos para el manejo del SCRUD
+	// Métodos para el manejo del SCRUD
 	public function readCategorias()
 	{
 		$sql = 'SELECT id_categoria, nombre_categoria, descripcion, foto_categoria, estado FROM categorias ORDER BY nombre_categoria';

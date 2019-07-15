@@ -38,7 +38,6 @@
             </div>
         </div>
     </div>
-
     <!-- Modals-->
     <!-- Modal de Agregar -->
     <div class="modal fade" id="modal-create">
@@ -105,8 +104,8 @@
                                 <div class="custom-file">
                                     <input type="file" class="custom-file-input" id="create_archivo"
                                         name="create_archivo" required>
-                                    <label class="custom-file-label" for="create_archivo">Escoga un archivo</label>
-                                    <div class="invalid-feedback">Por favor seleccione una imagen</div>
+                                    <label class="custom-file-label" for="create_archivo">Escoge un archivo</label>
+                                    <div class="invalid-feedback">Por favor seleccione una imagen 500 x 500</div>
                                 </div>
                             </div>
                         </div>
@@ -181,7 +180,7 @@
                                 <div class="custom-file">
                                     <input type="file" class="custom-file-input" id="imagen_usuario"
                                         name="imagen_usuario">
-                                    <label class="custom-file-label" for="imagen_usuario">Escoga un archivo</label>
+                                    <label class="custom-file-label" for="imagen_usuario">Escoge un archivo</label>
                                 </div>
                             </div>
                         </div>
@@ -211,11 +210,11 @@
             </div>
         </div>
     </div>
-
+    <!-- Footer-->
     <?php
-Dashboard::footerTemplate('usuarios.js', '#tabla-usuarios');
-?>
-
+        Dashboard::footerTemplate('usuarios.js', '#tabla-usuarios');
+        ?>
+    <!-- Validaciones del lado del cliente-->
     <script>
         bootstrapValidate("#create_clave1", "min:6:Ingrese una contraseña mayor a 5 caracteres")
     </script>
@@ -228,11 +227,12 @@ Dashboard::footerTemplate('usuarios.js', '#tabla-usuarios');
     <script>
         bootstrapValidate('#create_alias', 'required:Ingrese un nombre de usuario')
     </script>
-     <script>
+    <script>
         bootstrapValidate('#update_alias', 'required:Ingrese un nombre de usuario')
     </script>
     <script>
-        bootstrapValidate('#update_alias', "min:3:Ingrese un nombre mayor a 3 caracteres", "max:80:Ingrese un nombre menor a 80 caracteres")
+        bootstrapValidate('#update_alias', "min:3:Ingrese un nombre mayor a 3 caracteres",
+            "max:80:Ingrese un nombre menor a 80 caracteres")
     </script>
 
     </body>

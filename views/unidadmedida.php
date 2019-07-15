@@ -22,7 +22,7 @@
                 <table class="display" id="tabla-unidad">
                     <thead>
                         <tr>
-                            <th>NOMBRE</th> 
+                            <th>NOMBRE</th>
                             <th>ABREVIATURA</th>
                             <th>ACCIONES</th>
                         </tr>
@@ -51,8 +51,8 @@
                                 <i class="fa fa-list"></i>
                             </div>
                             <div class="col-sm-11">
-                                <input placeholder="Nombre de unidad" class="form-control" id="create_nombre" name="create_nombre"
-                                    for="nombre_medida" required>
+                                <input placeholder="Nombre de unidad" class="form-control" id="create_nombre"
+                                    name="create_nombre" for="nombre_medida" required>
                             </div>
                         </div>
                     </div>
@@ -62,8 +62,8 @@
                                 <i class="fa fa-cc"></i>
                             </div>
                             <div class="col-sm-11">
-                                <input placeholder="Abreviatura. Ejm:(Kg)" class="form-control" id="create_descripcion" name="create_descripcion"
-                                    for="descripcion" required>
+                                <input placeholder="Abreviatura. Ejm:(Kg)" class="form-control" id="create_descripcion"
+                                    name="create_descripcion" for="descripcion" required>
                             </div>
                         </div>
                     </div>
@@ -93,8 +93,8 @@
                                 <i class="fa fa-user"></i>
                             </div>
                             <div class="col-sm-11">
-                                <input id="update_unidad" type="text" name="update_unidad"
-                                    class="validate form-control" placeholder="Unidad de medida" required>
+                                <input id="update_unidad" type="text" name="update_unidad" class="validate form-control"
+                                    placeholder="Unidad de medida" required>
                             </div>
                         </div>
                     </div>
@@ -143,7 +143,7 @@ Dashboard::footerTemplate('unidadmedida.js', '#tabla-unidad');
 ?>
 
 
-<script>
+    <script>
         bootstrapValidate("#create_nombre", "min:3:Ingrese un nombre mayor a 3 caracteres",
             "max:30:Ingrese un nombre menor de 30 caracteres")
     </script>

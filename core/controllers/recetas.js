@@ -1,3 +1,4 @@
+//Inicializando la función para mostrar la tabla de recetas
 $(document).ready(function()
 {
     showTable();
@@ -57,7 +58,7 @@ function showTable()
     });
 }
 
-//Función para cargar los tipos de categorias en el select del formulario
+//Función para cargar los tipos de categorías en el select del formulario
 function showMateriasPrimas(idCheck)
 {
     $.ajax({
@@ -79,7 +80,7 @@ function showMateriasPrimas(idCheck)
                         content += 
                                 `<label><input type="checkbox" name="materia" id="materia_prima" value="${row.idMateria}" required> ${row.nombre_materia} (${row.descripcion})</label>
                                 <label><input id="cantidad" type="number" name="cantidad" class="validate form-control"
-                                placeholder="Cantidad" max="100" min="1" disabled></label><br>`;
+                                placeholder="Cantidad" max="100" min="1"></label><br>`;
 
                 });
                 if ($("#materia_prima").on( 'change', function(){
@@ -102,8 +103,6 @@ function showMateriasPrimas(idCheck)
         console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
     });
 }
-
-
 
 //Función para crear un nuevo registro
 $('#form-create').submit(function()
@@ -275,7 +274,7 @@ function confirmDelete(id)
     });
 }
 
-//Función para verificar que nombre de la categoria no se repita ya que es un dato de tipo único
+//Función para verificar que nombre de la categoría no se repita ya que es un dato de tipo único
 function error2(response){
     switch (response){
         case 'Dato duplicado, no se puede guardar':

@@ -1,3 +1,4 @@
+//Inicializando la función para verificar que un usuario haya iniciado sesión
 $(document).ready(function()
 {
     checkUsuarios();

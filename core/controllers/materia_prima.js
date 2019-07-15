@@ -1,3 +1,4 @@
+//Inicializando la función para mostrar la tabla de materias primas y los select de los formularios
 $(document).ready(function()
 {
     showTable();

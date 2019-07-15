@@ -17,7 +17,7 @@ CREATE TABLE Categorias(
 
 CREATE TABLE Usuarios(
     id_usuario INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-    alias VARCHAR(50) NOT NULL,
+    alias VARCHAR(50) NOT NULL UNIQUE,
     clave_usuario VARCHAR(60) NOT NULL,
     foto_usuario VARCHAR(50),
     fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -33,13 +33,13 @@ CREATE TABLE Empleados(
     id_empleado INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     nombre_empleado VARCHAR(20) NOT NULL,
     apellido_empleado VARCHAR(20) NOT NULL,
-    dui VARCHAR(10) NOT NULL,
+    dui VARCHAR(10) NOT NULL UNIQUE,
     direccion VARCHAR(100) NOT NULL,
-    telefono VARCHAR(9) NOT NULL,
+    telefono VARCHAR(9) NOT NULL UNIQUE,
     genero ENUM('M', 'F') NULL,
     fecha_nacimiento DATE NOT NULL,
     nacionalidad VARCHAR(50) NOT NULL,
-    correo VARCHAR(100) NOT NULL,
+    correo VARCHAR(100) NOT NULL UNIQUE,
     id_Cargo INT UNSIGNED,
     FOREIGN KEY (id_Cargo) REFERENCES Cargo(id_Cargo),
     id_usuario INT UNSIGNED,
@@ -61,7 +61,7 @@ CREATE TABLE MateriasPrimas(
     id_categoria INT UNSIGNED,
     id_Medida INT UNSIGNED,
     estado TINYINT (1) NOT NULL DEFAULT 1 comment '1 es activo 0 es inactivo',
-    FOREIGN KEY (id_categoria) REFERENCES Categorias(id_categoria) 
+    FOREIGN KEY (id_categoria) REFERENCES Categorias(id_categoria),
     FOREIGN KEY (id_Medida) REFERENCES UnidadMedida(id_Medida) 
 );
 

@@ -22,7 +22,7 @@
                 <table class="display" id="tabla-recetas">
                     <thead>
                         <tr>
-                            <th>NOMBRE</th> 
+                            <th>NOMBRE</th>
                             <th>TIEMPO</th>
                             <th>ELABORACIÓN</th>
                             <th>ACCIÓN</th>
@@ -52,8 +52,8 @@
                                 <i class="fa fa-list"></i>
                             </div>
                             <div class="col-sm-11">
-                                <input placeholder="Nombre de receta" class="form-control" id="create_nombre" name="create_nombre"
-                                    for="nombre_receta" require>
+                                <input placeholder="Nombre de receta" class="form-control" id="create_nombre"
+                                    name="create_nombre" for="nombre_receta" required>
                             </div>
                         </div>
                     </div>
@@ -63,8 +63,8 @@
                                 <i class="fa fa-clock"></i>
                             </div>
                             <div class="col-sm-11">
-                                <input placeholder="Tiempo de elaboración" class="form-control" id="create_tiempo" name="create_tiempo"
-                                    for="tiempo" require>
+                                <input placeholder="Tiempo de elaboración" class="form-control" id="create_tiempo"
+                                    name="create_tiempo" for="tiempo" required>
                             </div>
                         </div>
                     </div>
@@ -94,7 +94,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="modal-body">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                         <button type="submit" class="btn btn-primary">Aceptar</button>
@@ -168,13 +168,13 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">ELIMINAR CATEGORIA</h5>
+                    <h5 class="modal-title">ELIMINAR CATEGORÍA</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <h6>¿Está seguro de que desea eliminar esta categoria?</h6>
+                    <h6>¿Está seguro de que desea eliminar esta categoría?</h6>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
