@@ -11,12 +11,33 @@ if (isset($_GET['action'])) {
 	// Se verifica si existe una sesión iniciada como administrador para realizar las operaciones correspondientes
 	if (isset($_SESSION['idUsuario'])) {
 		switch ($_GET['action']) {
-			case 'read':
+			case 'readMesas':
 				if ($result['dataset'] = $mesas->readMesas()) {
 					$result['status'] = 1;
 				} else {
-					$result['exception'] = 'No hay Mesas registradas';
+					$result['exception'] = 'No hay mesas registradas';
 				}
+				break;
+
+				case 'readCategorias':
+				if ($result['dataset'] = $mesas->readCategorias()) {
+					$result['status'] = 1;
+				} else {
+					$result['exception'] = 'No hay categorias registradas';
+				}
+				break;
+
+				case 'readProductos':
+				if ($mesas->setCategoria($_POST['idCategoria'])){
+					if ($result['dataset'] = $mesas->readProductos()) {
+					$result['status'] = 1;
+					} else {
+						$result['exception'] = 'No hay productos registrados';
+					}
+				} else{
+					
+				}
+				
 				break;
             
 			default:
