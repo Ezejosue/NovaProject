@@ -49,6 +49,7 @@
     </div>
 </div>
 
+
 <?php
 Dashboard::footerTemplate('account.js', '');
 ?>

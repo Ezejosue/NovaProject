@@ -65,6 +65,11 @@ class Dashboard
 										<i class="fas fa-tachometer-alt"></i>Vista General
 									</a>
 								</li>
+								<li>
+									<a href="mesas.php">
+										<i class="fas fa-book"></i>Ordenes
+									</a>
+								</li>
 										<li>
 											<a href="#itemsDrop" data-toggle="collapse" class="collapsed"><i class="fab fa-dropbox"></i><span>
 											Productos</span></a>
