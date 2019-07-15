@@ -65,7 +65,7 @@ class Mesas extends Validator
 	}
 	
 	public function readProductos(){
-	$sql = 'SELECT id_platillo, nombre_platillo FROM platillos where estado = 1 AND id_categoria = ?';
+	$sql = 'SELECT id_platillo, nombre_platillo, imagen, precio FROM platillos where estado = 1 AND id_categoria = ?';
     $params = array($this->categoria);
     return conexion::getRows($sql, $params);
     }

@@ -96,7 +96,17 @@ function showProductos(id){
             if (result.status) {
                 let content2 = '';
                 result.dataset.forEach(function(row){
-                    content2+= `<h4 id="list-item-1">${row.nombre_platillo}</h4>`;
+                    content2+= `<div class="col-sm-12 col-md-4">
+                    <div class="card">
+                        <img src="../resources/img/platillos/${row.imagen}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">${row.nombre_platillo}</h5>
+                            <br>
+                            <h5 class="card-text">${row.precio}</h5>
+                            <a class="btn btn-primary" style="border-radius: 20px"><i class="fas fa-plus"></i></a>
+                        </div>
+                        </div>
+                    </div>`;
                 });
                 console.log(result.dataset);
                 $('#productos').html(content2);
