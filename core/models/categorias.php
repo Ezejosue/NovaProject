@@ -130,5 +130,12 @@ class Categorias extends Validator
 		$params = array($this->id);
 		return conexion::executeRow($sql, $params);
 	}
+
+	public function graficar_existencia_categoria()
+	{
+		$sql = 'SELECT SUM(materiasprimas.cantidad) cantidad, nombre_categoria FROM materiasprimas INNER JOIN categorias USING (id_categoria) WHERE materiasprimas.estado = 1 GROUP BY nombre_categoria';
+		$params = array(null);
+		return conexion::getRows($sql, $params);
+	}
 }
 ?>

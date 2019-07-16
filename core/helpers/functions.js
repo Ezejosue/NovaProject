@@ -56,3 +56,44 @@ function sweetAlert(type, text, url)
         });
     }
 }
+
+function grafico_existencia_categoria(canvas, xAxis, yAxis, legend, title)
+{
+    let colors = [];
+    for(i = 0; i< xAxis.length; i++){
+        colors.push('#' +(Math.random().toString(16).substring(2,8)));  
+    }
+    const context = $("#" + canvas);
+    const MyPieChart= new Chart(context,{
+        type: 'bar',
+        data:{
+            labels: xAxis,
+            datasets: [{
+                label: legend,
+                data: yAxis,
+                backgroundColor: colors,
+                borderColor: '#000000',
+                borderWith : 1
+            }]
+        },
+        options: {
+            legend: {
+                display: true,
+                position: "right"
+            },
+            title: {
+                display: true,
+                text: title
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                        stepSize: 5
+                    }
+                }]
+            }
+        }
+    });
+}
+

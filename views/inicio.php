@@ -37,7 +37,7 @@
                 <div class="chart-info">
                 </div>
                 <div class="au-card-inner">
-                    <canvas id="singelBarChart"></canvas>
+                    <canvas id="existencia_categoria"></canvas>
                 </div>
                 <!-- Fin contenedor -->
             </div>
@@ -51,5 +51,5 @@
 
 
 <?php
-Dashboard::footerTemplate('account.js', '');
+Dashboard::footerTemplate('index.js', '');
 ?>
