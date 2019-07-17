@@ -137,5 +137,12 @@ class Categorias extends Validator
 		$params = array(null);
 		return conexion::getRows($sql, $params);
 	}
+
+	public function grafica_ventas_platillo()
+	{
+		$sql = 'SELECT SUM(detallefactura.subtotal) subtotal, nombre_platillo FROM detallefactura INNER JOIN platillos USING (id_platillo) GROUP BY nombre_platillo';
+		$params = array(null);
+		return conexion::getRows($sql, $params);
+	}
 }
 ?>

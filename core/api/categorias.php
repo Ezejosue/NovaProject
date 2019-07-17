@@ -142,6 +142,15 @@ if (isset($_GET['action'])) {
 					$result['exception'] = 'No hay categorías registradas';
 				}
 				break;
+
+				case 'ventas_platillos':
+				if ($result['dataset'] = $categoria->grafica_ventas_platillo()) {
+					$result['status'] = 1;
+				} else {
+					$result['exception'] = 'No hay categorías registradas';
+				}
+				break;
+				
 			default:
 				exit('Acción no disponible');
 		}
