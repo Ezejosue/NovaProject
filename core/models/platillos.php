@@ -179,6 +179,34 @@ class Platillos extends Validator
         $sql = 'DELETE FROM Platillos WHERE id_platillo = ?';
         $params = array($this->id);
         return Conexion::executeRow($sql, $params);
-    }
+	}
+
+	public function grafica_ventas_platillo()
+	{//funcion para mostrar las mayores ventas por platillo
+		$sql = 'SELECT SUM(platillos.precio) precio, nombre_platillo, pre_pedido.cantidad FROM platillos INNER JOIN pre_pedido USING (id_platillo) GROUP BY nombre_platillo ORDER BY precio DESC LIMIT 5';
+		$params = array(null);
+		return conexion::getRows($sql, $params);
+	}
+
+	public function grafica_ventas_platillo_menor()
+	{//funcion para mostrar las menores ventas por platillo
+		$sql = 'SELECT SUM(platillos.precio) precio, nombre_platillo, pre_pedido.cantidad FROM platillos INNER JOIN pre_pedido USING (id_platillo) GROUP BY nombre_platillo ORDER BY precio ASC LIMIT 5';
+		$params = array(null);
+		return conexion::getRows($sql, $params);
+	}
+	
+	public function grafica_platillos_caros()
+	{//funcion para traer la consulta de platillos más caros
+		$sql = 'SELECT nombre_platillo, precio FROM platillos ORDER BY precio DESC LIMIT 5';
+		$params = array(null);
+		return conexion::getRows($sql, $params);
+	}
+
+	public function grafica_platillos_baratos()
+	{//funcion para traer la consulta de platillos más baratos
+		$sql = 'SELECT nombre_platillo, precio FROM platillos ORDER BY precio ASC LIMIT 5';
+		$params = array(null);
+		return conexion::getRows($sql, $params);
+	}
 }
 ?>

@@ -1,70 +1,71 @@
 //Inicializando la función para verificar que un usuario haya iniciado sesión
-$(document).ready(function()
-{
+$(document).ready(function () {
     checkUsuarios();
     graficar_existencia_categoria();
     graficar_ventas_platillos();
+    graficar_ventas_platillos_menor();
+    graficar_platillos_mayores();
+    graficar_platillos_menores();
 })
 
 //Constante para establecer la ruta y parámetros de comunicación con la API
 const apiSesion = '../core/api/usuarios.php?action=';
 const apiCategorias = '../core/api/categorias.php?site=private&action=';
+const apiPlatillos = '../core/api/platillos.php?site=private&action=';
 
 //Función para verificar si existen usuarios en el sitio privado
-function checkUsuarios()
-{
+function checkUsuarios() {
     $.ajax({
-        url: apiSesion + 'read',
-        type: 'post',
-        data: null,
-        datatype: 'json'
-    })
-    .done(function(response){
-        //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
-        if (isJSONString(response)) {
-            const dataset = JSON.parse(response);
-            //Se comprueba que no hay usuarios registrados para redireccionar al registro del primer usuario
-            if (dataset.status == 2) {
-                sweetAlert(3, dataset.exception, 'registrar.php');
+            url: apiSesion + 'read',
+            type: 'post',
+            data: null,
+            datatype: 'json'
+        })
+        .done(function (response) {
+            //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+            if (isJSONString(response)) {
+                const dataset = JSON.parse(response);
+                //Se comprueba que no hay usuarios registrados para redireccionar al registro del primer usuario
+                if (dataset.status == 2) {
+                    sweetAlert(3, dataset.exception, 'registrar.php');
+                }
+            } else {
+                console.log(response);
             }
-        } else {
-            console.log(response);
-        }
-    })
-    .fail(function(jqXHR){
-        //Se muestran en consola los posibles errores de la solicitud AJAX
-        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
-    });
+        })
+        .fail(function (jqXHR) {
+            //Se muestran en consola los posibles errores de la solicitud AJAX
+            console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+        });
 }
 
 //Función para validar el usuario al momento de iniciar sesión
-$('#form-sesion').submit(function()
-{
+$('#form-sesion').submit(function () {
     event.preventDefault();
     $.ajax({
-        url: apiSesion + 'login',
-        type: 'post',
-        data: $('#form-sesion').serialize(),
-        datatype: 'json'
-    })
-    .done(function(response){
-        //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
-        if (isJSONString(response)) {
-            const dataset = JSON.parse(response);
-            //Se comprueba si la respuesta es satisfactoria, sino se muestra la excepción
-            if (dataset.status) {
-                sweetAlert(1, 'Autenticación correcta', 'inicio.php');
+            url: apiSesion + 'login',
+            type: 'post',
+            data: $('#form-sesion').serialize(),
+            datatype: 'json'
+        })
+        .done(function (response) {
+            //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+            if (isJSONString(response)) {
+                const dataset = JSON.parse(response);
+                //Se comprueba si la respuesta es satisfactoria, sino se muestra la excepción
+                if (dataset.status) {
+                    sweetAlert(1, 'Autenticación correcta', 'inicio.php');
+                } else {
+                    sweetAlert(2, dataset.exception, null);
+                }
             } else {
-                sweetAlert(2, dataset.exception, null);
+                console.log(response);
             }
-        } else {
-            console.log(response);
-        }
-    })
-    .fail(function(jqXHR){
-        //Se muestran en consola los posibles errores de la solicitud AJAX
-        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
-    });
+        })
+        .fail(function (jqXHR) {
+            //Se muestran en consola los posibles errores de la solicitud AJAX
+            console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+        });
 })
 
 
@@ -105,7 +106,7 @@ function graficar_existencia_categoria() {
 function graficar_ventas_platillos() {
     //se manda a pedir los datos de la api
     $.ajax({
-            url: apiCategorias + 'ventas_platillos',
+            url: apiPlatillos + 'ventas_platillos_mayor',
             type: 'post',
             data: null,
             datatype: 'json'
@@ -119,10 +120,10 @@ function graficar_ventas_platillos() {
             result.dataset.forEach(row => {
                 //se recorren todos los datos que esten en las filas especificadas en el row
                 nombre.push(row.nombre_platillo);
-                venta.push(parseInt(row.subtotal));
+                venta.push(row.precio);
             });
             //se mandar los parametros de la funcion que se crea en el controlador de function.js los cuales son el id, xAxis, yAxis y legend
-            grafica_venta_platillos("venta_platillo", nombre, venta, "dolares", "Ventas de platillos")
+            grafica_venta_platillos_mayor("venta_platillo", nombre, venta, "dolares", "Top 5 platillos más vendidos")
         })
 
         //en caso de error se ejecuta esta funcion
@@ -133,3 +134,103 @@ function graficar_ventas_platillos() {
 
 }
 
+
+//funcion para graficar la cantidad de libros vendidos 
+function graficar_ventas_platillos_menor() {
+    //se manda a pedir los datos de la api
+    $.ajax({
+            url: apiPlatillos + 'ventas_platillos_menor',
+            type: 'post',
+            data: null,
+            datatype: 'json'
+        })
+        .done(response => {
+            //se hacen los arreglos para poder recorrer las filas de la consulta
+            var nombre = [];
+            var venta = [];
+            //se genera un ciclo para poder recorrer las filas de la tabla de la base de datos
+            const result = JSON.parse(response);
+            result.dataset.forEach(row => {
+                //se recorren todos los datos que esten en las filas especificadas en el row
+                nombre.push(row.nombre_platillo);
+                venta.push(row.precio);
+            });
+            //se mandar los parametros de la funcion que se crea en el controlador de function.js los cuales son el id, xAxis, yAxis y legend
+            grafica_venta_platillos_menores("venta_platillo_menor", nombre, venta, "dolares", "Top 5 platillos menos vendidos")
+        })
+
+        //en caso de error se ejecuta esta funcion
+        .fail(function (jqXHR) {
+            //Se muestran en consola los posibles errores de la solicitud AJAX
+            console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+        });
+
+}
+
+
+
+//funcion para graficar la cantidad de libros vendidos 
+function graficar_platillos_mayores() {
+    //se manda a pedir los datos de la api
+    $.ajax({
+            url: apiPlatillos + 'grafica_platillos_mayores',
+            type: 'post',
+            data: null,
+            datatype: 'json'
+        })
+        .done(response => {
+            //se hacen los arreglos para poder recorrer las filas de la consulta
+            var nombre = [];
+            var dinero = [];
+            //se genera un ciclo para poder recorrer las filas de la tabla de la base de datos
+            const result = JSON.parse(response);
+            result.dataset.forEach(row => {
+                //se recorren todos los datos que esten en las filas especificadas en el row
+                nombre.push(row.nombre_platillo);
+                dinero.push(row.precio);
+            });
+            //se mandar los parametros de la funcion que se crea en el controlador de function.js los cuales son el id, xAxis, yAxis y legend
+            grafica_platillos_caros("mayor_platillo", nombre, dinero, "platillos más caros", "Top 5 de platillos más caros.")
+        })
+
+        //en caso de error se ejecuta esta funcion
+        .fail(function (jqXHR) {
+            //Se muestran en consola los posibles errores de la solicitud AJAX
+            console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+        });
+
+}
+
+
+
+//funcion para graficar la cantidad de libros vendidos 
+function graficar_platillos_menores() {
+    //se manda a pedir los datos de la api
+    $.ajax({
+            url: apiPlatillos + 'grafica_platillos_menores',
+            type: 'post',
+            data: null,
+            datatype: 'json'
+        })
+        .done(response => {
+            //se hacen los arreglos para poder recorrer las filas de la consulta
+            var nombre = [];
+            var dinero = [];
+            //se genera un ciclo para poder recorrer las filas de la tabla de la base de datos
+            const result = JSON.parse(response);
+            result.dataset.forEach(row => {
+                //se recorren todos los datos que esten en las filas especificadas en el row
+                nombre.push(row.nombre_platillo);
+                dinero.push(row.precio);
+            });
+            //se mandar los parametros de la funcion que se crea en el controlador de function.js los cuales son el id, xAxis, yAxis y legend
+            grafica_platillos_baratos("menor_platillo", nombre, dinero, "platillos más baratos", "Top 5 de platillos más baratos.")
+        })
+
+        //en caso de error se ejecuta esta funcion
+        .fail(function (jqXHR) {
+            //Se muestran en consola los posibles errores de la solicitud AJAX
+            console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+        });
+
+}
