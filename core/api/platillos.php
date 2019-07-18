@@ -320,6 +320,43 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Contenido no disponible';
                 }
                 break;
+
+                //operaciones de graficas
+                //operacion para traer el modelo de la grafica de cuales platillos se han vendido más
+				case 'ventas_platillos_mayor':
+				if ($result['dataset'] = $platillo->grafica_ventas_platillo()) {
+					$result['status'] = 1;
+				} else {
+					$result['exception'] = 'No hay categorías registradas';
+				}
+                break;
+                
+                //operación para traer el modelo de la grafica de cuales platillos se han vendido menos
+				case 'ventas_platillos_menor':
+				if ($result['dataset'] = $platillo->grafica_ventas_platillo_menor()) {
+					$result['status'] = 1;
+				} else {
+					$result['exception'] = 'No hay categorías registradas';
+				}
+				break;
+
+                //operación para traer los platillos con precio más elevado
+                case 'grafica_platillos_mayores':
+                if ($result['dataset'] = $platillo->grafica_platillos_caros()) {
+                    $result['status'] = 1;
+                } else {
+                    $result['exception'] = 'No hay platillos registrados';
+                }
+                break;
+                
+                //operación para traer los platillos con precio más barato
+                case 'grafica_platillos_menores':
+                if ($result['dataset'] = $platillo->grafica_platillos_baratos()) {
+                    $result['status'] = 1;
+                } else {
+                    $result['exception'] = 'No hay platillos registrados';
+                }
+                break;
                 
             default:
                 exit('Acción no disponible 1');
