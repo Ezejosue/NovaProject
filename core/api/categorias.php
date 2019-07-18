@@ -134,7 +134,8 @@ if (isset($_GET['action'])) {
 					$result['exception'] = 'Categoría incorrecta';
 				}
 				break;
-				
+
+				//caso para traer el modelo de la existencia de materias primas por categoria
 				case 'existencias_categoria':
 				if ($result['dataset'] = $categoria->graficar_existencia_categoria()) {
 					$result['status'] = 1;
@@ -143,13 +144,6 @@ if (isset($_GET['action'])) {
 				}
 				break;
 
-				case 'ventas_platillos':
-				if ($result['dataset'] = $categoria->grafica_ventas_platillo()) {
-					$result['status'] = 1;
-				} else {
-					$result['exception'] = 'No hay categorías registradas';
-				}
-				break;
 				
 			default:
 				exit('Acción no disponible');
