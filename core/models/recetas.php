@@ -124,7 +124,7 @@ class Recetas extends Validator
 	public function setCantidad($value)
 	{
 		if ($this->validateId($value)) {
-			$this->idmedida = $value;
+			$this->cantidad = $value;
 			return true;
 		} else {
 			return false;
@@ -133,7 +133,7 @@ class Recetas extends Validator
 
 	public function getCantidad()
 	{
-		return $this->idmedida;
+		return $this->cantidad;
 	}
 
 	
@@ -142,7 +142,7 @@ class Recetas extends Validator
 	// Metodos para el manejo del SCRUD
 	public function readRecetas()
 	{
-		$sql = 'SELECT id_receta, nombre_receta, tiempo, elaboracion
+		$sql = 'SELECT id_receta, nombre_receta, tiempo
 				FROM receta r 
 				ORDER BY nombre_receta';
 		$params = array(null);
@@ -151,8 +151,8 @@ class Recetas extends Validator
 
 	public function createRecetas()
 	{
-		$sql = 'INSERT INTO receta(nombre_receta, tiempo, elaboracion, idMateria, cantidad) VALUES(?, ?, ?, ?, ?)';
-		$params = array($this->nombrereceta, $this->tiempo, $this->elaboracion, $this->idmateria, $this->cantidad);
+		$sql = 'INSERT INTO receta(nombre_receta, tiempo) VALUES(?, ?)';
+		$params = array($this->nombrereceta, $this->tiempo);
 		return conexion::executeRow($sql, $params);
 	}
 
@@ -168,12 +168,18 @@ class Recetas extends Validator
 		return conexion::getRow($sql, $params);
 	}
 
-	public function readMateriaPrima()
+	public function createElaboracion()
 	{
-		$sql = 'SELECT idMateria, nombre_materia, u.descripcion 
-				FROM materiasprimas m 
-				INNER JOIN unidadmedida u ON m.id_Medida = u.id_Medida
-				WHERE estado = 1';
+		$sql = 'INSERT INTO elaboraciones(id_receta, idMateria, cantidad) VALUES(?, ?, ?)';
+		$params = array($this->idreceta, $this->idmateria, $this->cantidad);
+		return Conexion::getRows($sql, $params);
+	}
+
+
+	public function readMateriasPrimas()
+	{
+		$sql = 'SELECT idMateria , nombre_materia, u.descripcion
+		FROM materiasprimas m INNER JOIN unidadmedida u USING(id_Medida) WHERE estado = 1';
 		$params = array(null);
 		return Conexion::getRows($sql, $params);
 	}
