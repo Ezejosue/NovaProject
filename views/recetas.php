@@ -24,7 +24,6 @@
                         <tr>
                             <th>NOMBRE</th>
                             <th>TIEMPO</th>
-                            <th>ELABORACIÓN</th>
                             <th>ACCIÓN</th>
                         </tr>
                     </thead>
@@ -68,32 +67,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-sm-1">
-                                <i class="fa fa-list"></i>
-                            </div>
-                            <div class="col-sm-11">
-                            <label><b>Lista de materias primas</b></label>
-                            <form method="post">
-                                <fieldset id="show_materias" name="materias">
-                                
-                                </fieldset>
-                            </form>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-sm-1">
-                                <i class="fa fa-file-alt"></i>
-                            </div>
-                            <div class="col-sm-11">
-                                <textarea placeholder="Elaboración" class="form-control" id="create_elab"
-                                    name="create_elab" for="elaboracion" rows="3" require></textarea>
-                            </div>
-                        </div>
-                    </div>
 
                     <div class="modal-body">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
@@ -103,26 +76,27 @@
         </div>
         </form>
     </div>
-    <!-- Modal de Modificar -->
-    <div id="modal-update" class="modal fade">
+    <!-- Modal de agregar materias primas -->
+    <div id="modal-materiasprimas" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">MODIFICAR RECETAS</h5>
+                    <h5 class="modal-title">AGREGAR MATERIAS PRIMAS</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form method="post" id="form-update">
-                    <input type="hidden" id="id_tipo_usuario" name="id_tipo_usuario" />
+                <form method="post" id="form-materiasprimas">
+                    <input type="" id="id_receta" name="id_receta" />
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-1">
                                 <i class="fa fa-user"></i>
                             </div>
                             <div class="col-sm-11">
-                                <input id="update_nombre_tipo" type="text" name="update_nombre_tipo"
-                                    class="validate form-control" placeholder="Tipo de usuario" required>
+                                <select id="id_materias" name="id_materias" class="form-control" required>
+
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -132,26 +106,8 @@
                                 <i class="fa fa-user"></i>
                             </div>
                             <div class="col-sm-11">
-
-                                <input id="update_descripcion" type="text" name="update_descripcion"
-                                    class="validate form-control" placeholder="Descripcion" required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-sm-1">
-                                <i class="fa fa-eye-slash"></i>
-                            </div>
-                            <div class="col-sm-11">
-                                <div class="custom-control custom-switch">
-                                    <input type="checkbox" class="custom-control-input" id="update_estado"
-                                        name="update_estado">
-
-                                    <label class="custom-control-label" for="update_estado">
-                                        <i class="fa fa-eye"></i>
-                                    </label>
-                                </div>
+                                <input id="cantidad_materia" type="number" name="cantidad_materia"
+                                    class="validate form-control" placeholder="Cantidad" required>
                             </div>
                         </div>
                     </div>
