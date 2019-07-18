@@ -23,21 +23,49 @@ if (isset($_GET['action'])) {
             //Operación para crear nuevos usuarios
             case 'create':
                 $_POST = $recetas->validateForm($_POST);
-                    if ($recetas->setNombreReceta($_POST['create_nombre_receta'])) {
-                        if ($recetas->setTiempo($_POST['create_tiempo_receta'])) {
-                                if ($recetas->createRecetas()) {
-                                    $result['status'] = 1;
+                    if ($recetas->setNombre($_POST['create_nombre_materia'])) {
+                        if ($recetas->setEstado(isset($_POST['create_estado']) ? 1 : 0)) {
+                            if ($recetas->setDescripcion($_POST['create_descripcion_materia'])) {
+                                if ($recetas->setCantidad($_POST['create_cantidad'])) {
+                                    if ($recetas->setCategorias($_POST['create_categoria'])) {
+                                        if ($recetas->setIdMedida($_POST['create_unidad'])) {
+                                            if (is_uploaded_file($_FILES['create_archivo']['tmp_name'])) {
+                                                if ($recetas->setImagen($_FILES['create_archivo'], null)) {
+                                                    if ($recetas->createMateriaPrima()) {
+                                                        if ($recetas->saveFile($_FILES['create_archivo'], $recetas->getRuta(), $recetas->getImagen())) {
+                                                            $result['status'] = 1;
+                                                        } else {
+                                                            $result['status'] = 2;
+                                                            $result['exception'] = 'No se guardó el archivo';
+                                                        }
+                                                    } else {
+                                                        $result['exception'] = 'Operación fallida';
+                                                    }
+                                                } else {
+                                                    $result['exception'] = $recetas->getImageError();;
+                                                } 
+                                            }   else {
+                                                $result['exception'] = 'Seleccione una imagen';
+                                                    } 
+                                                } else {
+                                                    $result['exception'] = 'Seleccione una unidad de medida';
+                                                } 
+                                            } else {
+                                            $result['exception'] = 'Seleccione una categoria';
+                                        }  
+                                    } else {
+                                        $result['exception'] = 'Cantidad incorrecta';
+                                    }
                                 } else {
-                                    $result['status'] = 2;
-                                    $result['exception'] = 'Operación fallida';
+                                    $result['exception'] = 'Descripcion incorrecta';
                                 }
                             } else {
-                                $result['exception'] = 'Tiempo de elaboración incorrecto';
+                                $result['exception'] = 'Estado incorrecto';
                             }
                         } else {
                             $result['exception'] = 'Nombre incorrecto';
                         }                                     
-                break;
+                    break;
                 
             //Operación para saber el usuario que se va a modificar
             case 'get':
@@ -140,7 +168,6 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Contenido no disponible';
                 }
                 break;
-            
 
             case 'readUnidad':
                 if ($result['dataset'] = $recetas->readMedidaMateria()) {

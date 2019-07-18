@@ -151,14 +151,14 @@ class Recetas extends Validator
 
 	public function createRecetas()
 	{
-		$sql = 'INSERT INTO receta(nombre_receta, tiempo) VALUES(?, ?)';
-		$params = array($this->nombrereceta, $this->tiempo);
+		$sql = 'INSERT INTO receta(nombre_receta, tiempo, elaboracion, idMateria, cantidad) VALUES(?, ?, ?, ?, ?)';
+		$params = array($this->nombrereceta, $this->tiempo, $this->elaboracion, $this->idmateria, $this->cantidad);
 		return conexion::executeRow($sql, $params);
 	}
 
 	public function getReceta()
 	{
-		$sql = 'SELECT id_receta, nombre_receta, tiempo m.nombre_materia, u.nombre_medida, r.cantidad 
+		$sql = 'SELECT id_receta, nombre_receta, tiempo, elaboracion, m.nombre_materia, u.nombre_medida, r.cantidad 
 				FROM receta r 
 				INNER JOIN materiasprimas m ON m.idMateria = r.idMateria 
 				INNER JOIN unidadmedida u ON u.id_Medida = m.id_Medida 
@@ -172,7 +172,7 @@ class Recetas extends Validator
 	{
 		$sql = 'SELECT idMateria, nombre_materia, u.descripcion 
 				FROM materiasprimas m 
-				INNER JOIN unidadmedida u USING(id_Medida)
+				INNER JOIN unidadmedida u ON m.id_Medida = u.id_Medida
 				WHERE estado = 1';
 		$params = array(null);
 		return Conexion::getRows($sql, $params);

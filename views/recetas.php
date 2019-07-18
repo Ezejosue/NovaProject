@@ -24,6 +24,7 @@
                         <tr>
                             <th>NOMBRE</th>
                             <th>TIEMPO</th>
+                            <th>ELABORACIÓN</th>
                             <th>ACCIÓN</th>
                         </tr>
                     </thead>
@@ -51,9 +52,9 @@
                                 <i class="fa fa-list"></i>
                             </div>
                             <div class="col-sm-11">
-                                <input placeholder="Nombre de receta" class="form-control" id="create_nombre_receta"
-                                    name="create_nombre_receta" for="create_nombre_receta" required>
-                            </div> 
+                                <input placeholder="Nombre de receta" class="form-control" id="create_nombre"
+                                    name="create_nombre" for="nombre_receta" required>
+                            </div>
                         </div>
                     </div>
                     <div class="modal-body">
@@ -62,11 +63,37 @@
                                 <i class="fa fa-clock"></i>
                             </div>
                             <div class="col-sm-11">
-                                <input placeholder="Tiempo de elaboración" class="form-control" id="create_tiempo_receta"
-                                    name="create_tiempo_receta" for="create_tiempo_receta" required>
+                                <input placeholder="Tiempo de elaboración" class="form-control" id="create_tiempo"
+                                    name="create_tiempo" for="tiempo" required>
                             </div>
                         </div>
                     </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-1">
+                                <i class="fa fa-list"></i>
+                            </div>
+                            <div class="col-sm-11">
+                                <form method="post">
+                                    <fieldset id="show_materias">
+                                        <label><b>Lista de materias primas</b></label>
+                                    </fieldset>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-1">
+                                <i class="fa fa-file-alt"></i>
+                            </div>
+                            <div class="col-sm-11">
+                                <textarea placeholder="Elaboración" class="form-control" id="create_elab"
+                                    name="create_elab" for="elaboracion" rows="3" require></textarea>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="modal-body">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                         <button type="submit" class="btn btn-primary">Aceptar</button>
@@ -75,9 +102,8 @@
         </div>
         </form>
     </div>
-    
     <!-- Modal de Modificar -->
-    <div id="modal-add-materias" class="modal fade">
+    <div id="modal-update" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -86,7 +112,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form method="post" id="form-add-materias">
+                <form method="post" id="form-update">
                     <input type="hidden" id="id_tipo_usuario" name="id_tipo_usuario" />
                     <div class="modal-body">
                         <div class="row">
@@ -94,9 +120,8 @@
                                 <i class="fa fa-user"></i>
                             </div>
                             <div class="col-sm-11">
-                                <select id="materias-primas-list">
-
-                                </select>
+                                <input id="update_nombre_tipo" type="text" name="update_nombre_tipo"
+                                    class="validate form-control" placeholder="Tipo de usuario" required>
                             </div>
                         </div>
                     </div>
