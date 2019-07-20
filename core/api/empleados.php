@@ -21,7 +21,7 @@ if (isset($_GET['action'])) {
 
 
 				//Operación para crear nuevos Empleado
-		case 'create':
+			case 'create':
 				$_POST = $empleado->validateForm($_POST);
 				if ($empleado->setNombres($_POST['create_nombre'])) {
 						if ($empleado->setApellido($_POST['create_apellido'])) {
@@ -96,7 +96,7 @@ if (isset($_GET['action'])) {
 				 }
 				 break;
 
-				 /* Operacion para obtener el id del empleado */
+				 /* Operación para obtener el id del empleado */
 				case 'get':
 					 if ($empleado->setId($_POST['id_empleado']) 
 					 ) {
@@ -107,11 +107,11 @@ if (isset($_GET['action'])) {
 							$result['exception'] = 'Empleado no existente';
  						}
 					 } else {
-						 $result['exception'] = 'Empleado incorrecot';
+						 $result['exception'] = 'Empleado incorrecto';
 					 }
 					break;
 
-				 /* Operacion para actualizar un empleado */
+				 /* Operación para actualizar un empleado */
 				case 'update':
 					$_POST = $empleado->validateForm($_POST);
 					if ($empleado->setId($_POST['id_empleado'])) 
@@ -172,7 +172,7 @@ if (isset($_GET['action'])) {
 					}
 					break;
 
-				 /* Operacion para eliminar un empleado */
+				 /* Operación para eliminar un empleado */
 				 case 'delete':
 				 if ($empleado->setId($_POST['id_empleado'])) {
 					 if ($empleado->getEmpleado()) {
