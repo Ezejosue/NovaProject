@@ -178,7 +178,7 @@ if (isset($_GET['action'])) {
 					 if ($empleado->getEmpleado()) {
 						 if ($empleado->deleteEmpleado()) {
 							$result['status'] = 1;
-							$result['message'] = 'Empleado modificado correctamente';
+							$result['message'] = 'Empleado eliminado correctamente';
 						 } else {
 							 $result['exception'] = 'Operación fallida';
 						 }
