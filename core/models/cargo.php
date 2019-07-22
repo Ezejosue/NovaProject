@@ -48,16 +48,24 @@ class Cargo extends Validator
     public function createCargo()
     {
         $sql = 'INSERT INTO cargo(nombre_Cargo) VALUES (?)';
-        $params = array->($this->nombre_cargo);
+        $params = array($this->nombre_cargo);
 		return conexion::executeRow($sql, $params);
     }
 
-    public function getCargo()
+    public function searchCargo()
     {
-        $sql = 'INSERT INTO cargo(nombre_Cargo) VALUES (?)';
-        $params = array->($this->nombre_cargo);
-		return conexion::executeRow($sql, $params);
+        $sql = 'SELECT id_Cargo, nombre_cargo FROM cargo WHERE id_Cargo = ?';
+        $params = array($this->id);
+        return Conexion::getRow($sql, $params);
     }
+
+    public function updateCargo()
+	{
+		$sql = 'UPDATE cargo SET nombre_cargo = ? WHERE id_Cargo = ?';
+		$params = array($this->nombre_cargo, $this->id);
+		return conexion::executeRow($sql, $params);
+	}
+
 }
 
 ?>

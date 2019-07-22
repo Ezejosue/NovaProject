@@ -36,7 +36,7 @@ if (isset($_GET['action'])) {
 																								if ($empleado->setUsuario($_POST['create_usuario'])) {
 																									if($empleado->createEmpleado()){
 																										$result['status'] = 1;
-																										$result['message'] = 'Categoría creada correctamente';
+																										$result['message'] = 'Cargo creada correctamente';
 																									}else{
 																										$result['exception'] = 'Error al insertar';
 																									}
