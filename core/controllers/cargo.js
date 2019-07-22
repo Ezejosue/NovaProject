@@ -18,7 +18,7 @@ function fillTable(rows) {
                 <td>${row.nombre_Cargo}</td>
                 <td>
                     <a href="#" onclick="modalUpdate(${row.id_Cargo})" class="btn btn-info   tooltipped" data-tooltip="Modificar"><i  class="fa fa-edit"></i></a>
-                    <a href="#" onclick="confirmDelete(${row.id_cargo})"class="btn btn-danger tooltipped" data-tooltip="Eliminar"><i class="fa fa-times"></i></a>
+                    <a href="#" onclick="confirmDelete(${row.id_Cargo})"class="btn btn-danger tooltipped" data-tooltip="Eliminar"><i class="fa fa-times"></i></a>
                 </td>
             </tr>
         `;
@@ -160,4 +160,47 @@ $('#form-update').submit(function()
     });
 })
 
-
+// Función para eliminar un registro seleccionado
+function confirmDelete(id)
+{
+    swal({
+        title: 'Advertencia',
+        text: '¿Quiere eliminar el empleado?',
+        icon: 'warning',
+        buttons: ['Cancelar', 'Aceptar'],
+        closeOnClickOutside: false,
+        closeOnEsc: false
+    })
+    .then(function(value){
+        if (value) {
+            $.ajax({
+                url: apiCargo + 'delete',
+                type: 'post',
+                data:{
+                    id_Cargo: id
+                },
+                datatype: 'json'
+            })
+            .done(function(response){
+                // Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+                if (isJSONString(response)) {
+                    const result = JSON.parse(response);
+                    // Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
+                    if (result.status) {
+                        sweetAlert(1, 'Cargo eliminado correctamente', null);
+                        destroy('#tabla-cargo');
+                        showTable();
+                    } else {
+                        sweetAlert(2, result.exception, null);
+                    }
+                } else {
+                    console.log(response);
+                }
+            })
+            .fail(function(jqXHR){
+                // Se muestran en consola los posibles errores de la solicitud AJAX
+                console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+            });
+        }
+    });
+}

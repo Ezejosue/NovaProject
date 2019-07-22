@@ -68,7 +68,24 @@ if (isset($_GET['action'])) {
                         }
                         
 					}
-					break;
+                    break;
+                    
+                case 'delete':
+                    if ($cargo->setId($_POST['id_Cargo'])) {
+                        if ($cargo->searchCargo()) {
+                            if ($cargo->deleteCargo()) {
+                               $result['status'] = 1;
+                               $result['message'] = 'Cargo eliminado correctamente';
+                            } else {
+                                $result['exception'] = 'Operación fallida';
+                            }
+                        } else {
+                            $result['exception'] = 'Cargo inexistente';
+                        }
+                    } else {
+                        $result['exception'] = 'Cargo incorrecto';
+                    }
+                    break;
             default:
 				 exit('Acción no disponible');                
         }

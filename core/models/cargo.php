@@ -66,6 +66,12 @@ class Cargo extends Validator
 		return conexion::executeRow($sql, $params);
 	}
 
+    public function deleteCargo()
+    {
+        $sql = 'DELETE FROM cargo WHERE id_Cargo = ?';
+        $params = array($this->id);
+        return Conexion::executeRow($sql, $params);
+    }
 }
 
 ?>
