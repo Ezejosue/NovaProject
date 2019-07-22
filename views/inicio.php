@@ -32,24 +32,60 @@
     <div class="row">
         <div class="col-xl-12">
             <!-- Contenedor para la gráfica-->
+
             <div class="recent-report2">
-                <h3 class="title-3">Productos por categorías</h3>
+                <h3 align="center" class="title-1">Existencias.</h3>
                 <div class="chart-info">
                 </div>
                 <div class="au-card-inner">
-                    <canvas id="singelBarChart"></canvas>
+                    <h5 align="center">existencias por categoria</h5>
+                    <canvas id="existencia_categoria"></canvas>
                 </div>
-                <!-- Fin contenedor -->
-            </div>
-            <div class="col-xl-4">
             </div>
         </div>
-        <div class="col-xl-4">
-        </div>
-    </div>
-</div>
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xl-12">
+                    <!-- Contenedor para la gráfica-->
+                    <div>
+                        <div class="recent-report2">
+                            <h3 align="center" class="title-1">Ventas.</h3>
+                            <div class="chart-info">
+                            </div>
+                            <div class="au-card-inner">
+                                <h5 align="center">Platillos más vendidos</h5>
+                                <canvas id="venta_platillo"></canvas>
+                                <hr>
+                                <h5 align="center">Platillos menos vendidos</h5>
+                                <canvas id="venta_platillo_menor"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
 
-<?php
-Dashboard::footerTemplate('account.js', '');
-?>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <!-- Contenedor para la gráfica-->
+                            <div>
+                                <div class="recent-report2">
+                                    <h3 align="center" class="title-1">Precios de platillos.</h3>
+                                    <div class="chart-info">
+                                    </div>
+                                    <h5 align="center">Platillos más caros.</h5>
+                                    <canvas id="mayor_platillo"></canvas>
+                                    <hr>
+                                    <h5 align="center">Platillos más baratos.</h5>
+                                    <canvas id="menor_platillo"></canvas>
+                                </div>
+                                <hr>
+                            </div>
+                        </div>
+                    </div>
+
+
+        <?php
+        Dashboard::footerTemplate('index.js', '');
+        ?>

@@ -31,6 +31,7 @@ class Dashboard
 			<link href="../resources/css/dataTables.bootstrap4.min.css" rel="stylesheet" media="all">
 			<link href="../resources/css/jquery.dataTables.min.css" rel="stylesheet" media="all">
 			<link href="../resources/css/main.css" rel="stylesheet" media="all">
+			<link href="../resources/css/Chart.css" rel="stylesheet" media="all">
 			<body class="animsition">
 			<div class="page-wrapper">
 		</head>
@@ -260,6 +261,7 @@ class Dashboard
             <script src="../resources/js/jquery.dataTables.min.js"></script>
 			<script src="../resources/js/dataTables.bootstrap4.min.js"></script>
 			<script src="../resources/js/all.js"></script>
+			<script src="../resources/js/chart.js"></script>
 
             <script src="../resources/js/sweetalert.min.js"></script>
             <script type="text/javascript" src="../core/helpers/functions.js"></script>

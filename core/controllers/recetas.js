@@ -2,7 +2,7 @@
 $(document).ready(function()
 {
     showTable();
-    showMateriasPrimas('show_materias');
+    showSelectMaterias('id_materias', null);
 })
 
 //Constante para establecer la ruta y parámetros de comunicación con la API
@@ -18,9 +18,8 @@ function fillTable(rows)
             <tr>
                 <td>${row.nombre_receta}</td>
                 <td>${row.tiempo}</td>
-                <td>${row.elaboracion}</td>
                 <td>
-                    <a href="#" onclick="modalUpdate(${row.id_receta})" class="btn btn-info tooltipped" data-tooltip="Modificar"><i class="fa fa-edit"></i></a>
+                    <a href="#" onclick="modalMateriasPrimas(${row.id_receta})" class="btn btn-info tooltipped" data-tooltip="Modificar"><i class="fa fa-edit"></i></a>
                     <a href="#" onclick="confirmDelete(${row.id_receta})" class="btn btn-danger tooltipped" data-tooltip="Eliminar"><i class="fa fa-times"></i></a>
                 </td>
             </tr>
@@ -58,8 +57,7 @@ function showTable()
     });
 }
 
-//Función para cargar los tipos de categorías en el select del formulario
-function showMateriasPrimas(idCheck)
+function showSelectMaterias(idSelect, value)
 {
     $.ajax({
         url: apiRecetas + 'readMateriaPrima',
@@ -74,25 +72,19 @@ function showMateriasPrimas(idCheck)
             //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
             if (result.status) {
                 let content = '';
-
+                if (!value) {
+                    content += '<option value="" disabled selected>Seleccione una opción</option>';
+                }
                 result.dataset.forEach(function(row){
-
-                        content += 
-                                `<label><input type="checkbox" name="materia" id="materia_prima" value="${row.idMateria}" required> ${row.nombre_materia} (${row.descripcion})</label>
-                                <label><input id="cantidad" type="number" name="cantidad" class="validate form-control"
-                                placeholder="Cantidad" max="100" min="1"></label><br>`;
-
+                    if (row.id_categoria != value) {
+                        content += `<option value="${row.idMateria}">${row.nombre_materia} (${row.descripcion})</option>`;
+                    } else {
+                        content += `<option value="${row.idMateria}" selected>${row.nombre_materia} (${row.descripcion})</option>`;
+                    }
                 });
-                if ($("#materia_prima").on( 'change', function(){
-                    if( $(this).is(':checked') ) {
-                        // Hacer algo si el checkbox ha sido seleccionado
-                        $("#cantidad").removeAttr("disabled");
-                    } 
-
-                }));
-                $('#' + idCheck).html(content);
+                $('#' + idSelect).html(content);
             } else {
-                $('#' + idCheck).html('<label>NO EXISTEN MATERIAS PRIMAS</label>');
+                $('#' + idSelect).html('<option value="">No hay opciones</option>');
             }
         } else {
             console.log(response);
@@ -125,9 +117,9 @@ $('#form-create').submit(function()
             if (result.status) {
                 $('#form-create')[0].reset();
                 $('#modal-create').modal('hide');
-                sweetAlert(1, 'Platillos creado correctamente', null);
+                sweetAlert(1, 'Receta creada correctamente', null);
                 //Se destruye la tabla de materias primas y se vuelve a crear para que muestre los cambios realizados
-                destroy('#tabla-platillos');
+                destroy('#ttabla-recetas');
                 showTable();
             } else {
                 sweetAlert(2, result.exception, null);
@@ -144,7 +136,7 @@ $('#form-create').submit(function()
     });
 })
 
-//Función para mostrar formulario con registro a modificar de platillos
+/* //Función para mostrar formulario con registro a modificar de platillos
 function modalUpdate(id)
 {
     $.ajax({
@@ -206,6 +198,80 @@ $('#form-update').submit(function()
                 sweetAlert(1, 'Platillos modificada correctamente', null);
                 //Se destruye la tabla de materias primas y se vuelve a crear para que muestre los cambios realizados
                 destroy('#tabla-platillos');
+                showTable();
+            } else {
+                sweetAlert(2, result.exception, null);
+            }
+        } else {
+            console.log(response);
+            //Se comprueba que el alias no sea repetido
+            sweetAlert(2, error2(response), null);
+        }
+    })
+    .fail(function(jqXHR){
+        //Se muestran en consola los posibles errores de la solicitud AJAX
+        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+    });
+}) */
+
+//Función para mostrar materias primas disponibles
+function modalMateriasPrimas(id)
+{
+    $.ajax({
+        url: apiRecetas + 'get',
+        type: 'post',
+        data:{
+            id_receta: id
+        },
+        datatype: 'json'
+    })
+    .done(function(response){
+        //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado consola
+        if (isJSONString(response)) {
+            const result = JSON.parse(response);
+            //Se comprueba si el resultado es satisfactorio para mostrar los valores en el formulario, sino se muestra la excepción
+            if (result.status) {
+                $('#form-materiasprimas')[0].reset();
+                $('#modal-materiasprimas').modal('show');
+                $('#id_receta').val(result.dataset.id_receta);
+                showSelectMaterias('id_materias', result.dataset.nombre_materia + result.dataset.descripcion);
+                
+            } else {
+                sweetAlert(2, result.exception, null);
+            }
+        } else {
+            console.log(response);
+        }
+    })
+    .fail(function(jqXHR){
+        //Se muestran en consola los posibles errores de la solicitud AJAX
+        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+    });
+}
+
+//Función para agregar materias primas a una receta 
+$('#form-materiasprimas').submit(function()
+{
+    event.preventDefault();
+    $.ajax({
+        url: apiRecetas + 'createElaboracion',
+        type: 'post',
+        data: new FormData($('#form-materiasprimas')[0]),
+        datatype: 'json',
+        cache: false,
+        contentType: false,
+        processData: false
+    })
+    .done(function(response){
+        //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+        if (isJSONString(response)) {
+            const result = JSON.parse(response);
+            //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
+            if (result.status) {
+                $('#modal-materiasprimas').modal('hide');
+                sweetAlert(1, 'Platillos modificada correctamente', null);
+                //Se destruye la tabla de materias primas y se vuelve a crear para que muestre los cambios realizados
+                destroy('#tabla-recetas');
                 showTable();
             } else {
                 sweetAlert(2, result.exception, null);
