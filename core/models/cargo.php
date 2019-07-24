@@ -24,7 +24,7 @@ class Cargo extends Validator
     
     public function setCargo($value)
 	{
-		if($this->validateAlphanumeric($value, 1, 50)) {
+		if($this->validateAlphabetic($value, 1, 50)) {
 			$this->nombre_cargo = $value;
 			return true;
 		} else {
