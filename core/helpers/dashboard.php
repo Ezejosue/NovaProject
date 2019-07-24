@@ -267,7 +267,7 @@ class Dashboard
 			<script src="../resources/js/dataTables.bootstrap4.min.js"></script>
 			<script src="../resources/js/all.js"></script>
 			<script src="../resources/js/chart.js"></script>
-
+			
             <script src="../resources/js/sweetalert.min.js"></script>
             <script type="text/javascript" src="../core/helpers/functions.js"></script>
             <script type="text/javascript" src="../core/controllers/account.js"></script>

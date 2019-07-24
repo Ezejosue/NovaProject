@@ -107,6 +107,10 @@
 Dashboard::footerTemplate('cargo.js', '#tabla-cargo');
 ?>
 
+    <script>
+        bootstrapValidate("#create_cargo", "min:9:Campo obligatorio (solo letras)");
+        bootstrapValidate("#update_nombre_cargo", "min:9:Campo obligatorio (solo letras)");
+    </script>
     </body>
 
     </html>
