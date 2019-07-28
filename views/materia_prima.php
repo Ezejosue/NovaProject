@@ -84,7 +84,7 @@
                             <div class="col-sm-11">
 
                                 <input id="create_cantidad" type="number" name="create_cantidad"
-                                    class="validate form-control" placeholder="Cantidad" max="100" min="1" required>
+                                    class="validate form-control" placeholder="Cantidad" max="999999" min="1" required>
                             </div>
                         </div>
                     </div>
@@ -194,8 +194,8 @@
                             </div>
                             <div class="col-sm-11">
 
-                                <input id="cantidad" type="number" name="cantidad" class="validate form-control"
-                                    placeholder="Cantidad" max="100" min="1" required>
+                                <input type="number" id="cantidad" name="cantidad" class="validate form-control"
+                                    placeholder="Cantidad" max="999999" min="1" required>
                             </div>
                         </div>
                     </div>
@@ -265,21 +265,24 @@ Dashboard::footerTemplate('materia_prima.js', '#tabla-materia_prima');
 
     <!-- validaciones del lado de cliente para agregar materias primas -->
     <script>
-        bootstrapValidate("#create_nombre_materia", "min:3:Ingrese un nombre mayor a 3 caracteres",
-            "max:30:Ingrese un nombre menor de 30 caracteres")
-    </script>
-    <script>
-        bootstrapValidate("#create_descripcion_materia", "min:6:Ingrese una descripción mayor de 6 caracteres",
-            "max:80:Ingrese una descripción menor a 80 caracteres")
-    </script>
-    <!-- validaciones del lado de cliente para modificar categorias -->
-    <script>
-        bootstrapValidate("#nombre_materia", "min:3:Ingrese un nombre mayor a 3 caracteres",
-            "max:30:Ingrese un nombre menor de 30 caracteres")
-    </script>
-    <script>
-        bootstrapValidate("#descripcion_materia", "min:6:Ingrese una descripción mayor de 6 caracteres",
-            "max:80:Ingrese una descripción menor a 80 caracteres")
+        bootstrapValidate("#create_nombre_materia", "min:3:Ingrese un nombre mayor a 3 caracteres");
+        bootstrapValidate("#create_nombre_materia", "max:10:Ingrese un nombre menor a 10 caracteres");
+            
+        bootstrapValidate("#create_descripcion_materia", "min:6:Ingrese una descripción mayor de 6 caracteres");
+        bootstrapValidate("#create_descripcion_materia", "max:80:Ingrese una descripción menor a 80 caracteres");
+
+        bootstrapValidate("#create_cantidad", "min:1:Ingrese una cantidad válida");
+        bootstrapValidate("#create_cantidad", "max:6:Ingrese una cantidad válida");
+
+        bootstrapValidate("#nombre_materia", "min:3:Ingrese un nombre mayor a 3 caracteres");
+        bootstrapValidate("#nombre_materia", "max:10:Ingrese un nombre menor a 10 caracteres");
+            
+        bootstrapValidate("#descripcion_materia", "min:6:Ingrese una descripción mayor de 6 caracteres");
+        bootstrapValidate("#descripcion_materia", "max:80:Ingrese una descripción menor a 80 caracteres");
+
+        bootstrapValidate("#cantidad", "min:1:Ingrese una cantidad válida");
+        bootstrapValidate("#cantidad", "max:6:Ingrese una cantidad válida");
+
     </script>
 
     </body>

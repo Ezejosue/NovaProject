@@ -142,13 +142,13 @@ class Platillos extends Validator
    //se declara la funcion para el getplatillo y que devuelva los datos traendolos por su id
     public function getPlatillo()
     {
-        $sql = 'SELECT id_platillo, nombre_platillo, imagen, precio, estado, id_receta, id_categoria FROM Platillos WHERE id_platillo = ?';
+        $sql = 'SELECT id_platillo, nombre_platillo, imagen, precio, estado, id_receta, id_categoria FROM platillos WHERE id_platillo = ?';
         $params = array($this ->id);
         return Conexion::getRow($sql, $params);
     }
     public function readPlatillo()
     {//aqui es donde se hace la funcion para leer lo que hay en platillo
-        $sql = 'SELECT id_platillo, nombre_platillo, precio, receta.nombre_receta, categorias.nombre_categoria, imagen, platillos.estado From Platillos INNER JOIN categorias USING (id_categoria) INNER JOIN receta USING (id_receta) ORDER BY nombre_platillo';
+        $sql = 'SELECT id_platillo, nombre_platillo, precio, receta.nombre_receta, categorias.nombre_categoria, imagen, platillos.estado From platillos INNER JOIN categorias USING (id_categoria) INNER JOIN receta USING (id_receta) ORDER BY nombre_platillo';
         $params = array(null);
         return Conexion::getRows($sql, $params);
     }
@@ -156,13 +156,14 @@ class Platillos extends Validator
 
     public function readCategoria()
     {//se hace el readCategoria para traer el id desde la tabla categoria
-        $sql = 'SELECT id_categoria, nombre_categoria FROM Categorias';
+        $sql = 'SELECT id_categoria, nombre_categoria FROM categorias';
         $params = array(null);
         return Conexion::getRows($sql, $params);
 	}
+	
 	public function readReceta()
     { //se hace el readReceta para que pueda traer el id desde otra tabla
-        $sql = 'SELECT id_receta, nombre_receta FROM Receta';
+        $sql = 'SELECT id_receta, nombre_receta FROM receta';
         $params = array(null);
         return Conexion::getRows($sql, $params);
     }
@@ -176,7 +177,7 @@ class Platillos extends Validator
 
     public function deletePlatillo()
     {//se hace la funcion para poder eliminar el platillo atraves de su id
-        $sql = 'DELETE FROM Platillos WHERE id_platillo = ?';
+        $sql = 'DELETE FROM platillos WHERE id_platillo = ?';
         $params = array($this->id);
         return Conexion::executeRow($sql, $params);
 	}

@@ -192,31 +192,19 @@
     <?php
 Dashboard::footerTemplate('categorias.js', '#tabla-categorias');
 ?>
-
-    <!-- validaciones del lado de cliente para agregar categorías -->
-    <script>
-        bootstrapValidate("#create_nombre", "min:3:Ingrese un nombre mayor a 3 caracteres",
-            "max:30:Ingrese un nombre menor de 30 caracteres")
-    </script>
-    <script>
-        bootstrapValidate("#create_descripcion", "min:6:Ingrese una descripción mayor de 6 caracteres",
-            "max:80:Ingrese una descripción menor a 80 caracteres")
-    </script>
-    <script>
-        bootstrapValidate('#create_nombre', 'required:Ingrese una categoria')
-    </script>
-
-    <!-- validaciones del lado de cliente para modificar categorías -->
-    <script>
-        bootstrapValidate("#update_nombre_categoria", "min:3:Ingrese un nombre mayor a 3 caracteres",
-            "max:30:Ingrese un nombre menor de 30 caracteres")
-    </script>
-    <script>
-        bootstrapValidate("#update_descripcion", "min:6:Ingrese una descripción mayor de 6 caracteres",
-            "max:80:Ingrese una descripción menor a 80 caracteres")
-    </script>
-    <script>
-        bootstrapValidate('#update_nombre_categoria', 'required:Ingrese una categoria')
+ <script>
+        bootstrapValidate("#create_nombre", "min:10:Campo obligatorio");
+        bootstrapValidate("#create_nombre", "max:30:Ingrese un nombre válido");
+  
+        bootstrapValidate("#create_descripcion", "min:10:Campo obligatorio");
+        bootstrapValidate("#create_descripcion", "max:80:Ingrese una descripción menor a 80 caracteres");
+    
+    
+        bootstrapValidate("#update_nombre_categoria", "min:3:Campo obligatorio");
+        bootstrapValidate("#update_nombre_categoria", "max:30:Ingrese un nombre válido");
+    
+        bootstrapValidate("#update_descripcion", "min:10:Campo obligatorio");
+        bootstrapValidate("#update_descripcion", "max:80:Ingrese una descripción menor a 80 caracteres");
     </script>
 
     </body>

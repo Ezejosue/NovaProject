@@ -41,18 +41,19 @@ if (isset($_GET['action'])) {
             case 'createElaboracion':
                 $_POST = $recetas->validateForm($_POST);
                     if ($recetas->setIdReceta($_POST['id_receta'])){
-                        if ($recetas->setIdMateria($_POST['id_materias'])) {
-                            if ($recetas->setCantidad($_POST['cantidad_materia'])) {
+                        if ($recetas->setCantidad($_POST['cantidad_materia'])) {
+                            if ($recetas->setIdMateria($_POST['id_materias'])) {
                                 if ($recetas->createElaboracion()) {
                                         $result['status'] = 1;
                                 } else {
+                                    $result['status'] = 1;
                                     $result['exception'] = 'Operación fallida';
                                 }
                             }else {
-                                    $result['exception'] = 'Cantidad incorrecta';
+                                    $result['exception'] = 'Materia prima incorrecta';
                                 }
                         } else {
-                            $result['exception'] = 'Materia prima incorrecta';
+                            $result['exception'] = 'Cantidad incorrecta';
                         } 
                     }else{
                         $result['exception'] = 'Receta incorrecta';
@@ -61,9 +62,8 @@ if (isset($_GET['action'])) {
             //Operación para saber el usuario que se va a modificar
             case 'get':
                 if ($recetas->setIdReceta($_POST['id_receta'])) {
-                    if ($result['dataset'] = $recetas->readMateriasPrimas()) {
+                    if ($result['dataset'] = $recetas->getReceta()) {
                         $result['status'] = 1;
-                        print_r($_POST);
                     } else {
                         $result['exception'] = 'Materias primas inexistentes';
                     }

@@ -123,7 +123,7 @@
                             </div>
                             <div class="col-sm-11">
                                 <input id="create_fecha" type="date" min="01/01/1952" max="01/01/2001"
-                                    name="create_fecha" class="validate form-control">
+                                    name="create_fecha" class="validate form-control" required>
                             </div>
                         </div>
                     </div>
@@ -155,7 +155,7 @@
                                 <i class="fas fa-male"></i>
                             </div>
                             <div class="col-sm-11">
-                                <select id="create_cargo" name="create_cargo" class="form-control">
+                                <select id="create_cargo" name="create_cargo" class="form-control" required>
                                 </select>
                             </div>
                         </div>
@@ -166,7 +166,7 @@
                                 <i class="fas fa-users"></i>
                             </div>
                             <div class="col-sm-11">
-                                <select id="create_usuario" name="create_usuario" class="form-control">
+                                <select id="create_usuario" name="create_usuario" class="form-control" required>
                                 </select>
                             </div>
                         </div>
@@ -328,58 +328,48 @@ Dashboard::footerTemplate('empleados.js', '#tabla-empleados');
     <!-- validaciones del lado del cliente en el modal de agregar empleados -->
 
     <script>
-        bootstrapValidate("#create_dui", "min:9:Ingrese su DUI completo.", "max:9:Ingrese su DUI completo.")
-    </script>
-    <script>
-        bootstrapValidate("#create_dui", "max:10:Ingrese su DUI correctamente.")
-    </script>
-    <script>
-        bootstrapValidate("#create_direccion", "max:30:Ingrese una dirección menor de 30 caracteres")
-    </script>
-    <script>
-        bootstrapValidate("#create_telefono", "min:8:Ingrese un telefono mayor a 8 caracteres")
-    </script>
-    <script>
-        bootstrapValidate("#create_telefono", "max:13:Ingrese un telefono menor de 12 caracteres")
-    </script>
-    <script>
-        bootstrapValidate("#create_nacionalidad", "min:3:Ingrese una nacionalidad mayor a 3 caracteres")
-    </script>
-    <script>
-        bootstrapValidate("#create_nacionalidad", "max:80:Ingrese una nacionalidad menor de 80 caracteres")
-    </script>
-    <script>
-        bootstrapValidate('#create_email', 'email:Ingrese un email valido')
-    </script>
+        bootstrapValidate("#create_dui", "min:9:Ingrese su DUI completo");
+        bootstrapValidate("#create_dui", "max:10:El DUI lleva solo 9 caracteres incluido el (-)");
+
+        bootstrapValidate("#create_nombre", "min:10:Campo obligatorio");
+        bootstrapValidate("#create_apellido", "min:10:Campo obligatorio");
+        bootstrapValidate("#create_genero", "min:1:Coloca F o M según corresponda");
+        bootstrapValidate("#create_fecha", "min:10:Ingresa un fecha válida");
+
+        bootstrapValidate("#create_direccion", "min:30:Ingrese una dirección de 30 caracteres o menos");
+        bootstrapValidate("#create_direccion", "max:30:Ingrese una dirección menor de 30 caracteres");
+
+        bootstrapValidate("#create_telefono", "min:9:Ingrese un número de teléfono válido");
+        bootstrapValidate("#create_telefono", "max:13:Ingrese un teléfono menor de 12 caracteres");
 
 
+        bootstrapValidate("#create_nacionalidad", "min:10:Ingrese nacionalidad");
+        bootstrapValidate("#create_nacionalidad", "max:80:Ingrese una nacionalidad válida");
 
-    <!-- validaciones del lado del cliente en el modal de modificar empleados -->
-    <script>
-        bootstrapValidate("#update_dui", "min:9:Ingrese su DUI completo.", "max:9:Ingrese su DUI completo.")
-    </script>
-    <script>
-        bootstrapValidate("#update_dui", "max:10:Ingrese su DUI correctamente.")
-    </script>
-    <script>
-        bootstrapValidate("#update_direccion", "max:30:Ingrese una dirección menor de 30 caracteres")
-    </script>
-    <script>
-        bootstrapValidate("#update_telefono", "min:8:Ingrese un telefono mayor a 8 caracteres")
-    </script>
-    <script>
-        bootstrapValidate("#update_telefono", "max:13:Ingrese un telefono menor de 12 caracteres")
-    </script>
-    <script>
-        bootstrapValidate("#update_nacionalidad", "min:3:Ingrese una nacionalidad mayor a 3 caracteres")
-    </script>
-    <script>
-        bootstrapValidate("#update_nacionalidad", "max:80:Ingrese una nacionalidad menor de 80 caracteres")
-    </script>
-    <script>
-        bootstrapValidate('#update_email', 'email:Ingrese un email valido')
-    </script>
+        bootstrapValidate('#create_email', 'email:Ingrese un email válido');
 
+        /*   <!-- validaciones del lado del cliente en el modal de modificar empleados --> */
+
+        bootstrapValidate("#update_dui", "min:9:Ingrese su DUI completo");
+        bootstrapValidate("#update_dui", "max:10:El DUI lleva solo 9 caracteres incluido el (-)");
+
+        bootstrapValidate("#update_nombre", "min:10:Campo obligatorio");
+        bootstrapValidate("#update_apellido", "min:10:Campo obligatorio");
+        bootstrapValidate("#update_genero", "min:1:Coloca F o M según corresponda");
+        bootstrapValidate("#update_fecha", "min:10:Ingresa un fecha válida");
+
+        bootstrapValidate("#update_direccion", "min:30:Ingrese una dirección de 30 caracteres o menos");
+        bootstrapValidate("#update_direccion", "max:30:Ingrese una dirección menor de 30 caracteres");
+
+        bootstrapValidate("#update_telefono", "min:9:Ingrese un número de teléfono válido");
+        bootstrapValidate("#update_telefono", "max:13:Ingrese un teléfono menor de 12 caracteres");
+
+
+        bootstrapValidate("#update_nacionalidad", "min:10:Ingrese nacionalidad");
+        bootstrapValidate("#update_nacionalidad", "max:80:Ingrese una nacionalidad válida");
+
+        bootstrapValidate('#update_email', 'email:Ingrese un email válido');
+    </script>
     </body>
 
     </html>

@@ -159,26 +159,17 @@ Dashboard::footerTemplate('tipo_usuario.js', '#tabla-tipo_usuarioss');
 ?>
 
     <script>
-        bootstrapValidate("#create_nombre", "min:3:Ingrese un tipo de usuario mayor a 3 caracteres",
-            "max:80:Ingrese un tipo de usuario menor de 80 caracteres")
-    </script>
-    <script>
-        bootstrapValidate("#create_descripcion", "min:6:Ingrese un tipo de usuario mayor de 6 caracteres",
-            "max:30:Ingrese una descripción menor a 30 caracteres")
-    </script>
-    <script>
-        bootstrapValidate('#create_nombre', 'required:Ingrese un tipo de usuario')
-    </script>
-    <script>
-        bootstrapValidate("#update_nombre_tipo", "min:3:Ingrese un tipo de usuario mayor a 3 caracteres",
-            "max:80:Ingrese un tipo de usuario menor de 80 caracteres")
-    </script>
-    <script>
-        bootstrapValidate("#update_descripcion", "min:6:Ingrese una descripción mayor de 6 caracteres",
-            "max:80:Ingrese una descripción menor a 80 caracteres")
-    </script>
-    <script>
-        bootstrapValidate('#update_nombre_tipo', 'required:Ingrese un tipo de usuario')
+        bootstrapValidate("#create_nombre", "min:5:Campo obligatorio");
+        bootstrapValidate("#create_nombre", "max:30:Ingresa un tipo de usuario menor a 30 caracteres");
+
+        bootstrapValidate("#create_descripcion", "min:6:Campo obligatorio");
+        bootstrapValidate("#create_descripcion", "max:30:Campo obligatorio");
+
+        bootstrapValidate("#update_nombre_tipo", "min:5:Campo obligatorio");
+        bootstrapValidate("#update_nombre_tipo", "max:30:Ingresa un tipo de usuario menor a 30 caracteres");
+
+        bootstrapValidate("#update_descripcion", "min:6:Campo obligatorio");
+        bootstrapValidate("#update_descripcion", "max:30:Campo obligatorio");
     </script>
 
     </body>

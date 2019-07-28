@@ -77,9 +77,9 @@ function showSelectMaterias(idSelect, value)
                 }
                 result.dataset.forEach(function(row){
                     if (row.id_categoria != value) {
-                        content += `<option value="${row.idMateria}">${row.nombre_materia} (${row.descripcion})</option>`;
+                        content += `<option value="${row.idMateria}">${row.Materia}</option>`;
                     } else {
-                        content += `<option value="${row.idMateria}" selected>${row.nombre_materia} (${row.descripcion})</option>`;
+                        content += `<option value="${row.idMateria}" selected>${row.Materia}</option>`;
                     }
                 });
                 $('#' + idSelect).html(content);
@@ -269,7 +269,7 @@ $('#form-materiasprimas').submit(function()
             //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
             if (result.status) {
                 $('#modal-materiasprimas').modal('hide');
-                sweetAlert(1, 'Platillos modificada correctamente', null);
+                sweetAlert(1, 'Materia prima agregada correctamente', null);
                 //Se destruye la tabla de materias primas y se vuelve a crear para que muestre los cambios realizados
                 destroy('#tabla-recetas');
                 showTable();
