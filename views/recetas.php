@@ -87,7 +87,7 @@
                     </button>
                 </div>
                 <form method="post" id="form-materiasprimas">
-                    <input type="" id="id_receta" name="id_receta" />
+                    <input type="hidden" id="id_receta" name="id_receta" />
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-1">
