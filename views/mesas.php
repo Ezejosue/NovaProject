@@ -1,140 +1,135 @@
 <!-- SIDEBAR-->
 <?php
     require_once('../core/helpers/dashboard.php');
-    Dashboard::headerTemplate('Ordenes');
+    Dashboard::headerTemplate('Mesas');
 ?>
 <!-- Contenido-->
 <div class="main-content">
-    <div class="container-fluid ">
+    <div class="container">
         <div class="row">
-            <div class="col-md-1"></div>
-            <div class="col-sm-12 col-md-10 recent-report2 text-center">
-                <h3 class="title-3 text-center">Seleccione una mesa</h3>
-                <br>
-                <form action="post" id="data-mesas">
-
-                    <br>
-                </form>
+            <div class="col-sm-6 col-3">
+                <a href="#modal-create" class="btn btn-success tooltipped modal-trigger" data-toggle="modal"
+                    data-tooltip="Agregar">
+                    <span class="btn-label">
+                        <i class="fa fa-plus"></i>
+                    </span>
+                </a>
             </div>
-            <div class="col-md-1"></div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="container">
+                <table class="display" id="tabla-mesas">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>NÚMERO DE MESA</th>
+                            <th>ESTADO</th>
+                            <th>ACCIÓN</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody-read">
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-</div>
-<!-- Modal de Agregar -->
-<div class="modal fade" id="modal-orden">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">ORDEN</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <form method="post" id="form-orden">
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-sm-2 col-md-2">
-                            <a href="#modal-agregar" class="btn btn-success modal-trigger" data-toggle="modal"
-                                style="border-radius: 20px; margin: 15px;"><i class="fas fa-plus"></i>
-                            </a>
-                        </div>
-                        <div class="col-sm-6 col-md-6">
-                        </div>
-                        <div class="col-sm-4 col-md-4">
-                            <div class="row">
-                                <h6 class="">MESA: #</h6>
-                                <h6 id="mesa"> </h6>
-                            </div>
-
-                            <div class="row">
-                                <h6 class="">TOTAL A PAGAR: $</h6>
-                                <h6 id="total"> </h6>
-                            </div>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead class="thead-dark">
-                                <tr>
-                                    <th>IMAGEN</th>
-                                    <th>PRODUCTO</th>
-                                    <th>PRECIO</th>
-                                    <th>CANTIDAD</th>
-                                    <th>SUBTOTAL</th>
-                                    <th>ACCIÓN</th>
-                                </tr>
-                            </thead>
-                            <tbody id="prepedido">
-                            </tbody>
-                        </table>
-                    </div>
+    <!-- Modals-->
+    <!-- Modal de Agregar -->
+    <div class="modal fade" id="modal-create">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">AGREGAR MESA</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-        </div>
-    </div>
-    </form>
-</div>
-
-<div class="modal fade" id="modal-agregar">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">PRODUCTOS A AGREGAR</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <form method="post" id="form-agregar">
-                <div class="modal-body">
-                    <div class="row">
-                        <input type="hidden" id="idmesaxd" name="idmesaxd">
-                        <div class="col-sm-4 col-md-4">
-                            <div id="lista" class="list-group">
+                <form class="was-validated" method="post" id="form-create">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-1">
+                                <i class="fa fa-list"></i>
+                            </div>
+                            <div class="col-sm-11">
+                                <input placeholder="Número de mesa" class="form-control" id="create_nombre"
+                                    name="create_nombre" for="nombre_medida" required>
                             </div>
                         </div>
-                        <div class="col-sm-8 col-md-8">
-                            <div data-spy="scroll" data-target="#lista" data-offset="0" class="scrollspy-example">
-                                <div class="row" id="productos">
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-1">
+                                <i class="fa fa-eye-slash"></i>
+                            </div>
+                            <div class="col-sm-11">
+                                <div class="custom-control custom-switch">
+                                    <input type="checkbox" class="custom-control-input" id="create_estado"
+                                        name="create_estado">
+                                    <label class="custom-control-label" for="create_estado">
+                                        <i class="fa fa-eye"></i>
+                                    </label>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="modal-modificar">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">MODIFICAR CANTIDAD</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                    <div class="modal-body">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Aceptar</button>
+                    </div>
             </div>
-            <form method="post" id="form-modificar">
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-sm-12 col-md-12">
-                            <input type="number" class="form-control" id="nueva_cantidad" name="nueva_cantidad" max="999" min="1">
-                            <br>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12 col-md-12 text-center" id="ingresar_cantidad">
-                        </div>
-                    </div>
+        </div>
+        </form>
+    </div>
+    <!-- Modal de Modificar -->
+    <div id="modal-update" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">MODIFICAR MESA</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-            </form>
+                <form method="post" id="form-update">
+                    <input type="hidden" id="id_mesa" name="id_mesa"/>
+                    <div class="modal-body">
+                    <div class="row">
+                            <div class="col-sm-1">
+                                <i class="fa fa-list"></i>
+                            </div>
+                            <div class="col-sm-11">
+                                <input class="form-control" id="update_nombre"
+                                    name="update_nombre">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-1">
+                                <i class="fa fa-eye-slash"></i>
+                            </div>
+                            <div class="col-sm-11">
+                                <div class="custom-control custom-switch">
+                                    <input type="checkbox" class="custom-control-input" id="update_estado"
+                                        name="update_estado">
+                                    <label class="custom-control-label" for="update_estado">
+                                        <i class="fa fa-eye"></i>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-body text-center">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary tooltipped" data-tooltip="Crear">Aceptar</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-</div>
-
 <?php
-Dashboard::footerTemplate('mesas.js', '');
+Dashboard::footerTemplate('mesas.js', '#tabla-mesas');
 ?>
 </body>
-
 </html>

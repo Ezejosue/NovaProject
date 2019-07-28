@@ -67,14 +67,9 @@ class Dashboard
 										<i class="fas fa-tachometer-alt"></i>Vista General
 									</a>
 								</li>
-								<li>
-									<a href="mesas.php">
-										<i class="fas fa-book"></i>Ordenes
-									</a>
-								</li>
 										<li>
 											<a href="#itemsDrop" data-toggle="collapse" class="collapsed"><i class="fab fa-dropbox"></i><span>
-											Productos</span></a>
+											Productos</span><i class="fas fa-sort-down"></i></a>
 												<div id="itemsDrop" class="collapse">
 													<ul>
 													<li>
@@ -101,9 +96,29 @@ class Dashboard
 												</div>
 										</li>
 										<li>
-											<a href="#itemsDrop1" data-toggle="collapse" class="collapsed"><i class="fas fa-user-circle"></i><span>
-											Perfiles</span></a>
+											<a href="#itemsDrop1" data-toggle="collapse" class="collapsed"><i class="fas fa-clipboard"></i><span>
+											Logistica</span><i class="fas fa-sort-down"></i></a>
 												<div id="itemsDrop1" class="collapse">
+													<ul>
+														<li>
+															<a href="ordenes.php">
+																<i class="fas fa-list"></i>Ordenes</a>
+														</li>
+														<li>													
+															<a href="pedidos.php">
+															<i class="fas fa-pizza-slice"></i>Pedidos</a>
+														</li>
+														<li>
+															<a href="mesas.php">
+															<i class="fas fa-utensils"></i>Mesas</a>
+														</li>
+													</ul>
+												</div>
+										</li>
+										<li>
+											<a href="#itemsDrop2" data-toggle="collapse" class="collapsed"><i class="fas fa-user-circle"></i><span>
+											Perfiles</span><i class="fas fa-sort-down"></i></a>
+												<div id="itemsDrop2" class="collapse">
 													<ul>
 													<li>
 											<a href="usuarios.php">
@@ -117,16 +132,14 @@ class Dashboard
 											<a href="empleados.php">
 												<i class="fas fa-id-card"></i>Empleados</a>
 										</li>
-									</li>
+										</li>
 													</ul>
 												</div>
 										</li>
-										
-										
-									<li>
-										<a href="reportes.php">
-											<i class="fas fa-chart-bar"></i>Reportes</a>
-									</li>									
+										<li>
+											<a href="reportes.php">
+												<i class="fas fa-chart-bar"></i>Reportes</a>
+										</li>									
 							</ul>
 						</nav>
 					</div>
