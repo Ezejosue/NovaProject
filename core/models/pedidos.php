@@ -81,7 +81,7 @@ class Pedidos extends Validator
 	// Metodos para el manejo del SCRUD
 	public function readDetalle()
 	{
-		$sql = 'SELECT id_detalle, id_pedido, id_platillo, nombre_platillo, cantidad, precio,  FROM detalle_pedido INNER JOIN platillos USING(id_platillo) WHERE id_pedido = ?';
+		$sql = 'SELECT id_detalle, id_pedido, id_platillo, nombre_platillo, cantidad, precio FROM detalle_pedido INNER JOIN platillos USING(id_platillo) WHERE id_pedido = ?';
 		$params = array($this->idPedido);
 		return conexion::getRows($sql, $params);
     }
