@@ -158,11 +158,8 @@ class Recetas extends Validator
 
 	public function getReceta()
 	{
-		$sql = 'SELECT id_receta, nombre_receta, tiempo, elaboracion, m.nombre_materia, u.nombre_medida, r.cantidad 
-				FROM receta r 
-				INNER JOIN materiasprimas m ON m.idMateria = r.idMateria 
-				INNER JOIN unidadmedida u ON u.id_Medida = m.id_Medida 
-				ORDER BY nombre_receta
+		$sql = 'SELECT id_receta
+				FROM receta 
 				WHERE id_receta = ?';
 		$params = array($this->idreceta);
 		return conexion::getRow($sql, $params);
@@ -170,17 +167,17 @@ class Recetas extends Validator
 
 	public function createElaboracion()
 	{
-		$sql = 'INSERT INTO elaboraciones(id_receta, idMateria, cantidad) VALUES(?, ?, ?)';
-		$params = array($this->idreceta, $this->idmateria, $this->cantidad);
+		$sql = 'INSERT INTO elaboraciones(id_receta, cantidad, idMateria) VALUES(?, ?, ?)';
+		$params = array($this->idreceta, $this->cantidad, $this->idmateria);
 		return Conexion::getRows($sql, $params);
 	}
 
 
 	public function readMateriasPrimas()
 	{
-		$sql = 'SELECT idMateria , nombre_materia, u.descripcion
-		FROM materiasprimas m INNER JOIN unidadmedida u USING(id_Medida) WHERE estado = 1';
-		$params = array(null);
+		$sql = 'SELECT idMateria, CONCAT(nombre_materia, " (" ,u.descripcion, ")") AS Materia 
+		FROM materiasprimas INNER JOIN unidadmedida u GROUP BY nombre_materia ';
+		$params = array($this->idreceta);
 		return Conexion::getRows($sql, $params);
 	}
 
