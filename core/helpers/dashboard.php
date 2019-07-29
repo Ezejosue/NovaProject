@@ -74,23 +74,23 @@ class Dashboard
 													<ul>
 													<li>
 															<a href="categorias.php">
-																<i class="fas fa-list"></i>Categorías</a>
+																<i class="fas fa-list"></i> Categorías</a>
 														</li>
 														<li>													
 															<a href="materia_prima.php">
-															<i class="fas fa-cart-plus"></i>Materia prima</a>
+															<i class="fas fa-cart-plus"></i> Materia prima</a>
 														</li>
 														<li>
 															<a href="platillos.php">
-															<i class="fas fa-utensils"></i>Platillos</a>
+															<i class="fas fa-utensils"></i> Platillos</a>
 														</li>
 														<li>
 															<a href="recetas.php">
-															<i class="fas fa-book"></i>Recetas</a>
+															<i class="fas fa-book"></i> Recetas</a>
 													</li> 
 													<li>
 															<a href="unidadmedida.php">
-															<i class="fas fa-balance-scale"></i>Unidades de medida</a>
+															<i class="fas fa-balance-scale"></i> Unidades de medida</a>
 													</li> 
 													</ul>
 												</div>
@@ -102,15 +102,19 @@ class Dashboard
 													<ul>
 														<li>
 															<a href="ordenes.php">
-																<i class="fas fa-list"></i>Ordenes</a>
+																<i class="fas fa-list"></i> Ordenes</a>
 														</li>
 														<li>													
 															<a href="pedidos.php">
-															<i class="fas fa-pizza-slice"></i>Pedidos</a>
+															<i class="fas fa-pizza-slice"></i> Pedidos</a>
 														</li>
 														<li>
 															<a href="mesas.php">
-															<i class="fas fa-utensils"></i>Mesas</a>
+															<i class="fas fa-utensils"></i> Mesas</a>
+														</li>
+														<li>
+															<a href="desperdicios.php">
+															<i class="fas fa-trash"></i> Desperdicios</a>
 														</li>
 													</ul>
 												</div>
@@ -122,15 +126,15 @@ class Dashboard
 													<ul>
 													<li>
 											<a href="usuarios.php">
-												<i class="fas fa-user-plus"></i>Usuarios</a>
+												<i class="fas fa-user-plus"></i> Usuarios</a>
 										</li>
 										<li>
 											<a href="tipo_usuarios.php">
-											<i class="fas fa-users"></i>Tipo de usuarios</a>
+											<i class="fas fa-users"></i> Tipo de usuarios</a>
 										</li>
 										<li>
 											<a href="empleados.php">
-												<i class="fas fa-id-card"></i>Empleados</a>
+												<i class="fas fa-id-card"></i> Empleados</a>
 										</li>
 										</li>
 													</ul>
@@ -138,7 +142,7 @@ class Dashboard
 										</li>
 										<li>
 											<a href="reportes.php">
-												<i class="fas fa-chart-bar"></i>Reportes</a>
+												<i class="fas fa-chart-bar"></i> Reportes</a>
 										</li>									
 							</ul>
 						</nav>
@@ -188,47 +192,63 @@ class Dashboard
 							<ul class="list-unstyled navbar__list">
 								<li>
 									<a href="inicio.php">
-										<i class="fas fa-tachometer-alt"></i>Vista General
+										<i class="fas fa-tachometer-alt"></i> Vista General
 									</a>
 								</li>
 											<li>
 												<a href="categorias.php">
-												<i class="fas fa-list"></i>Categorías</a>
+												<i class="fas fa-list"></i> Categorías</a>
 											</li>
 											<li>													
 												<a href="materia_prima.php">
-												<i class="fas fa-cart-plus"></i>Materia prima</a>
+												<i class="fas fa-cart-plus"></i> Materia prima</a>
 											</li>
 											<li>
 												<a href="platillos.php">
-												<i class="fas fa-utensils"></i>Platillos</a>
+												<i class="fas fa-utensils"></i> Platillos</a>
 											</li>
 											<li>
 												<a href="recetas.php">
-												<i class="fas fa-book"></i>Recetas</a>
+												<i class="fas fa-book"></i> Recetas</a>
 											</li> 
 											<li>
 												<a href="unidadmedida.php">
-												<i class="fas fa-balance-scale"></i>Unidades de medida</a>
+												<i class="fas fa-balance-scale"></i> Unidades de medida</a>
 											</li> 
-								
-												<li>
-													<a href="usuarios.php">
-													<i class="fas fa-user-plus"></i>Usuarios</a>
-												</li>
-												<li>
-													<a href="tipo_usuarios.php">
-													<i class="fas fa-users"></i>Tipo de usuarios</a>
-												</li>
-												<li>
-													<a href="empleados.php">
-													<i class="fas fa-id-card"></i>Empleados</a>
-												</li>
-												</li>
-										<li>
-											<a href="reportes.php">
-											<i class="fas fa-chart-bar"></i>Reportes</a>
-										</li>
+											
+											<li>
+												<a href="ordenes.php">
+												<i class="fas fa-list"></i> Ordenes</a>
+											</li>
+											<li>
+												<a href="pedidos.php">
+												<i class="fas fa-pizza-slice"></i> Pedidos</a>
+											</li>
+											<li>
+												<a href="mesas.php">
+												<i class="fas fa-utensils"></i> Mesas</a>
+											</li>
+											<li>
+												<a href="desperdicios.php">
+												<i class="fas fa-trash"></i> Desperdicios</a>
+											</li>
+											<li>
+												<a href="usuarios.php">
+												<i class="fas fa-user-plus"></i> Usuarios</a>
+											</li>
+											<li>
+												<a href="tipo_usuarios.php">
+												<i class="fas fa-users"></i> Tipo de usuarios</a>
+											</li>
+											<li>
+												<a href="empleados.php">
+												<i class="fas fa-id-card"></i> Empleados</a>
+											</li>
+											</li>
+											<li>
+												<a href="reportes.php">
+												<i class="fas fa-chart-bar"></i> Reportes</a>
+											</li>
 							</ul>
 						</nav>
 						</div>

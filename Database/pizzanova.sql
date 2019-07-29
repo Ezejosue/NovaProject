@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.0
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-07-2019 a las 07:02:02
--- Versión del servidor: 10.1.25-MariaDB
--- Versión de PHP: 5.6.31
+-- Tiempo de generación: 29-07-2019 a las 23:47:05
+-- Versión del servidor: 10.1.38-MariaDB
+-- Versión de PHP: 7.3.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -21,8 +21,6 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `pizzanova`
 --
-CREATE DATABASE IF NOT EXISTS `pizzanova` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `pizzanova`;
 
 -- --------------------------------------------------------
 
@@ -78,6 +76,27 @@ INSERT INTO `categorias` (`id_categoria`, `nombre_categoria`, `descripcion`, `fo
 (1, 'Bebidas', 'test', '5d2ce843cb3a3.jpg', 1),
 (2, 'Pizzas', 'test', '5d2ce9aa94cad.jpeg', 1),
 (3, 'Pupusas', 'test', '5d2ce9b5ec98f.jpeg', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `desperdicios`
+--
+
+CREATE TABLE `desperdicios` (
+  `id_desperdicios` int(11) NOT NULL,
+  `id_platillo` int(10) UNSIGNED NOT NULL,
+  `id_usuario` int(10) UNSIGNED NOT NULL,
+  `id_empleado` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `desperdicios`
+--
+
+INSERT INTO `desperdicios` (`id_desperdicios`, `id_platillo`, `id_usuario`, `id_empleado`) VALUES
+(1, 9, 1, 1),
+(2, 6, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -148,6 +167,13 @@ CREATE TABLE `empleados` (
   `id_Cargo` int(10) UNSIGNED DEFAULT NULL,
   `id_usuario` int(10) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `empleados`
+--
+
+INSERT INTO `empleados` (`id_empleado`, `nombre_empleado`, `apellido_empleado`, `dui`, `direccion`, `telefono`, `genero`, `fecha_nacimiento`, `nacionalidad`, `correo`, `id_Cargo`, `id_usuario`) VALUES
+(1, 'Melvin', 'Rodrigues', '30298321', 'san salvador', '78798745', 'M', '2015-07-10', 'El salvador', 'melvin_repdhiohfd@hotmail.com', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -372,6 +398,15 @@ ALTER TABLE `categorias`
   ADD PRIMARY KEY (`id_categoria`);
 
 --
+-- Indices de la tabla `desperdicios`
+--
+ALTER TABLE `desperdicios`
+  ADD PRIMARY KEY (`id_desperdicios`),
+  ADD KEY `id_empleado` (`id_empleado`),
+  ADD KEY `id_platillo` (`id_platillo`),
+  ADD KEY `id_usuario` (`id_usuario`);
+
+--
 -- Indices de la tabla `detallefactura`
 --
 ALTER TABLE `detallefactura`
@@ -470,76 +505,97 @@ ALTER TABLE `usuarios`
 --
 ALTER TABLE `bitacoras`
   MODIFY `id_bitacora` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT de la tabla `cargo`
 --
 ALTER TABLE `cargo`
   MODIFY `id_Cargo` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT de la tabla `categorias`
 --
 ALTER TABLE `categorias`
   MODIFY `id_categoria` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de la tabla `desperdicios`
+--
+ALTER TABLE `desperdicios`
+  MODIFY `id_desperdicios` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT de la tabla `detallefactura`
 --
 ALTER TABLE `detallefactura`
   MODIFY `id_detallefac` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT de la tabla `elaboraciones`
 --
 ALTER TABLE `elaboraciones`
   MODIFY `id_elaboracion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+
 --
 -- AUTO_INCREMENT de la tabla `empleados`
 --
 ALTER TABLE `empleados`
-  MODIFY `id_empleado` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id_empleado` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT de la tabla `encabezadofactura`
 --
 ALTER TABLE `encabezadofactura`
   MODIFY `id_EncabezadoFac` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT de la tabla `materiasprimas`
 --
 ALTER TABLE `materiasprimas`
   MODIFY `idMateria` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT de la tabla `mesas`
 --
 ALTER TABLE `mesas`
   MODIFY `id_mesa` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
 --
 -- AUTO_INCREMENT de la tabla `platillos`
 --
 ALTER TABLE `platillos`
   MODIFY `id_platillo` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
 --
 -- AUTO_INCREMENT de la tabla `pre_pedido`
 --
 ALTER TABLE `pre_pedido`
   MODIFY `id_prepedido` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
+
 --
 -- AUTO_INCREMENT de la tabla `receta`
 --
 ALTER TABLE `receta`
   MODIFY `id_receta` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT de la tabla `tipousuario`
 --
 ALTER TABLE `tipousuario`
   MODIFY `id_Tipousuario` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT de la tabla `unidadmedida`
 --
 ALTER TABLE `unidadmedida`
   MODIFY `id_Medida` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
   MODIFY `id_usuario` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- Restricciones para tablas volcadas
 --
@@ -549,6 +605,14 @@ ALTER TABLE `usuarios`
 --
 ALTER TABLE `bitacoras`
   ADD CONSTRAINT `bitacoras_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`);
+
+--
+-- Filtros para la tabla `desperdicios`
+--
+ALTER TABLE `desperdicios`
+  ADD CONSTRAINT `desperdicios_ibfk_1` FOREIGN KEY (`id_empleado`) REFERENCES `empleados` (`id_empleado`),
+  ADD CONSTRAINT `desperdicios_ibfk_2` FOREIGN KEY (`id_platillo`) REFERENCES `platillos` (`id_platillo`),
+  ADD CONSTRAINT `desperdicios_ibfk_3` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`);
 
 --
 -- Filtros para la tabla `detallefactura`
