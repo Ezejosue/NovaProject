@@ -2,12 +2,13 @@
 $(document).ready(function()
 {
     showTable();
-    showSelectCategoria('create_categoria', 0);
-    showSelectUnidad('create_unidad', 0);
+    showSelectPlatillo('create_platillo', 0);
+    showSelectAlias('create_alias', 0);
+    showSelectEmpleados('create_empleado', 0);
 })
 
 //Constante para establecer la ruta y parámetros de comunicación con la API
-const apiMaterias = '../core/api/materia_prima.php?site=private&action=';
+const apiDesperdicios = '../core/api/desperdicios.php?site=private&action=';
 
 //Función para llenar tabla con los datos de los registros
 function fillTable(rows)
@@ -15,32 +16,27 @@ function fillTable(rows)
     let content = '';
     //Se recorren las filas para armar el cuerpo de la tabla y se utiliza comilla invertida para escapar los caracteres especiales
     rows.forEach(function(row){
-        (row.estado == 1) ? icon = '<i class="fa fa-eye"></i>' : icon = '<i class="fa fa-eye-slash"></i>';
         content += `
             <tr>
-                <td><img src=" ../resources/img/materia/${row.foto}"> </td>
-                <td>${row.nombre_materia}</td>
-                <td>${row.descripcion}</td>
-                <td>${row.cantidad}</td>
-                <td>${row.nombre_categoria}</td>
-                <td>${row.nombre_medida}</td>
-                <td><i class="material-icons">${icon}</i></td>
+                <td>${row.nombre_platillo}</td>
+                <td>${row.alias}</td>
+                <td>${row.nombre_empleado}</td>
                 <td>
-                    <a href="#" onclick="modalUpdate(${row.idMateria})" class="btn btn-info tooltipped" data-tooltip="Modificar"><i class="fa fa-edit"></i></a>
-                    <a href="#" onclick="confirmDelete(${row.idMateria}, '${row.foto}')" class="btn btn-danger tooltipped" data-tooltip="Eliminar"><i class="fa fa-times"></i></a>
+                    <a href="#" onclick="modalUpdate(${row.id_desperdicios})" class="btn btn-info tooltipped" data-tooltip="Modificar"><i class="fa fa-edit"></i></a>
+                    <a href="#" onclick="confirmDelete(${row.id_desperdicios})" class="btn btn-danger tooltipped" data-tooltip="Eliminar"><i class="fa fa-times"></i></a>
                 </td>
             </tr>
         `;
     });
     $('#tbody-read').html(content);
-    table('#tabla-materia_prima');
+    table('#tabla-desperdicios');
 }
 
 //Función para obtener y mostrar los registros disponibles
 function showTable()
 {
     $.ajax({
-        url: apiMaterias + 'read',
+        url: apiDesperdicios + 'read',
         type: 'post',
         data: null,
         datatype: 'json'
@@ -64,11 +60,11 @@ function showTable()
     });
 }
 
-//Función para cargar los tipos de categorias en el select del formulario
-function showSelectCategoria(idSelect, value)
+//Función para cargar los tipos de unidad de medida en el select del formulario
+function showSelectPlatillo(idSelect, value)
 {
     $.ajax({
-        url: apiMaterias + 'readCategoria',
+        url: apiDesperdicios + 'readPlatillo',
         type: 'post',
         data: null,
         datatype: 'json'
@@ -84,10 +80,10 @@ function showSelectCategoria(idSelect, value)
                     content += '<option value="" disabled selected>Seleccione una opción</option>';
                 }
                 result.dataset.forEach(function(row){
-                    if (row.id_categoria != value) {
-                        content += `<option value="${row.id_categoria}">${row.nombre_categoria}</option>`;
+                    if (row.id_platillo != value) {
+                        content += `<option value="${row.id_platillo}">${row.nombre_platillo}</option>`;
                     } else {
-                        content += `<option value="${row.id_categoria}" selected>${row.nombre_categoria}</option>`;
+                        content += `<option value="${row.id_platillo}" selected>${row.nombre_platillo}</option>`;
                     }
                 });
                 $('#' + idSelect).html(content);
@@ -103,13 +99,12 @@ function showSelectCategoria(idSelect, value)
         console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
     });
 }
-
 
 //Función para cargar los tipos de unidad de medida en el select del formulario
-function showSelectUnidad(idSelect, value)
+function showSelectAlias(idSelect, value)
 {
     $.ajax({
-        url: apiMaterias + 'readUnidad',
+        url: apiDesperdicios + 'readUsuario',
         type: 'post',
         data: null,
         datatype: 'json'
@@ -125,10 +120,10 @@ function showSelectUnidad(idSelect, value)
                     content += '<option value="" disabled selected>Seleccione una opción</option>';
                 }
                 result.dataset.forEach(function(row){
-                    if (row.id_categoria != value) {
-                        content += `<option value="${row.id_Medida}">${row.nombre_medida}</option>`;
+                    if (row.id_usuario != value) {
+                        content += `<option value="${row.id_usuario}">${row.alias}</option>`;
                     } else {
-                        content += `<option value="${row.id_Medida}" selected>${row.nombre_medida}</option>`;
+                        content += `<option value="${row.id_usuario}" selected>${row.alias}</option>`;
                     }
                 });
                 $('#' + idSelect).html(content);
@@ -144,13 +139,54 @@ function showSelectUnidad(idSelect, value)
         console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
     });
 }
+
+//Función para cargar los tipos de unidad de medida en el select del formulario
+function showSelectEmpleados(idSelect, value)
+{
+    $.ajax({
+        url: apiDesperdicios + 'readEmpleados',
+        type: 'post',
+        data: null,
+        datatype: 'json'
+    })
+    .done(function(response){
+        //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+        if (isJSONString(response)) {
+            const result = JSON.parse(response);
+            //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
+            if (result.status) {
+                let content = '';
+                if (!value) {
+                    content += '<option value="" disabled selected>Seleccione una opción</option>';
+                }
+                result.dataset.forEach(function(row){
+                    if (row.id_empleado != value) {
+                        content += `<option value="${row.id_empleado}">${row.nombre_empleado}</option>`;
+                    } else {
+                        content += `<option value="${row.id_empleado}" selected>${row.nombre_empleado}</option>`;
+                    }
+                });
+                $('#' + idSelect).html(content);
+            } else {
+                $('#' + idSelect).html('<option value="">No hay opciones</option>');
+            }
+        } else {
+            console.log(response);
+        }
+    })
+    .fail(function(jqXHR){
+        //Se muestran en consola los posibles errores de la solicitud AJAX
+        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+    });
+}
+
 
 //Función para crear un nuevo registro
 $('#form-create').submit(function()
 {
     event.preventDefault();
     $.ajax({
-        url: apiMaterias + 'create',
+        url: apiDesperdicios + 'create',
         type: 'post',
         data: new FormData($('#form-create')[0]),
         datatype: 'json',
@@ -166,9 +202,9 @@ $('#form-create').submit(function()
             if (result.status) {
                 $('#form-create')[0].reset();
                 $('#modal-create').modal('hide');
-                sweetAlert(1, 'Materia prima creada correctamente', null);
+                sweetAlert(1, 'Desperdicio creado correctamente', null);
                 //Se destruye la tabla de materias primas y se vuelve a crear para que muestre los cambios realizados
-                destroy('#tabla-materia_prima');
+                destroy('#tabla-desperdicios');
                 showTable();
             } else {
                 sweetAlert(2, result.exception, null);
@@ -189,10 +225,10 @@ $('#form-create').submit(function()
 function modalUpdate(id)
 {
     $.ajax({
-        url: apiMaterias + 'get',
+        url: apiDesperdicios + 'get',
         type: 'post',
         data:{
-            idMateria: id
+            id_desperdicios: id
         },
         datatype: 'json'
     })
@@ -204,12 +240,10 @@ function modalUpdate(id)
             if (result.status) {
                 console.log(result.dataset);
                 $('#form-update')[0].reset();
-                $('#id_materia').val(result.dataset.idMateria);
-                $('#nombre_materia').val(result.dataset.nombre_materia);
-                $('#descripcion_materia').val(result.dataset.descripcion);
-                $('#cantidad').val(result.dataset.cantidad);
-                showSelectCategoria('update_categoria', result.dataset.id_categoria);
-                showSelectUnidad('update_unidad', result.dataset.id_Medida);
+                $('#id_desperdicios').val(result.dataset.id_desperdicios);
+                showSelectPlatillo('update_id_platillo', result.dataset.id_platillo);
+                showSelectAlias('update_id_usuario', result.dataset.id_usuario);
+                showSelectEmpleados('update_id_empleado', result.dataset.id_empleado);
                 $('#foto_materia').val(result.dataset.foto);
                 (result.dataset.estado == 1) ? $('#update_estado').prop('checked', true) : $('#update_estado').prop('checked', false);
                 $('#modal-update').modal('show');
@@ -231,7 +265,7 @@ $('#form-update').submit(function()
 {
     event.preventDefault();
     $.ajax({
-        url: apiMaterias + 'update',
+        url: apiDesperdicios + 'update',
         type: 'post',
         data: new FormData($('#form-update')[0]),
         datatype: 'json',
@@ -246,9 +280,9 @@ $('#form-update').submit(function()
             //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
             if (result.status) {
                 $('#modal-update').modal('hide');
-                sweetAlert(1, 'Materia prima modificada correctamente', null);
+                sweetAlert(1, 'Desperdicio modificado correctamente', null);
                 //Se destruye la tabla de materias primas y se vuelve a crear para que muestre los cambios realizados
-                destroy('#tabla-materia_prima');
+                destroy('#tabla-mdesperdicios');
                 showTable();
             } else {
                 sweetAlert(2, result.exception, null);
@@ -279,7 +313,7 @@ function confirmDelete(id)
     .then(function(value){
         if (value) {
             $.ajax({
-                url: apiMaterias + 'delete',
+                url: apiDesperdicios + 'delete',
                 type: 'post',
                 data:{
                     idMateria: id
@@ -292,8 +326,8 @@ function confirmDelete(id)
                     const result = JSON.parse(response);
                     //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
                     if (result.status) {
-                        sweetAlert(1, 'Materia prima eliminada correctamente', null);
-                        destroy('#tabla-materia_prima');
+                        sweetAlert(1, 'Desperdicio eliminado correctamente', null);
+                        destroy('#tabla-desperdicios');
                         showTable();
                     } else {
                         sweetAlert(2, result.exception, null);

@@ -50,10 +50,6 @@ CREATE TABLE `cargo` (
 --
 -- Volcado de datos para la tabla `cargo`
 --
-
-INSERT INTO `cargo` (`id_Cargo`, `nombre_Cargo`) VALUES
-(1, 'admin');
-
 -- --------------------------------------------------------
 
 --
@@ -72,13 +68,6 @@ CREATE TABLE `categorias` (
 -- Volcado de datos para la tabla `categorias`
 --
 
-INSERT INTO `categorias` (`id_categoria`, `nombre_categoria`, `descripcion`, `foto_categoria`, `estado`) VALUES
-(1, 'Bebidas', 'test', '5d2ce843cb3a3.jpg', 1),
-(2, 'Pizzas', 'test', '5d2ce9aa94cad.jpeg', 1),
-(3, 'Pupusas', 'test', '5d2ce9b5ec98f.jpeg', 1);
-
--- --------------------------------------------------------
-
 --
 -- Estructura de tabla para la tabla `desperdicios`
 --
@@ -93,12 +82,6 @@ CREATE TABLE `desperdicios` (
 --
 -- Volcado de datos para la tabla `desperdicios`
 --
-
-INSERT INTO `desperdicios` (`id_desperdicios`, `id_platillo`, `id_usuario`, `id_empleado`) VALUES
-(1, 9, 1, 1),
-(2, 6, 1, 1);
-
--- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `detallefactura`
@@ -127,26 +110,6 @@ CREATE TABLE `elaboraciones` (
 --
 -- Volcado de datos para la tabla `elaboraciones`
 --
-
-INSERT INTO `elaboraciones` (`id_elaboracion`, `id_receta`, `cantidad`, `idMateria`) VALUES
-(1, 1, 3, 2),
-(2, 1, 3, 2),
-(3, 1, 3, 2),
-(4, 1, 3, 2),
-(5, 1, 2, 2),
-(6, 1, 2, 2),
-(7, 1, 3, 2),
-(8, 1, 4, 2),
-(9, 1, 3, 2),
-(10, 1, 3, 2),
-(11, 1, 3, 2),
-(12, NULL, 3, 2),
-(13, 2, 3, 2),
-(14, 2, 3, 2),
-(15, 2, 3, 2),
-(16, 2, 3, 2),
-(17, 2, 4, 2);
-
 -- --------------------------------------------------------
 
 --
@@ -171,10 +134,6 @@ CREATE TABLE `empleados` (
 --
 -- Volcado de datos para la tabla `empleados`
 --
-
-INSERT INTO `empleados` (`id_empleado`, `nombre_empleado`, `apellido_empleado`, `dui`, `direccion`, `telefono`, `genero`, `fecha_nacimiento`, `nacionalidad`, `correo`, `id_Cargo`, `id_usuario`) VALUES
-(1, 'Melvin', 'Rodrigues', '30298321', 'san salvador', '78798745', 'M', '2015-07-10', 'El salvador', 'melvin_repdhiohfd@hotmail.com', 1, 1);
-
 -- --------------------------------------------------------
 
 --
@@ -208,11 +167,6 @@ CREATE TABLE `materiasprimas` (
 -- Volcado de datos para la tabla `materiasprimas`
 --
 
-INSERT INTO `materiasprimas` (`idMateria`, `nombre_materia`, `descripcion`, `cantidad`, `foto`, `id_categoria`, `id_Medida`, `estado`) VALUES
-(1, 'test', 'test', 2, '5d2cefcc97528.jpg', 1, 1, 1),
-(2, 'Camarones', 'Camarones', 8, '5d3d131e6b872.jpeg', 2, 2, 1);
-
--- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `mesas`
@@ -227,18 +181,6 @@ CREATE TABLE `mesas` (
 -- Volcado de datos para la tabla `mesas`
 --
 
-INSERT INTO `mesas` (`id_mesa`, `numero_mesa`) VALUES
-(1, 1),
-(2, 2),
-(3, 3),
-(4, 4),
-(5, 5),
-(6, 6),
-(7, 7),
-(8, 8),
-(9, 9);
-
--- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `platillos`
@@ -258,16 +200,6 @@ CREATE TABLE `platillos` (
 -- Volcado de datos para la tabla `platillos`
 --
 
-INSERT INTO `platillos` (`id_platillo`, `nombre_platillo`, `precio`, `estado`, `id_receta`, `id_categoria`, `imagen`) VALUES
-(3, 'pupusa de frijol', 0.75, 1, 1, 3, '5d2cf44fd3d49.jpg'),
-(4, 'coca', 1.00, 1, 1, 1, '5d2cf475811ab.jpg'),
-(6, 'Pizza de jamÃ³n', 10.99, 1, 1, 2, '5d2e4c773faa1.jpeg'),
-(7, 'Fanta', 0.99, 1, 1, 1, '5d2e4ce5e7a8f.jpg'),
-(8, 'Pupusa de queso', 0.65, 1, 1, 3, '5d2e4cfce5170.jpg'),
-(9, 'Pupusa revuelta', 1.00, 1, 1, 3, '5d2e4d15a9819.jpg'),
-(10, 'Refresco de naranja', 1.25, 1, 1, 1, '5d2e4d3961646.jpeg');
-
--- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `pre_pedido`
@@ -284,13 +216,7 @@ CREATE TABLE `pre_pedido` (
 -- Volcado de datos para la tabla `pre_pedido`
 --
 
-INSERT INTO `pre_pedido` (`id_prepedido`, `id_mesa`, `id_platillo`, `cantidad`) VALUES
-(73, 2, 4, 1),
-(74, 2, 4, 1),
-(75, 2, 6, 2),
-(76, 2, 9, 2);
 
--- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `receta`
@@ -306,12 +232,6 @@ CREATE TABLE `receta` (
 -- Volcado de datos para la tabla `receta`
 --
 
-INSERT INTO `receta` (`id_receta`, `nombre_receta`, `tiempo`) VALUES
-(1, 'test', 'test'),
-(2, 'Pizza Jamon', '151 min');
-
--- --------------------------------------------------------
-
 --
 -- Estructura de tabla para la tabla `tipousuario`
 --
@@ -326,12 +246,6 @@ CREATE TABLE `tipousuario` (
 --
 -- Volcado de datos para la tabla `tipousuario`
 --
-
-INSERT INTO `tipousuario` (`id_Tipousuario`, `tipo`, `descripcion`, `estado`) VALUES
-(1, 'admin', 'test', 1);
-
--- --------------------------------------------------------
-
 --
 -- Estructura de tabla para la tabla `unidadmedida`
 --
@@ -345,13 +259,6 @@ CREATE TABLE `unidadmedida` (
 --
 -- Volcado de datos para la tabla `unidadmedida`
 --
-
-INSERT INTO `unidadmedida` (`id_Medida`, `nombre_medida`, `descripcion`) VALUES
-(1, 'Kilogramo', 'Kg'),
-(2, 'Gramo', 'ggggg'),
-(3, 'Libra', 'lb');
-
--- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `usuarios`
@@ -371,10 +278,6 @@ CREATE TABLE `usuarios` (
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`id_usuario`, `alias`, `clave_usuario`, `foto_usuario`, `fecha_creacion`, `estado_usuario`, `id_Tipousuario`) VALUES
-(1, 'Gerardo', '$2y$10$rtwGWAepKVUdC/HKCg0y5eAER0/8KjRCidjl.L.u7rRpSHAuQ3JdC', '5d2c9630ac4f2.jpeg', '2019-07-15 15:05:20', 1, 1);
-
---
 -- Índices para tablas volcadas
 --
 

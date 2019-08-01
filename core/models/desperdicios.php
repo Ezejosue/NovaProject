@@ -1,5 +1,5 @@
 <?php
-class Materias extends Validator
+class Desperdicios extends Validator
 {
 	// Declaración de propiedades
 	private $id = null;
@@ -23,9 +23,15 @@ class Materias extends Validator
 		return $this->id;
 	}
 	
+	
+	public function getid_platillo()
+	{
+		return $this->id_platillo;
+	}
+
 	public function setid_platillo($value)
 	{
-		if ($this->validateId($value) {
+		if ($this->validateId($value)) {
 			$this->id_platillo = $value;
 			return true;
 		} else {
@@ -33,13 +39,8 @@ class Materias extends Validator
 		}
 	}
 
-	public function getid_platillo()
-	{
-		return $this->id_platillo;
-	}
 
-	public function setid_usuario($value)
-	{
+	public function setid_usuario($value){
 		if ($this->validateId($value)) {
 			$this->id_usuario = $value;
 			return true;
@@ -55,7 +56,7 @@ class Materias extends Validator
 
 	public function setid_empleado($value)
 	{
-		if($this->validateId($value) {
+		if($this->validateId($value)) {
 			$this->id_usuario = $value;
 			return true;
 		} else {
@@ -84,41 +85,47 @@ class Materias extends Validator
 		$params = array($this->id_platillo, $this->id_usuario, $this->id_empleado);
 		return conexion::executeRow($sql, $params);
 	}
-
-	public function getMateriaPrima()
+	
+	public function getDesperdicios()
 	{
-		$sql = 'SELECT idMateria , nombre_materia, m.descripcion, cantidad, foto, id_categoria, id_Medida, m.estado 
-				FROM materiasprimas m
-				WHERE idMateria = ?';
+		$sql = 'SELECT id_platillo, id_usuario id_empleado FROM desperdicios WHERE id_desperdicios = ?';
 		$params = array($this->id);
+		return conexion::getRow($sql, $params);
+	}
+	
+
+	public function readPlatillos()
+	{
+		$sql = 'SELECT id_platillo, nombre_platillo FROM platillos';
+		$params = array(null);
 		return conexion::getRow($sql, $params);
 	}
 
 	
-	public function readCategoriaMateria()
+	public function readNombreUsuario()
 	{
-		$sql = 'SELECT id_categoria, nombre_categoria, descripcion FROM categorias WHERE estado = 1';
+		$sql = 'SELECT id_usuario, alias FROM usuarios WHERE estado_usuario = 1';
 		$params = array(null);
 		return Conexion::getRows($sql, $params);
 	}
 
-	public function readMedidaMateria()
+	public function readEmpleados()
 	{
-		$sql = 'SELECT id_Medida, nombre_medida, descripcion FROM unidadmedida';
+		$sql = 'SELECT id_empleado, nombre_empleado FROM empleados';
 		$params = array(null);
 		return Conexion::getRows($sql, $params);
 	}
 
-	public function updateMateriaPrima()
+	public function updateDesperdicios()
 	{
-		$sql = 'UPDATE materiasprimas SET nombre_materia = ?, descripcion = ?, cantidad=?, id_categoria = ?, id_Medida = ?, foto = ?, estado = ? WHERE idMateria = ?';
-		$params = array($this->nombre,  $this->descripcion, $this->cantidad, $this->categorias, $this->idmedida, $this->imagen, $this->estado, $this->id);
+		$sql = 'UPDATE desperdicios SET id_platillo = ?, id_usuario= ?, id_empleado=? WHERE id_desperdicios = ?';
+		$params = array($this->id_platillo,  $this->id_usuario, $this->id_empleado);
 		return conexion::executeRow($sql, $params);
 	}
 
-	public function deleteMateriaPrima()
+	public function deleteDesperdicios()
 	{
-		$sql = 'DELETE FROM materiasprimas WHERE idMateria = ?';
+		$sql = 'DELETE FROM desperdicios WHERE id_desperdicios = ?';
 		$params = array($this->id);
 		return conexion::executeRow($sql, $params);
 	}

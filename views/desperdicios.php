@@ -20,14 +20,13 @@
         <div class="container">
             <div class="row">
                 <div class="table-responsive">
-                    <table class="table" id="tabla-categorias" width="100%">
+                    <table class="table" id="tabla-desperdicios" width="100%">
                         <thead>
                             <tr>
-                                <th>IMAGEN</th>
-                                <th>NOMBRE</th>
-                                <th>DESCRIPCIÓN</th>
-                                <th>ESTADO</th>
-                                <th>ACCIÓN</th>
+                                <th>PLATILLO</th>
+                                <th>USUARIO</th>
+                                <th>EMPLEADO</th>
+                                <th>ACCIONES</th>
                             </tr>
                         </thead>
                         <tbody id="tbody-read">
@@ -43,72 +42,57 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">AGREGAR CATEGORÍA</h5>
+                    <h5 class="modal-title">AGREGAR DESPERDICIOS</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+                        <span aria-hidden="tyrue">&times;</span>
                     </button>
                 </div>
                 <form class="was-validated" method="post" id="form-create" enctype="multipart/form-data">
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-1">
-                                <i class="fa fa-image"></i>
+                                <i class="fas fa-users"></i>
                             </div>
                             <div class="col-sm-11">
-                                <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="create_archivo"
-                                        name="create_archivo" required>
-                                    <label class="custom-file-label" for="create_archivo">Escoge un archivo</label>
-                                    <div class="invalid-feedback">Por favor seleccione una imagen 500 x 500</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-sm-1">
-                                <i class="fa fa-list"></i>
-                            </div>
-                            <div class="col-sm-11">
-                                <input id="create_nombre" name="create_nombre" class="form-control" placeholder="Nombre"
+                                <!-- Aquí es donde se manda a traer el campo de categoria  -->
+                                <select id="create_platillo" name="create_platillo" class="form-control"
                                     required>
+                                </select>
                             </div>
                         </div>
                     </div>
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-1">
-                                <i class="fa fa-file-alt"></i>
+                                <i class="fas fa-users"></i>
                             </div>
                             <div class="col-sm-11">
-                                <textarea placeholder="Descripción" class="form-control" id="create_descripcion"
-                                    name="create_descripcion" for="descripcion" rows="3" required></textarea>
+                                <!-- Aquí es donde se manda a traer el campo de categoria  -->
+                                <select id="create_alias" name="create_alias" class="form-control" required>
+                                </select>
                             </div>
                         </div>
                     </div>
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-1">
-                                <i class="fa fa-eye-slash"></i>
+                                <i class="fas fa-users"></i>
                             </div>
                             <div class="col-sm-11">
-                                <div class="custom-control custom-switch">
-                                    <input type="checkbox" class="custom-control-input" id="create_estado"
-                                        name="create_estado">
-                                    <label class="custom-control-label" for="create_estado">
-                                        <i class="fa fa-eye"></i>
-                                    </label>
-                                </div>
+                                <!-- Aquí es donde se manda a traer el campo de la llave id_receta -->
+                                <select id="create_empleado" name="create_empleado" class="form-control" required>
+                                </select>
                             </div>
                         </div>
                     </div>
-                    <div class="modal-body">
+                    <!-- los respectivos botones del modal  -->
+                    <div class="modal-body text-center">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-primary">Aceptar</button>
+                        <button type="submit" class="btn btn-primary tooltipped" data-tooltip="Crear">Aceptar</button>
                     </div>
+                </form>
             </div>
         </div>
-        </form>
     </div>
     <!-- Modal de Modificar -->
     <div id="modal-update" class="modal fade">
@@ -190,23 +174,8 @@
 
 
     <?php
-Dashboard::footerTemplate('categorias.js', '#tabla-categorias');
+Dashboard::footerTemplate('desperdicios.js', '#tabla-desperdicios');
 ?>
- <script>
-        bootstrapValidate("#create_nombre", "min:10:Campo obligatorio");
-        bootstrapValidate("#create_nombre", "max:30:Ingrese un nombre válido");
-  
-        bootstrapValidate("#create_descripcion", "min:10:Campo obligatorio");
-        bootstrapValidate("#create_descripcion", "max:80:Ingrese una descripción menor a 80 caracteres");
-    
-    
-        bootstrapValidate("#update_nombre_categoria", "min:3:Campo obligatorio");
-        bootstrapValidate("#update_nombre_categoria", "max:30:Ingrese un nombre válido");
-    
-        bootstrapValidate("#update_descripcion", "min:10:Campo obligatorio");
-        bootstrapValidate("#update_descripcion", "max:80:Ingrese una descripción menor a 80 caracteres");
-    </script>
-
     </body>
 
     </html>
