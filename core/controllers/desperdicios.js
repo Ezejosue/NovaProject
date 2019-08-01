@@ -2,9 +2,9 @@
 $(document).ready(function()
 {
     showTable();
-    showSelectPlatillo('create_platillo', 0);
-    showSelectAlias('create_alias', 0);
-    showSelectEmpleados('create_empleado', 0);
+    showSelectReceta('create_id_receta', 0);
+    showSelectAlias('create_id_usuario', 0);
+    showSelectEmpleados('create_id_empleado', 0);
 })
 
 //Constante para establecer la ruta y parámetros de comunicación con la API
@@ -18,7 +18,8 @@ function fillTable(rows)
     rows.forEach(function(row){
         content += `
             <tr>
-                <td>${row.nombre_platillo}</td>
+                <td>${row.nombre_receta}</td>
+                <td>${row.cantidad}</td>
                 <td>${row.alias}</td>
                 <td>${row.nombre_empleado}</td>
                 <td>
@@ -60,45 +61,6 @@ function showTable()
     });
 }
 
-//Función para cargar los tipos de unidad de medida en el select del formulario
-function showSelectPlatillo(idSelect, value)
-{
-    $.ajax({
-        url: apiDesperdicios + 'readPlatillo',
-        type: 'post',
-        data: null,
-        datatype: 'json'
-    })
-    .done(function(response){
-        //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
-        if (isJSONString(response)) {
-            const result = JSON.parse(response);
-            //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
-            if (result.status) {
-                let content = '';
-                if (!value) {
-                    content += '<option value="" disabled selected>Seleccione una opción</option>';
-                }
-                result.dataset.forEach(function(row){
-                    if (row.id_platillo != value) {
-                        content += `<option value="${row.id_platillo}">${row.nombre_platillo}</option>`;
-                    } else {
-                        content += `<option value="${row.id_platillo}" selected>${row.nombre_platillo}</option>`;
-                    }
-                });
-                $('#' + idSelect).html(content);
-            } else {
-                $('#' + idSelect).html('<option value="">No hay opciones</option>');
-            }
-        } else {
-            console.log(response);
-        }
-    })
-    .fail(function(jqXHR){
-        //Se muestran en consola los posibles errores de la solicitud AJAX
-        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
-    });
-}
 
 //Función para cargar los tipos de unidad de medida en el select del formulario
 function showSelectAlias(idSelect, value)
@@ -181,6 +143,46 @@ function showSelectEmpleados(idSelect, value)
 }
 
 
+//Función para cargar los tipos de unidad de medida en el select del formulario
+function showSelectReceta(idSelect, value)
+{
+    $.ajax({
+        url: apiDesperdicios + 'readReceta',
+        type: 'post',
+        data: null,
+        datatype: 'json'
+    })
+    .done(function(response){
+        //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+        if (isJSONString(response)) {
+            const result = JSON.parse(response);
+            //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
+            if (result.status) {
+                let content = '';
+                if (!value) {
+                    content += '<option value="" disabled selected>Seleccione una opción</option>';
+                }
+                result.dataset.forEach(function(row){
+                    if (row.id_receta != value) {
+                        content += `<option value="${row.id_receta}">${row.nombre_receta}</option>`;
+                    } else {
+                        content += `<option value="${row.id_receta}" selected>${row.nombre_receta}</option>`;
+                    }
+                });
+                $('#' + idSelect).html(content);
+            } else {
+                $('#' + idSelect).html('<option value="">No hay opciones</option>');
+            }
+        } else {
+            console.log(response);
+        }
+    })
+    .fail(function(jqXHR){
+        //Se muestran en consola los posibles errores de la solicitud AJAX
+        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+    });
+}
+
 //Función para crear un nuevo registro
 $('#form-create').submit(function()
 {
@@ -241,11 +243,10 @@ function modalUpdate(id)
                 console.log(result.dataset);
                 $('#form-update')[0].reset();
                 $('#id_desperdicios').val(result.dataset.id_desperdicios);
-                showSelectPlatillo('update_id_platillo', result.dataset.id_platillo);
+                $('#update_cantidad').val(result.dataset.cantidad);
+                showSelectReceta('update_id_receta', result.dataset.id_receta);
                 showSelectAlias('update_id_usuario', result.dataset.id_usuario);
                 showSelectEmpleados('update_id_empleado', result.dataset.id_empleado);
-                $('#foto_materia').val(result.dataset.foto);
-                (result.dataset.estado == 1) ? $('#update_estado').prop('checked', true) : $('#update_estado').prop('checked', false);
                 $('#modal-update').modal('show');
             } else {
                 sweetAlert(2, result.exception, null);
@@ -282,7 +283,7 @@ $('#form-update').submit(function()
                 $('#modal-update').modal('hide');
                 sweetAlert(1, 'Desperdicio modificado correctamente', null);
                 //Se destruye la tabla de materias primas y se vuelve a crear para que muestre los cambios realizados
-                destroy('#tabla-mdesperdicios');
+                destroy('#tabla-desperdicios');
                 showTable();
             } else {
                 sweetAlert(2, result.exception, null);
@@ -316,7 +317,7 @@ function confirmDelete(id)
                 url: apiDesperdicios + 'delete',
                 type: 'post',
                 data:{
-                    idMateria: id
+                    id_desperdicios: id
                 },
                 datatype: 'json'
             })
@@ -333,14 +334,7 @@ function confirmDelete(id)
                         sweetAlert(2, result.exception, null);
                     }
                 } else {
-                    swal({
-                        title: 'Advertencia',
-                        text: 'Registro ocupado, no se puede borrar materia prima.',
-                        icon: 'error',
-                        buttons: ['Aceptar'],
-                        closeOnClickOutside: true,
-                        closeOnEsc: true
-                    })
+                    console.log(result.exception);
                 }
             })
             .fail(function(jqXHR){

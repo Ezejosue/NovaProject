@@ -23,7 +23,8 @@
                     <table class="table" id="tabla-desperdicios" width="100%">
                         <thead>
                             <tr>
-                                <th>PLATILLO</th>
+                                <th>RECETA</th>
+                                <th>CANTIDAD</th>
                                 <th>USUARIO</th>
                                 <th>EMPLEADO</th>
                                 <th>ACCIONES</th>
@@ -48,6 +49,17 @@
                     </button>
                 </div>
                 <form class="was-validated" method="post" id="form-create" enctype="multipart/form-data">
+                <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-1">
+                                <i class="fa fa-user"></i>
+                            </div>
+                            <div class="col-sm-11">
+                                <input id="create_cantidad" type="text" name="create_cantidad"
+                                    class="validate form-control" placeholder="Cantidad" required>
+                            </div>
+                        </div>
+                    </div>
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-1">
@@ -55,8 +67,7 @@
                             </div>
                             <div class="col-sm-11">
                                 <!-- Aquí es donde se manda a traer el campo de categoria  -->
-                                <select id="create_platillo" name="create_platillo" class="form-control"
-                                    required>
+                                <select id="create_id_receta" name="create_id_receta" class="form-control" required>
                                 </select>
                             </div>
                         </div>
@@ -68,7 +79,7 @@
                             </div>
                             <div class="col-sm-11">
                                 <!-- Aquí es donde se manda a traer el campo de categoria  -->
-                                <select id="create_alias" name="create_alias" class="form-control" required>
+                                <select id="create_id_usuario" name="create_id_usuario" class="form-control" required>
                                 </select>
                             </div>
                         </div>
@@ -80,7 +91,7 @@
                             </div>
                             <div class="col-sm-11">
                                 <!-- Aquí es donde se manda a traer el campo de la llave id_receta -->
-                                <select id="create_empleado" name="create_empleado" class="form-control" required>
+                                <select id="create_id_empleado" name="create_id_empleado" class="form-control" required>
                                 </select>
                             </div>
                         </div>
@@ -105,60 +116,51 @@
                     </button>
                 </div>
                 <form class="was-validated" method="post" id="form-update" enctype="multipart/form-data">
-                    <input type="hidden" id="foto_categoria" name="foto_categoria" />
-                    <input type="hidden" id="id_categoria" name="id_categoria" />
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-sm-1">
-                                <i class="fa fa-image"></i>
-                            </div>
-                            <div class="col-sm-11">
-                                <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="imagen_categoria"
-                                        name="imagen_categoria">
-                                    <label class="custom-file-label" for="imagen_categoria">Escoge un archivo</label>
-                                    <div class="invalid-feedback">Por favor seleccione una imagen 500 x 500</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <input type="hidden" id="id_desperdicios" name="id_desperdicios" />
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-1">
                                 <i class="fa fa-user"></i>
                             </div>
                             <div class="col-sm-11">
-                                <input id="update_nombre_categoria" type="text" name="update_nombre_categoria"
-                                    class="validate form-control" placeholder="Nombre de categoria" required>
+                                <input id="update_cantidad" type="text" name="update_cantidad"
+                                    class="validate form-control" placeholder="Cantidad" required>
                             </div>
                         </div>
                     </div>
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-1">
-                                <i class="fa fa-user"></i>
+                                <i class="fas fa-users"></i>
                             </div>
                             <div class="col-sm-11">
-
-                                <input id="update_descripcion" type="text" name="update_descripcion"
-                                    class="validate form-control" placeholder="Descripcion" required>
+                                <!-- Aquí es donde se manda a traer el campo de categoria  -->
+                                <select id="update_id_receta" name="update_id_receta" class="form-control" required>
+                                </select>
                             </div>
                         </div>
                     </div>
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-1">
-                                <i class="fa fa-eye-slash"></i>
+                                <i class="fas fa-users"></i>
                             </div>
                             <div class="col-sm-11">
-                                <div class="custom-control custom-switch">
-                                    <input type="checkbox" class="custom-control-input" id="update_estado"
-                                        name="update_estado">
-
-                                    <label class="custom-control-label" for="update_estado">
-                                        <i class="fa fa-eye"></i>
-                                    </label>
-                                </div>
+                                <!-- Aquí es donde se manda a traer el campo de categoria  -->
+                                <select id="update_id_usuario" name="update_id_usuario" class="form-control" required>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-1">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="col-sm-11">
+                                <!-- Aquí es donde se manda a traer el campo de la llave id_receta -->
+                                <select id="update_id_empleado" name="update_id_empleado" class="form-control" required>
+                                </select>
                             </div>
                         </div>
                     </div>

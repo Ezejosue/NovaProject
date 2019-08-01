@@ -23,11 +23,12 @@ if (isset($_GET['action'])) {
             //Operación para crear nuevos usuarios
             case 'create':
                 $_POST = $desperdicios->validateForm($_POST);
-                    if ($desperdicios->setid_platillo($_POST['create_id_platillo'])) {
-                            if ($desperdicios->setid_usuario($_POST['create_id_usuario'])) {
-                                if ($desperdicios->setid_empleado($_POST['create_id_empleado'])) {
-                                    if ($desperdicios->createDesperdicios()) {
-                                        $result['status'] = 1;
+                    if ($desperdicios->setid_receta($_POST['create_id_receta'])) {
+                            if ($desperdicios->setCantidad($_POST['create_cantidad'])) {
+                                if ($desperdicios->setid_usuario($_POST['create_id_usuario'])) {
+                                    if ($desperdicios->setid_empleado($_POST['create_id_empleado'])) {
+                                        if ($desperdicios->createDesperdicios()) {
+                                            $result['status'] = 1;
                                     } else {
                                         $result['exception'] = 'Operación fallida';
                                     }
@@ -39,8 +40,11 @@ if (isset($_GET['action'])) {
                             $result['exception'] = 'Seleccione un usuario';
                         }  
                     } else {
-                        $result['exception'] = 'Seleccione un empleado';
+                        $result['exception'] = 'Cantidad incorrecta';
                     }
+                } else {
+                    $result['exception'] = 'Seleccione una receta';
+                }
                 break;
                 
             //Operación para saber el usuario que se va a modificar
@@ -60,11 +64,12 @@ if (isset($_GET['action'])) {
 				$_POST = $desperdicios->validateForm($_POST);
 				if ($desperdicios->setId($_POST['id_desperdicios'])) {
 					if ($desperdicios->getDesperdicios()) {
-		                if ($desperdicios->setid_platillo($_POST['update_id_platillo'])) {
-                            if ($desperdicios->setid_usuario($_POST['update_id_usuario'])) {
-                                if ($desperdicios->setid_empleado($_POST['update_id_empleado'])) {
-                                if ($desperdicios->updateDesperdicios()) {
-                                    $result['status'] = 1;
+		                if ($desperdicios->setid_receta($_POST['update_id_receta'])) {
+                            if ($desperdicios->setCantidad($_POST['update_cantidad'])) {
+                                if ($desperdicios->setid_usuario($_POST['update_id_usuario'])) {
+                                    if ($desperdicios->setid_empleado($_POST['update_id_empleado'])) {
+                                        if ($desperdicios->updateDesperdicios()) {
+                                            $result['status'] = 1;
                                             } else {
                                                 $result['message'] = 'Desperdicio modificado correctamente';
                                                 }
@@ -75,14 +80,17 @@ if (isset($_GET['action'])) {
                                             $result['exception'] = 'Seleccione un usuario';
                                         }
                                     } else {
-                                        $result['exception'] = 'Seleccione un platillo';
+                                        $result['exception'] = 'Cantidad incorrecta';
                                         }
-                            } else {
-                                $result['exception'] = 'Desperdicio inexistente';
-                                }
-                        }else {
-                            $result['exception'] = 'Acción no disponible';
-                        }
+                                } else {
+                                    $result['exception'] = 'Seleccione una receta';
+                                    }
+                        } else {
+                            $result['exception'] = 'Desperdicio inexistente';
+                            }
+                    }else {
+                        $result['exception'] = 'Acción no disponible';
+                    }
                     break;
             //Operación para eliminar un usuario
             case 'delete':
@@ -102,15 +110,6 @@ if (isset($_GET['action'])) {
                     }
                 break;
 
-            //Operación para mostrar los tipos de usuario activos en el formulario de modificar usuario
-            case 'readPlatillo':
-                if ($result['dataset'] = $desperdicios->readPlatillos()) {
-                    $result['status'] = 1;
-                } else {
-                    $result['exception'] = 'Contenido no disponible';
-                }
-                break;
-
             case 'readUsuario':
                 if ($result['dataset'] = $desperdicios->readNombreUsuario()) {
                     $result['status'] = 1;
@@ -127,12 +126,22 @@ if (isset($_GET['action'])) {
                 $result['exception'] = 'Contenido no disponible';
             }
             break;
+
+            case 'readReceta':
+            if ($result['dataset'] = $desperdicios->readReceta()) {
+                $result['status'] = 1;
+            } else {
+                $result['exception'] = 'Contenido no disponible';
+            }
+            break;
                 
             default:
-                exit('Acción no disponible 1');
+                exit('Acción no disponible');
         }
-    } 
-	print(json_encode($result));
+	    print(json_encode($result));
+    } else {
+        exit('Acceso no disponible');
+    }
 } else {
 	exit('Recurso denegado');
 }
