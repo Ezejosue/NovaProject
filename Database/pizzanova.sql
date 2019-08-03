@@ -209,7 +209,8 @@ CREATE TABLE `pre_pedido` (
   `id_prepedido` int(10) UNSIGNED NOT NULL,
   `id_mesa` int(10) UNSIGNED NOT NULL,
   `id_platillo` int(10) UNSIGNED NOT NULL,
-  `cantidad` int(10) UNSIGNED NOT NULL
+  `cantidad` int(10) UNSIGNED NOT NULL,
+  `fecha_prepedido` Date not null
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
