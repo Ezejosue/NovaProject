@@ -52,7 +52,7 @@
                                 <i class="fa fa-list"></i>
                             </div>
                             <div class="col-sm-11">
-                                <input placeholder="Número de mesa" class="form-control" id="create_nombre"
+                                <input type="number" placeholder="Número de mesa" class="form-control" id="create_nombre"
                                     name="create_nombre" for="nombre_medida" required>
                             </div>
                         </div>
@@ -131,5 +131,11 @@
 <?php
 Dashboard::footerTemplate('mesas.js', '#tabla-mesas');
 ?>
+
+<script>
+        bootstrapValidate("#create_nombre", "min:1:Campo obligatorio");
+        bootstrapValidate("#update_nombre", "min:1:Campo obligatorio");
+    </script>
+
 </body>
 </html>

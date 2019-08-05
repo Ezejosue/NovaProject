@@ -99,5 +99,12 @@ class Pedidos extends Validator
 		$params = array(null);
 		return conexion::getRows($sql, $params);
 	}
+
+	public function readPedidosFecha()
+	{
+		$sql = 'SELECT fecha_pedido, COUNT(id_pedido) AS Pedidos FROM pedidos  GROUP BY fecha_pedido LIMIT 10';
+		$params = array(null);
+		return conexion::getRows($sql, $params);
+	}
 }
 ?>

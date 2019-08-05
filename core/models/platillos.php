@@ -209,5 +209,12 @@ class Platillos extends Validator
 		$params = array(null);
 		return conexion::getRows($sql, $params);
 	}
+
+	public function platillos_categoria()
+	{//funcion para traer la consulta de platillos más baratos
+		$sql = 'SELECT id_platillo, nombre_platillo, nombre_categoria from platillos INNER JOIN categorias USING(id_categoria) LIMIT 10';
+		$params = array(null);
+		return conexion::getRows($sql, $params);
+	}
 }
 ?>
