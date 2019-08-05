@@ -106,7 +106,7 @@
                                 <i class="fa fa-user"></i>
                             </div>
                             <div class="col-sm-11">
-                                <input id="cantidad_materia" type="number" name="cantidad_materia"
+                                <input id="cantidad_materia" type="number" max="9999" min="1" name="cantidad_materia"
                                     class="validate form-control" placeholder="Cantidad" required>
                             </div>
                         </div>
@@ -142,3 +142,15 @@
     <?php
 Dashboard::footerTemplate('recetas.js', '#tabla-recetas');
 ?>
+
+<script>
+        bootstrapValidate("#create_nombre", "min:9:Campo obligatorio (solo letras)");
+
+        bootstrapValidate("#create_tiempo", "min:9:Campo obligatorio (solo letras)");
+
+        bootstrapValidate("#id_materias", "min:1:Seleccione una opción");
+
+        bootstrapValidate("#cantidad_materia", "min:1:Ingrese la cantidad de materia");
+        bootstrapValidate("#cantidad_materia", "max:4:Ingrese la cantidad de correctamente");
+
+    </script>

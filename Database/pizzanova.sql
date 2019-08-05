@@ -21,7 +21,7 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `pizzanova`
 --
-CREATE DATABASE IF NOT EXISTS `pizzanova` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+CREATE DATABASE IF NOT EXISTS `pizzanova` DEFAULT CHARACTER SET latin1 COLLATE latin1_spanish_ci;
 USE `pizzanova`;
 
 -- --------------------------------------------------------

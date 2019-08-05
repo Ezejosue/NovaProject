@@ -8,7 +8,7 @@ class Ordenes extends Validator
 	private $platillo = null;
 	private $cantidad = null;
 	private $idPrepedido = null;
-	private $idUsuario = null;
+	private $idUsuario = null;	
 	private $idPedido = null;
 
 	// Métodos para sobrecarga de propiedades
