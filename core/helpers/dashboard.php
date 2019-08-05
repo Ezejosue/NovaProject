@@ -137,6 +137,10 @@ class Dashboard
 												<i class="fas fa-id-card"></i> Empleados</a>
 										</li>
 										</li>
+										<li>
+													<a href="cargo.php">
+													<i class="far fa-address-book"></i>Cargo</a>
+												</li>
 													</ul>
 												</div>
 										</li>
