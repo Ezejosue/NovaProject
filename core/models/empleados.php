@@ -252,9 +252,9 @@ class Empleados extends Validator
         return Conexion::executeRow($sql, $params);
     }
 
-    public function EmpleadoCargo()
+    public function Empleados()
     {
-        $sql = 'SELECT nombre_empleado, apellido_empleado, dui, telefono, nombre_Cargo from empleados INNER JOIN cargo USING(id_Cargo)';
+        $sql = 'SELECT nombre_empleado, apellido_empleado, telefono, genero, direccion from empleados LIMIT 10';
         $params = array(null);
         return Conexion::executeRow($sql, $params);
     }
