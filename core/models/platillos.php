@@ -216,5 +216,13 @@ class Platillos extends Validator
 		$params = array(null);
 		return conexion::getRows($sql, $params);
 	}
+
+
+	public function platillos_vendidos()
+	{//funcion para traer la consulta de platillos más baratos
+		$sql = 'SELECT COUNT(id_platillo) as Vendidos, nombre_platillo, precio*id_platillo as Ganancia from detalle_pedido INNER JOIN platillos USING(id_platillo) GROUP by nombre_platillo LIMIT 10';
+		$params = array(null);
+		return conexion::getRows($sql, $params);
+	}
 }
 ?>
