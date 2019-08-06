@@ -138,5 +138,67 @@ class Categorias extends Validator
 		return conexion::getRows($sql, $params);
 	}
 
+	public function graficar_ventas_categoria($id_categoria)
+	{
+		$sql = "SELECT SUM(platillos.precio) precio, pre_pedido.cantidad, nombre_platillo FROM platillos 
+		INNER JOIN categorias USING (id_categoria) 
+		INNER JOIN pre_pedido USING (id_platillo) 
+		WHERE platillos.estado = 1 AND id_categoria = $id_categoria  GROUP BY nombre_platillo  ASC LIMIT 5";
+		$params = array(null);
+		return conexion::getRows($sql, $params);
+	}
+
+	public function readCategoriaMateria()
+	{
+		$sql = 'SELECT id_categoria, nombre_categoria, descripcion FROM categorias WHERE estado = 1';
+		$params = array(null);
+		return conexion::getRows($sql, $params);
+	}
+
+	private function getMonthName($monthNum)
+	{
+		switch ((int) $monthNum) {
+			case 1:
+				return 'Enero';
+				break;
+			case 2:
+				return 'Febrero';
+				break;
+			case 3:
+				return 'Marzo';
+				break;
+			case 4:
+				return 'Abril';
+				break;
+			case 5:
+				return 'Mayo';
+				break;
+			case 6:
+				return 'Junio';
+				break;
+			case 7:
+				return 'Julio';
+				break;
+			case 8:
+				return 'Agosto';
+				break;
+			case 9:
+				return 'Septiembre';
+				break;
+			case 10:
+				return 'Octubre';
+				break;
+			case 11:
+				return 'Noviembre';
+				break;
+			case 12:
+				return 'Diciembre';
+				break;
+			default:
+				return 'Mes incorrecto';
+				break;
+		}
+	}
+
 }
 ?>

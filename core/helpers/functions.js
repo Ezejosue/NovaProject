@@ -278,3 +278,50 @@ function grafica_platillos_baratos(canvas, xAxis, yAxis, legend, title) {
         }
     });
 }
+
+
+
+//funcion que se llena con los parametros que se obtienen en index.js 
+function grafica_ventas_categoria(canvas, xAxis, yAxis, legend, title) {
+  //ramdon para la obtención de colores al azar
+  let colors = [];
+  for (i = 0; i < xAxis.length; i++) {
+      colors.push('#' + (Math.random().toString(16).substring(2, 8)));
+  }
+  //se especifica el id de la vista
+  const context = $("#" + canvas);
+  const MyPieChart = new Chart(context, {
+      //se especifica los nombres con los que se trabajaran
+      type: 'polarArea',
+      data: {
+          //se especifica los nombres con los que se trabajaran
+          labels: xAxis,
+          datasets: [{
+              label: legend,
+              //se especifica los valores de la grafica
+              data: yAxis,
+              backgroundColor: colors,
+              borderColor: '#000000',
+              borderWith: 1
+          }]
+      },
+      options: {
+          legend: {
+              display: true,
+              position: "right"
+          },
+          title: {
+              display: true,
+              text: title
+          },
+          scales: {
+              yAxes: [{
+                  ticks: {
+                      beginAtZero: true,
+                      stepSize: 5
+                  }
+              }]
+          }
+      }
+  });
+}

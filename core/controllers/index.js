@@ -6,6 +6,7 @@ $(document).ready(function () {
     graficar_ventas_platillos_menor();
     graficar_platillos_mayores();
     graficar_platillos_menores();
+    showSelectCategoria('id_categoria', 0);
 })
 
 //Constante para establecer la ruta y parámetros de comunicación con la API
@@ -233,4 +234,78 @@ function graficar_platillos_menores() {
             console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
         });
 
+}
+
+
+//Función para cargar los tipos de categorias en el select del formulario
+function showSelectCategoria(idSelect, value)
+{
+    $.ajax({
+        url: apiCategorias + 'readCategoria',
+        type: 'post',
+        data: null,
+        datatype: 'json'
+    })
+    .done(function(response){
+        //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+        if (isJSONString(response)) {
+            const result = JSON.parse(response);
+            //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
+            if (result.status) {
+                let content = '';
+                if (!value) {
+                    content += '<option value="" disabled selected>Seleccione una opción</option>';
+                }
+                result.dataset.forEach(function(row){
+                    if (row.id_categoria != value) {
+                        content += `<option value="${row.id_categoria}">${row.nombre_categoria}</option>`;
+                    } else {
+                        content += `<option value="${row.id_categoria}" selected>${row.nombre_categoria}</option>`;
+                    }
+                });
+                $('#' + idSelect).html(content);
+            } else {
+                $('#' + idSelect).html('<option value="">No hay opciones</option>');
+            }
+        } else {
+            console.log(response);
+        }
+    })
+    .fail(function(jqXHR){
+        //Se muestran en consola los posibles errores de la solicitud AJAX
+        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+    });
+}
+
+function CategoriaClick()
+{
+    let id_categoria = parseInt($('#id_categoria').val())
+    $.ajax({
+        url: apiCategorias + 'ventas_categoria',
+        type: 'post',
+        data: { id_categoria },
+        datatype: 'json'
+    })
+    .done(function(response){
+        // Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+        if (isJSONString(response)) {
+            const result = JSON.parse(response);
+            // Se comprueba si el resultado es satisfactorio, sino se remueve la etiqueta canvas
+            if (result.status) {
+                let nombres = [];
+                let dinero = [];
+                result.dataset.forEach(function(row){
+                    nombres.push(row.nombre_platillo);
+                    dinero.push(row.precio);
+                });
+                grafica_ventas_categoria('grafica_ventas', nombres, dinero, 'Platillos más vendidos por categoria', 'Cantidad de platillos más vendidos por categoria')
+            }
+        } else {
+            console.log(response);
+        }
+    })
+    .fail(function(jqXHR){
+        // Se muestran en consola los posibles errores de la solicitud AJAX
+        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+    }); 
 }
