@@ -97,8 +97,6 @@
                     <div class="modal-body">
                         <div id="total">
                         </div>
-                        <div id="usuario">
-                        </div>
                     </div>
                 </form>
             </div>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-08-2019 a las 19:15:06
+-- Tiempo de generación: 07-08-2019 a las 20:03:02
 -- Versión del servidor: 10.1.37-MariaDB
 -- Versión de PHP: 7.3.1
 
@@ -89,44 +89,6 @@ CREATE TABLE `detalle_pedido` (
   `id_platillo` int(11) NOT NULL,
   `cantidad` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Volcado de datos para la tabla `detalle_pedido`
---
-
-INSERT INTO `detalle_pedido` (`id_detalle`, `id_pedido`, `id_platillo`, `cantidad`) VALUES
-(4, 99, 6, 2),
-(5, 99, 4, 2),
-(6, 99, 10, 2),
-(7, 100, 4, 2),
-(8, 102, 4, 1),
-(9, 103, 4, 1),
-(10, 104, 4, 2),
-(11, 105, 6, 1),
-(12, 106, 6, 1),
-(13, 106, 3, 3),
-(14, 106, 4, 1),
-(15, 107, 6, 1),
-(16, 107, 10, 1),
-(17, 107, 3, 4),
-(18, 108, 6, 1),
-(19, 109, 4, 2),
-(20, 110, 4, 1),
-(21, 111, 4, 1),
-(22, 112, 4, 1),
-(23, 113, 6, 1),
-(24, 114, 6, 1),
-(25, 115, 4, 1),
-(26, 116, 6, 2),
-(27, 117, 4, 1),
-(28, 118, 6, 2),
-(29, 119, 6, 1),
-(30, 120, 4, 1),
-(31, 121, 4, 2),
-(32, 122, 4, 1),
-(33, 123, 6, 1),
-(34, 124, 4, 2),
-(35, 125, 4, 1);
 
 -- --------------------------------------------------------
 
@@ -225,41 +187,9 @@ INSERT INTO `mesas` (`id_mesa`, `numero_mesa`, `estado_mesa`) VALUES
 CREATE TABLE `pedidos` (
   `id_pedido` int(11) UNSIGNED NOT NULL,
   `fecha_pedido` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `id_mesa` int(10) UNSIGNED NOT NULL,
   `id_usuario` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Volcado de datos para la tabla `pedidos`
---
-
-INSERT INTO `pedidos` (`id_pedido`, `fecha_pedido`, `id_usuario`) VALUES
-(99, '2019-07-22 14:17:28', 1),
-(100, '2019-07-23 08:18:20', 1),
-(101, '2019-07-23 08:18:45', 1),
-(102, '2019-07-23 08:19:19', 1),
-(103, '2019-07-23 08:19:51', 1),
-(104, '2019-07-23 08:21:09', 1),
-(105, '2019-07-23 08:23:13', 1),
-(106, '2019-07-23 08:28:07', 1),
-(107, '2019-07-23 10:03:43', 1),
-(108, '2019-07-23 10:08:30', 1),
-(109, '2019-07-23 10:11:15', 1),
-(110, '2019-07-23 10:12:46', 1),
-(111, '2019-07-23 10:13:58', 1),
-(112, '2019-07-23 10:14:45', 1),
-(113, '2019-07-23 10:17:05', 1),
-(114, '2019-07-23 10:19:01', 1),
-(115, '2019-07-23 10:20:47', 1),
-(116, '2019-07-23 10:22:15', 1),
-(117, '2019-07-23 10:23:19', 1),
-(118, '2019-07-23 10:24:14', 1),
-(119, '2019-07-23 11:05:46', 1),
-(120, '2019-07-23 11:08:30', 1),
-(121, '2019-07-23 11:08:57', 1),
-(122, '2019-07-23 11:09:29', 1),
-(123, '2019-07-23 11:10:09', 1),
-(124, '2019-07-23 12:02:01', 1),
-(125, '2019-07-29 13:58:12', 1);
 
 -- --------------------------------------------------------
 
@@ -305,14 +235,6 @@ CREATE TABLE `pre_pedido` (
   `id_platillo` int(10) UNSIGNED NOT NULL,
   `cantidad` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Volcado de datos para la tabla `pre_pedido`
---
-
-INSERT INTO `pre_pedido` (`id_prepedido`, `id_mesa`, `id_platillo`, `cantidad`) VALUES
-(1, 1, 4, 2),
-(2, 1, 6, 2);
 
 -- --------------------------------------------------------
 
@@ -468,7 +390,8 @@ ALTER TABLE `mesas`
 --
 ALTER TABLE `pedidos`
   ADD PRIMARY KEY (`id_pedido`),
-  ADD KEY `id_usuario` (`id_usuario`);
+  ADD KEY `id_usuario` (`id_usuario`),
+  ADD KEY `id_mesa` (`id_mesa`);
 
 --
 -- Indices de la tabla `platillos`
@@ -540,7 +463,7 @@ ALTER TABLE `categorias`
 -- AUTO_INCREMENT de la tabla `detalle_pedido`
 --
 ALTER TABLE `detalle_pedido`
-  MODIFY `id_detalle` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id_detalle` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT de la tabla `empleados`
@@ -570,7 +493,7 @@ ALTER TABLE `mesas`
 -- AUTO_INCREMENT de la tabla `pedidos`
 --
 ALTER TABLE `pedidos`
-  MODIFY `id_pedido` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=126;
+  MODIFY `id_pedido` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=127;
 
 --
 -- AUTO_INCREMENT de la tabla `platillos`
@@ -643,6 +566,12 @@ ALTER TABLE `encabezadofactura`
 ALTER TABLE `materiasprimas`
   ADD CONSTRAINT `materiasprimas_ibfk_1` FOREIGN KEY (`id_categoria`) REFERENCES `categorias` (`id_categoria`),
   ADD CONSTRAINT `materiasprimas_ibfk_2` FOREIGN KEY (`id_Medida`) REFERENCES `unidadmedida` (`id_Medida`);
+
+--
+-- Filtros para la tabla `pedidos`
+--
+ALTER TABLE `pedidos`
+  ADD CONSTRAINT `pedidos_ibfk_1` FOREIGN KEY (`id_mesa`) REFERENCES `mesas` (`id_mesa`);
 
 --
 -- Filtros para la tabla `platillos`
