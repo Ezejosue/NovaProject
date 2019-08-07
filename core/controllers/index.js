@@ -121,7 +121,7 @@ function graficar_ventas_platillos() {
             result.dataset.forEach(row => {
                 //se recorren todos los datos que esten en las filas especificadas en el row
                 nombre.push(row.nombre_platillo);
-                venta.push(row.precio);
+                venta.push(row.subtotal);
             });
             //se mandar los parametros de la funcion que se crea en el controlador de function.js los cuales son el id, xAxis, yAxis y legend
             grafica_venta_platillos_mayor("venta_platillo", nombre, venta, "dolares", "Top 5 platillos más vendidos")
@@ -154,7 +154,7 @@ function graficar_ventas_platillos_menor() {
             result.dataset.forEach(row => {
                 //se recorren todos los datos que esten en las filas especificadas en el row
                 nombre.push(row.nombre_platillo);
-                venta.push(row.precio);
+                venta.push(row.subtotal);
             });
             //se mandar los parametros de la funcion que se crea en el controlador de function.js los cuales son el id, xAxis, yAxis y legend
             grafica_venta_platillos_menores("venta_platillo_menor", nombre, venta, "dolares", "Top 5 platillos menos vendidos")
@@ -296,7 +296,7 @@ function CategoriaClick()
                 let dinero = [];
                 result.dataset.forEach(function(row){
                     nombres.push(row.nombre_platillo);
-                    dinero.push(row.precio);
+                    dinero.push(row.subtotal);
                 });
                 grafica_ventas_categoria('grafica_ventas', nombres, dinero, 'Platillos más vendidos por categoria', 'Cantidad de platillos más vendidos por categoria')
             }
