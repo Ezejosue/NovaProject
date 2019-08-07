@@ -1,3 +1,7 @@
+$(function () {
+  $('[data-tooltip="tooltip"]').tooltip({trigger: "hover"})
+});
+
 (function ($) {
     // USE STRICT
     "use strict";

@@ -35,7 +35,7 @@
                     <div class="row">
                         <div class="col-sm-2 col-md-2">
                             <a href="#modal-agregar" class="btn btn-success modal-trigger" data-toggle="modal"
-                                style="border-radius: 20px; margin: 15px;"><i class="fas fa-plus"></i>
+                                style="border-radius: 20px; margin: 15px;" data-tooltip="tooltip" data-placement="right" title="Agregar productos"><i class="fas fa-plus"></i>
                             </a>
                         </div>
                         <div class="col-sm-6 col-md-6">
