@@ -95,6 +95,7 @@ function fillTableDetalle(rows)
     let content = '';
     let total = 0;
     let content2 = '';
+    let content3 = '';
 
     //Se recorren las filas para armar el cuerpo de la tabla y se utiliza comilla invertida para escapar los caracteres especiales
     rows.forEach(function(row){
@@ -114,9 +115,10 @@ function fillTableDetalle(rows)
         $("#id-pedido").text(row.id_pedido);
     });
     content2 += `<h6>TOTAL A PAGAR: $${total}</h6>`;
+    content3 += `<h6>USUARIO: $${rows.nombre_usuario}</h6>`;
     $("#total").html(content2);
+    $("#usuario").html(content3);
     $('#tbody-read-detalle').html(content);
-    $('.tooltipped').tooltip();
 }
 
 function showTableDetalle(id)
