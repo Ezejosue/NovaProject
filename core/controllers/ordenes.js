@@ -165,9 +165,8 @@ function showPrepedido(id){
                         <td>$ ${row.precio}</td>
                         <td>${row.cantidad}</td>
                         <td>${subtotal}</td>
-                        <td><a href="#" onclick="deleteProducto('${row.id_prepedido}')" class="btn btn-danger" style="border-radius: 15px;"><i class="fas fa-times"></i></a>
-                        <a href="#modal-modificar" class="btn btn-primary modal-trigger" data-toggle="modal"
-                                style="border-radius: 15px;"><i class="fas fa-edit"></i>
+                        <td><a href="#" onclick="deleteProducto('${row.id_prepedido}')" class="btn btn-danger" style="border-radius: 15px;" data-toggle="tooltip" data-placement="right" title="Eliminar producto"><i class="fas fa-times"></i></a>
+                        <a href="#modal-modificar" class="btn btn-primary modal-trigger" data-toggle="modal" style="border-radius: 15px;" data-tooltip="tooltip" data-placement="right" title="Editar cantidad"><i class="fas fa-edit"></i>
                         </a>
                         </td>
                     </tr>`;

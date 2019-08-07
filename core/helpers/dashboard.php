@@ -290,7 +290,7 @@ class Dashboard
 		print('
 
 			<script src="../resources/js/jquery-3.2.1.min.js"></script>
-            <script src="../resources/extras/bootstrap-4.1/bootstrap.min.js"></script>
+            <script src="../resources/js/bootstrap.bundle.min.js"></script>
             <script src="../resources/extras/animsition/animsition.min.js"></script>
             <script src="../resources/extras/perfect-scrollbar/perfect-scrollbar.js"></script>
             <script src="../core/helpers/table.js"></script>
