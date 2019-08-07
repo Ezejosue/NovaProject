@@ -184,14 +184,14 @@ class Platillos extends Validator
 
 	public function grafica_ventas_platillo()
 	{//funcion para mostrar las mayores ventas por platillo
-		$sql = 'SELECT SUM(platillos.precio) precio, nombre_platillo, pre_pedido.cantidad FROM platillos INNER JOIN pre_pedido USING (id_platillo) GROUP BY nombre_platillo ORDER BY precio DESC LIMIT 5';
+		$sql = 'SELECT SUM(detallefactura.subtotal) subtotal, nombre_platillo, detallefactura.cantidad FROM platillos INNER JOIN detallefactura USING (id_platillo) GROUP BY nombre_platillo ORDER BY subtotal DESC LIMIT 5';
 		$params = array(null);
 		return conexion::getRows($sql, $params);
 	}
 
 	public function grafica_ventas_platillo_menor()
 	{//funcion para mostrar las menores ventas por platillo
-		$sql = 'SELECT SUM(platillos.precio) precio, nombre_platillo, pre_pedido.cantidad FROM platillos INNER JOIN pre_pedido USING (id_platillo) GROUP BY nombre_platillo ORDER BY precio ASC LIMIT 5';
+		$sql = 'SELECT SUM(detallefactura.subtotal) subtotal, nombre_platillo, detallefactura.cantidad FROM platillos INNER JOIN detallefactura USING (id_platillo) GROUP BY nombre_platillo ORDER BY subtotal ASC LIMIT 5';
 		$params = array(null);
 		return conexion::getRows($sql, $params);
 	}
@@ -206,6 +206,21 @@ class Platillos extends Validator
 	public function grafica_platillos_baratos()
 	{//funcion para traer la consulta de platillos más baratos
 		$sql = 'SELECT nombre_platillo, precio FROM platillos ORDER BY precio ASC LIMIT 5';
+		$params = array(null);
+		return conexion::getRows($sql, $params);
+	}
+
+	public function platillos_categoria()
+	{//funcion para traer la consulta de platillos más baratos
+		$sql = 'SELECT nombre_categoria, id_platillo, nombre_platillo FROM platillos INNER JOIN categorias USING(id_categoria) ORDER BY nombre_categoria LIMIT 15';
+		$params = array(null);
+		return conexion::getRows($sql, $params);
+	}
+
+
+	public function platillos_vendidos()
+	{//funcion para traer la consulta de platillos más baratos
+		$sql = 'SELECT COUNT(id_platillo) as Vendidos, nombre_platillo, precio*COUNT(id_platillo) as Ganancia from detalle_pedido INNER JOIN platillos USING(id_platillo) GROUP by nombre_platillo LIMIT 10';
 		$params = array(null);
 		return conexion::getRows($sql, $params);
 	}

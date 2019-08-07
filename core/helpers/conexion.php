@@ -18,7 +18,7 @@ class Conexion
     private function connect()
     {
         $server = 'localhost';
-        $db = 'PizzaNova';
+        $db = 'pizzanova';
         $username = 'root';
         $password = '';
         try {

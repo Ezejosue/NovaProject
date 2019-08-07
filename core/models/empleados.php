@@ -251,5 +251,12 @@ class Empleados extends Validator
         $params = array($this->id);
         return Conexion::executeRow($sql, $params);
     }
+
+    public function Empleados()
+    {
+        $sql = 'SELECT nombre_empleado, apellido_empleado, telefono, genero, direccion from empleados LIMIT 10';
+        $params = array(null);
+        return Conexion::executeRow($sql, $params);
+    }
 }
 ?>

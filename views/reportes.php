@@ -11,9 +11,12 @@
             <br>
             <div class="col-lg-12">
                 <div class="au-card m-b-30">
-                    <div class="au-card-inner">
-                        <h3 class="title-2 m-b-40">Team Commits</h3>
-                        <canvas id="team-chart"></canvas>
+                    <div class="container">
+                        <h3 class="title-2 m-b-40">Reportes</h3>
+                        <a class="btn btn-primary" href="../core/report/reporte1.php" target="_blank" role="button">Platillos por categoría</a>
+                        <a class="btn btn-primary" href="../core/report/reporte2.php"  target="_blank" role="button">Pedidos por fecha</a> 
+                        <a class="btn btn-primary" href="../core/report/reporte3.php"  target="_blank" role="button">Materia prima por categoría</a>
+                        <a class="btn btn-primary" href="../core/report/reporte4.php"  target="_blank" role="button">Ganancia por platillo</a>
                     </div>
                 </div>
             </div>
