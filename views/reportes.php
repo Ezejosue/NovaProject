@@ -17,6 +17,7 @@
                         <a class="btn btn-primary" href="../core/report/reporte2.php"  target="_blank" role="button">Pedidos por fecha</a> 
                         <a class="btn btn-primary" href="../core/report/reporte3.php"  target="_blank" role="button">Materia prima por categoría</a>
                         <a class="btn btn-primary" href="../core/report/reporte4.php"  target="_blank" role="button">Ganancia por platillo</a>
+                        <a class="btn btn-primary" href="../core/report/reporte5.php"  target="_blank" role="button">Ganancia por categoría</a>
                     </div>
                 </div>
             </div>
