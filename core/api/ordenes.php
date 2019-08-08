@@ -73,7 +73,7 @@ if (isset($_GET['action'])) {
 					$result['exception'] = 'Mesa incorrecta';
 				}
 				break;
-				
+	
 				case 'deleteProducto':
 				if($ordenes->setIdPrepedido($_POST['id_prepedido'])){
                     if ($ordenes->getPre()){
@@ -104,6 +104,24 @@ if (isset($_GET['action'])) {
 						}
 					} else {
 						$result['exception'] = 'Pedido incorrecto';
+					}
+
+				break;
+
+				case 'updateNumeroMesa':
+				$_POST = $ordenes->validateForm($_POST);
+					if($ordenes->setIdMesa($_POST['idMesa'])){
+						if($ordenes->setIdMesaNueva($_POST['idMesaNueva'])){
+							if($ordenes->updateNumeroMesa()){
+								$result['status'] = 1;
+							} else {
+								$result['exception'] = 'Operación fallida';
+							}
+						} else {
+							$result['exception'] = 'Mesa nueva incorrecta';
+						}
+					} else {
+						$result['exception'] = 'Mesa actual incorrecta';
 					}
 
 				break;
