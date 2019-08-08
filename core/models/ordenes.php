@@ -3,6 +3,7 @@ class Ordenes extends Validator
 {
 	// Declaración de propiedades
 	private $idMesa = null;
+	private $idMesaNueva = null;
 	private $numero = null;
 	private $categoria = null;
 	private $platillo = null;
@@ -25,6 +26,21 @@ class Ordenes extends Validator
 	public function getIdMesa()
 	{
 		return $this->idMesa;
+	}
+	
+	public function setIdMesaNueva($value)
+	{
+		if ($this->validateId($value)) {
+			$this->idMesaNueva = $value;
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public function getIdMesaNueva()
+	{
+		return $this->idMesaNueva;
     }
 
     public function setNumero($value)
@@ -226,6 +242,12 @@ class Ordenes extends Validator
 	public function createDetallePedido(){
 		$sql = 'INSERT INTO detalle_pedido(id_pedido, id_platillo, cantidad) VALUES (?, ?, ?)';
 		$params = array($this->idPedido, $this->platillo, $this->cantidad);
+		return Conexion::executeRow($sql, $params);
+	}
+
+	public function updateNumeroMesa(){
+		$sql = 'UPDATE pre_pedido SET id_mesa = ? WHERE id_mesa = ?';
+		$params = array($this->idMesaNueva, $this->idMesa);
 		return Conexion::executeRow($sql, $params);
 	}
 

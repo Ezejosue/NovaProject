@@ -12,8 +12,6 @@
                 <h3 class="title-3 text-center">Seleccione una mesa</h3>
                 <br>
                 <form action="post" id="data-mesas">
-
-                    <br>
                 </form>
             </div>
             <div class="col-md-1"></div>
@@ -33,13 +31,16 @@
             <form method="post" id="form-orden">
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-sm-2 col-md-2">
+                        <div class="col-sm-1 col-md-1">
                             <a href="#modal-agregar" class="btn btn-success modal-trigger" data-toggle="modal"
-                                style="border-radius: 20px; margin: 15px;" data-tooltip="tooltip" data-placement="right" title="Agregar productos"><i class="fas fa-plus"></i>
+                                style="border-radius: 20px; margin: 15px;" data-tooltip="tooltip" data-placement="right"
+                                title="Agregar productos"><i class="fas fa-plus"></i>
                             </a>
                         </div>
-                        <div class="col-sm-6 col-md-6">
-                        <input type="text" id="pre-pedido" name="pre-pedido">
+                        <div class="col-sm-2 col-md-2" id="boton-modificar-mesa" name="boton-modificar-mesa">
+                        </div>
+                        <div class="col-sm-4 col-md-4">
+                            <input type="text" id="pre-pedido" name="pre-pedido">
                         </div>
                         <div class="col-sm-4 col-md-4">
                             <div class="row">
@@ -52,7 +53,7 @@
                                 <h6 id="total"> </h6>
                             </div>
                             <div class="row" id="boton-pago">
-                                
+
                             </div>
                         </div>
                     </div>
@@ -122,7 +123,8 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-sm-12 col-md-12">
-                            <input type="number" class="form-control" id="nueva_cantidad" name="nueva_cantidad" max="999" min="1">
+                            <input type="number" class="form-control" id="nueva_cantidad" name="nueva_cantidad"
+                                max="999" min="1">
                             <br>
                         </div>
                     </div>
@@ -131,6 +133,24 @@
                         </div>
                     </div>
                 </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-modificar-mesa">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">MOVER ORDEN A OTRA MESA</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <input type="text" id="mesa-actual" name="mesa-actual">
+            <h3 class="title-3 text-center">Seleccione una mesa</h3>
+            <br>
+            <form action="post" id="data-modificar-mesas">
             </form>
         </div>
     </div>

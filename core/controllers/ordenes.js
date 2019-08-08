@@ -49,6 +49,48 @@ function showMesas(){
     });
 }
 
+function showModificarMesas(id){
+    $.ajax({
+        url: apiOrdenes + 'readMesas',
+        type: 'post',
+        data: {
+            idMesa: id
+        },
+        datatype: 'json' 
+    })
+    .done(function(response){
+        //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+        if (isJSONString(response)) {
+            const result = JSON.parse(response);
+            //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
+            if (result.status) {
+                /* if (result.dataset.id_mesa = idMesa){
+                }
+                    console.log('BIEEEN');
+                } else {
+                    console.log('Terrible');
+                } */
+                let content = '';
+                result.dataset.forEach(function(row){
+                    content+= `<a href="#" class="btn btn-primary" style="border-radius: 10px; margin: 2px;" onclick="updateNumeroMesa(${row.id_mesa}, ${id})">
+                    <h4 style="color: white; font-size: 20px;">MESA ${row.numero_mesa}</h4>
+                    <i class="fas fa-pizza-slice"></i>
+                    </a>`;
+                });
+                $('#data-modificar-mesas').html(content);
+            } else {
+
+            }
+        } else {
+            console.log(response);
+        }
+    })
+    .fail(function(jqXHR){
+        //Se muestran en consola los posibles errores de la solicitud AJAX
+        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+    });
+}
+
 function showCategorias(){
     $.ajax({
         url: apiOrdenes + 'readCategorias',
@@ -151,8 +193,9 @@ function showPrepedido(id){
             if (result.status) {
                 let content3 = '';
                 let content4 = '';
-                total = 0;
                 let content5 = '';
+                let content6 = '';
+                total = 0;
                 result.dataset.forEach(function(row){
                     mesa = row.id_mesa;
                     subtotal = parseFloat(row.cantidad * row.precio).toFixed(2);
@@ -173,12 +216,15 @@ function showPrepedido(id){
 
                     content4 = `<a href="#" class="btn btn-success" style="border-radius: 15px;"><i class="fas fa-check" onclick="updateCantidad('${row.id_prepedido}')"></i></a>`;
                     content5 = `<a href="#" onclick="confirmPago(${idMesa})" class="btn btn-primary btn-sm" target="_blank">CONTINUAR</a>`;
-
+                    content6 = `<a href="#modal-modificar-mesa" class="btn btn-info modal-trigger" data-toggle="modal"
+                    style="border-radius: 20px; margin: 15px;" data-tooltip="tooltip" data-placement="right"
+                    title="Mover productos a otra mesa" onclick="showModificarMesas(${idMesa})"><i class="fas fa-utensils"></i></a>`;
                 });
                 
                 $('#prepedido').html(content3);
                 $('#ingresar_cantidad').html(content4);
                 $('#boton-pago').html(content5);
+                $('#boton-modificar-mesa').html(content6);
                 $('#mesa').html(idMesa);
                 $('#total').html(total);
                 $('#modal-orden').modal('show');
@@ -194,6 +240,37 @@ function showPrepedido(id){
         } else {
             console.log(response);
             
+        }
+    })
+    .fail(function(jqXHR){
+        //Se muestran en consola los posibles errores de la solicitud AJAX
+        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+    });
+}
+
+function updateNumeroMesa(id, id2){
+    idMesaNueva = id;
+    $.ajax({
+        url: apiOrdenes + 'updateNumeroMesa',
+        type: 'post',
+        data: {
+            idMesaNueva: id,
+            idMesa: id2
+        },
+        datatype: 'json'
+    })
+    .done(function(response){
+        //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+        if (isJSONString(response)) {
+            const result = JSON.parse(response);
+            //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
+            if (result.status) {
+                sweetAlert(1, 'Mesa modificada correctamente', 'ordenes.php');
+            } else {
+                sweetAlert(2, result.exception, null);
+            }
+        } else {
+            console.log(response);
         }
     })
     .fail(function(jqXHR){
