@@ -180,6 +180,20 @@ if (isset($_GET['action'])) {
 				break;
 
 				
+				//caso para traer el modelo de la existencia de materias primas por categoria
+				case 'desperdicios_mes':
+				if(isset($_POST['idMesDesperdicios'])){
+				if ($result['dataset'] = $categoria->graficar_desperdicios($_POST['idMesDesperdicios'])) {
+					$result['status'] = 1;
+				} else {
+					$result['exception'] = 'No hay categorías registradas';
+				}
+			}else {
+				$result['exception'] = 'No se obtuvo la categoria seleccionada';
+			}
+				break;
+
+				
 			default:
 				exit('Acción no disponible');
 		}

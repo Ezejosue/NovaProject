@@ -354,3 +354,42 @@ function MesClick()
         console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
     }); 
 }
+
+
+function MesDesperdiciosClick()
+{
+    let idMesDesperdicios = parseInt($('#idMesDesperdicios').val())
+    $.ajax({
+        url: apiCategorias + 'desperdicios_mes',
+        type: 'post',
+        data: { idMesDesperdicios },
+        cache: false,
+        datatype: 'json'
+    })
+    .done(function(response){
+        // Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+        if (isJSONString(response)) {
+            const result = JSON.parse(response);
+            // Se comprueba si el resultado es satisfactorio, sino se remueve la etiqueta canvas
+            if (result.status) {
+                let nombres = [];
+                let dinero = [];
+                result.dataset.forEach(function(row){
+                    nombres.push(row.nombre_receta);
+                    dinero.push(row.cantidad);
+                });
+                grafica_desperdicios_mes('grafica_desperdicios_mes', nombres, dinero, 'Desperdicios por mes', 'Cantidad de desperdicios por mes seleccionado')
+                //se deshabilitan tanto el boton como el comobobox para que no genere más de una grafica 
+                document.getElementById('botonMesDesperdicios').disabled=true;
+                document.getElementById('idMesDesperdicios').disabled=true;
+            }
+            
+        } else {
+            console.log(response);
+        }
+    })
+    .fail(function(jqXHR){
+        // Se muestran en consola los posibles errores de la solicitud AJAX
+        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+    }); 
+}

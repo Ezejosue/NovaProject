@@ -4,6 +4,7 @@ class Categorias extends Validator
 	// Declaración de propiedades
 	private $id = null;
 	private $idMes = null;
+	private $idMesDesperdicios = null;
 	private $nombre = null;
 	private $imagen = null;
 	private $descripcion = null;
@@ -132,6 +133,13 @@ class Categorias extends Validator
 		return conexion::executeRow($sql, $params);
 	}
 
+	public function readCategoriaMateria()
+	{
+		$sql = 'SELECT id_categoria, nombre_categoria, descripcion FROM categorias WHERE estado = 1';
+		$params = array(null);
+		return conexion::getRows($sql, $params);
+	}
+
 	public function graficar_existencia_categoria()
 	{//funcion para traer la cantidad de materia prima por categoria
 		$sql = 'SELECT SUM(materiasprimas.cantidad) cantidad, nombre_categoria FROM materiasprimas INNER JOIN categorias USING (id_categoria) WHERE materiasprimas.estado = 1 GROUP BY nombre_categoria ORDER BY nombre_categoria ASC LIMIT 10';
@@ -160,10 +168,12 @@ class Categorias extends Validator
 		return conexion::getRows($sql, $params);
 	}
 
-	public function readCategoriaMateria()
+	public function graficar_desperdicios($idMesDesperdicios)
 	{
-		$sql = 'SELECT id_categoria, nombre_categoria, descripcion FROM categorias WHERE estado = 1';
-		$params = array(null);
+		$sql = "SELECT SUM(cantidad) as cantidad, fecha_desperdicio, nombre_receta FROM desperdicios 
+		INNER JOIN receta USING (id_receta) WHERE YEAR(fecha_desperdicio) = YEAR(NOW()) AND MONTH (fecha_desperdicio) = ? 
+		GROUP BY nombre_receta ORDER BY cantidad DESC LIMIT 5";
+		$params = array($idMesDesperdicios);
 		return conexion::getRows($sql, $params);
 	}
 

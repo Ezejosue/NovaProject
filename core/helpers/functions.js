@@ -323,9 +323,6 @@ function grafica_ventas_categoria(canvas, xAxis, yAxis, legend, title) {
     });
 }
 
-
-
-
 //funcion que se llena con los parametros que se obtienen en index.js 
 function grafica_ventas_mes(canvas, xAxis, yAxis, legend, title) {
     //ramdon para la obtención de colores al azar
@@ -368,3 +365,46 @@ function grafica_ventas_mes(canvas, xAxis, yAxis, legend, title) {
         }
     });
 }
+
+//funcion que se llena con los parametros que se obtienen en index.js 
+function grafica_desperdicios_mes(canvas, xAxis, yAxis, legend, title) {
+      //ramdon para la obtención de colores al azar
+      let colors = [];
+      for (i = 0; i < xAxis.length; i++) {
+          colors.push('#' + (Math.random().toString(16).substring(2, 8)));
+      }
+      //se especifica el id de la vista
+      const context = $("#" + canvas);
+      const MyPieChart = new Chart(context, {
+          type: 'line',
+          data: {
+              //se especifica los nombres con los que se trabajaran
+              labels: xAxis,
+              datasets: [{
+                  label: legend,
+                  //se especifica los valores de la grafica
+                  data: yAxis,
+                  borderColor: 'INDIANRED',
+                  borderWith: 5,
+                  backgroundColor: 'SEASHELL'
+              }]
+          },
+          options: {
+              legend: {
+                  display: false
+              },
+              title: {
+                  display: true,
+                  text: title
+              },
+              scales: {
+                  yAxes: [{
+                      ticks: {
+                          beginAtZero: false,
+                          stepSize: 50
+                      }
+                  }]
+              }
+          }
+      });
+  }

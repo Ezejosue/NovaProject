@@ -137,12 +137,12 @@
                                         </div>
                                         </form>
                                         <hr>
-                                        <h5 align="center">Ventas en periodos de tiempo.</h5>
-                                        <canvas id="grafica_mes"></canvas>
+                                        <h5 align="center">Desperdicios por mes.</h5>
+                                        <canvas id="grafica_desperdicios_mes"></canvas>
                                         
                                         <div class="form-group">
                                             <form>
-                                                <select id="idMes" class="form-control"
+                                                <select id="idMesDesperdicios" class="form-control"
                                                     title="desee el mes que desea consultar">
                                                     <option value="1">Enero</option>
                                                     <option value="2">Febrero</option>
@@ -160,7 +160,7 @@
                                                 <br>
                                                 <button class="btn btn-primary" data-tooltip="Crear"
                                                     title="Si desea una segunda gráfica recargue la pagina"
-                                                    id="botonMes" type="button" onclick="MesClick()">Obtener
+                                                    id="botonMesDesperdicios" type="button" onclick="MesDesperdiciosClick()">Obtener
                                                     gráfico</button>
                                         </div>
                                         </form>
