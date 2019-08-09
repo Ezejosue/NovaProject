@@ -48,7 +48,7 @@
                 </div>
                 <form class="was-validated" method="post" id="form-create" enctype="multipart/form-data">
                     <div class="modal-body">
-                       
+
                     </div>
                     <div class="modal-body">
                         <div class="row">
@@ -100,7 +100,7 @@
             </div>
         </div>
     </div>
-<?php
+    <?php
 Dashboard::footerTemplate('cargo.js', '#tabla-cargo');
 ?>
 

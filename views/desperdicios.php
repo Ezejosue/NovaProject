@@ -66,7 +66,7 @@
                                 <i class="fas fa-users"></i>
                             </div>
                             <div class="col-sm-11">
-                                <!-- Aquí es donde se manda a traer el campo de categoria  -->
+                                <!-- Aquí es donde se manda a traer el campo de categoría  -->
                                 <select id="create_id_receta" name="create_id_receta" class="form-control" required>
                                 </select>
                             </div>
@@ -78,7 +78,7 @@
                                 <i class="fas fa-users"></i>
                             </div>
                             <div class="col-sm-11">
-                                <!-- Aquí es donde se manda a traer el campo de categoria  -->
+                                <!-- Aquí es donde se manda a traer el campo de categoría  -->
                                 <select id="create_id_usuario" name="create_id_usuario" class="form-control" required>
                                 </select>
                             </div>

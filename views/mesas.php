@@ -52,8 +52,8 @@
                                 <i class="fa fa-list"></i>
                             </div>
                             <div class="col-sm-11">
-                                <input type="number" placeholder="Número de mesa" class="form-control" id="create_nombre"
-                                    name="create_nombre" for="nombre_medida" required>
+                                <input type="number" placeholder="Número de mesa" class="form-control"
+                                    id="create_nombre" name="create_nombre" for="nombre_medida" required>
                             </div>
                         </div>
                     </div>
@@ -92,15 +92,14 @@
                     </button>
                 </div>
                 <form method="post" id="form-update">
-                    <input type="hidden" id="id_mesa" name="id_mesa"/>
+                    <input type="hidden" id="id_mesa" name="id_mesa" />
                     <div class="modal-body">
-                    <div class="row">
+                        <div class="row">
                             <div class="col-sm-1">
                                 <i class="fa fa-list"></i>
                             </div>
                             <div class="col-sm-11">
-                                <input class="form-control" id="update_nombre"
-                                    name="update_nombre">
+                                <input class="form-control" id="update_nombre" name="update_nombre">
                             </div>
                         </div>
                     </div>
@@ -128,14 +127,15 @@
             </div>
         </div>
     </div>
-<?php
+    <?php
 Dashboard::footerTemplate('mesas.js', '#tabla-mesas');
 ?>
 
-<script>
+    <script>
         bootstrapValidate("#create_nombre", "min:1:Campo obligatorio");
         bootstrapValidate("#update_nombre", "min:1:Campo obligatorio");
     </script>
 
-</body>
-</html>
+    </body>
+
+    </html>

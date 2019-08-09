@@ -38,7 +38,7 @@
                 <div class="chart-info">
                 </div>
                 <div class="au-card-inner">
-                    <h5 align="center">existencias por categoria</h5>
+                    <h5 align="center">existencias por categoría</h5>
                     <canvas id="existencia_categoria"></canvas>
                 </div>
             </div>
@@ -92,40 +92,57 @@
                                 <!-- Contenedor para la gráfica-->
                                 <div>
                                     <div class="recent-report2">
-                                        <h3 align="center" class="title-1">Graficas con parametros.</h3>
+                                        <h3 align="center" class="title-1">Gráficas con parámetros.</h3>
                                         <div class="chart-info">
                                         </div>
-                                        <h5 align="center">Platillos más vendidos por categoria.</h5>
+                                        <h5 align="center">Platillos más vendidos por categoría.</h5>
                                         <canvas id="grafica_ventas"></canvas>
                                         <div class="form-group">
                                             <form>
-                                                <select id="id_categoria" class="form-control" title="Seleccione una categoria">
+                                                <select id="id_categoria" class="form-control"
+                                                    title="Seleccione una categoría">
                                                 </select>
                                                 <br>
-                                                <button id="bloqueo" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Refresque la pagina en caso de querer una segunda grafica."
-                                                    type="button" onclick="CategoriaClick()">Obtener grafico</button>
+                                                <button id="bloqueo" class="btn btn-primary mx-auto "
+                                                    title="Refresque la pagina en caso de querer una segunda gráfica."
+                                                    type="button" onclick="CategoriaClick()">Obtener gráfico</button>
                                         </div>
-                                    </form>
+                                        </form>
 
-                                <hr>
-                                <h5 align="center">Platillos más vendidos del mes.</h5>
-                                        <canvas id="grafica_ventas"></canvas>
+                                        <hr>
+                                        <h5 align="center">Platillos más vendidos del mes.</h5>
+                                        <canvas id="grafica_mes"></canvas>
                                         <div class="form-group">
                                             <form>
-                                                <select id="id_categoria" class="form-control">
+                                                <select id="idMes" class="form-control"
+                                                    title="desee el mes que desea consultar">
+                                                    <option value="1">Enero</option>
+                                                    <option value="2">Febrero</option>
+                                                    <option value="3">Marzo</option>
+                                                    <option value="4">Abril</option>
+                                                    <option value="5">Mayo</option>
+                                                    <option value="7">Junio</option>
+                                                    <option value="6">Julio</option>
+                                                    <option value="8">Agosto</option>
+                                                    <option value="9">Septiembre</option>
+                                                    <option value="10">Octubre</option>
+                                                    <option value="11">Noviembre</option>
+                                                    <option value="12">Diciembre</option>
                                                 </select>
                                                 <br>
-                                                <button class="btn btn-primary tooltipped" data-tooltip="Crear" title="hola"
-                                                   id="bloqueo" type="button"  onclick="CategoriaClick(this.id)">Obtener grafico</button>
+                                                <button class="btn btn-primary" data-tooltip="Crear"
+                                                    title="Si desea una segunda gráfica recargue la pagina"
+                                                    id="botonMes" type="button" onclick="MesClick()">Obtener
+                                                    gráfico</button>
                                         </div>
-                                    </form>
+                                        </form>
+                                    </div>
+                                    <hr>
                                 </div>
-                                <hr>
                             </div>
                         </div>
-                    </div>
 
 
-                    <?php
+                        <?php
         Dashboard::footerTemplate('index.js', '');
         ?>

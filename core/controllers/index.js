@@ -300,8 +300,49 @@ function CategoriaClick()
                     dinero.push(row.subtotal);
                 });
                 grafica_ventas_categoria('grafica_ventas', nombres, dinero, 'Platillos más vendidos por categoria', 'Cantidad de platillos más vendidos por categoria')
+               //se deshabilitan tanto el boton como el comobobox para que no genere más de una grafica 
                 document.getElementById('bloqueo').disabled=true;
                 document.getElementById('id_categoria').disabled=true;
+            }
+            
+        } else {
+            console.log(response);
+        }
+    })
+    .fail(function(jqXHR){
+        // Se muestran en consola los posibles errores de la solicitud AJAX
+        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+    }); 
+}
+
+
+
+function MesClick()
+{
+    let idMes = parseInt($('#idMes').val())
+    $.ajax({
+        url: apiCategorias + 'ventas_mes',
+        type: 'post',
+        data: { idMes },
+        cache: false,
+        datatype: 'json'
+    })
+    .done(function(response){
+        // Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+        if (isJSONString(response)) {
+            const result = JSON.parse(response);
+            // Se comprueba si el resultado es satisfactorio, sino se remueve la etiqueta canvas
+            if (result.status) {
+                let nombres = [];
+                let dinero = [];
+                result.dataset.forEach(function(row){
+                    nombres.push(row.nombre_platillo);
+                    dinero.push(row.ventas);
+                });
+                grafica_ventas_mes('grafica_mes', nombres, dinero, 'Platillos más vendidos por mes', 'Cantidad de platillos más vendidos por mes seleccionado')
+                //se deshabilitan tanto el boton como el comobobox para que no genere más de una grafica 
+                document.getElementById('botonMes').disabled=true;
+                document.getElementById('idMes').disabled=true;
             }
             
         } else {
