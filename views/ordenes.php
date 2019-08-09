@@ -92,9 +92,8 @@
             <form method="post" id="form-agregar">
                 <div class="modal-body">
                     <div class="row">
-                        <input type="hidden" id="idmesaxd" name="idmesaxd">
                         <div class="col-sm-4 col-md-4">
-                            <div id="lista" class="list-group">
+                            <div id="lista-categorias" class="list-group">
                             </div>
                         </div>
                         <div class="col-sm-8 col-md-8">
@@ -147,7 +146,6 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <input type="text" id="mesa-actual" name="mesa-actual">
             <h3 class="title-3 text-center">Seleccione una mesa</h3>
             <br>
             <form action="post" id="data-modificar-mesas">
