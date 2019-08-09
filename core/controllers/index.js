@@ -92,7 +92,7 @@ function graficar_existencia_categoria() {
                 existencia.push(parseInt(row.cantidad));
             });
             //se mandar los parametros de la funcion que se crea en el controlador de function.js los cuales son el id, xAxis, yAxis y legend
-            grafico_existencia_categoria("existencia_categoria", nombre, existencia, "Existencias.", "Existencia de materia prima por categoria")
+            grafico_existencia_categoria("existencia_categoria", nombre, existencia, "Existencias.", "Existencia de materia prima por categoria (productos a punto de acabarse)")
         })
 
         //en caso de error se ejecuta esta funcion

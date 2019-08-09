@@ -89,7 +89,7 @@ class Desperdicios extends Validator
 	// Metodos para el manejo del SCRUD
 	public function readDesperdicios()
 	{
-		$sql = 'SELECT id_desperdicios, desperdicios.cantidad, nombre_receta, alias, nombre_empleado FROM receta INNER JOIN desperdicios USING(id_receta) 
+		$sql = 'SELECT id_desperdicios, desperdicios.cantidad, nombre_receta, alias, nombre_empleado, fecha_desperdicio FROM desperdicios INNER JOIN receta USING(id_receta) 
         INNER JOIN usuarios USING (id_usuario) 
         INNER JOIN empleados USING (id_empleado)';
 		$params = array(null);

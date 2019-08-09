@@ -27,6 +27,7 @@
                                 <th>CANTIDAD</th>
                                 <th>USUARIO</th>
                                 <th>EMPLEADO</th>
+                                <th>FECHA</th>
                                 <th>ACCIONES</th>
                             </tr>
                         </thead>

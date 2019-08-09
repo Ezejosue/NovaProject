@@ -91,6 +91,16 @@ CREATE TABLE `detalle_pedido` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
+--
+-- Estructura de tabla para la tabla `desperdicios`
+--
+
+CREATE TABLE `desperdicios` (
+  `id_desperdicios` int(11) NOT NULL,
+  `id_platillo` int(10) UNSIGNED NOT NULL,
+  `id_usuario` int(10) UNSIGNED NOT NULL,
+  `id_empleado` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Estructura de tabla para la tabla `empleados`

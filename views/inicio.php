@@ -38,7 +38,7 @@
                 <div class="chart-info">
                 </div>
                 <div class="au-card-inner">
-                    <h5 align="center">existencias por categoría</h5>
+                    <h5 align="center">Existencias por categoría</h5>
                     <canvas id="existencia_categoria"></canvas>
                 </div>
             </div>
@@ -136,13 +136,43 @@
                                                     gráfico</button>
                                         </div>
                                         </form>
+                                        <hr>
+                                        <h5 align="center">Ventas en periodos de tiempo.</h5>
+                                        <canvas id="grafica_mes"></canvas>
+                                        
+                                        <div class="form-group">
+                                            <form>
+                                                <select id="idMes" class="form-control"
+                                                    title="desee el mes que desea consultar">
+                                                    <option value="1">Enero</option>
+                                                    <option value="2">Febrero</option>
+                                                    <option value="3">Marzo</option>
+                                                    <option value="4">Abril</option>
+                                                    <option value="5">Mayo</option>
+                                                    <option value="7">Junio</option>
+                                                    <option value="6">Julio</option>
+                                                    <option value="8">Agosto</option>
+                                                    <option value="9">Septiembre</option>
+                                                    <option value="10">Octubre</option>
+                                                    <option value="11">Noviembre</option>
+                                                    <option value="12">Diciembre</option>
+                                                </select>
+                                                <br>
+                                                <button class="btn btn-primary" data-tooltip="Crear"
+                                                    title="Si desea una segunda gráfica recargue la pagina"
+                                                    id="botonMes" type="button" onclick="MesClick()">Obtener
+                                                    gráfico</button>
+                                        </div>
+                                        </form>
                                     </div>
-                                    <hr>
                                 </div>
+
+
                             </div>
                         </div>
+                    </div>
 
 
-                        <?php
+                    <?php
         Dashboard::footerTemplate('index.js', '');
         ?>
