@@ -238,7 +238,6 @@ function showPrepedido(id){
                 $('#mesa').html(idMesa);
                 $('#total').html(total);
                 $('#modal-orden').modal('show');
-                console.log('Orden');
             } else {
                 total = 0;
                 $('#mesa').html(idMesa);
@@ -247,7 +246,6 @@ function showPrepedido(id){
                 $('#boton-modificar-mesa').html('');
                 $('#boton-pago').html('');
                 $('#modal-orden').modal('show');
-                console.log('Vacio');
             }
         } else {
             console.log(response);
@@ -453,7 +451,6 @@ function confirmPago(id)
                     }
                 } else {
                     sweetAlert(1, 'Pedido realizado', window.open('../core/report/ticket.php'));
-                    console.log(response);
                 }
             })
             .fail(function(jqXHR){
