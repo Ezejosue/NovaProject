@@ -284,6 +284,7 @@ function CategoriaClick()
         url: apiCategorias + 'ventas_categoria',
         type: 'post',
         data: { id_categoria },
+        cache: false,
         datatype: 'json'
     })
     .done(function(response){
@@ -299,7 +300,10 @@ function CategoriaClick()
                     dinero.push(row.subtotal);
                 });
                 grafica_ventas_categoria('grafica_ventas', nombres, dinero, 'Platillos más vendidos por categoria', 'Cantidad de platillos más vendidos por categoria')
+                document.getElementById('bloqueo').disabled=true;
+                document.getElementById('id_categoria').disabled=true;
             }
+            
         } else {
             console.log(response);
         }

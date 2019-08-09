@@ -140,10 +140,10 @@ class Categorias extends Validator
 
 	public function graficar_ventas_categoria($id_categoria)
 	{
-		$sql = "SELECT SUM(detallefactura.subtotal) subtotal, detallefactura.cantidad, nombre_platillo FROM platillos 
+		$sql = "SELECT SUM(cantidad) as cantidad, nombre_platillo, precio*SUM(cantidad) as subtotal FROM platillos 
 		INNER JOIN categorias USING (id_categoria) 
-		INNER JOIN detallefactura USING (id_platillo) 
-		WHERE platillos.estado = 1 AND id_categoria = $id_categoria  GROUP BY nombre_platillo  ASC LIMIT 5";
+		INNER JOIN detalle_pedido USING (id_platillo) 
+		WHERE platillos.estado = 1 AND id_categoria = $id_categoria  GROUP BY nombre_platillo ORDER BY subtotal DESC LIMIT 5";
 		$params = array(null);
 		return conexion::getRows($sql, $params);
 	}

@@ -99,10 +99,10 @@
                                         <canvas id="grafica_ventas"></canvas>
                                         <div class="form-group">
                                             <form>
-                                                <select id="id_categoria" class="form-control">
+                                                <select id="id_categoria" class="form-control" title="Seleccione una categoria">
                                                 </select>
                                                 <br>
-                                                <button class="btn btn-primary tooltipped" data-tooltip="Crear"
+                                                <button id="bloqueo" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Refresque la pagina en caso de querer una segunda grafica."
                                                     type="button" onclick="CategoriaClick()">Obtener grafico</button>
                                         </div>
                                     </form>
@@ -115,8 +115,8 @@
                                                 <select id="id_categoria" class="form-control">
                                                 </select>
                                                 <br>
-                                                <button class="btn btn-primary tooltipped" data-tooltip="Crear"
-                                                    type="button" onclick="CategoriaClick()">Obtener grafico</button>
+                                                <button class="btn btn-primary tooltipped" data-tooltip="Crear" title="hola"
+                                                   id="bloqueo" type="button"  onclick="CategoriaClick(this.id)">Obtener grafico</button>
                                         </div>
                                     </form>
                                 </div>
