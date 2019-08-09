@@ -203,5 +203,13 @@ class Recetas extends Validator
 		$params = array($this->idreceta);
 		return conexion::executeRow($sql, $params);
 	}
+	public function RecetaCategoria()
+	{
+		$sql = 'SELECT nombre_categoria, nombre_receta, elaboracion from receta INNER JOIN categorias USING(id_categoria) GROUP by nombre_categoria LIMIT 10';
+		$params = array(null);
+		return conexion::executeRow($sql, $params);
+	}
+
+
 }
 ?>

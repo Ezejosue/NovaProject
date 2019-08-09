@@ -67,66 +67,87 @@ class Dashboard
 										<i class="fas fa-tachometer-alt"></i>Vista General
 									</a>
 								</li>
-								<li>
-									<a href="mesas.php">
-										<i class="fas fa-book"></i>Ordenes
-									</a>
-								</li>
 										<li>
 											<a href="#itemsDrop" data-toggle="collapse" class="collapsed"><i class="fab fa-dropbox"></i><span>
-											Productos</span></a>
+											Productos</span><i class="fas fa-sort-down"></i></a>
 												<div id="itemsDrop" class="collapse">
 													<ul>
 													<li>
 															<a href="categorias.php">
-																<i class="fas fa-list"></i>Categorías</a>
+																<i class="fas fa-list"></i> Categorías</a>
 														</li>
 														<li>													
 															<a href="materia_prima.php">
-															<i class="fas fa-cart-plus"></i>Materia prima</a>
+															<i class="fas fa-cart-plus"></i> Materia prima</a>
 														</li>
 														<li>
 															<a href="platillos.php">
-															<i class="fas fa-utensils"></i>Platillos</a>
+															<i class="fas fa-utensils"></i> Platillos</a>
 														</li>
 														<li>
 															<a href="recetas.php">
-															<i class="fas fa-book"></i>Recetas</a>
+															<i class="fas fa-book"></i> Recetas</a>
 													</li> 
 													<li>
 															<a href="unidadmedida.php">
-															<i class="fas fa-balance-scale"></i>Unidades de medida</a>
+															<i class="fas fa-balance-scale"></i> Unidades de medida</a>
 													</li> 
 													</ul>
 												</div>
 										</li>
 										<li>
-											<a href="#itemsDrop1" data-toggle="collapse" class="collapsed"><i class="fas fa-user-circle"></i><span>
-											Perfiles</span></a>
+											<a href="#itemsDrop1" data-toggle="collapse" class="collapsed"><i class="fas fa-clipboard"></i><span>
+											Logistica</span><i class="fas fa-sort-down"></i></a>
 												<div id="itemsDrop1" class="collapse">
 													<ul>
-													<li>
-											<a href="usuarios.php">
-												<i class="fas fa-user-plus"></i>Usuarios</a>
-										</li>
-										<li>
-											<a href="tipo_usuarios.php">
-											<i class="fas fa-users"></i>Tipo de usuarios</a>
-										</li>
-										<li>
-											<a href="empleados.php">
-												<i class="fas fa-id-card"></i>Empleados</a>
-										</li>
-									</li>
+														<li>
+															<a href="ordenes.php">
+																<i class="fas fa-list"></i> Ordenes</a>
+														</li>
+														<li>													
+															<a href="pedidos.php">
+															<i class="fas fa-pizza-slice"></i> Pedidos</a>
+														</li>
+														<li>
+															<a href="mesas.php">
+															<i class="fas fa-utensils"></i> Mesas</a>
+														</li>
+														<li>
+															<a href="desperdicios.php">
+															<i class="fas fa-trash"></i> Desperdicios</a>
+														</li>
 													</ul>
 												</div>
 										</li>
-										
-										
-									<li>
-										<a href="reportes.php">
-											<i class="fas fa-chart-bar"></i>Reportes</a>
-									</li>									
+										<li>
+											<a href="#itemsDrop2" data-toggle="collapse" class="collapsed"><i class="fas fa-user-circle"></i><span>
+											Perfiles</span><i class="fas fa-sort-down"></i></a>
+												<div id="itemsDrop2" class="collapse">
+													<ul>
+													<li>
+											<a href="usuarios.php">
+												<i class="fas fa-user-plus"></i> Usuarios</a>
+										</li>
+										<li>
+											<a href="tipo_usuarios.php">
+											<i class="fas fa-users"></i> Tipo de usuarios</a>
+										</li>
+										<li>
+											<a href="empleados.php">
+												<i class="fas fa-id-card"></i> Empleados</a>
+										</li>
+										</li>
+										<li>
+													<a href="cargo.php">
+													<i class="far fa-address-book"></i>Cargo</a>
+												</li>
+													</ul>
+												</div>
+										</li>
+										<li>
+											<a href="reportes.php">
+												<i class="fas fa-chart-bar"></i> Reportes</a>
+										</li>									
 							</ul>
 						</nav>
 					</div>
@@ -175,47 +196,63 @@ class Dashboard
 							<ul class="list-unstyled navbar__list">
 								<li>
 									<a href="inicio.php">
-										<i class="fas fa-tachometer-alt"></i>Vista General
+										<i class="fas fa-tachometer-alt"></i> Vista General
 									</a>
 								</li>
 											<li>
 												<a href="categorias.php">
-												<i class="fas fa-list"></i>Categorías</a>
+												<i class="fas fa-list"></i> Categorías</a>
 											</li>
 											<li>													
 												<a href="materia_prima.php">
-												<i class="fas fa-cart-plus"></i>Materia prima</a>
+												<i class="fas fa-cart-plus"></i> Materia prima</a>
 											</li>
 											<li>
 												<a href="platillos.php">
-												<i class="fas fa-utensils"></i>Platillos</a>
+												<i class="fas fa-utensils"></i> Platillos</a>
 											</li>
 											<li>
 												<a href="recetas.php">
-												<i class="fas fa-book"></i>Recetas</a>
+												<i class="fas fa-book"></i> Recetas</a>
 											</li> 
 											<li>
 												<a href="unidadmedida.php">
-												<i class="fas fa-balance-scale"></i>Unidades de medida</a>
+												<i class="fas fa-balance-scale"></i> Unidades de medida</a>
 											</li> 
-								
-												<li>
-													<a href="usuarios.php">
-													<i class="fas fa-user-plus"></i>Usuarios</a>
-												</li>
-												<li>
-													<a href="tipo_usuarios.php">
-													<i class="fas fa-users"></i>Tipo de usuarios</a>
-												</li>
-												<li>
-													<a href="empleados.php">
-													<i class="fas fa-id-card"></i>Empleados</a>
-												</li>
-												</li>
-										<li>
-											<a href="reportes.php">
-											<i class="fas fa-chart-bar"></i>Reportes</a>
-										</li>
+											
+											<li>
+												<a href="ordenes.php">
+												<i class="fas fa-list"></i> Ordenes</a>
+											</li>
+											<li>
+												<a href="pedidos.php">
+												<i class="fas fa-pizza-slice"></i> Pedidos</a>
+											</li>
+											<li>
+												<a href="mesas.php">
+												<i class="fas fa-utensils"></i> Mesas</a>
+											</li>
+											<li>
+												<a href="desperdicios.php">
+												<i class="fas fa-trash"></i> Desperdicios</a>
+											</li>
+											<li>
+												<a href="usuarios.php">
+												<i class="fas fa-user-plus"></i> Usuarios</a>
+											</li>
+											<li>
+												<a href="tipo_usuarios.php">
+												<i class="fas fa-users"></i> Tipo de usuarios</a>
+											</li>
+											<li>
+												<a href="empleados.php">
+												<i class="fas fa-id-card"></i> Empleados</a>
+											</li>
+											</li>
+											<li>
+												<a href="reportes.php">
+												<i class="fas fa-chart-bar"></i> Reportes</a>
+											</li>
 							</ul>
 						</nav>
 						</div>
@@ -253,7 +290,7 @@ class Dashboard
 		print('
 
 			<script src="../resources/js/jquery-3.2.1.min.js"></script>
-            <script src="../resources/extras/bootstrap-4.1/bootstrap.min.js"></script>
+            <script src="../resources/js/bootstrap.bundle.min.js"></script>
             <script src="../resources/extras/animsition/animsition.min.js"></script>
             <script src="../resources/extras/perfect-scrollbar/perfect-scrollbar.js"></script>
             <script src="../core/helpers/table.js"></script>

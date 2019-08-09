@@ -86,6 +86,46 @@
                     </div>
 
 
-        <?php
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <!-- Contenedor para la gráfica-->
+                                <div>
+                                    <div class="recent-report2">
+                                        <h3 align="center" class="title-1">Graficas con parametros.</h3>
+                                        <div class="chart-info">
+                                        </div>
+                                        <h5 align="center">Platillos más vendidos por categoria.</h5>
+                                        <canvas id="grafica_ventas"></canvas>
+                                        <div class="form-group">
+                                            <form>
+                                                <select id="id_categoria" class="form-control" title="Seleccione una categoria">
+                                                </select>
+                                                <br>
+                                                <button id="bloqueo" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Refresque la pagina en caso de querer una segunda grafica."
+                                                    type="button" onclick="CategoriaClick()">Obtener grafico</button>
+                                        </div>
+                                    </form>
+
+                                <hr>
+                                <h5 align="center">Platillos más vendidos del mes.</h5>
+                                        <canvas id="grafica_ventas"></canvas>
+                                        <div class="form-group">
+                                            <form>
+                                                <select id="id_categoria" class="form-control">
+                                                </select>
+                                                <br>
+                                                <button class="btn btn-primary tooltipped" data-tooltip="Crear" title="hola"
+                                                   id="bloqueo" type="button"  onclick="CategoriaClick(this.id)">Obtener grafico</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <hr>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <?php
         Dashboard::footerTemplate('index.js', '');
         ?>
