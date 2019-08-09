@@ -166,6 +166,19 @@ if (isset($_GET['action'])) {
 			}
 				break;
 
+				//caso para traer el modelo de la existencia de materias primas por categoria
+				case 'ventas_mes':
+				if(isset($_POST['idMes'])){
+				if ($result['dataset'] = $categoria->graficar_ventas_mes($_POST['idMes'])) {
+					$result['status'] = 1;
+				} else {
+					$result['exception'] = 'No hay categorías registradas';
+				}
+			}else {
+				$result['exception'] = 'No se obtuvo la categoria seleccionada';
+			}
+				break;
+
 				
 			default:
 				exit('Acción no disponible');

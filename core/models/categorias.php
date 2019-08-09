@@ -3,6 +3,7 @@ class Categorias extends Validator
 {
 	// Declaración de propiedades
 	private $id = null;
+	private $idMes = null;
 	private $nombre = null;
 	private $imagen = null;
 	private $descripcion = null;
@@ -133,7 +134,7 @@ class Categorias extends Validator
 
 	public function graficar_existencia_categoria()
 	{//funcion para traer la cantidad de materia prima por categoria
-		$sql = 'SELECT SUM(materiasprimas.cantidad) cantidad, nombre_categoria FROM materiasprimas INNER JOIN categorias USING (id_categoria) WHERE materiasprimas.estado = 1 GROUP BY nombre_categoria';
+		$sql = 'SELECT SUM(materiasprimas.cantidad) cantidad, nombre_categoria FROM materiasprimas INNER JOIN categorias USING (id_categoria) WHERE materiasprimas.estado = 1 GROUP BY nombre_categoria ORDER BY nombre_categoria ASC LIMIT 10';
 		$params = array(null);
 		return conexion::getRows($sql, $params);
 	}
@@ -145,6 +146,17 @@ class Categorias extends Validator
 		INNER JOIN detalle_pedido USING (id_platillo) 
 		WHERE platillos.estado = 1 AND id_categoria = $id_categoria  GROUP BY nombre_platillo ORDER BY subtotal DESC LIMIT 5";
 		$params = array(null);
+		return conexion::getRows($sql, $params);
+	}
+
+	public function graficar_ventas_mes($idMes)
+	{
+		$sql = "SELECT SUM(cantidad) as cantidad, fecha_pedido, nombre_platillo, precio*SUM(cantidad) as ventas FROM platillos 
+		INNER JOIN detalle_pedido USING (id_platillo) 
+        INNER JOIN pedidos USING (id_pedido)
+        WHERE platillos.estado = 1 AND YEAR(fecha_pedido) = YEAR(NOW()) AND MONTH(fecha_pedido) = ?
+        GROUP BY nombre_platillo ORDER BY ventas DESC LIMIT 5";
+		$params = array($idMes);
 		return conexion::getRows($sql, $params);
 	}
 
