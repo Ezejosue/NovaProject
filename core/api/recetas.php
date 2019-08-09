@@ -18,8 +18,7 @@ if (isset($_GET['action'])) {
                 } else {
                     $result['exception'] = 'No hay recetas registradas';
                 }
-                break;
-
+                break;              
             //Operación para crear nuevos usuarios
             case 'create':
                 $_POST = $recetas->validateForm($_POST);
@@ -70,6 +69,13 @@ if (isset($_GET['action'])) {
                 } else {
                     
                     $result['exception'] = 'Receta incorrecta';
+                }
+                break;
+                case 'readTableRecetas':
+                if ($result['dataset'] = $recetas->getMateriasRecetas()) {
+                    $result['status'] = 1;
+                } else {
+                    $result['exception'] = 'No hay recetas registradas';
                 }
                 break;
             //Operación para actualizar un usuario

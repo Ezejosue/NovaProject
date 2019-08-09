@@ -203,5 +203,13 @@ class Recetas extends Validator
 	}
 
 
+	public function getMateriasRecetas()
+	{
+		$sql = 'SELECT e.id_receta, nombre_receta, tiempo, CONCAT(nombre_materia, " (", descripcion, ")") AS MateriaPrima, e.cantidad 
+		FROM receta r INNER JOIN elaboraciones e USING(id_receta) 
+		INNER JOIN materiasprimas m USING(idMateria) WHERE id_receta = ? ';
+		$params = array($this->idreceta);
+		return conexion::executeRow($sql, $params);
+	}
 }
 ?>

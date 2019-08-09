@@ -76,6 +76,65 @@
         </div>
         </form>
     </div>
+    <!-- Método para modificar materias primas de recetas -->
+    <div class="modal fade" id="modal-update-recetas">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">MODIFICAR RECETAS</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form method="post" id="form-update-recetas">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-1">
+                                <i class="fa fa-list"></i>
+                            </div>
+                            <div class="col-l-5">
+                                <input placeholder="Nombre de receta" class="form-control" id="create_nombre"
+                                    name="create_nombre" for="nombre_receta" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-1">
+                                <i class="fa fa-clock"></i>
+                            </div>
+                            <div class="col-l-5">
+                                <input placeholder="Tiempo de elaboración" class="form-control" id="create_tiempo"
+                                    name="create_tiempo" for="tiempo" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-l-12">
+                                <table id="table-materias-recetas">
+                                    <thead>
+                                        <tr>
+                                            <th>MATERIA PRIMA</th>
+                                            <th>CANTIDAD</th>
+                                            <th>ACCIONES</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tbody-read-materias">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-body">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Aceptar</button>
+                    </div>
+            </div>
+        </div>
+        </form>
+    </div>
     <!-- Modal de agregar materias primas -->
     <div id="modal-materiasprimas" class="modal fade">
         <div class="modal-dialog">
