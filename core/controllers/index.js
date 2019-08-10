@@ -1,7 +1,8 @@
 //Inicializando la función para verificar que un usuario haya iniciado sesión
 $(document).ready(function () {
     checkUsuarios();
-    graficar_existencia_categoria();
+    graficar_existencia_categoria_agotar();
+    graficar_existencia_categoria_sobre_existencias();
     graficar_ventas_platillos();
     graficar_ventas_platillos_menor();
     graficar_platillos_mayores();
@@ -73,10 +74,10 @@ $('#form-sesion').submit(function () {
 
 
 //funcion para graficar la cantidad de libros vendidos 
-function graficar_existencia_categoria() {
+function graficar_existencia_categoria_agotar() {
     //se manda a pedir los datos de la api
     $.ajax({
-            url: apiCategorias + 'existencias_categoria',
+            url: apiCategorias + 'existencias_categoria_agotar',
             type: 'post',
             data: null,
             datatype: 'json'
@@ -93,7 +94,40 @@ function graficar_existencia_categoria() {
                 existencia.push(parseInt(row.cantidad));
             });
             //se mandar los parametros de la funcion que se crea en el controlador de function.js los cuales son el id, xAxis, yAxis y legend
-            grafico_existencia_categoria("existencia_categoria", nombre, existencia, "Existencias.", "Existencia de materia prima por categoria (productos a punto de acabarse)")
+            grafico_existencia_categoria_agotar("existencia_categoria_agotar", nombre, existencia, "Existencias.", "Existencia de materia prima por categoria (productos a punto de acabarse)")
+        })
+
+        //en caso de error se ejecuta esta funcion
+        .fail(function (jqXHR) {
+            //Se muestran en consola los posibles errores de la solicitud AJAX
+            console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+        });
+
+}
+
+
+//funcion para graficar la cantidad de libros vendidos 
+function graficar_existencia_categoria_sobre_existencias() {
+    //se manda a pedir los datos de la api
+    $.ajax({
+            url: apiCategorias + 'existencias_categoria_sobre_existen',
+            type: 'post',
+            data: null,
+            datatype: 'json'
+        })
+        .done(response => {
+            //se hacen los arreglos para poder recorrer las filas de la consulta
+            var nombre = [];
+            var existencia = [];
+            //se genera un ciclo para poder recorrer las filas de la tabla de la base de datos
+            const result = JSON.parse(response);
+            result.dataset.forEach(row => {
+                //se recorren todos los datos que esten en las filas especificadas en el row
+                nombre.push(row.nombre_categoria);
+                existencia.push(parseInt(row.cantidad));
+            });
+            //se mandar los parametros de la funcion que se crea en el controlador de function.js los cuales son el id, xAxis, yAxis y legend
+            grafico_existencia_categoria_sobre_existen("existencia_categoria_sobre_existen", nombre, existencia, "Existencias.", "Existencia de materia prima por categoria (productos a punto de acabarse)")
         })
 
         //en caso de error se ejecuta esta funcion
@@ -421,8 +455,8 @@ function MateriaClick()
                 });
                 grafica_existencia_materia('existencia_categoria_materia', nombres, productos, 'Materias primas en escacez', 'Productos por agotar')
                //se deshabilitan tanto el boton como el comobobox para que no genere más de una grafica 
-                /* document.getElementById('id_categoria_materia').disabled=true;
-                document.getElementById('categoria_existencia').disabled=true; */
+                document.getElementById('id_categoria_materia').disabled=true;
+                document.getElementById('botonmateria').disabled=true;
             }
             
         } else {
