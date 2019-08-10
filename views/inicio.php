@@ -142,9 +142,9 @@
                                         </div>
                                         </form>
                                         <hr>
-                                        <h5 align="center">Desperdicios por mes.</h5>
+                                        <h5 align="center">Desperdicios mensuales.</h5>
                                         <canvas id="grafica_desperdicios_mes"></canvas>
-                                        
+
                                         <div class="form-group">
                                             <form>
                                                 <select id="idMesDesperdicios" class="form-control"
@@ -165,16 +165,17 @@
                                                 <br>
                                                 <button class="btn btn-primary" data-tooltip="Crear"
                                                     title="Si desea una segunda gráfica recargue la pagina"
-                                                    id="botonMesDesperdicios" type="button" onclick="MesDesperdiciosClick()">Obtener
+                                                    id="botonMesDesperdicios" type="button"
+                                                    onclick="MesDesperdiciosClick()">Obtener
                                                     gráfico</button>
                                         </div>
                                         </form>
                                         <hr>
-                                        <h5 align="center">Cantidad de materia prima por categoria.</h5>
-                                        <canvas id="existencia_categoria_materia"></canvas>
+                                        <h5 align="center">Cantidad de materia prima por categoria. (productos por agotar)</h5>
+                                        <canvas id="existencia_categoria_materia_agotar"></canvas>
                                         <div class="form-group">
                                             <form>
-                                                <select id="id_categoria_materia" class="form-control"
+                                                <select id="id_categoria_materia_agotar" class="form-control"
                                                     title="Seleccione una categoría">
                                                 </select>
                                                 <br>
@@ -184,17 +185,17 @@
                                         </div>
                                         </form>
                                         <hr>
-                                        <h5 align="center">Cantidad de materia prima por categoria.</h5>
-                                        <canvas id="existencia_categoria_materia"></canvas>
+                                        <h5 align="center">Cantidad de materia prima por categoria. (productos sobre existentes)</h5>
+                                        <canvas id="existencia_categoria_materia_sobre_existente"></canvas>
                                         <div class="form-group">
                                             <form>
-                                                <select id="id_categoria_materia" class="form-control"
+                                                <select id="id_categoria_materia_sobre_existente" class="form-control"
                                                     title="Seleccione una categoría">
                                                 </select>
                                                 <br>
-                                                <button id="botonmateria" class="btn btn-primary mx-auto "
+                                                <button id="botonmateria_ex" class="btn btn-primary mx-auto "
                                                     title="Refresque la pagina en caso de querer una segunda gráfica."
-                                                    type="button" onclick="MateriaClick()">Obtener gráfico</button>
+                                                    type="button" onclick="Materia_sobre_Click()">Obtener gráfico</button>
                                         </div>
                                         </form>
                                     </div>

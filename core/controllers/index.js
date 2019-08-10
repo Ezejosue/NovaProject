@@ -8,7 +8,8 @@ $(document).ready(function () {
     graficar_platillos_mayores();
     graficar_platillos_menores();
     showSelectCategoria('id_categoria', 0);
-    showSelectCategoria('id_categoria_materia', 0);
+    showSelectCategoria('id_categoria_materia_agotar', 0);
+    showSelectCategoria('id_categoria_materia_sobre_existente', 0);
 })
 
 //Constante para establecer la ruta y parámetros de comunicación con la API
@@ -434,11 +435,11 @@ function MesDesperdiciosClick()
 
 function MateriaClick()
 {
-    let id_categoria_materia = parseInt($('#id_categoria_materia').val())
+    let id_categoria_materia_agotar = parseInt($('#id_categoria_materia_agotar').val())
     $.ajax({
-        url: apiCategorias + 'existencia_materia',
+        url: apiCategorias + 'existencia_materia_agotar',
         type: 'post',
-        data: { id_categoria_materia },
+        data: { id_categoria_materia_agotar },
         datatype: 'json'
     })
     .done(function(response){
@@ -453,9 +454,9 @@ function MateriaClick()
                     nombres.push(row.nombre_materia);
                     productos.push(row.cantidad);
                 });
-                grafica_existencia_materia('existencia_categoria_materia', nombres, productos, 'Materias primas en escacez', 'Productos por agotar')
+                grafica_existencia_materia_agotar('existencia_categoria_materia_agotar', nombres, productos, 'Materias primas en escacez', 'Productos por agotar')
                //se deshabilitan tanto el boton como el comobobox para que no genere más de una grafica 
-                document.getElementById('id_categoria_materia').disabled=true;
+                document.getElementById('id_categoria_materia_agotar').disabled=true;
                 document.getElementById('botonmateria').disabled=true;
             }
             
@@ -468,3 +469,42 @@ function MateriaClick()
         console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
     }); 
 }
+
+
+function Materia_sobre_Click()
+{
+    let id_categoria_materia_sobre_existente = parseInt($('#id_categoria_materia_sobre_existente').val())
+    $.ajax({
+        url: apiCategorias + 'existencia_materia_sobre_existente',
+        type: 'post',
+        data: { id_categoria_materia_sobre_existente },
+        datatype: 'json'
+    })
+    .done(function(response){
+        // Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+        if (isJSONString(response)) {
+            const result = JSON.parse(response);
+            // Se comprueba si el resultado es satisfactorio, sino se remueve la etiqueta canvas
+            if (result.status) {
+                let nombres = [];
+                let productos = [];
+                result.dataset.forEach(function(row){
+                    nombres.push(row.nombre_materia);
+                    productos.push(row.cantidad);
+                });
+                grafica_existencia_materia_sobre_existente('existencia_categoria_materia_sobre_existente', nombres, productos, 'Materias primas en escacez', 'Productos por agotar')
+               //se deshabilitan tanto el boton como el comobobox para que no genere más de una grafica 
+                document.getElementById('id_categoria_materia_sobre_existente').disabled=true;
+                document.getElementById('botonmateria_ex').disabled=true;
+            }
+            
+        } else {
+            console.log(response);
+        }
+    })
+    .fail(function(jqXHR){
+        // Se muestran en consola los posibles errores de la solicitud AJAX
+        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+    }); 
+}
+

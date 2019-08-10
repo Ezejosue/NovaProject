@@ -178,9 +178,23 @@ if (isset($_GET['action'])) {
 
 				
 				//caso para traer el modelo de la existencia de materias primas por categoria
-				case 'existencia_materia':
-				if(isset($_POST['id_categoria_materia'])){
-				if ($result['dataset'] = $categoria->graficar_existencia_materia_prima($_POST['id_categoria_materia'])) {
+				case 'existencia_materia_agotar':
+				if(isset($_POST['id_categoria_materia_agotar'])){
+				if ($result['dataset'] = $categoria->graficar_existencia_materia_prima_agotar($_POST['id_categoria_materia_agotar'])) {
+					$result['status'] = 1;
+				} else {
+					$result['exception'] = 'No hay categorías registradas';
+				}
+			}else {
+				$result['exception'] = 'No se obtuvo la categoria seleccionada';
+			}
+				break;
+
+				
+				//caso para traer el modelo de la existencia de materias primas por categoria
+				case 'existencia_materia_sobre_existente':
+				if(isset($_POST['id_categoria_materia_sobre_existente'])){
+				if ($result['dataset'] = $categoria->graficar_existencia_materia_prima_sobre_existente($_POST['id_categoria_materia_sobre_existente'])) {
 					$result['status'] = 1;
 				} else {
 					$result['exception'] = 'No hay categorías registradas';
