@@ -38,8 +38,13 @@
                 <div class="chart-info">
                 </div>
                 <div class="au-card-inner">
-                    <h5 align="center">Existencias por categoría</h5>
-                    <canvas id="existencia_categoria"></canvas>
+                    <h5 align="center">Existencias por categoría (productos por agotar)</h5>
+                    <canvas id="existencia_categoria_agotar"></canvas>
+                </div>
+                <hr>
+                <div class="au-card-inner">
+                    <h5 align="center">Existencias por categoría (Sobre existencias)</h5>
+                    <canvas id="existencia_categoria_sobre_existen"></canvas>
                 </div>
             </div>
         </div>
@@ -162,6 +167,20 @@
                                                     title="Si desea una segunda gráfica recargue la pagina"
                                                     id="botonMesDesperdicios" type="button" onclick="MesDesperdiciosClick()">Obtener
                                                     gráfico</button>
+                                        </div>
+                                        </form>
+                                        <hr>
+                                        <h5 align="center">Cantidad de materia prima por categoria.</h5>
+                                        <canvas id="existencia_categoria_materia"></canvas>
+                                        <div class="form-group">
+                                            <form>
+                                                <select id="id_categoria_materia" class="form-control"
+                                                    title="Seleccione una categoría">
+                                                </select>
+                                                <br>
+                                                <button id="botonmateria" class="btn btn-primary mx-auto "
+                                                    title="Refresque la pagina en caso de querer una segunda gráfica."
+                                                    type="button" onclick="MateriaClick()">Obtener gráfico</button>
                                         </div>
                                         </form>
                                         <hr>

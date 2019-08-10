@@ -136,8 +136,18 @@ if (isset($_GET['action'])) {
 				break;
 
 				//caso para traer el modelo de la existencia de materias primas por categoria
-				case 'existencias_categoria':
-				if ($result['dataset'] = $categoria->graficar_existencia_categoria()) {
+				case 'existencias_categoria_agotar':
+				if ($result['dataset'] = $categoria->graficar_existencia_categoria_agotar()) {
+					$result['status'] = 1;
+				} else {
+					$result['exception'] = 'No hay categorías registradas';
+				}
+				break;
+
+				
+				//caso para traer el modelo de la existencia de materias primas por categoria
+				case 'existencias_categoria_sobre_existen':
+				if ($result['dataset'] = $categoria->graficar_existencia_categoria_sobre_existen()) {
 					$result['status'] = 1;
 				} else {
 					$result['exception'] = 'No hay categorías registradas';
