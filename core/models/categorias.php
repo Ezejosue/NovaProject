@@ -177,6 +177,15 @@ class Categorias extends Validator
 		return conexion::getRows($sql, $params);
 	}
 
+	public function graficar_existencia_materia_prima($id_categoria_materia)
+	{
+		$sql = "SELECT SUM(cantidad) cantidad, nombre_materia, nombre_categoria FROM materiasprimas 
+		INNER JOIN categorias USING (id_categoria)
+		WHERE materiasprimas.estado = 1 AND  id_categoria = $id_categoria_materia GROUP BY nombre_materia ORDER BY cantidad ASC LIMIT 5";
+		$params = array(null);
+		return conexion::getRows($sql, $params);
+	}
+
 	private function getMonthName($monthNum)
 	{
 		switch ((int) $monthNum) {

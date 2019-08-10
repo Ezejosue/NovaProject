@@ -164,6 +164,20 @@
                                                     gráfico</button>
                                         </div>
                                         </form>
+                                        <hr>
+                                        <h5 align="center">Cantidad de materia prima por categoria.</h5>
+                                        <canvas id="existencia_categoria_materia"></canvas>
+                                        <div class="form-group">
+                                            <form>
+                                                <select id="id_categoria_materia" class="form-control"
+                                                    title="Seleccione una categoría">
+                                                </select>
+                                                <br>
+                                                <button id="botonmateria" class="btn btn-primary mx-auto "
+                                                    title="Refresque la pagina en caso de querer una segunda gráfica."
+                                                    type="button" onclick="MateriaClick()">Obtener gráfico</button>
+                                        </div>
+                                        </form>
                                     </div>
                                 </div>
 
