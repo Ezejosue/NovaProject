@@ -31,7 +31,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-xl-12">
-            <!-- Contenedor para la gráfica-->
+            <!-- Contenedor para la gráfica-->  
 
             <div class="recent-report2">
                 <h3 align="center" class="title-1">Existencias.</h3>
