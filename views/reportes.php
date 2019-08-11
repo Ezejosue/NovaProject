@@ -55,9 +55,9 @@
                                     <select id="id_categoria" name="id_categoria" class="form-control" title="Seleccione una categoría">
                                     </select>
                                     <br>  
-                                   <a href="../core/report/reporte6.php" target="_blank"> <button id="bloqueo" class="btn btn-primary mx-auto "
+                                    <button id="bloqueo" class="btn btn-primary mx-auto "
                                      type="button"
-                                        onclick="CategoriaClick1()">Obtener reporte</button> </a>
+                                        onclick="CategoriasClick_1()">Obtener reporte</button>
                             </div>
                             </form>
                         </div>

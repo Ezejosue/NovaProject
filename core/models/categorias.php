@@ -155,7 +155,7 @@ class Categorias extends Validator
 		return conexion::getRows($sql, $params);
 	}
 
-	public function graficar_ventas_categoria($id_categoria)
+	/* public function graficar_ventas_categoria($id_categoria)
 	{
 		$sql = "SELECT SUM(cantidad) as cantidad, nombre_platillo, precio*SUM(cantidad) as subtotal FROM platillos 
 		INNER JOIN categorias USING (id_categoria) 
@@ -163,15 +163,15 @@ class Categorias extends Validator
 		WHERE platillos.estado = 1 AND id_categoria = $id_categoria  GROUP BY nombre_platillo ORDER BY subtotal DESC LIMIT 5";
 		$params = array($id_categoria);
 		return conexion::getRows($sql, $params);
-	}
+	} */
 
-	public function graficar_ventas_categoria1()
+	public function ventas($id_categoria)
 	{
 		$sql = "SELECT SUM(cantidad) as cantidad, nombre_platillo, precio*SUM(cantidad) as subtotal FROM platillos 
 		INNER JOIN categorias USING (id_categoria) 
 		INNER JOIN detalle_pedido USING (id_platillo) 
-		WHERE platillos.estado = 1 AND id_categoria = ?  GROUP BY nombre_platillo ORDER BY subtotal DESC LIMIT 5";
-		$params = array($this->id);
+		WHERE platillos.estado = 1 AND id_categoria = $id_categoria  GROUP BY nombre_platillo ORDER BY subtotal DESC LIMIT 5";
+		$params = array(null);
 		return conexion::getRows($sql, $params);
 	}
 

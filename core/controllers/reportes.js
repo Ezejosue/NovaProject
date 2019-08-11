@@ -51,9 +51,9 @@ function showSelectCategoria(idSelect, value)
 }
 
 
-function CategoriaClick1(id)
+function CategoriasClick_1()
 {
-    let id_categoria = parseInt($('#id_categoria').val());
+    /** let id_categoria = parseInt($('#id_categoria').val());
 
     $.ajax({
         url: apiCategorias + 'ventas_categoria1',
@@ -76,5 +76,6 @@ function CategoriaClick1(id)
     .fail(function(jqXHR){
         // Se muestran en consola los posibles errores de la solicitud AJAX
         console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
-    }); 
+    }); */
+    window.open('../core/report/reporte6.php?id_categoria='+$('#id_categoria').val());
 }
