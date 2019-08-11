@@ -265,6 +265,7 @@ $('#form-materiasprimas').submit(function()
     })
     .done(function(response){
         //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+        
         if (isJSONString(response)) {
             const result = JSON.parse(response);
             //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
@@ -278,9 +279,9 @@ $('#form-materiasprimas').submit(function()
                 sweetAlert(2, result.exception, null);
             }
         } else {
-            console.log(response);
             //Se comprueba que el alias no sea repetido
             sweetAlert(2, error2(response), null);
+            console.log(response);
         }
     })
     .fail(function(jqXHR){

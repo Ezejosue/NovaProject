@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 12-08-2019 a las 00:28:45
+-- Tiempo de generación: 12-08-2019 a las 00:45:39
 -- Versión del servidor: 10.1.25-MariaDB
 -- Versión de PHP: 5.6.31
 
@@ -30,7 +30,6 @@ USE `pizzanova`;
 -- Estructura de tabla para la tabla `bitacoras`
 --
 
-DROP TABLE IF EXISTS `bitacoras`;
 CREATE TABLE IF NOT EXISTS `bitacoras` (
   `id_bitacora` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `usuario` varchar(50) DEFAULT NULL,
@@ -47,7 +46,6 @@ CREATE TABLE IF NOT EXISTS `bitacoras` (
 -- Estructura de tabla para la tabla `cargo`
 --
 
-DROP TABLE IF EXISTS `cargo`;
 CREATE TABLE IF NOT EXISTS `cargo` (
   `id_Cargo` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `nombre_Cargo` varchar(50) DEFAULT NULL,
@@ -67,7 +65,6 @@ INSERT INTO `cargo` (`id_Cargo`, `nombre_Cargo`) VALUES
 -- Estructura de tabla para la tabla `categorias`
 --
 
-DROP TABLE IF EXISTS `categorias`;
 CREATE TABLE IF NOT EXISTS `categorias` (
   `id_categoria` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `nombre_categoria` varchar(50) NOT NULL,
@@ -92,7 +89,6 @@ INSERT INTO `categorias` (`id_categoria`, `nombre_categoria`, `descripcion`, `fo
 -- Estructura de tabla para la tabla `desperdicios`
 --
 
-DROP TABLE IF EXISTS `desperdicios`;
 CREATE TABLE IF NOT EXISTS `desperdicios` (
   `id_desperdicios` int(11) NOT NULL AUTO_INCREMENT,
   `id_receta` int(10) UNSIGNED NOT NULL,
@@ -122,7 +118,6 @@ INSERT INTO `desperdicios` (`id_desperdicios`, `id_receta`, `id_usuario`, `id_em
 -- Estructura de tabla para la tabla `detalle_pedido`
 --
 
-DROP TABLE IF EXISTS `detalle_pedido`;
 CREATE TABLE IF NOT EXISTS `detalle_pedido` (
   `id_detalle` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_pedido` int(11) UNSIGNED NOT NULL,
@@ -151,23 +146,23 @@ INSERT INTO `detalle_pedido` (`id_detalle`, `id_pedido`, `id_platillo`, `cantida
 -- Estructura de tabla para la tabla `elaboraciones`
 --
 
-DROP TABLE IF EXISTS `elaboraciones`;
 CREATE TABLE IF NOT EXISTS `elaboraciones` (
-  `id_elaboracion` int(11) NOT NULL,
+  `id_elaboracion` int(11) NOT NULL AUTO_INCREMENT,
   `id_receta` int(10) UNSIGNED DEFAULT NULL,
   `cantidad` int(11) DEFAULT NULL,
   `idMateria` int(10) UNSIGNED DEFAULT NULL,
   PRIMARY KEY (`id_elaboracion`),
   KEY `idMateria` (`idMateria`),
   KEY `id_receta` (`id_receta`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `elaboraciones`
 --
 
 INSERT INTO `elaboraciones` (`id_elaboracion`, `id_receta`, `cantidad`, `idMateria`) VALUES
-(0, 3, 3, 2);
+(1, 3, 3, 2),
+(2, 3, 4, 2);
 
 -- --------------------------------------------------------
 
@@ -175,7 +170,6 @@ INSERT INTO `elaboraciones` (`id_elaboracion`, `id_receta`, `cantidad`, `idMater
 -- Estructura de tabla para la tabla `empleados`
 --
 
-DROP TABLE IF EXISTS `empleados`;
 CREATE TABLE IF NOT EXISTS `empleados` (
   `id_empleado` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `nombre_empleado` varchar(20) NOT NULL,
@@ -210,7 +204,6 @@ INSERT INTO `empleados` (`id_empleado`, `nombre_empleado`, `apellido_empleado`, 
 -- Estructura de tabla para la tabla `encabezadofactura`
 --
 
-DROP TABLE IF EXISTS `encabezadofactura`;
 CREATE TABLE IF NOT EXISTS `encabezadofactura` (
   `id_EncabezadoFac` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `nombre_cliente` varchar(50) DEFAULT NULL,
@@ -225,7 +218,6 @@ CREATE TABLE IF NOT EXISTS `encabezadofactura` (
 -- Estructura de tabla para la tabla `materiasprimas`
 --
 
-DROP TABLE IF EXISTS `materiasprimas`;
 CREATE TABLE IF NOT EXISTS `materiasprimas` (
   `idMateria` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `nombre_materia` varchar(50) NOT NULL,
@@ -238,7 +230,7 @@ CREATE TABLE IF NOT EXISTS `materiasprimas` (
   PRIMARY KEY (`idMateria`),
   KEY `id_categoria` (`id_categoria`),
   KEY `id_Medida` (`id_Medida`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `materiasprimas`
@@ -247,7 +239,8 @@ CREATE TABLE IF NOT EXISTS `materiasprimas` (
 INSERT INTO `materiasprimas` (`idMateria`, `nombre_materia`, `descripcion`, `cantidad`, `foto`, `id_categoria`, `id_Medida`, `estado`) VALUES
 (1, 'test', 'test', 2, '5d2cefcc97528.jpg', 1, 1, 1),
 (2, 'Espinaca', 'kdopjdspojdspojdsp', 8, '5d4e006c7c510.jpg', 2, 1, 1),
-(3, 'fdsdddfdsfds', 'fsdfsdfs', 2, '5d4e00b592a2e.jpeg', 2, 3, 1);
+(3, 'fdsdddfdsfds', 'fsdfsdfs', 2, '5d4e00b592a2e.jpeg', 2, 3, 1),
+(4, 'Camarones', 'csdklfjsd', 3, '5d5097f6edeeb.jpg', 2, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -255,14 +248,13 @@ INSERT INTO `materiasprimas` (`idMateria`, `nombre_materia`, `descripcion`, `can
 -- Estructura de tabla para la tabla `mesas`
 --
 
-DROP TABLE IF EXISTS `mesas`;
 CREATE TABLE IF NOT EXISTS `mesas` (
   `id_mesa` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `numero_mesa` int(10) UNSIGNED NOT NULL,
   `estado_mesa` tinyint(4) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id_mesa`),
   UNIQUE KEY `numero_mesa` (`numero_mesa`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `mesas`
@@ -281,7 +273,9 @@ INSERT INTO `mesas` (`id_mesa`, `numero_mesa`, `estado_mesa`) VALUES
 (13, 11, 1),
 (14, 10, 1),
 (15, 20, 1),
-(16, 50, 0);
+(16, 50, 0),
+(18, 43, 1),
+(19, 99, 1);
 
 -- --------------------------------------------------------
 
@@ -289,7 +283,6 @@ INSERT INTO `mesas` (`id_mesa`, `numero_mesa`, `estado_mesa`) VALUES
 -- Estructura de tabla para la tabla `pedidos`
 --
 
-DROP TABLE IF EXISTS `pedidos`;
 CREATE TABLE IF NOT EXISTS `pedidos` (
   `id_pedido` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `fecha_pedido` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -314,7 +307,6 @@ INSERT INTO `pedidos` (`id_pedido`, `fecha_pedido`, `id_mesa`, `id_usuario`) VAL
 -- Estructura de tabla para la tabla `platillos`
 --
 
-DROP TABLE IF EXISTS `platillos`;
 CREATE TABLE IF NOT EXISTS `platillos` (
   `id_platillo` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `nombre_platillo` varchar(50) NOT NULL,
@@ -350,7 +342,6 @@ INSERT INTO `platillos` (`id_platillo`, `nombre_platillo`, `precio`, `estado`, `
 -- Estructura de tabla para la tabla `pre_pedido`
 --
 
-DROP TABLE IF EXISTS `pre_pedido`;
 CREATE TABLE IF NOT EXISTS `pre_pedido` (
   `id_prepedido` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_mesa` int(10) UNSIGNED NOT NULL,
@@ -380,7 +371,6 @@ INSERT INTO `pre_pedido` (`id_prepedido`, `id_mesa`, `id_platillo`, `cantidad`) 
 -- Estructura de tabla para la tabla `receta`
 --
 
-DROP TABLE IF EXISTS `receta`;
 CREATE TABLE IF NOT EXISTS `receta` (
   `id_receta` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `nombre_receta` varchar(1000) NOT NULL,
@@ -403,7 +393,6 @@ INSERT INTO `receta` (`id_receta`, `nombre_receta`, `tiempo`) VALUES
 -- Estructura de tabla para la tabla `tipousuario`
 --
 
-DROP TABLE IF EXISTS `tipousuario`;
 CREATE TABLE IF NOT EXISTS `tipousuario` (
   `id_Tipousuario` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `tipo` varchar(20) DEFAULT NULL,
@@ -425,7 +414,6 @@ INSERT INTO `tipousuario` (`id_Tipousuario`, `tipo`, `descripcion`, `estado`) VA
 -- Estructura de tabla para la tabla `unidadmedida`
 --
 
-DROP TABLE IF EXISTS `unidadmedida`;
 CREATE TABLE IF NOT EXISTS `unidadmedida` (
   `id_Medida` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `nombre_medida` varchar(40) NOT NULL,
@@ -448,7 +436,6 @@ INSERT INTO `unidadmedida` (`id_Medida`, `nombre_medida`, `descripcion`) VALUES
 -- Estructura de tabla para la tabla `usuarios`
 --
 
-DROP TABLE IF EXISTS `usuarios`;
 CREATE TABLE IF NOT EXISTS `usuarios` (
   `id_usuario` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `alias` varchar(50) NOT NULL,
