@@ -166,7 +166,7 @@ if (isset($_GET['action'])) {
 				//caso para traer el modelo de la existencia de materias primas por categoria
 				case 'ventas_categoria':
 				if(isset($_POST['id_categoria'])){
-				if ($result['dataset'] = $categoria->graficar_ventas_categoria($_POST['id_categoria'])) {
+				if ($result['dataset'] = $categoria->ventas($_POST['id_categoria'])) {
 					$result['status'] = 1;
 				} else {
 					$result['exception'] = 'No hay categorías registradas';
@@ -179,7 +179,7 @@ if (isset($_GET['action'])) {
 				//caso para traer el modelo de la existencia de materias primas por categoria
 				case 'ventas_categoria1':
 				if(isset($_POST['id_categoria'])){
-				if ($categoria->setId($_POST['id_categoria'])) {
+				if ($categoria->ventas($_POST['id_categoria'])) {
 					$result['status'] = 1;
 				} else {
 					$result['exception'] = 'No hay categorías registradas';

@@ -2,12 +2,12 @@
 require_once('plantilla.php');
 require_once('../helpers/conexion.php');
 require_once('../helpers/validator.php');
-require_once('../models/categorias.php');
+require_once('../models/materia_prima.php');
 
 ini_set('date.timezone', 'America/El_Salvador');
 /* Creamos el objeto pdf (con medidas en milímetros):  */
 $pdf = new PDF('P', 'mm', 'Letter');
-$platillos = new Categorias;
+$platillos = new Materias;
 //Se establecen los margenes (izquierdo, superior, derecho)
 $pdf->SetMargins(10, 10, 10);
 //Se establece el auto salto de pagina, el segundo parámetro el que establece la activación por defecto son 2 cm
@@ -16,11 +16,11 @@ $pdf->SetAutoPageBreak(true,20);
 $pdf->addPage();
 
 $pdf->SetFont('Arial','B',10);
-$data = $platillos->ventas($_GET['id_categoria']);
+$data = $platillos->readMeteriaCategoria1($_GET['categoria']);
 // Cell(ancho, Alto, texto, borde, salto de linea, alineacion de texto)
 $pdf->Ln();
 $pdf->setX(60);
-$pdf->Cell(100,5, utf8_decode('REPORTE DE GANANCIAS POR CATEGORÍA'), 0, 0, 'C');  
+$pdf->Cell(100,5, utf8_decode('REPORTE DE MATERIA PRIMA POR CATEGORIA'), 0, 0, 'C');  
 $pdf->Ln(10);
 // Seteamos la posición de la proxima celda en forma fija a 3.8 cm hacia la derecha de la pagina
 $pdf->setX(38);
@@ -29,7 +29,7 @@ $categoria = '';
 
 //Comienza a crear las filas de productos según la consulta mysql del modelo
 foreach($data as $datos){
-    if(utf8_decode($datos['nombre_platillo']) != $categoria){
+    if(utf8_decode($datos['nombre_categoria']) != $categoria){
         //Se coloca el color del fondo de las celdas en formato rgb
         $pdf->SetFillColor(239, 127, 26);
         //Se coloca el color del texto en formato rgb
@@ -38,12 +38,12 @@ foreach($data as $datos){
         $pdf->setX(30);
         // Cell(ancho, Alto, texto, borde, salto de linea, alineación de texto, color)
         //convertimos el texto a utf8
-        $pdf->Cell(155,10, utf8_decode($datos['nombre_platillo']),1,0,'C',true);
+        $pdf->Cell(155,10, utf8_decode($datos['nombre_categoria']),1,0,'C',true);
         $pdf->Ln();        
         $pdf->setX(30);
-        $pdf->Cell(15,10, utf8_decode('Cantidad'),1,0,'C');
-        $pdf->Cell(140,10, utf8_decode('Ganancia'),1,0,'C');
-        $categoria = $datos['nombre_platillo'];
+        $pdf->Cell(15,10, utf8_decode('Producto'),1,0,'C');
+        $pdf->Cell(140,10, utf8_decode('Cantidad'),1,0,'C');
+        $categoria = $datos['nombre_categoria'];
         //saldo de linea
         $pdf->Ln();
     }
@@ -51,8 +51,8 @@ foreach($data as $datos){
         $pdf->setX(30);
           // Cell(ancho, Alto, texto, borde, salto de linea, alineación de texto, color)
         //convertimos el texto a utf8
-        $pdf->Cell(15,10, utf8_decode($datos['cantidad']),1,0,'C');
-        $pdf->Cell(140,10, utf8_decode($datos['subtotal']),1,0,'C');
+        $pdf->Cell(15,10, utf8_decode($datos['nombre_materia']),1,0,'C');
+        $pdf->Cell(140,10, utf8_decode($datos['cantidad']),1,0,'C');
         $pdf->Ln();
 }
 

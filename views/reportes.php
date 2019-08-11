@@ -55,9 +55,54 @@
                                     <select id="id_categoria" name="id_categoria" class="form-control" title="Seleccione una categoría">
                                     </select>
                                     <br>  
-                                   <a href="../core/report/reporte6.php" target="_blank"> <button id="bloqueo" class="btn btn-primary mx-auto "
+                                    <button class="btn btn-primary mx-auto "
                                      type="button"
-                                        onclick="CategoriaClick1()">Obtener reporte</button> </a>
+                                        onclick="CategoriasClick_1()">Obtener reporte</button>
+                            </div>
+                            </form>
+                            <br>
+                            <h5 align="center">Ventas por fecha</h5>
+                            <div class="form-group">
+                                <form id="form2" name="form2">
+                                    <input id="fecha_pedido" type="date" value = "aaaa/mm/dd" class="form-control" require>
+                                    <br>  
+                                    <button class="btn btn-primary mx-auto "
+                                     type="button"
+                                        onclick="CategoriasClick_2()">Obtener reporte</button>
+                            </div>
+                            </form>
+                            <br>
+                            <h5 align="center">Cantidad de materia por categoria</h5>
+                            <div class="form-group">
+                                <form id="form3" name="form3">
+                                <select id="id_materia" name="id_materia" class="form-control" title="Seleccione una categoría">
+                                    </select>
+                                    <br>  
+                                    <button class="btn btn-primary mx-auto "
+                                     type="button"
+                                        onclick="CategoriasClick_3()">Obtener reporte</button>
+                            </div>
+                            </form>
+                            <br>
+                            <h5 align="center">Ventas por fecha</h5>
+                            <div class="form-group">
+                                <form id="form4" name="form4">
+                                    <input class="form-control" require>
+                                    <br>  
+                                    <button class="btn btn-primary mx-auto "
+                                     type="button"
+                                        onclick="CategoriasClick_4()">Obtener reporte</button>
+                            </div>
+                            </form>
+                            <br>
+                            <h5 align="center">Ventas por fecha</h5>
+                            <div class="form-group">
+                                <form id="form5" name="form5">
+                                    <input class="form-control" require>
+                                    <br>  
+                                    <button class="btn btn-primary mx-auto "
+                                     type="button"
+                                        onclick="CategoriasClick_5()">Obtener reporte</button>
                             </div>
                             </form>
                         </div>

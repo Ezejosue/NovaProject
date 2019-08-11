@@ -2,6 +2,7 @@
 //Inicializando la función para verificar que un usuario haya iniciado sesión
 $(document).ready(function () {
     showSelectCategoria('id_categoria', 0);
+    showSelectCategoria('id_materia', 0);
 })
 
 //Constante para establecer la ruta y parámetros de comunicación con la API
@@ -51,30 +52,17 @@ function showSelectCategoria(idSelect, value)
 }
 
 
-function CategoriaClick1(id)
+function CategoriasClick_1()
 {
-    let id_categoria = parseInt($('#id_categoria').val());
+    window.open('../core/report/reporte6.php?id_categoria='+$('#id_categoria').val());
+}
 
-    $.ajax({
-        url: apiCategorias + 'ventas_categoria1',
-        type: 'post',
-        data: {
-            id_categoria:id
-        },
-        datatype: 'json'
-    })
-    .done(function(response){
-        // Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
-        if (isJSONString(response)) {
-            const result = JSON.parse(response);
-            console.log(id_categoria);
-            
-        } else {
-            console.log(response);
-        }
-    })
-    .fail(function(jqXHR){
-        // Se muestran en consola los posibles errores de la solicitud AJAX
-        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
-    }); 
+function CategoriasClick_2()
+{
+    window.open('../core/report/reporte7.php?fecha='+$('#fecha_pedido').val());
+}
+
+function CategoriasClick_3()
+{
+    window.open('../core/report/reporte8.php?categoria='+$('#id_materia').val());
 }
