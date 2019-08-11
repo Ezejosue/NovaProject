@@ -192,17 +192,17 @@
     <?php
 Dashboard::footerTemplate('categorias.js', '#tabla-categorias');
 ?>
- <script>
+    <script>
         bootstrapValidate("#create_nombre", "min:10:Campo obligatorio");
         bootstrapValidate("#create_nombre", "max:30:Ingrese un nombre válido");
-  
+
         bootstrapValidate("#create_descripcion", "min:10:Campo obligatorio");
         bootstrapValidate("#create_descripcion", "max:80:Ingrese una descripción menor a 80 caracteres");
-    
-    
+
+
         bootstrapValidate("#update_nombre_categoria", "min:3:Campo obligatorio");
         bootstrapValidate("#update_nombre_categoria", "max:30:Ingrese un nombre válido");
-    
+
         bootstrapValidate("#update_descripcion", "min:10:Campo obligatorio");
         bootstrapValidate("#update_descripcion", "max:80:Ingrese una descripción menor a 80 caracteres");
     </script>

@@ -48,7 +48,7 @@
                 </div>
                 <form class="was-validated" method="post" id="form-create" enctype="multipart/form-data">
                     <div class="modal-body">
-                       
+
                     </div>
                     <div class="modal-body">
                         <div class="row">
@@ -103,7 +103,6 @@
 <?php
 Dashboard::footerTemplate('cargo.js', '#tabla-cargo');
 ?>
-
     <script>
         bootstrapValidate("#create_cargo", "min:9:Campo obligatorio (solo letras)");
         bootstrapValidate("#update_nombre_cargo", "min:9:Campo obligatorio (solo letras)");

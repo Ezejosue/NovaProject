@@ -22,6 +22,7 @@ function fillTable(rows)
                 <td>${row.cantidad}</td>
                 <td>${row.alias}</td>
                 <td>${row.nombre_empleado}</td>
+                <td>${row.fecha_desperdicio}</td>
                 <td>
                     <a href="#" onclick="modalUpdate(${row.id_desperdicios})" class="btn btn-info tooltipped" data-tooltip="Modificar"><i class="fa fa-edit"></i></a>
                     <a href="#" onclick="confirmDelete(${row.id_desperdicios})" class="btn btn-danger tooltipped" data-tooltip="Eliminar"><i class="fa fa-times"></i></a>

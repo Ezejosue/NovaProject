@@ -178,6 +178,7 @@ if (isset($_GET['action'])) {
                 }
                 break;
                 
+                
             default:
                 exit('Acción no disponible 1');
         }

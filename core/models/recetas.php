@@ -195,6 +195,7 @@ class Recetas extends Validator
 		return conexion::executeRow($sql, $params);
 	}
 
+	
 	public function getMateriasRecetas()
 	{
 		$sql = 'SELECT e.id_receta, nombre_receta, tiempo, CONCAT(nombre_materia, " (", descripcion, ")") AS MateriaPrima, e.cantidad 
