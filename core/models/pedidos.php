@@ -109,5 +109,14 @@ class Pedidos extends Validator
 		$params = array(null);
 		return conexion::getRows($sql, $params);
 	}
+
+
+	public function readPedidosFecha1($fecha)
+	{
+		$sql = "SELECT fecha_pedido, COUNT(id_pedido) AS Pedidos FROM pedidos where fecha_pedido=$fecha";
+		$params = array(null);
+		return conexion::getRows($sql, $params);
+	}
+
 }
 ?>

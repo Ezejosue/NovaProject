@@ -198,7 +198,7 @@ class Categorias extends Validator
 
 	public function graficar_existencia_materia_prima_agotar($id_categoria_materia)
 	{
-		$sql = "SELECT SUM(cantidad) cantidad, nombre_materia, nombre_categoria FROM materiasprimas 
+		$sql = "SELECT SUM(cantidad) as cantidad, nombre_materia, nombre_categoria FROM materiasprimas 
 		INNER JOIN categorias USING (id_categoria)
 		WHERE materiasprimas.estado = 1 AND  id_categoria = $id_categoria_materia GROUP BY nombre_materia ORDER BY cantidad ASC LIMIT 5";
 		$params = array(null);
