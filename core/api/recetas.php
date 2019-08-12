@@ -45,7 +45,6 @@ if (isset($_GET['action'])) {
                                 if ($recetas->createElaboracion()) {
                                         $result['status'] = 1;
                                 } else {
-                                    $result['status'] = 1;
                                     $result['exception'] = 'Operación fallida';
                                 }
                             }else {
@@ -64,7 +63,7 @@ if (isset($_GET['action'])) {
                     if ($result['dataset'] = $recetas->getReceta()) {
                         $result['status'] = 1;
                     } else {
-                        $result['exception'] = 'Materias primas inexistentes';
+                        $result['exception'] = 'Receta inexistente';
                     }
                 } else {
                     
@@ -72,74 +71,39 @@ if (isset($_GET['action'])) {
                 }
                 break;
                 case 'readTableRecetas':
-                if ($result['dataset'] = $recetas->getMateriasRecetas()) {
-                    $result['status'] = 1;
-                } else {
-                    $result['exception'] = 'No hay recetas registradas';
-                }
+                    if ($recetas->setIdReceta($_POST['id_receta'])) {
+                        if ($result['dataset'] = $recetas->getMateriasRecetas()) {
+                            $result['status'] = 1;
+                        } else {
+                            $result['exception'] = 'No hay recetas registradas';
+                        }
+                    }else{
+                        $result['exception'] = 'Receta incorrecta';
+                    }
                 break;
             //Operación para actualizar un usuario
             case 'update':
 				$_POST = $recetas->validateForm($_POST);
-				if ($recetas->setId($_POST['id_materia'])) {
-					if ($recetas->getMateriaPrima()) {
-		                if ($recetas->setNombre($_POST['nombre_materia'])) {
-                            if ($recetas->setDescripcion($_POST['descripcion_materia'])) {
-                                if ($recetas->setCantidad($_POST['cantidad'])) {
-                                    if ($recetas->setEstado(isset($_POST['update_estado']) ? 1 : 0)) {
-                                        if ($recetas->setCategorias($_POST['update_categoria'])) {
-                                            if ($recetas->setIdMedida($_POST['update_unidad'])) {
-                                            //Se comprueba que se haya subido una imagen
-                                            if (is_uploaded_file($_FILES['foto']['tmp_name'])) {
-                                                if ($recetas->setImagen($_FILES['foto'], $_POST['foto_materia'])) {
-                                                    $archivo = true;
-                                                } else {
-                                                    $result['exception'] = $recetas->getImageError();
-                                                    $archivo = false;
-                                                }
-                                            } else {
-                                                if (!$recetas->setImagen(null, $_POST['foto_materia'])) {
-                                                    $result['exception'] = $recetas->getImageError();
-                                                }
-                                                $archivo = false;
-                                            }
-                                        if ($recetas->updateMateriaPrima()) {
+				if ($recetas->setIdReceta($_POST['id_receta'])) {
+					if ($recetas->getReceta()) {
+		                if ($recetas->setNombreReceta($_POST['nombre_receta'])) {
+                            if ($recetas->setTiempo($_POST['tiempo'])) {
+                                        if ($recetas->updateReceta()) {
                                             $result['status'] = 1;
-                                            if ($archivo) {
-                                                if ($recetas->saveFile($_FILES['foto'], $recetas->getRuta(), $recetas->getImagen())) {
-                                                    $result['message'] = 'Categoría modificada correctamente';
-                                                        } else {
-                                                            $result['message'] = 'Categoría modificada. No se guardó el archivo';
-                                                        }
-                                                    } else {
-                                                        $result['message'] = 'Categoría modificada. No se subió ningún archivo';
-                                                    }
-                                                } else {
-                                                    $result['exception'] = 'Operación fallida';
-                                                }
-                                            } else {
-                                                $result['exception'] = 'Seleccione una unidad de medida';
-                                            }
-                                            } else {
-                                                $result['exception'] = 'Seleccione una categoria';
-                                            }
                                         } else {
-                                            $result['exception'] = 'Estado incorrecto';
-                                            }
-                                    }else {
-                                        $result['exception'] = 'Cantidad incorrecta';
-                                    } 
+                                            $result['exception'] = 'Operación fallida';
+                                        }
                                 }else {
-                                    $result['exception'] = 'Descripcion incorrecta';
+                                    $result['exception'] = 'Tiempo incorrecta';
                                 }
                             }else {
-                                $result['exception'] = 'Nombre de materia prima incorrecta';
+                                $result['exception'] = 'Nombre de receta incorrecta';
                             }
                         } else {
-                            $result['exception'] = 'Materia prima inexistente';
+                            $result['exception'] = 'Receta inexistente';
                         }
                     } else {
-                        $result['exception'] = 'Materia prima incorrecta';
+                        $result['exception'] = 'Receta incorrecta';
                     }
                     break;
             //Operación para eliminar un usuario
