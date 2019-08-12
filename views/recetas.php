@@ -87,14 +87,15 @@
                     </button>
                 </div>
                 <form method="post" id="form-update-recetas">
+                    <input type="hidden" id="id_receta" name="id_receta" />
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-1">
                                 <i class="fa fa-list"></i>
                             </div>
                             <div class="col-l-5">
-                                <input placeholder="Nombre de receta" class="form-control" id="create_nombre"
-                                    name="create_nombre" for="nombre_receta" required>
+                                <input placeholder="Nombre de receta" class="form-control" id="update_nombre"
+                                    name="update_nombre" for="nombre_receta" required>
                             </div>
                         </div>
                     </div>
@@ -104,8 +105,8 @@
                                 <i class="fa fa-clock"></i>
                             </div>
                             <div class="col-l-5">
-                                <input placeholder="Tiempo de elaboración" class="form-control" id="create_tiempo"
-                                    name="create_tiempo" for="tiempo" required>
+                                <input placeholder="Tiempo de elaboración" class="form-control" id="update_tiempo"
+                                    name="update_tiempo" for="tiempo" required>
                             </div>
                         </div>
                     </div>
@@ -146,7 +147,7 @@
                     </button>
                 </div>
                 <form method="post" id="form-materiasprimas">
-                    <input type="hidden" id="id_receta" name="id_receta" />
+                    <input type="hidden" id="id_receta_materia" name="id_receta" />
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-1">
@@ -166,6 +167,49 @@
                             </div>
                             <div class="col-sm-11">
                                 <input id="cantidad_materia" type="number" name="cantidad_materia"
+                                    class="validate form-control" placeholder="Cantidad" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-body text-center">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary tooltipped" data-tooltip="Crear">Aceptar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Modal de modificar materias primas -->
+    <div id="modal-update-materiasprimas" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">MODIFICAR MATERIAS PRIMAS</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form method="post" id="form-update-materiasprimas">
+                    <input type="hidden" id="id_receta_update" name="id_receta_update"/>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-1">
+                                <i class="fa fa-user"></i>
+                            </div>
+                            <div class="col-sm-11">
+                                <select id="id_materias_update" name="id_materias_update" class="form-control" required>
+
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-1">
+                                <i class="fa fa-user"></i>
+                            </div>
+                            <div class="col-sm-11">
+                                <input id="cantidad_materia_update" type="number" name="cantidad_materia_update"
                                     class="validate form-control" placeholder="Cantidad" required>
                             </div>
                         </div>

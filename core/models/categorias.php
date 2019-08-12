@@ -187,6 +187,17 @@ class Categorias extends Validator
 		return conexion::getRows($sql, $params);
 	}
 
+	public function graficar_ventas_mes1($idMes)
+	{
+		$sql = "SELECT SUM(cantidad) as cantidad, fecha_pedido, nombre_platillo, precio*SUM(cantidad) as ventas FROM platillos 
+		INNER JOIN detalle_pedido USING (id_platillo) 
+        INNER JOIN pedidos USING (id_pedido)
+        WHERE platillos.estado = 1 AND YEAR(fecha_pedido) = YEAR(NOW()) AND MONTH(fecha_pedido) = ?
+        GROUP BY nombre_platillo ORDER BY ventas DESC LIMIT 5";
+		$params = array($idMes);
+		return conexion::getRows($sql, $params);
+	}
+
 	public function graficar_desperdicios($idMesDesperdicios)
 	{
 		$sql = "SELECT SUM(cantidad) as cantidad, fecha_desperdicio, nombre_receta FROM desperdicios 

@@ -2,7 +2,7 @@
 $(document).ready(function()
 {
     showTable();
-    showTableRecetas();
+    //showTableRecetas('id_receta');
     showSelectMaterias('id_materias', null);
 })
 
@@ -21,13 +21,19 @@ function fillTable(rows)
                 <td>${row.tiempo}</td>
                 <td>
                     <a href="#" onclick="modalMateriasPrimas(${row.id_receta})" class="btn btn-info tooltipped" data-tooltip="Modificar"><i class="fa fa-edit"></i></a>
-                    <a href="#" onclick="modalMateriasRecetas(${row.id_receta})" class="btn btn-danger tooltipped" data-tooltip="Eliminar"><i class="fa fa-times"></i></a>
+                    <a href="#" onclick="materiasRecetas(${row.id_receta})" class="btn btn-danger tooltipped" data-tooltip="Eliminar"><i class="fa fa-times"></i></a>
                 </td>
             </tr>
         `;
     });
     $('#tbody-read').html(content);
     table('#tabla-recetas');
+}
+
+function materiasRecetas(id)
+{
+    modalMateriasRecetas(id);
+    showTableRecetas(id);
 }
 
 //Función para obtener y mostrar los registros disponibles
@@ -233,9 +239,10 @@ function modalMateriasPrimas(id)
             //Se comprueba si el resultado es satisfactorio para mostrar los valores en el formulario, sino se muestra la excepción
             if (result.status) {
                 $('#form-materiasprimas')[0].reset();
-                $('#modal-materiasprimas').modal('show');
-                $('#id_receta').val(result.dataset.id_receta);
+                $('#id_receta_materia').val(result.dataset.id_receta);
                 showSelectMaterias('id_materias', result.dataset.nombre_materia + result.dataset.descripcion);
+                $('#modal-materiasprimas').modal('show');
+                
                 
             } else {
                 sweetAlert(2, result.exception, null);
@@ -268,6 +275,7 @@ $('#form-materiasprimas').submit(function()
         
         if (isJSONString(response)) {
             const result = JSON.parse(response);
+            
             //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
             if (result.status) {
                 $('#modal-materiasprimas').modal('hide');
@@ -308,8 +316,13 @@ function modalMateriasRecetas(id)
             //Se comprueba si el resultado es satisfactorio para mostrar los valores en el formulario, sino se muestra la excepción
             if (result.status) {
                 $('#form-update-recetas')[0].reset();
+                destroy('#table-materias-recetas');
                 $('#modal-update-recetas').modal('show');
                 $('#id_receta').val(result.dataset.id_receta);
+                $('#update_nombre').val(result.dataset.nombre_receta);
+                $('#update_tiempo').val(result.dataset.tiempo);  
+                     
+
                 
             } else {
                 sweetAlert(2, result.exception, null);
@@ -345,12 +358,14 @@ function fillTableRecetas(rows)
 }
 
 //Función para obtener y mostrar los registros disponibles
-function showTableRecetas()
+function showTableRecetas(id)
 {
     $.ajax({
         url: apiRecetas + 'readTableRecetas',
         type: 'post',
-        data: null,
+        data: {
+            id_receta: id
+        },
         datatype: 'json'
     })
     .done(function(response){
@@ -386,7 +401,7 @@ function confirmDelete(id)
     .then(function(value){
         if (value) {
             $.ajax({
-                url: apiMaterias + 'delete',
+                url: apiRecetas + 'delete',
                 type: 'post',
                 data:{
                     idMateria: id
