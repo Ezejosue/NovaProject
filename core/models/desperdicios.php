@@ -133,6 +133,13 @@ class Desperdicios extends Validator
 		return Conexion::getRows($sql, $params);
 	}
 
+	public function readRecetaDesperdicio($receta)
+	{
+		$sql = "SELECT alias, fecha_desperdicio, nombre_receta, COUNT(cantidad) as Desperdicio from desperdicios INNER JOIN receta USING(id_receta) INNER JOIN usuarios USING(id_usuario) where id_receta =  $receta  GROUP BY nombre_receta";
+		$params = array(null);
+		return Conexion::getRows($sql, $params);
+	}
+
 	public function updateDesperdicios()
 	{
 		$sql = 'UPDATE desperdicios SET id_receta = ?, cantidad = ?, id_usuario= ?, id_empleado=? WHERE id_desperdicios = ?';

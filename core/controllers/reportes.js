@@ -3,12 +3,14 @@
 $(document).ready(function () {
     showSelectCategoria('id_categoria', 0);
     showSelectCategoria('id_materia', 0);
+    showSelectReceta('id_desperdicio', 0);
 })
 
 //Constante para establecer la ruta y parámetros de comunicación con la API
 const apiSesion = '../core/api/usuarios.php?action=';
 const apiCategorias = '../core/api/categorias.php?site=private&action=';
 const apiPlatillos = '../core/api/platillos.php?site=private&action=';
+const apiDesperdicios = '../core/api/desperdicios.php?site=private&action=';
 
 
 //Función para cargar los tipos de categorias en el select del formulario
@@ -51,6 +53,46 @@ function showSelectCategoria(idSelect, value)
     });
 }
 
+//Función para cargar las recetas en el select del formulario
+function showSelectReceta(idSelect, value)
+{
+    $.ajax({
+        url: apiDesperdicios + 'readReceta',
+        type: 'post',
+        data: null,
+        datatype: 'json'
+    })
+    .done(function(response){
+        //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+        if (isJSONString(response)) {
+            const result = JSON.parse(response);
+            //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
+            if (result.status) {
+                let content = '';
+                if (!value) {
+                    content += '<option value="" disabled selected>Seleccione una opción</option>';
+                }
+                result.dataset.forEach(function(row){
+                    if (row.id_receta != value) {
+                        content += `<option value="${row.id_receta}">${row.nombre_receta}</option>`;
+                    } else {
+                        content += `<option value="${row.id_receta}" selected>${row.nombre_receta}</option>`;
+                    }
+                });
+                $('#' + idSelect).html(content);
+            } else {
+                $('#' + idSelect).html('<option value="">No hay opciones</option>');
+            }
+        } else {
+            console.log(response);
+        }
+    })
+    .fail(function(jqXHR){
+        //Se muestran en consola los posibles errores de la solicitud AJAX
+        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+    });
+}
+
 
 function CategoriasClick_1()
 {
@@ -65,4 +107,14 @@ function CategoriasClick_2()
 function CategoriasClick_3()
 {
     window.open('../core/report/reporte8.php?categoria='+$('#id_materia').val());
+}
+
+function CategoriasClick_4()
+{
+    window.open('../core/report/reporte9.php?receta='+$('#id_desperdicio').val());
+}
+
+function CategoriasClick_5()
+{
+    window.open('../core/report/reporte10.php?idMes='+$('#idMes').val());
 }
