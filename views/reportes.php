@@ -64,7 +64,7 @@
                             <h5 align="center">Ventas por fecha</h5>
                             <div class="form-group">
                                 <form id="form2" name="form2">
-                                    <input id="fecha_pedido" type="date" value = "aaaa/mm/dd" class="form-control" require>
+                                    <input id="fecha_pedido" type="date" value = "yyyy-mm-dd" class="form-control" require>
                                     <br>  
                                     <button class="btn btn-primary mx-auto "
                                      type="button"
@@ -84,10 +84,11 @@
                             </div>
                             </form>
                             <br>
-                            <h5 align="center">Ventas por fecha</h5>
+                            <h5 align="center">Cantidad de productos desperdiciados</h5>
                             <div class="form-group">
                                 <form id="form4" name="form4">
-                                    <input class="form-control" require>
+                                <select id="id_desperdicio" name="id_desperdicio" class="form-control" title="Seleccione una categoría">
+                                    </select>
                                     <br>  
                                     <button class="btn btn-primary mx-auto "
                                      type="button"
@@ -95,10 +96,24 @@
                             </div>
                             </form>
                             <br>
-                            <h5 align="center">Ventas por fecha</h5>
+                            <h5 align="center">Ventas por mes</h5>
                             <div class="form-group">
                                 <form id="form5" name="form5">
-                                    <input class="form-control" require>
+                                <select id="idMes" name="idMes" class="form-control"
+                                                    title="desee el mes que desea consultar">
+                                                    <option value="1">Enero</option>
+                                                    <option value="2">Febrero</option>
+                                                    <option value="3">Marzo</option>
+                                                    <option value="4">Abril</option>
+                                                    <option value="5">Mayo</option>
+                                                    <option value="7">Junio</option>
+                                                    <option value="6">Julio</option>
+                                                    <option value="8">Agosto</option>
+                                                    <option value="9">Septiembre</option>
+                                                    <option value="10">Octubre</option>
+                                                    <option value="11">Noviembre</option>
+                                                    <option value="12">Diciembre</option>
+                                                </select>
                                     <br>  
                                     <button class="btn btn-primary mx-auto "
                                      type="button"
