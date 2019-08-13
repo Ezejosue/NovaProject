@@ -8,7 +8,7 @@ ini_set('date.timezone', 'America/El_Salvador');
 /* Creamos el objeto pdf (con medidas en milímetros):  */
 $pdf = new PDF('P', 'mm', 'Letter');
 //Se establecen los margenes (izquierdo, superior, derecho)
-$pdf->SetMargins(10, 10, 10);
+$pdf->SetMargins(20, 20, 20);
 //Se establece el auto salto de pagina, el segundo parámetro el que establece la activación por defecto son 2 cm
 $pdf->SetAutoPageBreak(true,20);  
 //Agregamos la primera pagina al documento pdf  
