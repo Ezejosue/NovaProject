@@ -46,6 +46,15 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Seleccione una receta';
                 }
                 break;
+
+                /* case 'reporte':
+                $_POST = $desperdicios->validateForm($_POST);
+                    if($desperdicios->setFecha($_POST['fecha_escondida'])){
+                        $result['status'] = 1;
+                    } else {
+                        $result['exception'] = 'Error';
+                    }
+                break; */
                 
             //Operación para saber el usuario que se va a modificar
             case 'get':

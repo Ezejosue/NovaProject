@@ -7,6 +7,7 @@ class Desperdicios extends Validator
 	private $id_receta = null;
 	private $id_usuario = null;
 	private $id_empleado = null;
+	private $fecha = null;
 
 	// Métodos para sobrecarga de propiedades
 	public function setId($value)
@@ -22,6 +23,11 @@ class Desperdicios extends Validator
 	public function getId()
 	{
 		return $this->id;
+	}
+
+	public function setFecha($value)
+	{
+		$this->$fecha = $value;
 	}
 	
 	
@@ -133,10 +139,10 @@ class Desperdicios extends Validator
 		return Conexion::getRows($sql, $params);
 	}
 
-	public function readRecetaDesperdicio($receta)
+	public function readRecetaDesperdicio($fecha, $fecha2)
 	{
-		$sql = "SELECT alias, fecha_desperdicio, nombre_receta, COUNT(cantidad) as Desperdicio from desperdicios INNER JOIN receta USING(id_receta) INNER JOIN usuarios USING(id_usuario) where id_receta =  $receta  GROUP BY nombre_receta";
-		$params = array(null);
+		$sql = "SELECT nombre_empleado, fecha_desperdicio, nombre_receta, cantidad from desperdicios INNER JOIN receta USING(id_receta) INNER JOIN empleados USING(id_empleado) where fecha_desperdicio >= ? AND fecha_desperdicio <= ?";
+		$params = array($fecha, $fecha2);
 		return Conexion::getRows($sql, $params);
 	}
 

@@ -226,7 +226,7 @@ function showPrepedido(id){
                     </tr>`;
 
                     boton_modificar_cantidad = `<a href="#" class="btn btn-success" style="border-radius: 15px;"><i class="fas fa-check" onclick="updateCantidad('${row.id_prepedido}')"></i></a>`;
-                    boton_pago = `<a href="#" onclick="confirmPago(${idMesa})" class="btn btn-primary btn-sm" target="_blank">CONTINUAR</a>`;
+                    boton_pago = `<button onclick="confirmPago(${idMesa})" class="btn btn-primary btn-sm">CONTINUAR</button>`;
                     boton_modificar_mesa = `<a href="#modal-modificar-mesa" class="btn btn-info modal-trigger" data-toggle="modal"
                     style="border-radius: 20px; margin: 15px;" data-tooltip="tooltip" data-placement="right"
                     title="Mover productos a otra mesa" onclick="showModificarMesas(${idMesa})"><i class="fas fa-utensils"></i></a>`;
@@ -442,7 +442,7 @@ function confirmPago(id)
                     //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
                     if (result.status) {
                         if (result.status == 1) {
-                            sweetAlert(1, 'Pedido realizado', window.open('../core/report/ticket.php'));
+                            sweetAlert(1, 'Pedido realizado', ('../core/report/ticket.php'));
                         } else if (result.status == 2) {
                             sweetAlert(3, 'Pedido realizado. ' + result.exception, null);
                         }
@@ -450,7 +450,7 @@ function confirmPago(id)
                         sweetAlert(2, result.exception, null);
                     }
                 } else {
-                    sweetAlert(1, 'Pedido realizado', window.open('../core/report/ticket.php'));
+                    sweetAlert(1, 'Pedido realizado', ('../core/report/ticket.php'));
                 }
             })
             .fail(function(jqXHR){

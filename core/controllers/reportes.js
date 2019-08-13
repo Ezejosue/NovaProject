@@ -3,7 +3,6 @@
 $(document).ready(function () {
     showSelectCategoria('id_categoria', 0);
     showSelectCategoria('id_materia', 0);
-    showSelectReceta('id_desperdicio', 0);
 })
 
 //Constante para establecer la ruta y parámetros de comunicación con la API
@@ -108,10 +107,23 @@ function CategoriasClick_3()
 {
     window.open('../core/report/reporte8.php?categoria='+$('#id_materia').val());
 }
+var fecha;
+var fecha2;
+var fecha_string;
+function pegarFecha(){
+    fecha = $('#fecha_desperdicio').val() + ' 00:00:00';
+    fecha_string = fecha;
+    fecha2 = $('#fecha_desperdicio_final').val() + ' 23:59:59';
+    fecha_string2 = fecha2;
+    console.log(fecha);
+    console.log(fecha2);
+    $('#fecha_escondida').val(fecha_string);
+    $('#fecha_escondida2').val(fecha_string2);
+}
 
 function CategoriasClick_4()
 {
-    window.open('../core/report/reporte9.php?receta='+$('#id_desperdicio').val());
+    window.open('../core/report/reporte9.php?fecha='+fecha_string+'&fecha2='+fecha_string2);
 }
 
 function CategoriasClick_5()
