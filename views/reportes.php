@@ -63,12 +63,15 @@
                             <br>
                             <h5 align="center">Ventas por fecha</h5>
                             <div class="form-group">
-                                <form id="form2" name="form2">
-                                    <input id="fecha_pedido" type="date" value="yyyy-mm-dd" class="form-control"
-                                        require>
+                            <form id="form2" name="form2">
+                                <div class="form-group">
+                                    <input type="hidden" id="fecha_escondida1" name="fecha_escondida">
+                                    <input id="fecha_pedido" name="fecha_pedido" type="date"
+                                        value="yyyy-mm-dd" class="form-control" require>
+                                        <br>
                                     <br>
                                     <button class="btn btn-primary mx-auto " type="button"
-                                        onclick="CategoriasClick_2()">Obtener reporte</button>
+                                    onclick="pegarFecha1() ,CategoriasClick_2()" >Obtener reporte</button>
                             </div>
                             </form>
                             <br>
@@ -83,7 +86,9 @@
                                     <button class="btn btn-primary mx-auto " type="button"
                                         onclick="CategoriasClick_3()">Obtener reporte</button>
                                 </div>
+                            </form>
                                 <br>
+                            <form>
                                 <h5 align="center">Cantidad de productos desperdiciados</h5>
                                 <div class="form-group">
                                     <input type="hidden" id="fecha_escondida" name="fecha_escondida">
