@@ -113,8 +113,8 @@ class Pedidos extends Validator
 
 	public function readPedidosFecha1($fecha)
 	{
-		$sql = "SELECT fecha_pedido, COUNT(id_pedido) AS Pedidos FROM pedidos where fecha_pedido=$fecha";
-		$params = array(null);
+		$sql = "SELECT fecha_pedido, id_pedido, alias FROM pedidos  INNER JOIN usuarios USING(id_usuario) where fecha_pedido>=?";
+		$params = array($fecha);
 		return conexion::getRows($sql, $params);
 	}
 

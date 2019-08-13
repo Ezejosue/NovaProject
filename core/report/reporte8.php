@@ -41,8 +41,8 @@ foreach($data as $datos){
         $pdf->Cell(155,10, utf8_decode($datos['nombre_categoria']),1,0,'C',true);
         $pdf->Ln();        
         $pdf->setX(30);
-        $pdf->Cell(15,10, utf8_decode('Producto'),1,0,'C');
-        $pdf->Cell(140,10, utf8_decode('Cantidad'),1,0,'C');
+        $pdf->Cell(135,10, utf8_decode('Producto'),1,0,'C');
+        $pdf->Cell(20,10, utf8_decode('Cantidad'),1,0,'C');
         $categoria = $datos['nombre_categoria'];
         //saldo de linea
         $pdf->Ln();
@@ -51,8 +51,8 @@ foreach($data as $datos){
         $pdf->setX(30);
           // Cell(ancho, Alto, texto, borde, salto de linea, alineación de texto, color)
         //convertimos el texto a utf8
-        $pdf->Cell(15,10, utf8_decode($datos['nombre_materia']),1,0,'C');
-        $pdf->Cell(140,10, utf8_decode($datos['cantidad']),1,0,'C');
+        $pdf->Cell(135,10, utf8_decode($datos['nombre_materia']),1,0,'C');
+        $pdf->Cell(20,10, utf8_decode($datos['cantidad']),1,0,'C');
         $pdf->Ln();
 }
 

@@ -30,7 +30,8 @@ $pdf->SetFillColor(239, 127, 26);
 //Se coloca el color del texto en formato rgb
 $pdf->SetTextColor(0,0,0);
 $pdf->Cell(125,10, utf8_decode('FECHA'),1,0,'C', true);
-$pdf->Cell(25,10, utf8_decode('PEDIDOS'),1,0,'C', true);
+$pdf->Cell(25,10, utf8_decode('PEDIDO'),1,0,'C', true);
+$pdf->Cell(25,10, utf8_decode('ALIAS'),1,0,'C', true);
 $pdf->Ln();
 
  //Comienza a crear las filas de productos según la consulta mysql del modelo
@@ -39,7 +40,8 @@ foreach($data as $datos){
          // Cell(ancho, Alto, texto, borde, salto de linea, alineación de texto, color)
         //convertimos el texto a utf8
         $pdf->Cell(125,10, utf8_decode($datos['fecha_pedido']),1,0,'C');
-        $pdf->Cell(25,10, utf8_decode($datos['Pedidos']),1,0,'C');
+        $pdf->Cell(25,10, utf8_decode($datos['id_pedido']),1,0,'C');
+        $pdf->Cell(25,10, utf8_decode($datos['alias']),1,0,'C');
         //saldo de linea
         $pdf->Ln();
 }
