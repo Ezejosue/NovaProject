@@ -52,11 +52,11 @@
                             <h5 align="center">Platillos más vendidos por categoría.</h5>
                             <div class="form-group">
                                 <form id="form1" name="form1">
-                                    <select id="id_categoria" name="id_categoria" class="form-control" title="Seleccione una categoría">
+                                    <select id="id_categoria" name="id_categoria" class="form-control"
+                                        title="Seleccione una categoría">
                                     </select>
-                                    <br>  
-                                    <button class="btn btn-primary mx-auto "
-                                     type="button"
+                                    <br>
+                                    <button class="btn btn-primary mx-auto " type="button"
                                         onclick="CategoriasClick_1()">Obtener reporte</button>
                             </div>
                             </form>
@@ -64,62 +64,64 @@
                             <h5 align="center">Ventas por fecha</h5>
                             <div class="form-group">
                                 <form id="form2" name="form2">
-                                    <input id="fecha_pedido" type="date" value = "yyyy-mm-dd" class="form-control" require>
-                                    <br>  
-                                    <button class="btn btn-primary mx-auto "
-                                     type="button"
+                                    <input id="fecha_pedido" type="date" value="yyyy-mm-dd" class="form-control"
+                                        require>
+                                    <br>
+                                    <button class="btn btn-primary mx-auto " type="button"
                                         onclick="CategoriasClick_2()">Obtener reporte</button>
                             </div>
                             </form>
                             <br>
                             <h5 align="center">Cantidad de materia por categoria</h5>
-                            <div class="form-group">
-                                <form id="form3" name="form3">
-                                <select id="id_materia" name="id_materia" class="form-control" title="Seleccione una categoría">
+                            <form method="post" id="form3" name="form3">
+                                <div class="form-group">
+
+                                    <select id="id_materia" name="id_materia" class="form-control"
+                                        title="Seleccione una categoría">
                                     </select>
-                                    <br>  
-                                    <button class="btn btn-primary mx-auto "
-                                     type="button"
+                                    <br>
+                                    <button class="btn btn-primary mx-auto " type="button"
                                         onclick="CategoriasClick_3()">Obtener reporte</button>
-                            </div>
-                            </form>
-                            <br>
-                            <h5 align="center">Cantidad de productos desperdiciados</h5>
-                            <div class="form-group">
-                                <form id="form4" name="form4">
-                                <select id="id_desperdicio" name="id_desperdicio" class="form-control" title="Seleccione una categoría">
-                                    </select>
-                                    <br>  
-                                    <button class="btn btn-primary mx-auto "
-                                     type="button"
-                                        onclick="CategoriasClick_4()">Obtener reporte</button>
-                            </div>
+                                </div>
+                                <br>
+                                <h5 align="center">Cantidad de productos desperdiciados</h5>
+                                <div class="form-group">
+                                    <input type="hidden" id="fecha_escondida" name="fecha_escondida">
+                                    <input id="fecha_desperdicio" name="fecha_desperdicio" type="date"
+                                        value="yyyy-mm-dd" class="form-control" require>
+                                        <br>
+                                    <input type="hidden" id="fecha_escondida2" name="fecha_escondida2">
+                                    <input id="fecha_desperdicio_final" name="fecha_desperdicio_final" type="date"
+                                        value="yyyy-mm-dd" class="form-control" require>
+                                    <br>
+                                    <button class="btn btn-primary mx-auto " type="button"
+                                        onclick="pegarFecha(), CategoriasClick_4()">Obtener reporte</button>
+                                </div>
                             </form>
                             <br>
                             <h5 align="center">Ventas por mes</h5>
                             <div class="form-group">
-                                <form id="form5" name="form5">
-                                <select id="idMes" name="idMes" class="form-control"
-                                                    title="desee el mes que desea consultar">
-                                                    <option value="1">Enero</option>
-                                                    <option value="2">Febrero</option>
-                                                    <option value="3">Marzo</option>
-                                                    <option value="4">Abril</option>
-                                                    <option value="5">Mayo</option>
-                                                    <option value="7">Junio</option>
-                                                    <option value="6">Julio</option>
-                                                    <option value="8">Agosto</option>
-                                                    <option value="9">Septiembre</option>
-                                                    <option value="10">Octubre</option>
-                                                    <option value="11">Noviembre</option>
-                                                    <option value="12">Diciembre</option>
-                                                </select>
-                                    <br>  
-                                    <button class="btn btn-primary mx-auto "
-                                     type="button"
+                                <form method="post" id="form5" name="form5">
+                                    <select id="idMes" name="idMes" class="form-control"
+                                        title="desee el mes que desea consultar">
+                                        <option value="1">Enero</option>
+                                        <option value="2">Febrero</option>
+                                        <option value="3">Marzo</option>
+                                        <option value="4">Abril</option>
+                                        <option value="5">Mayo</option>
+                                        <option value="7">Junio</option>
+                                        <option value="6">Julio</option>
+                                        <option value="8">Agosto</option>
+                                        <option value="9">Septiembre</option>
+                                        <option value="10">Octubre</option>
+                                        <option value="11">Noviembre</option>
+                                        <option value="12">Diciembre</option>
+                                    </select>
+                                    <br>
+                                    <button class="btn btn-primary mx-auto " type="button"
                                         onclick="CategoriasClick_5()">Obtener reporte</button>
+                                </form>
                             </div>
-                            </form>
                         </div>
                         <div class="col-md-3 col-lg-3"></div>
                     </div>
