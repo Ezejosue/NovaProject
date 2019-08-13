@@ -19,8 +19,8 @@ class Conexion
     {
         $server = 'localhost';
         $db = 'pizzanova';
-        $username = 'root';
-        $password = '';
+        $username = 'Gerardo';
+        $password = 'HcKNwywo9LIRGxs0';
         try {
             @self::$connection = new PDO('mysql:host='.$server.'; dbname='.$db, $username, $password);
         } catch(PDOException $error) {

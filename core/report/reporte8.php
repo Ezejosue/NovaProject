@@ -17,9 +17,9 @@ $pdf->addPage();
 
 $pdf->SetFont('Arial','B',10);
 $data = $platillos->readMeteriaCategoria1($_GET['categoria']);
-// Cell(ancho, Alto, texto, borde, salto de linea, alineacion de texto)
 $pdf->Ln();
 $pdf->setX(60);
+// Cell(ancho, Alto, texto, borde, salto de linea, alineacion de texto)
 $pdf->Cell(100,5, utf8_decode('REPORTE DE MATERIA PRIMA POR CATEGORIA'), 0, 0, 'C');  
 $pdf->Ln(10);
 // Seteamos la posición de la proxima celda en forma fija a 3.8 cm hacia la derecha de la pagina
