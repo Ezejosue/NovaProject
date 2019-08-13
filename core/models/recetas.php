@@ -202,7 +202,7 @@ class Recetas extends Validator
 	public function readMateriasPrimas()
 	{
 		$sql = 'SELECT idMateria, CONCAT(nombre_materia, " (" ,u.descripcion, ")") AS Materia 
-		FROM materiasprimas INNER JOIN unidadmedida u GROUP BY nombre_materia ';
+		FROM materiasprimas INNER JOIN unidadmedida u USING(id_Medida) GROUP BY nombre_materia ';
 		$params = array($this->idreceta);
 		return Conexion::getRows($sql, $params);
 	}
@@ -231,9 +231,10 @@ class Recetas extends Validator
 	
 	public function getMateriasRecetas()
 	{
-		$sql = 'SELECT id_elaboracion, id_receta, CONCAT(nombre_materia, " (", descripcion, ")") AS MateriaPrima, e.cantidad, idMateria 
+		$sql = 'SELECT id_elaboracion, id_receta, CONCAT(nombre_materia, " (", u.descripcion, ")") AS MateriaPrima, e.cantidad, idMateria 
 		FROM elaboraciones e 
-		INNER JOIN materiasprimas USING (idMateria) WHERE id_receta = ?';
+		INNER JOIN materiasprimas USING (idMateria)
+		INNER JOIN unidadmedida u USING (id_Medida) WHERE id_receta = ?';
 		$params = array($this->idreceta);
 		return conexion::getRows($sql, $params);
 	}
