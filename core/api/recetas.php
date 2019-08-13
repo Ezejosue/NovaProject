@@ -70,6 +70,19 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Receta incorrecta';
                 }
                 break;
+
+                case 'getElaboracion':
+                if ($recetas->setIdElab($_POST['id_elaboracion'])) {
+                    if ($result['dataset'] = $recetas->getElab()) {
+                        $result['status'] = 1;
+                    } else {
+                        $result['exception'] = 'Elaboracion inexistente';
+                    }
+                } else {
+                    
+                    $result['exception'] = 'Elaboracion incorrecta';
+                }
+                break;
                 case 'readTableRecetas':
                     if ($recetas->setIdReceta($_POST['id_receta'])) {
                         if ($result['dataset'] = $recetas->getMateriasRecetas()) {
@@ -86,8 +99,8 @@ if (isset($_GET['action'])) {
 				$_POST = $recetas->validateForm($_POST);
 				if ($recetas->setIdReceta($_POST['id_receta'])) {
 					if ($recetas->getReceta()) {
-		                if ($recetas->setNombreReceta($_POST['nombre_receta'])) {
-                            if ($recetas->setTiempo($_POST['tiempo'])) {
+		                if ($recetas->setNombreReceta($_POST['update_nombre'])) {
+                            if ($recetas->setTiempo($_POST['update_tiempo'])) {
                                         if ($recetas->updateReceta()) {
                                             $result['status'] = 1;
                                         } else {
