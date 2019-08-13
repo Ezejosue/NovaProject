@@ -34,7 +34,7 @@ if (isset($_GET['action'])) {
                 break;
                 
             /* Operación para obtener el id del empleado */
-				case 'get':
+			case 'get':
                 if ($cargo->setId($_POST['id_Cargo']) 
                 ) {
                    if ($result['dataset'] = 
@@ -48,7 +48,7 @@ if (isset($_GET['action'])) {
                 }
                break;
 
-               case 'update':
+            case 'update':
 					$_POST = $cargo->validateForm($_POST);
 					if ($cargo->setId($_POST['id_Cargo'])) 
 					{
@@ -70,7 +70,7 @@ if (isset($_GET['action'])) {
 					}
                     break;
                     
-                case 'delete':
+            case 'delete':
                     if ($cargo->setId($_POST['id_Cargo'])) {
                         if ($cargo->searchCargo()) {
                             if ($cargo->deleteCargo()) {
