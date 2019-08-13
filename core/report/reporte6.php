@@ -16,7 +16,7 @@ $pdf->SetAutoPageBreak(true,20);
 $pdf->addPage();
 
 $pdf->SetFont('Arial','B',10);
-$data = $platillos->ventas($_GET['id_categoria']);
+$data = $platillos->ventas_categoria_reporte($_GET['id_categoria']);
 // Cell(ancho, Alto, texto, borde, salto de linea, alineacion de texto)
 $pdf->Ln();
 $pdf->setX(60);
