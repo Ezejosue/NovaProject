@@ -49,7 +49,8 @@
                     <div class="row">
                         <div class="col-md-3 col-lg-3"></div>
                         <div class="col-sm-12 col-md-6 col-lg-6">
-                            <h5 align="center">Platillos más vendidos por categoría.</h5>
+                            <h5 align="center">Ganancias de platillos por categoría</h5>
+                            <br>
                             <div class="form-group">
                                 <form id="form1" name="form1">
                                     <select id="id_categoria" name="id_categoria" class="form-control"
@@ -62,6 +63,7 @@
                             </form>
                             <br>
                             <h5 align="center">Ventas por fecha</h5>
+                            <br>
                             <div class="form-group">
                                 <form id="form2" name="form2">
                                     <input id="fecha_pedido" type="date" value="yyyy-mm-dd" class="form-control"
@@ -72,7 +74,8 @@
                             </div>
                             </form>
                             <br>
-                            <h5 align="center">Cantidad de materia por categoria</h5>
+                            <h5 align="center">Cantidad de materia prima por categoria</h5>
+                            <br>
                             <form method="post" id="form3" name="form3">
                                 <div class="form-group">
 
@@ -85,11 +88,14 @@
                                 </div>
                                 <br>
                                 <h5 align="center">Cantidad de productos desperdiciados</h5>
+                                <br>
                                 <div class="form-group">
+                                    <p>Fecha Inicial</p>
                                     <input type="hidden" id="fecha_escondida" name="fecha_escondida">
                                     <input id="fecha_desperdicio" name="fecha_desperdicio" type="date"
                                         value="yyyy-mm-dd" class="form-control" require>
-                                        <br>
+                                    <br>
+                                    <p>Fecha Final</p>
                                     <input type="hidden" id="fecha_escondida2" name="fecha_escondida2">
                                     <input id="fecha_desperdicio_final" name="fecha_desperdicio_final" type="date"
                                         value="yyyy-mm-dd" class="form-control" require>
@@ -100,6 +106,7 @@
                             </form>
                             <br>
                             <h5 align="center">Ventas por mes</h5>
+                            <br>
                             <div class="form-group">
                                 <form method="post" id="form5" name="form5">
                                     <select id="idMes" name="idMes" class="form-control"

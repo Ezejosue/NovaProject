@@ -187,14 +187,14 @@ class Materias extends Validator
 
 	public function readMeteriaCategoria()
 	{
-		$sql = 'SELECT nombre_materia, cantidad, nombre_categoria from materiasprimas INNER JOIN categorias USING(id_categoria) GROUP by nombre_categoria';
+		$sql = 'SELECT nombre_materia, cantidad, nombre_categoria from materiasprimas INNER JOIN categorias USING(id_categoria) ORDER BY nombre_categoria';
 		$params = array(null);
 		return Conexion::getRows($sql, $params);
 	}
 
 	public function readMeteriaCategoria1($categoria)
 	{
-		$sql = "SELECT nombre_materia, cantidad, nombre_categoria from materiasprimas INNER JOIN categorias USING(id_categoria) WHERE id_categoria = $categoria GROUP by nombre_categoria";
+		$sql = "SELECT nombre_materia, cantidad, nombre_categoria from materiasprimas INNER JOIN categorias USING(id_categoria) WHERE id_categoria = $categoria ORDER BY nombre_categoria";
 		$params = array(null);
 		return Conexion::getRows($sql, $params);
 	}

@@ -165,12 +165,32 @@ class Categorias extends Validator
 		return conexion::getRows($sql, $params);
 	} */
 
+	public function ventas_categoria_reporte($id_categoria)
+	{
+		$sql = "SELECT SUM(cantidad) as cantidad, nombre_platillo, precio*SUM(cantidad) as subtotal FROM platillos 
+		INNER JOIN categorias USING (id_categoria) 
+		INNER JOIN detalle_pedido USING (id_platillo) 
+		WHERE platillos.estado = 1 AND id_categoria = $id_categoria  GROUP BY nombre_platillo ORDER BY subtotal";
+		$params = array(null);
+		return conexion::getRows($sql, $params);
+	}
+
 	public function ventas($id_categoria)
 	{
 		$sql = "SELECT SUM(cantidad) as cantidad, nombre_platillo, precio*SUM(cantidad) as subtotal FROM platillos 
 		INNER JOIN categorias USING (id_categoria) 
 		INNER JOIN detalle_pedido USING (id_platillo) 
 		WHERE platillos.estado = 1 AND id_categoria = $id_categoria  GROUP BY nombre_platillo ORDER BY subtotal DESC LIMIT 5";
+		$params = array(null);
+		return conexion::getRows($sql, $params);
+	}
+
+	public function ganancias_categoria_reporte($id_categoria)
+	{
+		$sql = "SELECT SUM(cantidad) as cantidad, nombre_platillo, precio*SUM(cantidad) as subtotal FROM platillos 
+		INNER JOIN categorias USING (id_categoria) 
+		INNER JOIN detalle_pedido USING (id_platillo) 
+		WHERE platillos.estado = 1 AND id_categoria = $id_categoria  GROUP BY nombre_platillo ORDER BY subtotal";
 		$params = array(null);
 		return conexion::getRows($sql, $params);
 	}
@@ -194,6 +214,17 @@ class Categorias extends Validator
         INNER JOIN pedidos USING (id_pedido)
         WHERE platillos.estado = 1 AND YEAR(fecha_pedido) = YEAR(NOW()) AND MONTH(fecha_pedido) = ?
         GROUP BY nombre_platillo ORDER BY ventas DESC LIMIT 5";
+		$params = array($idMes);
+		return conexion::getRows($sql, $params);
+	}
+
+	public function ventas_reporte($idMes)
+	{
+		$sql = "SELECT SUM(cantidad) as cantidad, fecha_pedido, nombre_platillo, precio*SUM(cantidad) as ventas FROM platillos 
+		INNER JOIN detalle_pedido USING (id_platillo) 
+        INNER JOIN pedidos USING (id_pedido)
+        WHERE platillos.estado = 1 AND YEAR(fecha_pedido) = YEAR(NOW()) AND MONTH(fecha_pedido) = ?
+        GROUP BY nombre_platillo";
 		$params = array($idMes);
 		return conexion::getRows($sql, $params);
 	}

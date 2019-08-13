@@ -110,6 +110,7 @@ function CategoriasClick_3()
 var fecha;
 var fecha2;
 var fecha_string;
+var fecha_string2;
 function pegarFecha(){
     fecha = $('#fecha_desperdicio').val() + ' 00:00:00';
     fecha_string = fecha;
