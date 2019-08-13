@@ -6,6 +6,7 @@ class Recetas extends Validator
 	private $nombrereceta = null;
 	private $tiempo = null;
 	private $elaboracion = null;
+	private $idelab = null;
 	private $idmateria = null;
 	private $idmedida = null;
 	private $cantidad = null;
@@ -24,6 +25,21 @@ class Recetas extends Validator
 	public function getIdReceta()
 	{
 		return $this->idreceta;
+	}
+
+	public function setIdElab($value)
+	{
+		if ($this->validateId($value)) {
+			$this->idelab = $value;
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public function getIdElab()
+	{
+		return $this->idelab;
 	}
 
 	public function setNombreReceta($value)
@@ -165,6 +181,16 @@ class Recetas extends Validator
 		return conexion::getRow($sql, $params);
 	}
 
+	public function getElab()
+	{
+		$sql = 'SELECT id_elaboracion, id_receta, e.cantidad, idMateria 
+		FROM elaboraciones e 
+		INNER JOIN materiasprimas USING(idMateria) 
+		WHERE id_elaboracion = ? ';
+		$params = array($this->idelab);
+		return conexion::getRow($sql, $params);
+	}
+
 	public function createElaboracion()
 	{
 		$sql = 'INSERT INTO elaboraciones(id_receta, cantidad, idMateria) VALUES(?, ?, ?)';
@@ -185,6 +211,13 @@ class Recetas extends Validator
 	{
 		$sql = 'UPDATE receta SET nombre_receta = ?, tiempo = ? WHERE id_receta = ?';
 		$params = array($this->nombrereceta,  $this->tiempo, $this->idreceta);
+		return conexion::executeRow($sql, $params);
+	}
+
+	public function updateElaboracion()
+	{
+		$sql = 'UPDATE elaboraciones SET id_receta = ?, cantidad = ?, idMateria = ? WHERE id_elaboracion = ?';
+		$params = array($this->idreceta,  $this->cantidad, $this->idmateria, $this->idelab);
 		return conexion::executeRow($sql, $params);
 	}
 
