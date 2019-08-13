@@ -48,6 +48,7 @@ if ($ordenes->setIdUsuario($_SESSION['idUsuario'])){
 
 		foreach($data as $datos){
 		$subtotal = ($datos['cantidad'] * $datos['precio']);
+		$subtotal = number_format($subtotal,2, ".", ",");
 		$pdf->setX(2);
 		$pdf->Cell(5,5, utf8_decode($datos['cantidad']),0,0,'L');
 		$pdf->setX(7);
@@ -55,6 +56,7 @@ if ($ordenes->setIdUsuario($_SESSION['idUsuario'])){
 		$pdf->setX(35);
 		$pdf->Cell(5,5, utf8_decode('$'.$subtotal),0,0,'C');
 		$total = $total + $subtotal;
+		$total = number_format($total,2, ".", ",");
 		$pdf->Ln(2);
 		}
 		$iva = $total * 0.13;
@@ -86,7 +88,7 @@ if ($ordenes->setIdUsuario($_SESSION['idUsuario'])){
 		$pdf->SetFont('Arial','B',3); //Letra Arial, negrita (Bold), tam. 20
 		$pdf->Ln(2);
 		$pdf->setX(0);
-		$pdf->Cell(45,0,"GRACIAS POR SU COMPRA c:",0,0,'C');
+		$pdf->Cell(45,0,"GRACIAS POR SU COMPRA",0,0,'C');
 		$pdf->Ln(1.5);
 
 

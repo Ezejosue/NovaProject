@@ -178,8 +178,7 @@
                             <div class="col-sm-11">
                                 <!-- vemos el campo del precio en el modal de update -->
                                 <input id="update_precio" type="number" name="update_precio"
-                                    class="validate form-control" placeholder="Precio" max="999.99"
-                                    min="0.01" required>
+                                    class="validate form-control" placeholder="Precio" max="999.99" min="0.01" required>
                             </div>
                         </div>
                     </div>

@@ -7,6 +7,7 @@ class Desperdicios extends Validator
 	private $id_receta = null;
 	private $id_usuario = null;
 	private $id_empleado = null;
+	private $fecha = null;
 
 	// Métodos para sobrecarga de propiedades
 	public function setId($value)
@@ -22,6 +23,11 @@ class Desperdicios extends Validator
 	public function getId()
 	{
 		return $this->id;
+	}
+
+	public function setFecha($value)
+	{
+		$this->$fecha = $value;
 	}
 	
 	
@@ -89,7 +95,7 @@ class Desperdicios extends Validator
 	// Metodos para el manejo del SCRUD
 	public function readDesperdicios()
 	{
-		$sql = 'SELECT id_desperdicios, desperdicios.cantidad, nombre_receta, alias, nombre_empleado FROM receta INNER JOIN desperdicios USING(id_receta) 
+		$sql = 'SELECT id_desperdicios, desperdicios.cantidad, nombre_receta, alias, nombre_empleado, fecha_desperdicio FROM desperdicios INNER JOIN receta USING(id_receta) 
         INNER JOIN usuarios USING (id_usuario) 
         INNER JOIN empleados USING (id_empleado)';
 		$params = array(null);
@@ -130,6 +136,13 @@ class Desperdicios extends Validator
 	{
 		$sql = 'SELECT id_empleado, nombre_empleado FROM empleados';
 		$params = array(null);
+		return Conexion::getRows($sql, $params);
+	}
+
+	public function readRecetaDesperdicio($fecha, $fecha2)
+	{
+		$sql = "SELECT nombre_empleado, fecha_desperdicio, nombre_receta, cantidad from desperdicios INNER JOIN receta USING(id_receta) INNER JOIN empleados USING(id_empleado) where fecha_desperdicio >= ? AND fecha_desperdicio <= ?";
+		$params = array($fecha, $fecha2);
 		return Conexion::getRows($sql, $params);
 	}
 

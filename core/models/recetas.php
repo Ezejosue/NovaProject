@@ -158,7 +158,7 @@ class Recetas extends Validator
 
 	public function getReceta()
 	{
-		$sql = 'SELECT id_receta
+		$sql = 'SELECT id_receta, nombre_receta, tiempo
 				FROM receta 
 				WHERE id_receta = ?';
 		$params = array($this->idreceta);
@@ -169,7 +169,7 @@ class Recetas extends Validator
 	{
 		$sql = 'INSERT INTO elaboraciones(id_receta, cantidad, idMateria) VALUES(?, ?, ?)';
 		$params = array($this->idreceta, $this->cantidad, $this->idmateria);
-		return Conexion::getRows($sql, $params);
+		return Conexion::executeRow($sql, $params);
 	}
 
 
@@ -183,8 +183,8 @@ class Recetas extends Validator
 
 	public function updateReceta()
 	{
-		$sql = 'UPDATE receta SET nombre_receta = ?, tiempo = ?, elaboracion = ?, id_categoria = ?, idMateria = ? WHERE id_receta = ?';
-		$params = array($this->nombrereceta,  $this->tiempo, $this->elaboracion, $this->idcategoria, $this->idmateria, $this->idreceta);
+		$sql = 'UPDATE receta SET nombre_receta = ?, tiempo = ? WHERE id_receta = ?';
+		$params = array($this->nombrereceta,  $this->tiempo, $this->idreceta);
 		return conexion::executeRow($sql, $params);
 	}
 
@@ -194,6 +194,15 @@ class Recetas extends Validator
 		$params = array($this->idreceta);
 		return conexion::executeRow($sql, $params);
 	}
+	
+	public function getMateriasRecetas()
+	{
+		$sql = 'SELECT id_elaboracion, id_receta, CONCAT(nombre_materia, " (", descripcion, ")") AS MateriaPrima, e.cantidad, idMateria 
+		FROM elaboraciones e 
+		INNER JOIN materiasprimas USING (idMateria) WHERE id_receta = ?';
+		$params = array($this->idreceta);
+		return conexion::getRows($sql, $params);
+	}
 
 	public function RecetaCategoria()
 	{
@@ -201,7 +210,5 @@ class Recetas extends Validator
 		$params = array(null);
 		return conexion::executeRow($sql, $params);
 	}
-
-
 }
 ?>

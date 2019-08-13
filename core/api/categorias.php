@@ -136,8 +136,18 @@ if (isset($_GET['action'])) {
 				break;
 
 				//caso para traer el modelo de la existencia de materias primas por categoria
-				case 'existencias_categoria':
-				if ($result['dataset'] = $categoria->graficar_existencia_categoria()) {
+				case 'existencias_categoria_agotar':
+				if ($result['dataset'] = $categoria->graficar_existencia_categoria_agotar()) {
+					$result['status'] = 1;
+				} else {
+					$result['exception'] = 'No hay categorías registradas';
+				}
+				break;
+
+				
+				//caso para traer el modelo de la existencia de materias primas por categoria
+				case 'existencias_categoria_sobre_existen':
+				if ($result['dataset'] = $categoria->graficar_existencia_categoria_sobre_existen()) {
 					$result['status'] = 1;
 				} else {
 					$result['exception'] = 'No hay categorías registradas';
@@ -156,7 +166,20 @@ if (isset($_GET['action'])) {
 				//caso para traer el modelo de la existencia de materias primas por categoria
 				case 'ventas_categoria':
 				if(isset($_POST['id_categoria'])){
-				if ($result['dataset'] = $categoria->graficar_ventas_categoria($_POST['id_categoria'])) {
+				if ($result['dataset'] = $categoria->ventas($_POST['id_categoria'])) {
+					$result['status'] = 1;
+				} else {
+					$result['exception'] = 'No hay categorías registradas';
+				}
+			}else {
+				$result['exception'] = 'No se obtuvo la categoria seleccionada';
+			}
+				break;
+
+				//caso para traer el modelo de la existencia de materias primas por categoria
+				case 'ventas_categoria1':
+				if(isset($_POST['id_categoria'])){
+				if ($categoria->ventas($_POST['id_categoria'])) {
 					$result['status'] = 1;
 				} else {
 					$result['exception'] = 'No hay categorías registradas';
@@ -167,6 +190,59 @@ if (isset($_GET['action'])) {
 				break;
 
 				
+				//caso para traer el modelo de la existencia de materias primas por categoria
+				case 'existencia_materia_agotar':
+				if(isset($_POST['id_categoria_materia_agotar'])){
+				if ($result['dataset'] = $categoria->graficar_existencia_materia_prima_agotar($_POST['id_categoria_materia_agotar'])) {
+					$result['status'] = 1;
+				} else {
+					$result['exception'] = 'No hay categorías registradas';
+				}
+			}else {
+				$result['exception'] = 'No se obtuvo la categoria seleccionada';
+			}
+				break;
+
+				
+				//caso para traer el modelo de la existencia de materias primas por categoria
+				case 'existencia_materia_sobre_existente':
+				if(isset($_POST['id_categoria_materia_sobre_existente'])){
+				if ($result['dataset'] = $categoria->graficar_existencia_materia_prima_sobre_existente($_POST['id_categoria_materia_sobre_existente'])) {
+					$result['status'] = 1;
+				} else {
+					$result['exception'] = 'No hay categorías registradas';
+				}
+			}else {
+				$result['exception'] = 'No se obtuvo la categoria seleccionada';
+			}
+				break;
+
+
+				//caso para traer el modelo de la existencia de materias primas por categoria
+				case 'ventas_mes':
+				if(isset($_POST['idMes'])){
+				if ($result['dataset'] = $categoria->graficar_ventas_mes($_POST['idMes'])) {
+					$result['status'] = 1;
+				} else {
+					$result['exception'] = 'No hay categorías registradas';
+				}
+			}else {
+				$result['exception'] = 'No se obtuvo la categoria seleccionada';
+			}
+				break;
+
+				//caso para traer el modelo de la existencia de materias primas por categoria
+				case 'desperdicios_mes':
+				if(isset($_POST['idMesDesperdicios'])){
+				if ($result['dataset'] = $categoria->graficar_desperdicios($_POST['idMesDesperdicios'])) {
+					$result['status'] = 1;
+				} else {
+					$result['exception'] = 'No hay categorías registradas';
+				}
+			}else {
+				$result['exception'] = 'No se obtuvo la categoria seleccionada';
+			}
+				break;				
 			default:
 				exit('Acción no disponible');
 		}

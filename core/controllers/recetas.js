@@ -2,6 +2,7 @@
 $(document).ready(function()
 {
     showTable();
+    //showTableRecetas('id_receta');
     showSelectMaterias('id_materias', null);
 })
 
@@ -20,13 +21,19 @@ function fillTable(rows)
                 <td>${row.tiempo}</td>
                 <td>
                     <a href="#" onclick="modalMateriasPrimas(${row.id_receta})" class="btn btn-info tooltipped" data-tooltip="Modificar"><i class="fa fa-edit"></i></a>
-                    <a href="#" onclick="confirmDelete(${row.id_receta})" class="btn btn-danger tooltipped" data-tooltip="Eliminar"><i class="fa fa-times"></i></a>
+                    <a href="#" onclick="materiasRecetas(${row.id_receta})" class="btn btn-danger tooltipped" data-tooltip="Eliminar"><i class="fa fa-times"></i></a>
                 </td>
             </tr>
         `;
     });
     $('#tbody-read').html(content);
     table('#tabla-recetas');
+}
+
+function materiasRecetas(id)
+{
+    modalMateriasRecetas(id);
+    showTableRecetas(id);
 }
 
 //Función para obtener y mostrar los registros disponibles
@@ -232,9 +239,10 @@ function modalMateriasPrimas(id)
             //Se comprueba si el resultado es satisfactorio para mostrar los valores en el formulario, sino se muestra la excepción
             if (result.status) {
                 $('#form-materiasprimas')[0].reset();
-                $('#modal-materiasprimas').modal('show');
-                $('#id_receta').val(result.dataset.id_receta);
+                $('#id_receta_materia').val(result.dataset.id_receta);
                 showSelectMaterias('id_materias', result.dataset.nombre_materia + result.dataset.descripcion);
+                $('#modal-materiasprimas').modal('show');
+                
                 
             } else {
                 sweetAlert(2, result.exception, null);
@@ -264,8 +272,10 @@ $('#form-materiasprimas').submit(function()
     })
     .done(function(response){
         //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+        
         if (isJSONString(response)) {
             const result = JSON.parse(response);
+            
             //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
             if (result.status) {
                 $('#modal-materiasprimas').modal('hide');
@@ -277,9 +287,9 @@ $('#form-materiasprimas').submit(function()
                 sweetAlert(2, result.exception, null);
             }
         } else {
-            console.log(response);
             //Se comprueba que el alias no sea repetido
             sweetAlert(2, error2(response), null);
+            console.log(response);
         }
     })
     .fail(function(jqXHR){
@@ -288,8 +298,149 @@ $('#form-materiasprimas').submit(function()
     });
 })
 
+//Función para mostrar materias primas de las recetas disponibles
+function modalMateriasRecetas(id)
+{
+    $.ajax({
+        url: apiRecetas + 'get',
+        type: 'post',
+        data:{
+            id_receta: id
+        },
+        datatype: 'json'
+    })
+    .done(function(response){
+        //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado consola
+        if (isJSONString(response)) {
+            const result = JSON.parse(response);
+            //Se comprueba si el resultado es satisfactorio para mostrar los valores en el formulario, sino se muestra la excepción
+            if (result.status) {
+                $('#form-update-recetas')[0].reset();
+                destroy('#table-materias-recetas');
+                $('#modal-update-recetas').modal('show');
+                $('#id_receta').val(result.dataset.id_receta);
+                $('#update_nombre').val(result.dataset.nombre_receta);
+                $('#update_tiempo').val(result.dataset.tiempo);  
+                     
+
+                
+            } else {
+                sweetAlert(2, result.exception, null);
+            }
+        } else {
+            console.log(response);
+        }
+    })
+    .fail(function(jqXHR){
+        //Se muestran en consola los posibles errores de la solicitud AJAX
+        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+    });
+}
+//Función para llenar tabla con los datos de los registros
+function fillTableRecetas(rows)
+{
+    let content = '';
+    //Se recorren las filas para armar el cuerpo de la tabla y se utiliza comilla invertida para escapar los caracteres especiales
+    rows.forEach(function(row){
+        content += `
+            <tr>
+                <td>${row.MateriaPrima}</td>
+                <td>${row.cantidad}</td>
+                <td>
+                    <a href="#" onclick="modalMateriasPrimas(${row.id_elaboracion})" class="btn btn-info tooltipped" data-tooltip="Modificar"><i class="fa fa-edit"></i></a>
+                    <a href="#" onclick="confirmDelete(${row.id_elaboracion})" class="btn btn-danger tooltipped" data-tooltip="Eliminar"><i class="fa fa-times"></i></a>
+                </td>
+            </tr>
+        `;
+    });
+    $('#tbody-read-materias').html(content);
+    table('#table-materias-recetas');
+}
+
+//Función para obtener y mostrar los registros disponibles
+function showTableRecetas(id)
+{
+    $.ajax({
+        url: apiRecetas + 'readTableRecetas',
+        type: 'post',
+        data: {
+            id_receta: id
+        },
+        datatype: 'json'
+    })
+    .done(function(response){
+        //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+        if (isJSONString(response)) {
+            const result = JSON.parse(response);
+            //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
+            if (!result.status) {
+                sweetAlert(4, result.exception, null);
+            }
+            fillTableRecetas(result.dataset);
+        } else {
+            console.log(response);
+        }
+    })
+    .fail(function(jqXHR){
+        //Se muestran en consola los posibles errores de la solicitud AJAX
+        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+    });
+}
+
 //Función para eliminar un registro seleccionado
 function confirmDelete(id)
+{
+    swal({
+        title: 'Advertencia',
+        text: '¿Quiere eliminar esta materia prima?',
+        icon: 'warning',
+        buttons: ['Cancelar', 'Aceptar'],
+        closeOnClickOutside: false,
+        closeOnEsc: false
+    })
+    .then(function(value){
+        if (value) {
+            $.ajax({
+                url: apiRecetas + 'delete',
+                type: 'post',
+                data:{
+                    idMateria: id
+                },
+                datatype: 'json'
+            })
+            .done(function(response){
+                //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+                if (isJSONString(response)) {
+                    const result = JSON.parse(response);
+                    //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
+                    if (result.status) {
+                        sweetAlert(1, 'Materia prima eliminada correctamente', null);
+                        destroy('#tabla-materia_prima');
+                        showTable();
+                    } else {
+                        sweetAlert(2, result.exception, null);
+                    }
+                } else {
+                    swal({
+                        title: 'Advertencia',
+                        text: 'Registro ocupado, no se puede borrar materia prima.',
+                        icon: 'error',
+                        buttons: ['Aceptar'],
+                        closeOnClickOutside: true,
+                        closeOnEsc: true
+                    })
+                }
+            })
+            .fail(function(jqXHR){
+                //Se muestran en consola los posibles errores de la solicitud AJAX
+                console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+            });
+        }
+    });
+}
+
+//Función para eliminar un registro seleccionado
+/*  
 {
     swal({
         title: 'Advertencia',
@@ -338,7 +489,7 @@ function confirmDelete(id)
             });
         }
     });
-}
+} */
 
 //Función para verificar que nombre de la categoría no se repita ya que es un dato de tipo único
 function error2(response){

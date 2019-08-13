@@ -2,7 +2,6 @@
 $(document).ready(function()
 {
     showTable();
-    showSelectCategoria('id_categoria', 0);
 })
 
 // Constante para establecer la ruta y parámetros de comunicación con la API

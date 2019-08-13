@@ -102,8 +102,9 @@
             </div>
         </div>
     </div>
-<?php
+    <?php
 Dashboard::footerTemplate('pedidos.js', '#tabla-pedidos');
 ?>
-</body>
-</html>
+    </body>
+
+    </html>
