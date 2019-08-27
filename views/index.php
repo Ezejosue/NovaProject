@@ -89,8 +89,7 @@
     <script src="../resources/js/sweetalert.min.js"></script>
     <script src="../resources/extras/animsition/animsition.min.js"></script>
     <script type="text/javascript" src="../core/helpers/functions.js"></script>
-    <script type="text/javascript" src="../core/controllers/account.js"></script>
-    <script type="text/javascript" src="../core/controllers/index.js"></script>
+    <script type="text/javascript" src="../core/controllers/login.js"></script>
 
 </body>
 
