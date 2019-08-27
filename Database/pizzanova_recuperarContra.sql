@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-08-2019 a las 23:45:34
+-- Tiempo de generación: 27-08-2019 a las 23:08:11
 -- Versión del servidor: 10.1.37-MariaDB
 -- Versión de PHP: 7.3.1
 
@@ -436,8 +436,10 @@ INSERT INTO `unidadmedida` (`id_Medida`, `nombre_medida`, `descripcion`) VALUES
 CREATE TABLE `usuarios` (
   `id_usuario` int(10) UNSIGNED NOT NULL,
   `alias` varchar(50) NOT NULL,
+  `correo_usuario` varchar(100) NOT NULL,
   `clave_usuario` varchar(60) NOT NULL,
   `foto_usuario` varchar(50) DEFAULT NULL,
+  `token_usuario` varchar(100) DEFAULT NULL,
   `fecha_creacion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `estado_usuario` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1 es activo 0 es inactivo',
   `id_Tipousuario` int(10) UNSIGNED DEFAULT NULL
@@ -447,8 +449,8 @@ CREATE TABLE `usuarios` (
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`id_usuario`, `alias`, `clave_usuario`, `foto_usuario`, `fecha_creacion`, `estado_usuario`, `id_Tipousuario`) VALUES
-(1, 'Gerardo', '$2y$10$rtwGWAepKVUdC/HKCg0y5eAER0/8KjRCidjl.L.u7rRpSHAuQ3JdC', '5d2c9630ac4f2.jpeg', '2019-07-15 15:05:20', 1, 1);
+INSERT INTO `usuarios` (`id_usuario`, `alias`, `correo_usuario`, `clave_usuario`, `foto_usuario`, `token_usuario`, `fecha_creacion`, `estado_usuario`, `id_Tipousuario`) VALUES
+(1, 'Gerardo', 'gerardogo145@gmail.com', '$2y$10$Ccf2pr6dvrjpLRItPpkxZ.ERBXK8OI1uSYWrzuMGV1M5ZShBwSdYG', '5d2c9630ac4f2.jpeg', NULL, '2019-07-15 15:05:20', 1, 1);
 
 --
 -- Índices para tablas volcadas

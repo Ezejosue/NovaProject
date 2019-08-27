@@ -4,11 +4,13 @@ class Usuarios extends Validator
 	//Declaración de propiedades
 	private $id = null;
 	private $alias = null;
+	private $correo = null;
 	private $foto = null;
 	private $fecha_creacion = null;
 	private $estado = null;
 	private $tipo_usuario = null;
 	private $clave = null;
+	private $token = null;
 	private $cantidad_productos = null;
 	private $cantidad_categorias = null;
 	private $ruta = '../../resources/img/usuarios/';
@@ -42,6 +44,21 @@ class Usuarios extends Validator
 	public function getAlias()
 	{
 		return $this->alias;
+	}
+
+	public function setCorreo($value)
+	{
+		if ($this->validateEmail($value)) {
+			$this->correo = $value;
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public function getCorreo()
+	{
+		return $this->correo;
 	}
 
 	public function setFoto($file, $name)
@@ -114,6 +131,17 @@ class Usuarios extends Validator
 		return $this->clave;
 	}
 
+	public function setToken($value)
+	{
+		 $this->token = $value;
+		 return true;
+	}
+
+	public function getToken()
+	{
+		return $this->token;
+	}
+
 	public function getRuta()
 	{
 		return $this->ruta;
@@ -175,6 +203,48 @@ class Usuarios extends Validator
 		}
 	}
 
+	//Método para verificar que el correo ingresado para recuperar la contraseña, esté registrado en el sistema
+	public function checkCorreo()
+	{
+		$sql = 'SELECT correo_usuario FROM usuarios WHERE correo_usuario = ?';
+		$params = array($this->correo);
+		return Conexion::getRow($sql, $params);
+	}
+
+	public function updateToken()
+	{
+		$sql = 'UPDATE usuarios SET token_usuario = ? WHERE correo_usuario = ?';
+		$params = array($this->token, $this->correo);
+		return Conexion::executeRow($sql, $params);
+	}
+
+	public function getDatosToken()
+	{
+		$sql = 'SELECT id_usuario FROM usuarios WHERE token_usuario = ?';
+		$params = array($this->token);
+		$data = Conexion::getRow($sql, $params);
+		if ($data) {
+			$this->id = $data['id_usuario'];
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public function deleteToken()
+	{
+		$sql = 'UPDATE usuarios SET token_usuario = null WHERE id_usuario = ?';
+		$params = array($this->id);
+		return Conexion::executeRow($sql, $params);
+	}
+
+	public function validarToken()
+	{
+		$sql = 'SELECT token_usuario FROM usuarios WHERE token_usuario = ?';
+		$params = array($this->token);
+		return Conexion::getRow($sql, $params);
+	}
+
 	//Métodos para manejar el CRUD
 	//Método para leer la tabla usuarios
 	public function readUsuarios()
@@ -191,6 +261,7 @@ class Usuarios extends Validator
 		$params = array(null);
 		return Conexion::getRows($sql, $params);
 	}
+	
 
 	//Método para crear un usuario
 	public function createUsuario()
