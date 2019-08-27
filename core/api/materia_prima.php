@@ -160,6 +160,7 @@ if (isset($_GET['action'])) {
                         $result['exception'] = 'Materia prima incorrecta';
                     }
                 break;
+                
             //Operación para mostrar los tipos de usuario activos en el formulario de modificar usuario
             case 'readCategoria':
                 if ($result['dataset'] = $materia->readCategoriaMateria()) {
@@ -176,6 +177,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Contenido no disponible';
                 }
                 break;
+                
                 
             default:
                 exit('Acción no disponible 1');

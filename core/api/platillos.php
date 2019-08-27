@@ -105,7 +105,7 @@ if (isset($_GET['action'])) {
                                         if ($platillo->updatePlatillo()) {
                                             $result['status'] = 1;
                                             if ($archivo) {
-                                                if ($platillo->saveFile($_FILES['imagen'], $platillo->getRuta(), $platillo->getImagen())) {
+                                                if ($platillo->saveFile($_FILES['update_imagen'], $platillo->getRuta(), $platillo->getImagen())) {
                                                     $result['message'] = 'Categoría modificada correctamente';
                                                         } else {
                                                             $result['message'] = 'Categoría modificada. No se guardó el archivo';

@@ -2,7 +2,7 @@
 require_once('plantilla.php');
 require_once('../helpers/conexion.php');
 require_once('../helpers/validator.php');
-require_once('../models/platillos.php');
+require_once('../models/materia_prima.php');
 
 ini_set('date.timezone', 'America/El_Salvador');
 /* Creamos el objeto pdf (con medidas en milímetros):  */
@@ -13,13 +13,13 @@ $pdf->SetMargins(20, 20, 20);
 $pdf->SetAutoPageBreak(true,20);  
 //Agregamos la primera pagina al documento pdf  
 $pdf->addPage();
-$platillos = new Platillos();
+$materia = new Materias();
 $pdf->SetFont('Arial','B',10);
-$data = $platillos->platillos_vendidos_categoria();
+$data = $materia->readMeteriaCategoria();
 $pdf->Ln();
 $pdf->setX(60);
 // Cell(ancho, Alto, texto, borde, salto de linea, alineacion de texto)
-$pdf->Cell(100,5, utf8_decode('REPORTE DE GANANCIAS POR CATEGORÍA'), 0, 0, 'C');  
+$pdf->Cell(100,5, utf8_decode('REPORTE DE MATERIA PRIMA POR CATEGORIA'), 0, 0, 'C');  
 $pdf->Ln(10);
 // Seteamos la posición de la proxima celda en forma fija a 3.8 cm hacia la derecha de la pagina
 $pdf->setX(38);
@@ -40,8 +40,8 @@ foreach($data as $datos){
         $pdf->Cell(155,10, utf8_decode($datos['nombre_categoria']),1,0,'C',true);
         $pdf->Ln();        
         $pdf->setX(30);
-        $pdf->Cell(15,10, utf8_decode('Vendidos'),1,0,'C');
-        $pdf->Cell(140,10, utf8_decode('Ganancia'),1,0,'C');
+        $pdf->Cell(135,10, utf8_decode('Producto'),1,0,'C');
+        $pdf->Cell(20,10, utf8_decode('Cantidad'),1,0,'C');
         $categoria = $datos['nombre_categoria'];
         //saldo de linea
         $pdf->Ln();
@@ -50,8 +50,8 @@ foreach($data as $datos){
         $pdf->setX(30);
           // Cell(ancho, Alto, texto, borde, salto de linea, alineación de texto, color)
         //convertimos el texto a utf8
-        $pdf->Cell(15,10, utf8_decode($datos['Vendidos']),1,0,'C');
-        $pdf->Cell(140,10, utf8_decode($datos['Ganancia']),1,0,'C');
+        $pdf->Cell(135,10, utf8_decode($datos['nombre_materia']),1,0,'C');
+        $pdf->Cell(20,10, utf8_decode($datos['cantidad']),1,0,'C');
         $pdf->Ln();
 }
 

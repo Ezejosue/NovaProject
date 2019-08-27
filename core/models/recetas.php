@@ -6,6 +6,7 @@ class Recetas extends Validator
 	private $nombrereceta = null;
 	private $tiempo = null;
 	private $elaboracion = null;
+	private $idelab = null;
 	private $idmateria = null;
 	private $idmedida = null;
 	private $cantidad = null;
@@ -24,6 +25,21 @@ class Recetas extends Validator
 	public function getIdReceta()
 	{
 		return $this->idreceta;
+	}
+
+	public function setIdElab($value)
+	{
+		if ($this->validateId($value)) {
+			$this->idelab = $value;
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public function getIdElab()
+	{
+		return $this->idelab;
 	}
 
 	public function setNombreReceta($value)
@@ -158,10 +174,20 @@ class Recetas extends Validator
 
 	public function getReceta()
 	{
-		$sql = 'SELECT id_receta
+		$sql = 'SELECT id_receta, nombre_receta, tiempo
 				FROM receta 
 				WHERE id_receta = ?';
 		$params = array($this->idreceta);
+		return conexion::getRow($sql, $params);
+	}
+
+	public function getElab()
+	{
+		$sql = 'SELECT id_elaboracion, id_receta, e.cantidad, idMateria 
+		FROM elaboraciones e 
+		INNER JOIN materiasprimas USING(idMateria) 
+		WHERE id_elaboracion = ? ';
+		$params = array($this->idelab);
 		return conexion::getRow($sql, $params);
 	}
 
@@ -169,22 +195,29 @@ class Recetas extends Validator
 	{
 		$sql = 'INSERT INTO elaboraciones(id_receta, cantidad, idMateria) VALUES(?, ?, ?)';
 		$params = array($this->idreceta, $this->cantidad, $this->idmateria);
-		return Conexion::getRows($sql, $params);
+		return Conexion::executeRow($sql, $params);
 	}
 
 
 	public function readMateriasPrimas()
 	{
 		$sql = 'SELECT idMateria, CONCAT(nombre_materia, " (" ,u.descripcion, ")") AS Materia 
-		FROM materiasprimas INNER JOIN unidadmedida u GROUP BY nombre_materia ';
+		FROM materiasprimas INNER JOIN unidadmedida u USING(id_Medida) GROUP BY nombre_materia ';
 		$params = array($this->idreceta);
 		return Conexion::getRows($sql, $params);
 	}
 
 	public function updateReceta()
 	{
-		$sql = 'UPDATE receta SET nombre_receta = ?, tiempo = ?, elaboracion = ?, id_categoria = ?, idMateria = ? WHERE id_receta = ?';
-		$params = array($this->nombrereceta,  $this->tiempo, $this->elaboracion, $this->idcategoria, $this->idmateria, $this->idreceta);
+		$sql = 'UPDATE receta SET nombre_receta = ?, tiempo = ? WHERE id_receta = ?';
+		$params = array($this->nombrereceta,  $this->tiempo, $this->idreceta);
+		return conexion::executeRow($sql, $params);
+	}
+
+	public function updateElaboracion()
+	{
+		$sql = 'UPDATE elaboraciones SET id_receta = ?, cantidad = ?, idMateria = ? WHERE id_elaboracion = ?';
+		$params = array($this->idreceta,  $this->cantidad, $this->idmateria, $this->idelab);
 		return conexion::executeRow($sql, $params);
 	}
 
@@ -192,6 +225,23 @@ class Recetas extends Validator
 	{
 		$sql = 'DELETE FROM receta WHERE id_receta = ?';
 		$params = array($this->idreceta);
+		return conexion::executeRow($sql, $params);
+	}
+	
+	public function getMateriasRecetas()
+	{
+		$sql = 'SELECT id_elaboracion, id_receta, CONCAT(nombre_materia, " (", u.descripcion, ")") AS MateriaPrima, e.cantidad, idMateria 
+		FROM elaboraciones e 
+		INNER JOIN materiasprimas USING (idMateria)
+		INNER JOIN unidadmedida u USING (id_Medida) WHERE id_receta = ?';
+		$params = array($this->idreceta);
+		return conexion::getRows($sql, $params);
+	}
+
+	public function RecetaCategoria()
+	{
+		$sql = 'SELECT nombre_categoria, nombre_receta, elaboracion from receta INNER JOIN categorias USING(id_categoria) GROUP by nombre_categoria LIMIT 10';
+		$params = array(null);
 		return conexion::executeRow($sql, $params);
 	}
 }

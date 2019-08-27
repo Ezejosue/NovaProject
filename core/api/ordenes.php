@@ -73,7 +73,7 @@ if (isset($_GET['action'])) {
 					$result['exception'] = 'Mesa incorrecta';
 				}
 				break;
-				
+	
 				case 'deleteProducto':
 				if($ordenes->setIdPrepedido($_POST['id_prepedido'])){
                     if ($ordenes->getPre()){
@@ -108,55 +108,76 @@ if (isset($_GET['action'])) {
 
 				break;
 
-				case 'createPedido':
-                if($ordenes->setIdUsuario($_SESSION['idUsuario'])){
-					if($ordenes->createPedido()){
-						if($ordenes->readUltimoPedido()){
-							if($ordenes->setIdMesa($_POST['idMesa'])){
-								print_r('test');
-								if ($ordenes->readPrepedido()){
-									if($data = $ordenes->readPrepedido2()){
-										foreach($data as $platillo){
-											if($ordenes->setPlatillo($platillo['id_platillo'])){
-												if($ordenes->setCantidad($platillo['cantidad'])){
-													if($ordenes->createDetallePedido()){
-														$result['status'] = 1;
-													} else {
-														
-													}
-													
-												} else {
-													$result['exception'] = 'Cantidad incorrecta';
-												}
-											} else {
-												$result['exception'] = 'Producto incorrecto';
-											}
-										}
-										if($ordenes->deletePrepedido()){
-											$result['status'] = 1;
-											
-										} else {
-											$result['exception'] = 'Ocurrió un problema al eliminar el pre pedido';
-										}
-									} else {
-										$result['exception'] = 'Ocurrió un problema al obtener los productos';
-									}
-								} else {
-									$result['exception'] = 'Ocurrió un problema al obtener los datos del pre pedido';
-								}
+				case 'updateNumeroMesa':
+				$_POST = $ordenes->validateForm($_POST);
+					if($ordenes->setIdMesa($_POST['idMesa'])){
+						if($ordenes->setIdMesaNueva($_POST['idMesaNueva'])){
+							if($ordenes->updateNumeroMesa()){
+								$result['status'] = 1;
 							} else {
-								$result['exception'] = 'Ocurrió un problema al obtener la mesa';
+								$result['exception'] = 'Operación fallida';
 							}
 						} else {
-							$result['exception'] = 'Ocurrió un problema al obtener el ultimo pedido';
+							$result['exception'] = 'Mesa nueva incorrecta';
 						}
 					} else {
-						$result['exception'] = 'Ocurrió un problema al crear el pedido';
+						$result['exception'] = 'Mesa actual incorrecta';
 					}
-			
-		} else {
-			$result['exception'] = 'Inicie Sesión';
-		}  
+
+				break;
+
+				case 'createPedido':
+                if($ordenes->setIdUsuario($_SESSION['idUsuario'])){
+					if($ordenes->setIdMesa($_POST['idMesa'])){
+						if($ordenes->createPedido()){
+							if($ordenes->readUltimoPedido()){
+								if($ordenes->setIdMesa($_POST['idMesa'])){
+									print_r('test');
+									if ($ordenes->readPrepedido()){
+										if($data = $ordenes->readPrepedido2()){
+											foreach($data as $platillo){
+												if($ordenes->setPlatillo($platillo['id_platillo'])){
+													if($ordenes->setCantidad($platillo['cantidad'])){
+														if($ordenes->createDetallePedido()){
+															$result['status'] = 1;
+														} else {
+															
+														}
+														
+													} else {
+														$result['exception'] = 'Cantidad incorrecta';
+													}
+												} else {
+													$result['exception'] = 'Producto incorrecto';
+												}
+											}
+											if($ordenes->deletePrepedido()){
+												$result['status'] = 1;
+												
+											} else {
+												$result['exception'] = 'Ocurrió un problema al eliminar el pre pedido';
+											}
+										} else {
+											$result['exception'] = 'Ocurrió un problema al obtener los productos';
+										}
+									} else {
+										$result['exception'] = 'Ocurrió un problema al obtener los datos del pre pedido';
+									}
+								} else {
+									$result['exception'] = 'Ocurrió un problema al obtener la mesa';
+								}
+							} else {
+								$result['exception'] = 'Ocurrió un problema al obtener el ultimo pedido';
+							}
+						} else {
+							$result['exception'] = 'Ocurrió un problema al crear el pedido';
+						}
+					} else {
+						$result['exception'] = 'Ocurrió un problema al obtener la mesa';
+					}		
+				} else {
+					$result['exception'] = 'Inicie Sesión';
+				}  
 		break;
             
 			default:

@@ -77,18 +77,21 @@ class Pedidos extends Validator
 	{
 		return $this->cantidad;
     }
-    
+	
+	/* 
+	SELECT id_detalle as Pedidos, precio*cantidad as Ganancia, nombre_platillo from detalle_pedido INNER JOIN pedidos USING(id_pedido) INNER JOIN platillos USING(id_platillo) ORDER by Pedidos */
+
 	// Metodos para el manejo del SCRUD
 	public function readDetalle()
 	{
-		$sql = 'SELECT id_detalle, id_pedido, id_platillo, nombre_platillo, cantidad, precio,  FROM detalle_pedido INNER JOIN platillos USING(id_platillo) WHERE id_pedido = ?';
+		$sql = 'SELECT id_detalle, id_pedido, id_platillo, nombre_platillo, cantidad, precio FROM detalle_pedido INNER JOIN platillos USING(id_platillo) WHERE id_pedido = ?';
 		$params = array($this->idPedido);
 		return conexion::getRows($sql, $params);
     }
     
     public function getPedido()
 	{
-		$sql = 'SELECT id_pedido, fecha_pedido, id_usuario FROM pedidos WHERE id_pedido = ?';
+		$sql = 'SELECT id_pedido, fecha_pedido, alias FROM pedidos INNER JOIN usuarios USING(id_usuario) WHERE id_pedido = ?';
 		$params = array($this->idPedido);
 		return Conexion::getRow($sql, $params);
 	}
@@ -99,5 +102,21 @@ class Pedidos extends Validator
 		$params = array(null);
 		return conexion::getRows($sql, $params);
 	}
+
+	public function readPedidosFecha()
+	{
+		$sql = 'SELECT fecha_pedido, COUNT(id_pedido) AS Pedidos FROM pedidos  GROUP BY fecha_pedido LIMIT 10';
+		$params = array(null);
+		return conexion::getRows($sql, $params);
+	}
+
+
+	public function readPedidosFecha1($fecha)
+	{
+		$sql = "SELECT fecha_pedido, id_pedido, alias FROM pedidos  INNER JOIN usuarios USING(id_usuario) where fecha_pedido>=?";
+		$params = array($fecha);
+		return conexion::getRows($sql, $params);
+	}
+
 }
 ?>

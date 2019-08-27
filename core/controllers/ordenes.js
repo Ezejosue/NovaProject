@@ -7,13 +7,14 @@ $(document).ready(function()
 
 // Constante para establecer la ruta y parámetros de comunicación con la API
 const apiOrdenes = '../core/api/ordenes.php?site=private&action=';
-
-
 var idMesa;
-var variable;
-var mesa;
+var numero_platillo;
 var subtotal = 0;
+var total = 0;
+ //variable que define el cuerpo de la tabla
+ let cuerpo_tabla;
 
+//Función que muestra las mesas con estado activo en ordenes.php
 function showMesas(){
     $.ajax({
         url: apiOrdenes + 'readMesas',
@@ -27,15 +28,60 @@ function showMesas(){
             const result = JSON.parse(response);
             //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
             if (result.status) {
-                
                 let content = '';
                 result.dataset.forEach(function(row){
+                    //Se crea un botón por cada mesa existente en la base y a través del boton se manda el id_mesa para mostrar el pre pedido correspondiente a cada mesa
                     content+= `<a href="#" class="btn btn-primary" style="border-radius: 10px; margin: 2px;" onclick="showPrepedido(${row.id_mesa})">
                     <h4 style="color: white; font-size: 20px;">MESA ${row.numero_mesa}</h4>
                     <i class="fas fa-pizza-slice"></i>
                     </a>`;
                 });
+                //Luego de terminar el ciclo, see colocan todos los botones generados en la pantalla
                 $('#data-mesas').html(content);
+            } else {
+                sweetAlert(2, result.exception, null);
+            }
+        } else {
+            console.log(response);
+        }
+    })
+    .fail(function(jqXHR){
+        //Se muestran en consola los posibles errores de la solicitud AJAX
+        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+    });
+}
+
+//Función que muestra las mesas activas en el modal de modificar la mesa del pre pedido
+function showModificarMesas(id){
+    $.ajax({
+        url: apiOrdenes + 'readMesas',
+        type: 'post',
+        data: {
+            idMesa: id
+        },
+        datatype: 'json' 
+    })
+    .done(function(response){
+        //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+        if (isJSONString(response)) {
+            const result = JSON.parse(response);
+            //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
+            if (result.status) {
+                /* if (result.dataset.id_mesa = idMesa){
+                }
+                    console.log('BIEEEN');
+                } else {
+                    console.log('Terrible');
+                } */
+                let content = '';
+                result.dataset.forEach(function(row){
+                    //Se crea un botón por cada mesa existente en la base y a través del boton se manda el id_mesa para mostrar el pre pedido correspondiente a cada mesa
+                    content+= `<a href="#" class="btn btn-primary" style="border-radius: 10px; margin: 2px;" onclick="updateNumeroMesa(${row.id_mesa}, ${id})">
+                    <h4 style="color: white; font-size: 20px;">MESA ${row.numero_mesa}</h4>
+                    <i class="fas fa-pizza-slice"></i>
+                    </a>`;
+                });
+                $('#data-modificar-mesas').html(content);
             } else {
 
             }
@@ -49,6 +95,7 @@ function showMesas(){
     });
 }
 
+//Función que muestra las categorias de los productos
 function showCategorias(){
     $.ajax({
         url: apiOrdenes + 'readCategorias',
@@ -62,13 +109,14 @@ function showCategorias(){
             const result = JSON.parse(response);
             //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
             if (result.status) {
-                let content2 = '';
+                let lista = '';
                 result.dataset.forEach(function(row){
-                    content2+= `<a class="list-group-item list-group-item-action" onclick="showProductos(${row.id_categoria})" href="#list-item-1">${row.nombre_categoria}</a>`;
+                    //Se crea una sección en la lista por cada categoria existente en la base
+                    lista+= `<a class="list-group-item list-group-item-action" onclick="showProductos(${row.id_categoria})" href="#list-item-1">${row.nombre_categoria}</a>`;
                 });
-                $('#lista').html(content2);
+                $('#lista-categorias').html(lista);
             } else {
-
+                sweetAlert(2, result.exception, null);
             }
         } else {
             console.log(response);
@@ -80,6 +128,7 @@ function showCategorias(){
     });
 }
 
+//Función que muestra los productos correspondientes a su categoría
 function showProductos(id){
     $.ajax({
         url: apiOrdenes + 'readProductos',
@@ -95,11 +144,12 @@ function showProductos(id){
             const result = JSON.parse(response);
             //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
             if (result.status) {
-                let content2 = '';
+                let tarjeta_producto = '';
                 result.dataset.forEach(function(row){
-                    
-                    variable = row.id_platillo;
-                    content2+= `
+                    //se le asigna a la variable numero_platillo el id_platillo por cada producto existente en la base
+                    numero_platillo = row.id_platillo;
+                    //se crea una tarjeta y un input para la cantidad con id unico para cada producto
+                    tarjeta_producto+= `
                     <div class="col-sm-12 col-md-4 col-lg-4">
                         <div class="card text-center">
                             <div class="card-header">
@@ -112,15 +162,15 @@ function showProductos(id){
                                 <h5 class="card-text">$ ${row.precio}</h5>
                             </div>
                             <div class="card-footer">
-                                <input type="number" style="width: 50px;" max="999" min="1" id="cantidad_producto${variable}" name="cantidad_producto${variable}">
+                                <input type="number" style="width: 50px;" max="999" min="1" id="cantidad_producto${numero_platillo}" name="cantidad_producto${numero_platillo}">
                                 <a href="#"class="btn btn-success" style="border-radius: 20px" onclick="addProducto(${row.id_platillo})"><i class="fas fa-plus"></i></a>
                             </div>
                         </div>
                     </div>`;
                 });
-                $('#productos').html(content2);
+                $('#productos').html(tarjeta_producto);
             } else {
-
+                sweetAlert(2, result.exception, null);
             }
         } else {
             console.log(response);
@@ -132,9 +182,9 @@ function showProductos(id){
     });
 }
 
+//Función que muestra el pre pedido de la mesa seleccionada
 function showPrepedido(id){
     idMesa = id;
-    var total = 0;
     $.ajax({
         url: apiOrdenes + 'readPrepedido',
         type: 'post',
@@ -149,52 +199,56 @@ function showPrepedido(id){
             const result = JSON.parse(response);
             //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
             if (result.status) {
-                let content3 = '';
-                let content4 = '';
+                cuerpo_tabla = '';
+                //variable que crea un boton de modificar la cantidad por cada producto agregado al pre pedido
+                let boton_modificar_cantidad = '';
+                //variable que crea el boton de generar la factura y solo se muestra cuando hay productos agregados al pre pedido
+                let boton_pago = '';
+                //variable que crea el boton para cambiar de mesa el pre pedido actual
+                let boton_modificar_mesa = '';
                 total = 0;
-                let content5 = '';
                 result.dataset.forEach(function(row){
-                    mesa = row.id_mesa;
+                    //En este ciclo se obtiene el subtotal por cada producto que se obtiene en la consulta y tambien el total
                     subtotal = parseFloat(row.cantidad * row.precio).toFixed(2);
                     total = parseFloat(subtotal) + parseFloat(total);
                     total = parseFloat(total).toFixed(2);
-                    content3+= `
+                    cuerpo_tabla += `
                     <tr>
                         <td><img src="../resources/img/platillos/${row.imagen}" style="width: 100px; height: 100px;"> </td>
                         <td>${row.nombre_platillo}</td>
                         <td>$ ${row.precio}</td>
                         <td>${row.cantidad}</td>
                         <td>${subtotal}</td>
-                        <td><a href="#" onclick="deleteProducto('${row.id_prepedido}')" class="btn btn-danger" style="border-radius: 15px;"><i class="fas fa-times"></i></a>
-                        <a href="#modal-modificar" class="btn btn-primary modal-trigger" data-toggle="modal"
-                                style="border-radius: 15px;"><i class="fas fa-edit"></i>
+                        <td><a href="#" onclick="deleteProducto('${row.id_prepedido}')" class="btn btn-danger" style="border-radius: 15px;" data-toggle="tooltip" data-placement="right" title="Eliminar producto"><i class="fas fa-times"></i></a>
+                        <a href="#modal-modificar" class="btn btn-primary modal-trigger" data-toggle="modal" style="border-radius: 15px;" data-tooltip="tooltip" data-placement="right" title="Editar cantidad"><i class="fas fa-edit"></i>
                         </a>
                         </td>
                     </tr>`;
 
-                    content4 = `<a href="#" class="btn btn-success" style="border-radius: 15px;"><i class="fas fa-check" onclick="updateCantidad('${row.id_prepedido}')"></i></a>`;
-                    content5 = `<a href="#" onclick="confirmPago(${idMesa})" class="btn btn-primary btn-sm" target="_blank">CONTINUAR</a>`;
-
+                    boton_modificar_cantidad = `<a href="#" class="btn btn-success" style="border-radius: 15px;"><i class="fas fa-check" onclick="updateCantidad('${row.id_prepedido}')"></i></a>`;
+                    boton_pago = `<button onclick="confirmPago(${idMesa})" class="btn btn-primary btn-sm">CONTINUAR</button>`;
+                    boton_modificar_mesa = `<a href="#modal-modificar-mesa" class="btn btn-info modal-trigger" data-toggle="modal"
+                    style="border-radius: 20px; margin: 15px;" data-tooltip="tooltip" data-placement="right"
+                    title="Mover productos a otra mesa" onclick="showModificarMesas(${idMesa})"><i class="fas fa-utensils"></i></a>`;
                 });
-                
-                $('#prepedido').html(content3);
-                $('#ingresar_cantidad').html(content4);
-                $('#boton-pago').html(content5);
+                $('#prepedido').html(cuerpo_tabla);
+                $('#ingresar_cantidad').html(boton_modificar_cantidad);
+                $('#boton-pago').html(boton_pago);
+                $('#boton-modificar-mesa').html(boton_modificar_mesa);
                 $('#mesa').html(idMesa);
                 $('#total').html(total);
                 $('#modal-orden').modal('show');
-                
-               
             } else {
                 total = 0;
                 $('#mesa').html(idMesa);
                 $('#total').html(total);
                 $('#prepedido').html('');
+                $('#boton-modificar-mesa').html('');
+                $('#boton-pago').html('');
                 $('#modal-orden').modal('show');
             }
         } else {
             console.log(response);
-            
         }
     })
     .fail(function(jqXHR){
@@ -220,17 +274,14 @@ function addProducto(id){
             const result = JSON.parse(response);
             //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
             if (result.status) {
+                showPrepedido(idMesa);
                 sweetAlert(1, 'Producto agregado correctamente', null);
             } else {
                 sweetAlert(2, result.exception, null);
                 console.log(response);
             }
         } else {
-            sweetAlert(1, 'Producto agregado correctamente', 'mesas.php');
-            $('#modal-orden').modal('hide');
-            $('#prepedido').html('');
-            $('#form-agregar')[0].reset();
-            $('#modal-orden').modal('show');
+            console.log(response);
             
         }
     })
@@ -243,7 +294,7 @@ function addProducto(id){
 
 //Función para modificar un registro seleccionado previamente
 function updateCantidad(id)
-{ console.log($('#nueva_cantidad').val());
+{
     $.ajax({
         
         url: apiOrdenes + 'updateCantidad',
@@ -262,6 +313,7 @@ function updateCantidad(id)
             if (result.status) {
                 $('#modal-modificar').modal('hide');
                 if (result.status == 1) {
+                    showPrepedido(idMesa);
                     sweetAlert(1, 'Cantidad modificada correctamente', null);
                 } else if(result.status == 2) {
                     sweetAlert(3, 'Cantidad modificada. ' + result.exception, null);
@@ -281,6 +333,38 @@ function updateCantidad(id)
         console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
     });
 }
+
+function updateNumeroMesa(id, id2){
+    idMesaNueva = id;
+    $.ajax({
+        url: apiOrdenes + 'updateNumeroMesa',
+        type: 'post',
+        data: {
+            idMesaNueva: id,
+            idMesa: id2
+        },
+        datatype: 'json'
+    })
+    .done(function(response){
+        //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+        if (isJSONString(response)) {
+            const result = JSON.parse(response);
+            //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
+            if (result.status) {
+                sweetAlert(1, 'Mesa modificada correctamente', 'ordenes.php');
+            } else {
+                sweetAlert(2, result.exception, null);
+            }
+        } else {
+            console.log(response);
+        }
+    })
+    .fail(function(jqXHR){
+        //Se muestran en consola los posibles errores de la solicitud AJAX
+        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+    });
+}
+
 //Función para eliminar un registro seleccionado
 function deleteProducto(id)
 {
@@ -309,11 +393,9 @@ function deleteProducto(id)
                     //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
                     if (result.status) {
                         if (result.status == 1) {
-                            sweetAlert(1, 'Producto eliminado del pedido', null);
-                            $('#prepedido').html('');
+                            showPrepedido(idMesa);
                             $('#total').html(total);
-
-
+                            sweetAlert(1, 'Producto eliminado del pedido', null);
                         } else if (result.status == 2) {
                             sweetAlert(3, 'Producto eliminado. ' + result.exception, null);
                         }
@@ -332,7 +414,6 @@ function deleteProducto(id)
     });
 }
 
-
 function confirmPago(id)
 {
     event.preventDefault();
@@ -345,7 +426,6 @@ function confirmPago(id)
         closeOnEsc: false
     })
     .then(function(value){
-        console.log('HOLA');
         if (value) {
             $.ajax({
                 url: apiOrdenes + 'createPedido',
@@ -354,7 +434,6 @@ function confirmPago(id)
                 data: {
                     idMesa: id
                 } 
-                
             })
             .done(function(response){
                 //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
@@ -363,7 +442,7 @@ function confirmPago(id)
                     //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
                     if (result.status) {
                         if (result.status == 1) {
-                            sweetAlert(1, 'Pedido realizado', window.open('../core/report/ticket.php'));
+                            sweetAlert(1, 'Pedido realizado', ('../core/report/ticket.php'));
                         } else if (result.status == 2) {
                             sweetAlert(3, 'Pedido realizado. ' + result.exception, null);
                         }
@@ -371,8 +450,7 @@ function confirmPago(id)
                         sweetAlert(2, result.exception, null);
                     }
                 } else {
-                    sweetAlert(1, 'Pedido realizado', window.open('../core/report/ticket.php'));
-                    console.log(response);
+                    sweetAlert(1, 'Pedido realizado', ('../core/report/ticket.php'));
                 }
             })
             .fail(function(jqXHR){

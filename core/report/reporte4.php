@@ -15,11 +15,11 @@ $pdf->SetAutoPageBreak(true,20);
 $pdf->addPage();
 $platillos = new Platillos();
 $pdf->SetFont('Arial','B',10);
-$data = $platillos->platillos_vendidos_categoria();
+$data = $platillos->platillos_vendidos();
 $pdf->Ln();
 $pdf->setX(60);
 // Cell(ancho, Alto, texto, borde, salto de linea, alineacion de texto)
-$pdf->Cell(100,5, utf8_decode('REPORTE DE GANANCIAS POR CATEGORÍA'), 0, 0, 'C');  
+$pdf->Cell(100,5, utf8_decode('REPORTE DE GANANCIA POR PLATILLO'), 0, 0, 'C');  
 $pdf->Ln(10);
 // Seteamos la posición de la proxima celda en forma fija a 3.8 cm hacia la derecha de la pagina
 $pdf->setX(38);
@@ -28,7 +28,7 @@ $categoria = '';
 
 //Comienza a crear las filas de productos según la consulta mysql del modelo
 foreach($data as $datos){
-    if(utf8_decode($datos['nombre_categoria']) != $categoria){
+    if(utf8_decode($datos['nombre_platillo']) != $categoria){
         //Se coloca el color del fondo de las celdas en formato rgb
         $pdf->SetFillColor(239, 127, 26);
         //Se coloca el color del texto en formato rgb
@@ -37,12 +37,12 @@ foreach($data as $datos){
         $pdf->setX(30);
         // Cell(ancho, Alto, texto, borde, salto de linea, alineación de texto, color)
         //convertimos el texto a utf8
-        $pdf->Cell(155,10, utf8_decode($datos['nombre_categoria']),1,0,'C',true);
+        $pdf->Cell(160,10, utf8_decode($datos['nombre_platillo']),1,0,'C',true);
         $pdf->Ln();        
         $pdf->setX(30);
         $pdf->Cell(15,10, utf8_decode('Vendidos'),1,0,'C');
-        $pdf->Cell(140,10, utf8_decode('Ganancia'),1,0,'C');
-        $categoria = $datos['nombre_categoria'];
+        $pdf->Cell(145,10, utf8_decode('Ganancia ($)'),1,0,'C');
+        $categoria = $datos['nombre_platillo'];
         //saldo de linea
         $pdf->Ln();
     }
@@ -51,9 +51,11 @@ foreach($data as $datos){
           // Cell(ancho, Alto, texto, borde, salto de linea, alineación de texto, color)
         //convertimos el texto a utf8
         $pdf->Cell(15,10, utf8_decode($datos['Vendidos']),1,0,'C');
-        $pdf->Cell(140,10, utf8_decode($datos['Ganancia']),1,0,'C');
+        $pdf->Cell(145,10, utf8_decode($datos['Ganancia']),1,0,'C');
         $pdf->Ln();
 }
+
+
 
 
 $pdf->AliasNbPages();

@@ -18,8 +18,7 @@ if (isset($_GET['action'])) {
                 } else {
                     $result['exception'] = 'No hay recetas registradas';
                 }
-                break;
-
+                break;              
             //Operación para crear nuevos usuarios
             case 'create':
                 $_POST = $recetas->validateForm($_POST);
@@ -46,7 +45,6 @@ if (isset($_GET['action'])) {
                                 if ($recetas->createElaboracion()) {
                                         $result['status'] = 1;
                                 } else {
-                                    $result['status'] = 1;
                                     $result['exception'] = 'Operación fallida';
                                 }
                             }else {
@@ -65,77 +63,90 @@ if (isset($_GET['action'])) {
                     if ($result['dataset'] = $recetas->getReceta()) {
                         $result['status'] = 1;
                     } else {
-                        $result['exception'] = 'Materias primas inexistentes';
+                        $result['exception'] = 'Receta inexistente';
                     }
                 } else {
                     
                     $result['exception'] = 'Receta incorrecta';
                 }
                 break;
+
+                case 'getElaboracion':
+                if ($recetas->setIdElab($_POST['id_elaboracion'])) {
+                    if ($result['dataset'] = $recetas->getElab()) {
+                        $result['status'] = 1;
+                    } else {
+                        $result['exception'] = 'Elaboracion inexistente';
+                    }
+                } else {
+                    
+                    $result['exception'] = 'Elaboracion incorrecta';
+                }
+                break;
+                case 'readTableRecetas':
+                    if ($recetas->setIdReceta($_POST['id_receta'])) {
+                        if ($result['dataset'] = $recetas->getMateriasRecetas()) {
+                            $result['status'] = 1;
+                        } else {
+                            $result['exception'] = 'No hay recetas registradas';
+                        }
+                    }else{
+                        $result['exception'] = 'Receta incorrecta';
+                    }
+                break;
             //Operación para actualizar un usuario
             case 'update':
 				$_POST = $recetas->validateForm($_POST);
-				if ($recetas->setId($_POST['id_materia'])) {
-					if ($recetas->getMateriaPrima()) {
-		                if ($recetas->setNombre($_POST['nombre_materia'])) {
-                            if ($recetas->setDescripcion($_POST['descripcion_materia'])) {
-                                if ($recetas->setCantidad($_POST['cantidad'])) {
-                                    if ($recetas->setEstado(isset($_POST['update_estado']) ? 1 : 0)) {
-                                        if ($recetas->setCategorias($_POST['update_categoria'])) {
-                                            if ($recetas->setIdMedida($_POST['update_unidad'])) {
-                                            //Se comprueba que se haya subido una imagen
-                                            if (is_uploaded_file($_FILES['foto']['tmp_name'])) {
-                                                if ($recetas->setImagen($_FILES['foto'], $_POST['foto_materia'])) {
-                                                    $archivo = true;
-                                                } else {
-                                                    $result['exception'] = $recetas->getImageError();
-                                                    $archivo = false;
-                                                }
-                                            } else {
-                                                if (!$recetas->setImagen(null, $_POST['foto_materia'])) {
-                                                    $result['exception'] = $recetas->getImageError();
-                                                }
-                                                $archivo = false;
-                                            }
-                                        if ($recetas->updateMateriaPrima()) {
+				if ($recetas->setIdReceta($_POST['id_receta'])) {
+					if ($recetas->getReceta()) {
+		                if ($recetas->setNombreReceta($_POST['update_nombre'])) {
+                            if ($recetas->setTiempo($_POST['update_tiempo'])) {
+                                        if ($recetas->updateReceta()) {
                                             $result['status'] = 1;
-                                            if ($archivo) {
-                                                if ($recetas->saveFile($_FILES['foto'], $recetas->getRuta(), $recetas->getImagen())) {
-                                                    $result['message'] = 'Categoría modificada correctamente';
-                                                        } else {
-                                                            $result['message'] = 'Categoría modificada. No se guardó el archivo';
-                                                        }
-                                                    } else {
-                                                        $result['message'] = 'Categoría modificada. No se subió ningún archivo';
-                                                    }
-                                                } else {
-                                                    $result['exception'] = 'Operación fallida';
-                                                }
-                                            } else {
-                                                $result['exception'] = 'Seleccione una unidad de medida';
-                                            }
-                                            } else {
-                                                $result['exception'] = 'Seleccione una categoria';
-                                            }
                                         } else {
-                                            $result['exception'] = 'Estado incorrecto';
-                                            }
-                                    }else {
-                                        $result['exception'] = 'Cantidad incorrecta';
-                                    } 
+                                            $result['exception'] = 'Operación fallida';
+                                        }
                                 }else {
-                                    $result['exception'] = 'Descripcion incorrecta';
+                                    $result['exception'] = 'Tiempo incorrecta';
                                 }
                             }else {
-                                $result['exception'] = 'Nombre de materia prima incorrecta';
+                                $result['exception'] = 'Nombre de receta incorrecta';
                             }
                         } else {
-                            $result['exception'] = 'Materia prima inexistente';
+                            $result['exception'] = 'Receta inexistente';
                         }
                     } else {
-                        $result['exception'] = 'Materia prima incorrecta';
+                        $result['exception'] = 'Receta incorrecta';
                     }
                     break;
+                    case 'updateElaboracion':
+                        $_POST = $recetas->validateForm($_POST);
+                        if ($recetas->setIdElab($_POST['id_elaboracion'])) {
+                            if ($recetas->getElab()) {
+                                if ($recetas->setIdReceta($_POST['id_receta_updatemate'])) {
+                                    if ($recetas->setIdMateria($_POST['id_update_materia'])) {
+                                        if ($recetas->setCantidad($_POST['cantidad_materia_update'])) {
+                                                    if ($recetas->updateReceta()) {
+                                                        $result['status'] = 1;
+                                                    } else {
+                                                        $result['exception'] = 'Operación fallida';
+                                                    }
+                                                }else{
+                                                    $result['exception'] = 'Cantidad incorrecta';
+                                            }
+                                        }else {
+                                                $result['exception'] = 'Materia prima incorrecta';
+                                            }
+                                    }else {
+                                        $result['exception'] = 'Receta incorrecta';
+                                    }
+                                } else {
+                                    $result['exception'] = 'Receta inexistente';
+                                }
+                            } else {
+                                $result['exception'] = 'Receta incorrecta';
+                            }
+                        break;
             //Operación para eliminar un usuario
             case 'delete':
             //Se comprueba que el usuario a eliminar no sea igual al que ha iniciado sesión

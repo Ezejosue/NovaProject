@@ -15,11 +15,11 @@ $pdf->SetAutoPageBreak(true,20);
 $pdf->addPage();
 $platillos = new Platillos();
 $pdf->SetFont('Arial','B',10);
-$data = $platillos->platillos_vendidos_categoria();
+$data = $platillos->platillos_categoria();
 $pdf->Ln();
 $pdf->setX(60);
 // Cell(ancho, Alto, texto, borde, salto de linea, alineacion de texto)
-$pdf->Cell(100,5, utf8_decode('REPORTE DE GANANCIAS POR CATEGORÍA'), 0, 0, 'C');  
+$pdf->Cell(100,5, utf8_decode('REPORTE DE PLATILLOS POR CATEGORIA'), 0, 0, 'C');  
 $pdf->Ln(10);
 // Seteamos la posición de la proxima celda en forma fija a 3.8 cm hacia la derecha de la pagina
 $pdf->setX(38);
@@ -37,11 +37,11 @@ foreach($data as $datos){
         $pdf->setX(30);
         // Cell(ancho, Alto, texto, borde, salto de linea, alineación de texto, color)
         //convertimos el texto a utf8
-        $pdf->Cell(155,10, utf8_decode($datos['nombre_categoria']),1,0,'C',true);
+        $pdf->Cell(150,10, utf8_decode($datos['nombre_categoria']),1,0,'C',true);
         $pdf->Ln();        
         $pdf->setX(30);
-        $pdf->Cell(15,10, utf8_decode('Vendidos'),1,0,'C');
-        $pdf->Cell(140,10, utf8_decode('Ganancia'),1,0,'C');
+        $pdf->Cell(10,10, utf8_decode('#'),1,0,'C');
+        $pdf->Cell(140,10, utf8_decode('Producto'),1,0,'C');
         $categoria = $datos['nombre_categoria'];
         //saldo de linea
         $pdf->Ln();
@@ -50,8 +50,8 @@ foreach($data as $datos){
         $pdf->setX(30);
           // Cell(ancho, Alto, texto, borde, salto de linea, alineación de texto, color)
         //convertimos el texto a utf8
-        $pdf->Cell(15,10, utf8_decode($datos['Vendidos']),1,0,'C');
-        $pdf->Cell(140,10, utf8_decode($datos['Ganancia']),1,0,'C');
+        $pdf->Cell(10,10, utf8_decode($datos['id_platillo']),1,0,'C');
+        $pdf->Cell(140,10, utf8_decode($datos['nombre_platillo']),1,0,'C');
         $pdf->Ln();
 }
 
