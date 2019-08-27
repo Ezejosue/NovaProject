@@ -3,6 +3,15 @@ require_once('../../core/helpers/conexion.php');
 require_once('../../core/helpers/validator.php');
 require_once('../../core/models/usuarios.php');
 
+//Librerias necesarias de PHPMailer
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+require '../../core/libraries/PHPMailer/src/Exception.php';
+require '../../core/libraries/PHPMailer/src/PHPMailer.php';
+require '../../core/libraries/PHPMailer/src/SMTP.php';
+$mail = new PHPMailer();
+$mail->CharSet = "UTF-8";
+
 //Se comprueba si existe una petición del sitio web y la acción a realizar, de lo contrario se muestra una página de error
 if (isset($_GET['action'])) {
     session_start();
@@ -458,6 +467,79 @@ if (isset($_GET['action'])) {
                     } else {
                         $result['exception'] = 'Alias incorrecto';
                     }
+                break;
+                case 'recuperarContrasena':
+                $_POST = $usuario->validateForm($_POST);
+                if ($usuario->setCorreo($_POST['correo'])) {
+                    if($usuario->checkCorreo()){
+                        $correo = $usuario->getCorreo();
+                        $token = uniqid();
+                        if($usuario->setToken($token)){
+                            if($usuario->updateToken()){
+                                try {
+                                $mail->isSMTP();                                            // Set mailer to use SMTP
+                                $mail->Host       = 'smtp.gmail.com';                       // Specify main and backup SMTP servers
+                                $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+                                $mail->Username   = 'test503sv@gmail.com';                             // SMTP username
+                                $mail->Password   = '71096669';                             // SMTP password
+                                $mail->SMTPSecure = 'tls';                                  // Enable TLS encryption, `ssl` also accepted
+                                $mail->Port       = 587;
+                                //Recipients
+                                $mail->setFrom('test503sv@gmail.com', 'Recuperar contraseña');
+                                $mail->addAddress($correo);
+                                // Content
+                                $mail->isHTML(true);                                  // Set email format to HTML
+                                $mail->Subject = 'Recuperar contraseña';
+                                $mail->Body    = 'Haga click <a href="http://localhost/admin/views/nueva_contrasena.php?token='.$token.'">aquí</a> para recuperar su contraseña';
+                            
+                                $mail->send();
+                                $result['status'] = 1;
+                                } catch (Exception $e) {
+                                    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+                                }
+                            } else{
+                                $result['exception'] = 'Error al actualizar el token';
+                            }
+                            
+                        } else {
+                            $result['exception'] = 'Error al setear el token';
+                        }
+                        
+                    } else{
+                        $result['exception'] = 'El correo no coincide con ningún usuario';
+                    }
+                } else {
+                    $result['exception'] = 'Correo incorrecto';
+                }
+                break;
+                case 'nuevaPassword':
+                $_POST = $usuario->validateForm($_POST);
+                if($usuario->setToken($_POST['token'])){
+                    if($usuario->getDatosToken()){
+                        if ($_POST['nueva_contrasena'] == $_POST['nueva_contrasena2']) {
+                            if ($usuario->setClave($_POST['nueva_contrasena'])) {
+                                if ($usuario->changePassword()) {
+                                    if($usuario->deleteToken()){
+                                        $result['status'] = 1;
+                                    } else {
+                                        $result['exception'] = 'Error al borrar el token';
+                                    }
+                                } else {
+                                    $result['exception'] = 'Operación fallida';
+                                }
+                            } else {
+                                $result['exception'] = 'Clave menor a 6 caracteres';
+                            }
+                        } else {
+                            $result['exception'] = 'Claves diferentes';
+                            
+                        } 
+                    } else {
+                        $result['exception'] = 'Error al obtener los datos del usuario';
+                    }
+                } else {
+                    $result['exception'] = 'Error al setear el token';
+                }
                 break;
             default:
                 exit('Acción no disponible 2');
