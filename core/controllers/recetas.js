@@ -2,7 +2,6 @@
 $(document).ready(function()
 {
     showTable();
-    //showTableRecetas('id_receta');
     showSelectMaterias('id_materias', null);
 })
 
@@ -20,8 +19,8 @@ function fillTable(rows)
                 <td>${row.nombre_receta}</td>
                 <td>${row.tiempo}</td>
                 <td>
-                    <a href="#" onclick="modalMateriasPrimas(${row.id_receta})" class="btn btn-info tooltipped" data-tooltip="Modificar"><i class="fa fa-edit"></i></a>
-                    <a href="#" onclick="materiasRecetas(${row.id_receta})" class="btn btn-danger tooltipped" data-tooltip="Eliminar"><i class="fa fa-times"></i></a>
+                    <a href="#" onclick="modalMateriasPrimas(${row.id_receta})" class="btn btn-info tooltipped" data-tooltip="Modificar">AGREGAR MATERIA PRIMA</a>
+                    <a href="#" onclick="materiasRecetas(${row.id_receta})" class="btn btn-danger tooltipped" data-tooltip="Eliminar">VER RECETA</a>
                 </td>
             </tr>
         `;
@@ -83,7 +82,7 @@ function showSelectMaterias(idSelect, value)
                     content += '<option value="" disabled selected>Seleccione una opción</option>';
                 }
                 result.dataset.forEach(function(row){
-                    if (row.id_categoria != value) {
+                    if (row.idMateria != value) {
                         content += `<option value="${row.idMateria}">${row.Materia}</option>`;
                     } else {
                         content += `<option value="${row.idMateria}" selected>${row.Materia}</option>`;
@@ -102,6 +101,7 @@ function showSelectMaterias(idSelect, value)
         console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
     });
 }
+
 
 //Función para crear un nuevo registro
 $('#form-create').submit(function()
@@ -180,16 +180,16 @@ function modalUpdate(id)
         //Se muestran en consola los posibles errores de la solicitud AJAX
         console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
     });
-}
+} */
 
 //Función para modificar un registro seleccionado previamente
-$('#form-update').submit(function()
+$('#form-update-recetas').submit(function()
 {
     event.preventDefault();
     $.ajax({
         url: apiRecetas + 'update',
         type: 'post',
-        data: new FormData($('#form-update')[0]),
+        data: new FormData($('#form-update-recetas')[0]),
         datatype: 'json',
         cache: false,
         contentType: false,
@@ -201,10 +201,10 @@ $('#form-update').submit(function()
             const result = JSON.parse(response);
             //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
             if (result.status) {
-                $('#modal-update').modal('hide');
+                $('#modal-update-recetas').modal('hide');
                 sweetAlert(1, 'Platillos modificada correctamente', null);
                 //Se destruye la tabla de materias primas y se vuelve a crear para que muestre los cambios realizados
-                destroy('#tabla-platillos');
+                destroy('#tabla-recetas');
                 showTable();
             } else {
                 sweetAlert(2, result.exception, null);
@@ -219,7 +219,7 @@ $('#form-update').submit(function()
         //Se muestran en consola los posibles errores de la solicitud AJAX
         console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
     });
-}) */
+})
 
 //Función para mostrar materias primas disponibles
 function modalMateriasPrimas(id)
@@ -336,6 +336,89 @@ function modalMateriasRecetas(id)
         console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
     });
 }
+
+
+//Función para mostrar materias primas disponibles
+function modalUpdateMaterias(id)
+{
+    $.ajax({
+        url: apiRecetas + 'getElaboracion',
+        type: 'post',
+        data:{
+            id_elaboracion: id
+        },
+        datatype: 'json'
+    })
+    .done(function(response){
+        //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado consola
+        if (isJSONString(response)) {
+            const result = JSON.parse(response);
+            //Se comprueba si el resultado es satisfactorio para mostrar los valores en el formulario, sino se muestra la excepción
+            if (result.status) {
+                $('#form-update-materiasprimas')[0].reset();
+                $('#id_receta_updatemate').val(result.dataset.id_receta);
+                $('#id_elaboracion').val(result.dataset.id_elaboracion);
+                console.log(result.dataset);
+                showSelectMaterias('id_update_materia', result.dataset.idMateria);
+                $('#cantidad_materia_update').val(result.dataset.cantidad);
+                $('#modal-update-materiasprimas').modal('show');
+                
+                
+            } else {
+                sweetAlert(2, result.exception, null);
+            }
+        } else {
+            console.log(response);
+        }
+    })
+    .fail(function(jqXHR){
+        //Se muestran en consola los posibles errores de la solicitud AJAX
+        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+    });
+}
+
+$('#form-update-materiasprimas').submit(function()
+{
+    event.preventDefault();
+    $.ajax({
+        url: apiRecetas + 'updateElaboracion',
+        type: 'post',
+        data: new FormData($('#form-update-materiasprimas')[0]),
+        datatype: 'json',
+        cache: false,
+        contentType: false,
+        processData: false
+    })
+    .done(function(response){
+        //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+        
+        if (isJSONString(response)) {
+            const result = JSON.parse(response);
+            
+            //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
+            if (result.status) {
+                $('#modal-update-materiasprimas').modal('hide');
+                sweetAlert(1, 'Materia prima agregada correctamente', null);
+                //Se destruye la tabla de materias primas y se vuelve a crear para que muestre los cambios realizados
+                $('#modal-update-recetas').modal('show');
+                destroy('#table-materias-recetas');
+                showTableRecetas();
+            } else {
+                sweetAlert(2, result.exception, null);
+            }
+        } else {
+            //Se comprueba que el alias no sea repetido
+            sweetAlert(2, error2(response), null);
+            console.log(response);
+        }
+    })
+    .fail(function(jqXHR){
+        //Se muestran en consola los posibles errores de la solicitud AJAX
+        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+    });
+})
+
+
 //Función para llenar tabla con los datos de los registros
 function fillTableRecetas(rows)
 {
@@ -347,7 +430,7 @@ function fillTableRecetas(rows)
                 <td>${row.MateriaPrima}</td>
                 <td>${row.cantidad}</td>
                 <td>
-                    <a href="#" onclick="modalMateriasPrimas(${row.id_elaboracion})" class="btn btn-info tooltipped" data-tooltip="Modificar"><i class="fa fa-edit"></i></a>
+                    <a href="#" onclick="modalUpdateMaterias(${row.id_elaboracion})" class="btn btn-info tooltipped" data-tooltip="Modificar"><i class="fa fa-edit"></i></a>
                     <a href="#" onclick="confirmDelete(${row.id_elaboracion})" class="btn btn-danger tooltipped" data-tooltip="Eliminar"><i class="fa fa-times"></i></a>
                 </td>
             </tr>

@@ -142,7 +142,11 @@ class Categorias extends Validator
 
 	public function graficar_existencia_categoria_agotar()
 	{//funcion para traer la cantidad de materia prima por categoria
-		$sql = 'SELECT SUM(materiasprimas.cantidad) cantidad, nombre_categoria FROM materiasprimas INNER JOIN categorias USING (id_categoria) WHERE materiasprimas.estado = 1 GROUP BY nombre_categoria ORDER BY nombre_categoria ASC LIMIT 5';
+		$sql = 'SELECT SUM(materiasprimas.cantidad) cantidad, nombre_categoria 
+		FROM materiasprimas 
+		INNER JOIN categorias USING (id_categoria)
+		 WHERE materiasprimas.estado = 1 
+		 GROUP BY nombre_categoria ORDER BY cantidad asc LIMIT 5';
 		$params = array(null);
 		return conexion::getRows($sql, $params);
 	}
@@ -150,7 +154,11 @@ class Categorias extends Validator
 	
 	public function graficar_existencia_categoria_sobre_existen()
 	{//funcion para traer la cantidad de materia prima por categoria
-		$sql = 'SELECT SUM(materiasprimas.cantidad) cantidad, nombre_categoria FROM materiasprimas INNER JOIN categorias USING (id_categoria) WHERE materiasprimas.estado = 1 GROUP BY nombre_categoria ORDER BY nombre_categoria DESC LIMIT 5';
+		$sql = 'SELECT SUM(materiasprimas.cantidad) cantidad, nombre_categoria 
+		FROM materiasprimas 
+		INNER JOIN categorias USING (id_categoria) 
+		WHERE materiasprimas.estado = 1
+		GROUP BY nombre_categoria ORDER BY cantidad DESC LIMIT 5';
 		$params = array(null);
 		return conexion::getRows($sql, $params);
 	}

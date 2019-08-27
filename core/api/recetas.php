@@ -70,6 +70,19 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Receta incorrecta';
                 }
                 break;
+
+                case 'getElaboracion':
+                if ($recetas->setIdElab($_POST['id_elaboracion'])) {
+                    if ($result['dataset'] = $recetas->getElab()) {
+                        $result['status'] = 1;
+                    } else {
+                        $result['exception'] = 'Elaboracion inexistente';
+                    }
+                } else {
+                    
+                    $result['exception'] = 'Elaboracion incorrecta';
+                }
+                break;
                 case 'readTableRecetas':
                     if ($recetas->setIdReceta($_POST['id_receta'])) {
                         if ($result['dataset'] = $recetas->getMateriasRecetas()) {
@@ -86,8 +99,8 @@ if (isset($_GET['action'])) {
 				$_POST = $recetas->validateForm($_POST);
 				if ($recetas->setIdReceta($_POST['id_receta'])) {
 					if ($recetas->getReceta()) {
-		                if ($recetas->setNombreReceta($_POST['nombre_receta'])) {
-                            if ($recetas->setTiempo($_POST['tiempo'])) {
+		                if ($recetas->setNombreReceta($_POST['update_nombre'])) {
+                            if ($recetas->setTiempo($_POST['update_tiempo'])) {
                                         if ($recetas->updateReceta()) {
                                             $result['status'] = 1;
                                         } else {
@@ -106,6 +119,34 @@ if (isset($_GET['action'])) {
                         $result['exception'] = 'Receta incorrecta';
                     }
                     break;
+                    case 'updateElaboracion':
+                        $_POST = $recetas->validateForm($_POST);
+                        if ($recetas->setIdElab($_POST['id_elaboracion'])) {
+                            if ($recetas->getElab()) {
+                                if ($recetas->setIdReceta($_POST['id_receta_updatemate'])) {
+                                    if ($recetas->setIdMateria($_POST['id_update_materia'])) {
+                                        if ($recetas->setCantidad($_POST['cantidad_materia_update'])) {
+                                                    if ($recetas->updateReceta()) {
+                                                        $result['status'] = 1;
+                                                    } else {
+                                                        $result['exception'] = 'Operación fallida';
+                                                    }
+                                                }else{
+                                                    $result['exception'] = 'Cantidad incorrecta';
+                                            }
+                                        }else {
+                                                $result['exception'] = 'Materia prima incorrecta';
+                                            }
+                                    }else {
+                                        $result['exception'] = 'Receta incorrecta';
+                                    }
+                                } else {
+                                    $result['exception'] = 'Receta inexistente';
+                                }
+                            } else {
+                                $result['exception'] = 'Receta incorrecta';
+                            }
+                        break;
             //Operación para eliminar un usuario
             case 'delete':
             //Se comprueba que el usuario a eliminar no sea igual al que ha iniciado sesión

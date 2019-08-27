@@ -9,7 +9,7 @@ ini_set('date.timezone', 'America/El_Salvador');
 $pdf = new PDF('P', 'mm', 'Letter');
 $platillos = new Materias;
 //Se establecen los margenes (izquierdo, superior, derecho)
-$pdf->SetMargins(10, 10, 10);
+$pdf->SetMargins(20, 20, 20);
 //Se establece el auto salto de pagina, el segundo parámetro el que establece la activación por defecto son 2 cm
 $pdf->SetAutoPageBreak(true,20);  
 //Agregamos la primera pagina al documento pdf  
@@ -17,9 +17,9 @@ $pdf->addPage();
 
 $pdf->SetFont('Arial','B',10);
 $data = $platillos->readMeteriaCategoria1($_GET['categoria']);
-// Cell(ancho, Alto, texto, borde, salto de linea, alineacion de texto)
 $pdf->Ln();
 $pdf->setX(60);
+// Cell(ancho, Alto, texto, borde, salto de linea, alineacion de texto)
 $pdf->Cell(100,5, utf8_decode('REPORTE DE MATERIA PRIMA POR CATEGORIA'), 0, 0, 'C');  
 $pdf->Ln(10);
 // Seteamos la posición de la proxima celda en forma fija a 3.8 cm hacia la derecha de la pagina

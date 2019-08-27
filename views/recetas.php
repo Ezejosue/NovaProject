@@ -190,14 +190,15 @@
                     </button>
                 </div>
                 <form method="post" id="form-update-materiasprimas">
-                    <input type="hidden" id="id_receta_update" name="id_receta_update"/>
+                    <input type="hidden" id="id_elaboracion" name="id_elaboracion"/>
+                    <input type="hidden" id="id_receta_updatemate" name="id_receta_updatemate"/>
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-1">
                                 <i class="fa fa-user"></i>
                             </div>
                             <div class="col-sm-11">
-                                <select id="id_materias_update" name="id_materias_update" class="form-control" required>
+                                <select id="id_update_materia" name="id_update_materia" class="form-control" required>
 
                                 </select>
                             </div>
@@ -216,7 +217,7 @@
                     </div>
                     <div class="modal-body text-center">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-primary tooltipped" data-tooltip="Crear">Aceptar</button>
+                        <button type="submit"  class="btn btn-primary tooltipped" data-tooltip="Crear">Aceptar</button>
                     </div>
                 </form>
             </div>
