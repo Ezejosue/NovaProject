@@ -426,6 +426,9 @@ if (isset($_GET['action'])) {
                 //Operación para registrar el primer usuario
                 case 'register':
                 $_POST = $usuario->validateForm($_POST);
+                if($usuario->readUsuarios()){
+                    $result['exception'] = 'Ya existe un usuario registrado';
+                } else {
                     if ($usuario->setAlias($_POST['alias'])) {
                         if ($usuario->setEstado(isset($_POST['estado']) ? 1 : 0)) {
                             if ($usuario->setTipo_usuario($_POST['tipo'])) {
@@ -466,7 +469,8 @@ if (isset($_GET['action'])) {
                         }
                     } else {
                         $result['exception'] = 'Alias incorrecto';
-                    }
+                    }   
+                }
                 break;
                 case 'recuperarContrasena':
                 $_POST = $usuario->validateForm($_POST);
