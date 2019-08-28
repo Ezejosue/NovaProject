@@ -231,42 +231,57 @@ if (isset($_GET['action'])) {
             case 'create':
                 $_POST = $usuario->validateForm($_POST);
                     if ($usuario->setAlias($_POST['create_alias'])) {
-                        if ($usuario->setEstado(isset($_POST['create_estado']) ? 1 : 0)) {
-                            if ($usuario->setTipo_usuario($_POST['create_tipo'])) {
-                                //Se comprueba que las claves sean iguales
-                                if ($_POST['create_clave1'] == $_POST['create_clave2']) {
-                                    if ($usuario->setClave($_POST['create_clave1'])) {
-                                        //Se comprueba que se haya subido una imagen
-                                        if (is_uploaded_file($_FILES['create_archivo']['tmp_name'])) {
-                                            if ($usuario->setFoto($_FILES['create_archivo'], null)) {
-                                                if ($usuario->createUsuario()) {
-                                                    if ($usuario->saveFile($_FILES['create_archivo'], $usuario->getRuta(), $usuario->getFoto())) {
-                                                        $result['status'] = 1;
-                                                    } else {
-                                                        $result['status'] = 2;
-                                                        $result['exception'] = 'No se guardó el archivo';
-                                                    }
+                        if ($usuario->checkAlias()){
+                            $result['exception'] = 'El nombre de usuario ya existe';
+                        } else {
+                            if($usuario->setCorreo($_POST['create_correo'])){
+                                if($usuario->checkCorreo()){
+                                    $result['exception'] = 'El correo ya existe';
+                                } else {
+                                    if ($usuario->setEstado(isset($_POST['create_estado']) ? 1 : 0)) {
+                                        if ($usuario->setTipo_usuario($_POST['create_tipo'])) {
+                                            //Se comprueba que las claves sean iguales
+                                            if ($_POST['create_clave1'] == $_POST['create_clave2']) {
+                                                if ($usuario->setClave($_POST['create_clave1'])) {
+                                                    //Se comprueba que se haya subido una imagen
+                                                    if (is_uploaded_file($_FILES['create_archivo']['tmp_name'])) {
+                                                        if ($usuario->setFoto($_FILES['create_archivo'], null)) {
+                                                            if ($usuario->createUsuario()) {
+                                                                if ($usuario->saveFile($_FILES['create_archivo'], $usuario->getRuta(), $usuario->getFoto())) {
+                                                                    $result['status'] = 1;
+            
+            
+                                                                } else {
+                                                                    $result['status'] = 2;
+                                                                    $result['exception'] = 'No se guardó el archivo';
+                                                                }
+                                                            } else {
+                                                                $result['exception'] = 'Operación fallida';
+                                                            }
+                                                        } else {
+                                                            $result['exception'] = $usuario->getImageError();;
+                                                        } 
+                                                    }   else {
+                                                        $result['exception'] = 'Seleccione una imagen';
+                                                    }   
                                                 } else {
-                                                    $result['exception'] = 'Operación fallida';
+                                                        $result['exception'] = 'Clave menor a 6 caracteres';
                                                 }
                                             } else {
-                                                $result['exception'] = $usuario->getImageError();;
-                                            } 
-                                        }   else {
-                                            $result['exception'] = 'Seleccione una imagen';
-                                        }   
+                                                $result['exception'] = 'Claves diferentes';
+                                            }
+                                        } else {
+                                            $result['exception'] = 'Seleccione un tipo de usuario';
+                                        }
                                     } else {
-                                            $result['exception'] = 'Clave menor a 6 caracteres';
+                                        $result['exception'] = 'Estado incorrecto';
                                     }
-                                } else {
-                                    $result['exception'] = 'Claves diferentes';
                                 }
                             } else {
-                                $result['exception'] = 'Seleccione un tipo de usuario';
+                                $result['exception'] = 'Correo incorrecto';
                             }
-                        } else {
-                            $result['exception'] = 'Estado incorrecto';
                         }
+                        
                     } else {
                         $result['exception'] = 'Alias incorrecto';
                     }                                     
@@ -290,42 +305,47 @@ if (isset($_GET['action'])) {
 				if ($usuario->setId($_POST['id_usuario'])) {
 					if ($usuario->getUsuario()) {
 		                if ($usuario->setAlias($_POST['update_alias'])) {
-							if ($usuario->setEstado(isset($_POST['update_estado']) ? 1 : 0)) {
-                                if ($usuario->setTipo_usuario($_POST['update_tipo'])) {
-                                    //Se comprueba que se haya subido una imagen
-                                    if (is_uploaded_file($_FILES['imagen_usuario']['tmp_name'])) {
-                                        if ($usuario->setFoto($_FILES['imagen_usuario'], $_POST['foto_usuario'])) {
-                                            $archivo = true;
-                                        } else {
-                                            $result['exception'] = $usuario->getImageError();
-                                            $archivo = false;
-                                        }
-                                    } else {
-                                        if (!$usuario->setFoto(null, $_POST['foto_usuario'])) {
-                                            $result['exception'] = $usuario->getImageError();
-                                        }
-                                        $archivo = false;
-                                    }
-                                    if ($usuario->updateUsuario()) {
-                                        $result['status'] = 1;
-                                        if ($archivo) {
-                                            if ($usuario->saveFile($_FILES['imagen_usuario'], $usuario->getRuta(), $usuario->getFoto())) {
-                                                $result['message'] = 'Categoría modificada correctamente';
+                            if($usuario->setCorreo($_POST['update_correo'])){
+                                if ($usuario->setEstado(isset($_POST['update_estado']) ? 1 : 0)) {
+                                    if ($usuario->setTipo_usuario($_POST['update_tipo'])) {
+                                        //Se comprueba que se haya subido una imagen
+                                        if (is_uploaded_file($_FILES['imagen_usuario']['tmp_name'])) {
+                                            if ($usuario->setFoto($_FILES['imagen_usuario'], $_POST['foto_usuario'])) {
+                                                $archivo = true;
                                             } else {
-                                                $result['message'] = 'Categoría modificada. No se guardó el archivo';
+                                                $result['exception'] = $usuario->getImageError();
+                                                $archivo = false;
                                             }
                                         } else {
-                                            $result['message'] = 'Categoría modificada. No se subió ningún archivo';
+                                            if (!$usuario->setFoto(null, $_POST['foto_usuario'])) {
+                                                $result['exception'] = $usuario->getImageError();
+                                            }
+                                            $archivo = false;
+                                        }
+                                        if ($usuario->updateUsuario()) {
+                                            $result['status'] = 1;
+                                            if ($archivo) {
+                                                if ($usuario->saveFile($_FILES['imagen_usuario'], $usuario->getRuta(), $usuario->getFoto())) {
+                                                    $result['message'] = 'Categoría modificada correctamente';
+                                                } else {
+                                                    $result['message'] = 'Categoría modificada. No se guardó el archivo';
+                                                }
+                                            } else {
+                                                $result['message'] = 'Categoría modificada. No se subió ningún archivo';
+                                            }
+                                        } else {
+                                            $result['exception'] = 'Operación fallida';
                                         }
                                     } else {
-                                        $result['exception'] = 'Operación fallida';
+                                        $result['exception'] = 'Seleccione un tipo de usuario';
                                     }
                                 } else {
-                                    $result['exception'] = 'Seleccione un tipo de usuario';
+                                    $result['exception'] = 'Estado incorrecto';
                                 }
-							} else {
-								$result['exception'] = 'Estado incorrecto';
-							}
+                            } else{
+                                $result['exception'] = 'Correo incorrecto';
+                            }
+							
 						} else {
 							$result['exception'] = 'Alias incorrecto';
 						}
