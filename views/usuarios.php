@@ -25,6 +25,7 @@
                             <tr>
                                 <th>IMAGEN</th>
                                 <th>ALIAS</th>
+                                <th>CORREO</th>
                                 <th>FECHA DE CREACIÓN</th>
                                 <th>TIPO DE USUARIO</th>
                                 <th>ESTADO</th>
@@ -58,6 +59,17 @@
                             <div class="col-sm-11">
                                 <input id="create_alias" type="text" name="create_alias" class="form-control"
                                     placeholder="Nombre De Usuario" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-1">
+                                <i class="fa fa-envelope"></i>
+                            </div>
+                            <div class="col-sm-11">
+                                <input id="create_correo" type="email" name="create_correo" class="form-control"
+                                    placeholder="Correo" required>
                             </div>
                         </div>
                     </div>
@@ -154,9 +166,17 @@
                                 <i class="fa fa-user"></i>
                             </div>
                             <div class="col-sm-11">
-
-                                <input id="update_alias" type="text" name="update_alias" class="validate form-control"
-                                    placeholder="Nombre De Usuario" required>
+                                <input id="update_alias" type="text" name="update_alias" class="validate form-control" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-1">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="col-sm-11">
+                            <input id="update_correo" type="email" name="update_correo" class="validate form-control" required>
                             </div>
                         </div>
                     </div>
