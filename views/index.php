@@ -69,9 +69,16 @@
                                 <i class="fa fa-envelope"></i>
                             </div>
                             <div class="col-sm-11">
-                                <input type="email" id="correo" name="correo" placeholder="Ingrese su correo" class="form-control">
+                                <input type="email" id="correo" name="correo" placeholder="Ingrese su correo"
+                                    class="form-control">
                                 <br>
                             </div>
+                            <div class="col-sm-12">
+                                <div class="alert alert-info text-center" role="alert">
+                                    Se le enviará un correo con las instrucciones para recuperar su contraseña
+                                </div>
+                            </div>
+                            
                         </div>
                         <div class="text-center">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
