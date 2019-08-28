@@ -37,6 +37,7 @@
                 <h3 align="center" class="title-1">Existencias.</h3>
                 <div class="chart-info">
                 </div>
+                
                 <div class="au-card-inner">
                     <h5 align="center">Existencias por categoría (productos por agotar)</h5>
                     <canvas id="existencia_categoria_agotar"></canvas>
@@ -68,6 +69,7 @@
                         </div>
                     </div>
                 </div>
+                
 
 
                 <div class="container-fluid">
