@@ -7,6 +7,36 @@ class Dashboard
 	public static function headerTemplate($title)
 	{
 		session_start();
+		if (isset($_SESSION['idUsuario'])) {
+			if (isset($_SESSION['tiempo'])) {
+				//Tiempo de vida de la sesión
+				$inactivo = 5;
+
+				//calculamos tiempo de vida inactivo
+				$vida_session = time() - $_SESSION['tiempo'];
+
+				//comparamos si el tiempo de vida de la sesión es mayor inactivo
+				if ($vida_session > $inactivo) {
+					//remover sesión
+					session_unset();
+					//Destruimos la sesión
+					session_destroy();
+
+					//redirigir a index
+					header("location: ../../views/index.php");
+
+				} else { //Si no a caducado la sesión, actualizamos
+					$_SESSION['tiempo'] = time();
+				}
+				
+			} else { //Activamos sesión tiempo
+				$_SESSION['tiempo'] = time();
+			}
+			
+		} else {
+			
+		}
+		
 		print('
         <!DOCTYPE html>
 		<html lang="es">
@@ -36,6 +66,8 @@ class Dashboard
 			<div class="page-wrapper">
 		</head>
 		');
+
+
 		//Se comprueba si existe una sesión para mostrar el menú de opciones, de lo contrario se muestra un menú vacío
 		if (isset($_SESSION['idUsuario'])) {
 			$filename = basename($_SERVER['PHP_SELF']);
