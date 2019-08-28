@@ -426,6 +426,7 @@ if (isset($_GET['action'])) {
                                     //Si todo está correcto se inicia sesión y se llenan las variables de sesión con el id y el alias
                                     $_SESSION['idUsuario'] = $usuario->getId();
                                     $_SESSION['aliasUsuario'] = $usuario->getAlias();
+                                    $_SESSION['tiempo'] = time();
                                     $result['status'] = 1;
                                 } else {
                                     $result['exception'] = 'Clave inexistente';
