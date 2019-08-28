@@ -9,8 +9,8 @@ class Dashboard
 		session_start();
 		if (isset($_SESSION['idUsuario'])) {
 			if (isset($_SESSION['tiempo'])) {
-				//Tiempo de vida de la sesión
-				$inactivo = 5;
+				//Tiempo de vida de la sesión, en este caso 15min
+				$inactivo = 900;
 
 				//calculamos tiempo de vida inactivo
 				$vida_session = time() - $_SESSION['tiempo'];
