@@ -147,31 +147,31 @@ if (isset($_GET['action'])) {
                             if ($usuario->checkPassword()) {
                                 //Se comprueba que las nuevas claves sean iguales
                                 if ($_POST['clave_nueva_1'] == $_POST['clave_nueva_2']) {
-                                    if ($usuario->setClave($_POST['clave_nueva_1'])) {
-                                        //Si todo está correcto se ejecuta el método para cambiar la contraseña, de lo contrario se muestra el mensaje de error
-                                        if ($usuario->changePassword()) {
-                                            $result['status'] = 1;
+                                        if ($usuario->setClave($_POST['clave_nueva_1'])) {
+                                            //Si todo está correcto se ejecuta el método para cambiar la contraseña, de lo contrario se muestra el mensaje de error
+                                            if ($usuario->changePassword()) {
+                                                $result['status'] = 1;
+                                            } else {
+                                                $result['exception'] = 'Operación fallida';
+                                            }
                                         } else {
-                                            $result['exception'] = 'Operación fallida';
+                                            $result['exception'] = 'Clave nueva menor a 6 caracteres';
                                         }
                                     } else {
-                                        $result['exception'] = 'Clave nueva menor a 6 caracteres';
+                                        $result['exception'] = 'Claves nuevas diferentes';
                                     }
                                 } else {
-                                    $result['exception'] = 'Claves nuevas diferentes';
+                                    $result['exception'] = 'Clave actual incorrecta';
                                 }
                             } else {
-                                $result['exception'] = 'Clave actual incorrecta';
+                                $result['exception'] = 'Clave actual menor a 6 caracteres';
                             }
                         } else {
-                            $result['exception'] = 'Clave actual menor a 6 caracteres';
+                            $result['exception'] = 'Claves actuales diferentes';
                         }
                     } else {
-                        $result['exception'] = 'Claves actuales diferentes';
+                        $result['exception'] = 'Usuario incorrecto';
                     }
-                } else {
-                    $result['exception'] = 'Usuario incorrecto';
-                }
                 break;
             //Operación para comprobar que haya usuarios registrados
             case 'read':
@@ -455,29 +455,33 @@ if (isset($_GET['action'])) {
                             if ($usuario->setTipo_usuario($_POST['tipo'])) {
                                 //Se comprueba que las claves sean iguales
                                 if ($_POST['clave1'] == $_POST['clave2']) {
-                                    if ($usuario->setClave($_POST['clave1'])) {
-                                        //Se comprueba que se haya seleccionado una imagen anteriormente
-                                        if (is_uploaded_file($_FILES['archivo']['tmp_name'])) {
-                                            if ($usuario->setFoto($_FILES['archivo'], null)) {
-                                                //Si todo está correcto se registra el primer usuario
-                                                if ($usuario->createUsuario()) {
-                                                    if ($usuario->saveFile($_FILES['archivo'], $usuario->getRuta(), $usuario->getFoto())) {
-                                                        $result['status'] = 1;
+                                    if ($_POST['clave1'] != $_POST['alias']) {
+                                        if ($usuario->setClave($_POST['clave1'])) {
+                                            //Se comprueba que se haya seleccionado una imagen anteriormente
+                                            if (is_uploaded_file($_FILES['archivo']['tmp_name'])) {
+                                                if ($usuario->setFoto($_FILES['archivo'], null)) {
+                                                    //Si todo está correcto se registra el primer usuario
+                                                    if ($usuario->createUsuario()) {
+                                                        if ($usuario->saveFile($_FILES['archivo'], $usuario->getRuta(), $usuario->getFoto())) {
+                                                            $result['status'] = 1;
+                                                        } else {
+                                                            $result['status'] = 2;
+                                                            $result['exception'] = 'No se guardó el archivo';
+                                                        }
                                                     } else {
-                                                        $result['status'] = 2;
-                                                        $result['exception'] = 'No se guardó el archivo';
+                                                        $result['exception'] = 'Operación fallida';
                                                     }
                                                 } else {
-                                                    $result['exception'] = 'Operación fallida';
-                                                }
-                                            } else {
-                                                $result['exception'] = $usuario->getImageError();;
-                                            } 
-                                        }   else {
-                                            $result['exception'] = 'Seleccione una imagen';
-                                        }   
+                                                    $result['exception'] = $usuario->getImageError();;
+                                                } 
+                                            }   else {
+                                                $result['exception'] = 'Seleccione una imagen';
+                                            }   
+                                        } else {
+                                                $result['exception'] = 'Clave menor a 6 caracteres';
+                                        }
                                     } else {
-                                            $result['exception'] = 'Clave menor a 6 caracteres';
+                                        $result['exception'] = 'La clave no puede ser igual al alias';
                                     }
                                 } else {
                                     $result['exception'] = 'Claves diferentes';
