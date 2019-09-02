@@ -521,7 +521,6 @@ function getParameterByName(name) {
 $('#form-nueva-contrasena').submit(function()
 {   event.preventDefault();
     var token = getParameterByName('token');
-    console.log(token);
     var password1 = $('#nueva_contrasena').val(), password2 = $('#nueva_contrasena2').val();
     $.ajax({
         url: apiAccount + 'nuevaPassword',
