@@ -55,7 +55,7 @@
                             </div>
                             <div class="col-sm-11">
                                 <input placeholder="Nombre" class="form-control" id="create_nombre" name="create_nombre"
-                                    for="nombre_categoria">
+                                   autocomplete="off" for="nombre_categoria">
                             </div>
                         </div>
                     </div>
