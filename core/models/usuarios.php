@@ -197,6 +197,13 @@ class Usuarios extends Validator
 		}
 	}
 
+	public function checkActivacion()
+	{
+		$sql = 'SELECT estado_usuario FROM usuarios WHERE alias = ? AND estado_usuario = 3';
+		$params = array($this->alias);
+		return Conexion::getRow($sql, $params);
+	}
+
 	//Méodo para vificar que la contraseña exista y que sea igual al del usuario
 	public function checkPassword()
 	{
@@ -275,7 +282,7 @@ class Usuarios extends Validator
 	{
 		$hash = password_hash($this->clave, PASSWORD_DEFAULT);
 		$sql = 'INSERT INTO usuarios(alias, correo_usuario, foto_usuario, estado_usuario, id_Tipousuario, clave_usuario) VALUES(?, ?, ?, ?, ?, ?)';
-		$params = array($this->alias, $this->correo, $this->foto, $this->estado, $this->tipo_usuario, $hash);
+		$params = array($this->alias, $this->correo, $this->foto, 3, $this->tipo_usuario, $hash);
 		return Conexion::executeRow($sql, $params);
 	}
 

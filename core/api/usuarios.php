@@ -417,26 +417,31 @@ if (isset($_GET['action'])) {
                 if ($usuario->setAlias($_POST['usuario'])) {
                     //Se comprueba que el alias exista en la base de datos
                     if ($usuario->checkAlias()) {
-                        //Se comprueba que el estado del usuario este activo
-                        if ($usuario->checkEstado()){
-                            //Se valida que la contraseña no sea menor a 6 caracteres
-                            if ($usuario->setClave($_POST['clave'])) {
-                                //Se comprueba que la contraseña coincida con el usuario a iniciar sesión
-                                if ($usuario->checkPassword()) {
-                                    //Si todo está correcto se inicia sesión y se llenan las variables de sesión con el id y el alias
-                                    $_SESSION['idUsuario'] = $usuario->getId();
-                                    $_SESSION['aliasUsuario'] = $usuario->getAlias();
-                                    $_SESSION['tiempo'] = time();
-                                    $result['status'] = 1;
+                        if ($usuario->checkActivacion()) {
+                            $result['exception'] = 'Su cuenta no ha sido activada';
+                        } else {
+                            //Se comprueba que el estado del usuario este activo
+                            if ($usuario->checkEstado()){
+                                //Se valida que la contraseña no sea menor a 6 caracteres
+                                if ($usuario->setClave($_POST['clave'])) {
+                                    //Se comprueba que la contraseña coincida con el usuario a iniciar sesión
+                                    if ($usuario->checkPassword()) {
+                                        //Si todo está correcto se inicia sesión y se llenan las variables de sesión con el id y el alias
+                                        $_SESSION['idUsuario'] = $usuario->getId();
+                                        $_SESSION['aliasUsuario'] = $usuario->getAlias();
+                                        $_SESSION['tiempo'] = time();
+                                        $result['status'] = 1;
+                                    } else {
+                                        $result['exception'] = 'Clave inexistente';
+                                    }
                                 } else {
-                                    $result['exception'] = 'Clave inexistente';
+                                    $result['exception'] = 'Clave menor a 6 caracteres';
                                 }
                             } else {
-                                $result['exception'] = 'Clave menor a 6 caracteres';
+                                $result['exception'] = 'No tiene acceso al sistema';
                             }
-                        } else {
-                            $result['exception'] = 'No tiene acceso al sistema';
                         }
+                        
                     } else {
                         $result['exception'] = 'Alias inexistente';
                     }
@@ -461,16 +466,45 @@ if (isset($_GET['action'])) {
                                                 //Se comprueba que se haya seleccionado una imagen anteriormente
                                                 if (is_uploaded_file($_FILES['archivo']['tmp_name'])) {
                                                     if ($usuario->setFoto($_FILES['archivo'], null)) {
-                                                        //Si todo está correcto se registra el primer usuario
-                                                        if ($usuario->createUsuario()) {
-                                                            if ($usuario->saveFile($_FILES['archivo'], $usuario->getRuta(), $usuario->getFoto())) {
-                                                                $result['status'] = 1;
+                                                        if ($usuario->saveFile($_FILES['archivo'], $usuario->getRuta(), $usuario->getFoto())) {
+                                                            $correo = $usuario->getCorreo();
+                                                            $token_activacion = uniqid();
+                                                            if($usuario->setToken($token_activacion)){
+                                                                if($usuario->updateToken()){
+                                                                    if ($usuario->createUsuario()) {
+                                                                        try {
+                                                                        $mail->isSMTP();                                            // Set mailer to use SMTP
+                                                                        $mail->Host       = 'smtp.gmail.com';                       // Specify main and backup SMTP servers
+                                                                        $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+                                                                        $mail->Username   = 'test503sv@gmail.com';                             // SMTP username
+                                                                        $mail->Password   = '71096669';                             // SMTP password
+                                                                        $mail->SMTPSecure = 'tls';                                  // Enable TLS encryption, `ssl` also accepted
+                                                                        $mail->Port       = 587;
+                                                                        //Recipients
+                                                                        $mail->setFrom('test503sv@gmail.com', 'Activar cuenta');
+                                                                        $mail->addAddress($correo);
+                                                                        // Content
+                                                                        $mail->isHTML(true);                                  // Set email format to HTML
+                                                                        $mail->Subject = 'Activar cuenta';
+                                                                        $mail->Body    = 'Haga click <a href="http://localhost/admin/views/activacion.php?token='.$token_activacion.'">aquí</a> para activar su cuenta';
+                                                                        $mail->send();
+                                                                        $result['status'] = 1;
+                                                                        } catch (Exception $e) {
+                                                                            echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+                                                                        }
+                                                                    } else {
+                                                                        $result['exception'] = 'Operación fallida';
+                                                                    }
+                                                                } else{
+                                                                    $result['exception'] = 'Error al actualizar el token';
+                                                                }
+                                                                
                                                             } else {
-                                                                $result['status'] = 2;
-                                                                $result['exception'] = 'No se guardó el archivo';
+                                                                $result['exception'] = 'Error al setear el token';
                                                             }
                                                         } else {
-                                                            $result['exception'] = 'Operación fallida';
+                                                            $result['status'] = 2;
+                                                            $result['exception'] = 'No se guardó el archivo';
                                                         }
                                                     } else {
                                                         $result['exception'] = $usuario->getImageError();;
