@@ -147,31 +147,31 @@ if (isset($_GET['action'])) {
                             if ($usuario->checkPassword()) {
                                 //Se comprueba que las nuevas claves sean iguales
                                 if ($_POST['clave_nueva_1'] == $_POST['clave_nueva_2']) {
-                                    if ($usuario->setClave($_POST['clave_nueva_1'])) {
-                                        //Si todo está correcto se ejecuta el método para cambiar la contraseña, de lo contrario se muestra el mensaje de error
-                                        if ($usuario->changePassword()) {
-                                            $result['status'] = 1;
+                                        if ($usuario->setClave($_POST['clave_nueva_1'])) {
+                                            //Si todo está correcto se ejecuta el método para cambiar la contraseña, de lo contrario se muestra el mensaje de error
+                                            if ($usuario->changePassword()) {
+                                                $result['status'] = 1;
+                                            } else {
+                                                $result['exception'] = 'Operación fallida';
+                                            }
                                         } else {
-                                            $result['exception'] = 'Operación fallida';
+                                            $result['exception'] = 'Clave nueva menor a 6 caracteres';
                                         }
                                     } else {
-                                        $result['exception'] = 'Clave nueva menor a 6 caracteres';
+                                        $result['exception'] = 'Claves nuevas diferentes';
                                     }
                                 } else {
-                                    $result['exception'] = 'Claves nuevas diferentes';
+                                    $result['exception'] = 'Clave actual incorrecta';
                                 }
                             } else {
-                                $result['exception'] = 'Clave actual incorrecta';
+                                $result['exception'] = 'Clave actual menor a 6 caracteres';
                             }
                         } else {
-                            $result['exception'] = 'Clave actual menor a 6 caracteres';
+                            $result['exception'] = 'Claves actuales diferentes';
                         }
                     } else {
-                        $result['exception'] = 'Claves actuales diferentes';
+                        $result['exception'] = 'Usuario incorrecto';
                     }
-                } else {
-                    $result['exception'] = 'Usuario incorrecto';
-                }
                 break;
             //Operación para comprobar que haya usuarios registrados
             case 'read':
@@ -231,42 +231,57 @@ if (isset($_GET['action'])) {
             case 'create':
                 $_POST = $usuario->validateForm($_POST);
                     if ($usuario->setAlias($_POST['create_alias'])) {
-                        if ($usuario->setEstado(isset($_POST['create_estado']) ? 1 : 0)) {
-                            if ($usuario->setTipo_usuario($_POST['create_tipo'])) {
-                                //Se comprueba que las claves sean iguales
-                                if ($_POST['create_clave1'] == $_POST['create_clave2']) {
-                                    if ($usuario->setClave($_POST['create_clave1'])) {
-                                        //Se comprueba que se haya subido una imagen
-                                        if (is_uploaded_file($_FILES['create_archivo']['tmp_name'])) {
-                                            if ($usuario->setFoto($_FILES['create_archivo'], null)) {
-                                                if ($usuario->createUsuario()) {
-                                                    if ($usuario->saveFile($_FILES['create_archivo'], $usuario->getRuta(), $usuario->getFoto())) {
-                                                        $result['status'] = 1;
-                                                    } else {
-                                                        $result['status'] = 2;
-                                                        $result['exception'] = 'No se guardó el archivo';
-                                                    }
+                        if ($usuario->checkAlias()){
+                            $result['exception'] = 'El nombre de usuario ya existe';
+                        } else {
+                            if($usuario->setCorreo($_POST['create_correo'])){
+                                if($usuario->checkCorreo()){
+                                    $result['exception'] = 'El correo ya existe';
+                                } else {
+                                    if ($usuario->setEstado(isset($_POST['create_estado']) ? 1 : 0)) {
+                                        if ($usuario->setTipo_usuario($_POST['create_tipo'])) {
+                                            //Se comprueba que las claves sean iguales
+                                            if ($_POST['create_clave1'] == $_POST['create_clave2']) {
+                                                if ($usuario->setClave($_POST['create_clave1'])) {
+                                                    //Se comprueba que se haya subido una imagen
+                                                    if (is_uploaded_file($_FILES['create_archivo']['tmp_name'])) {
+                                                        if ($usuario->setFoto($_FILES['create_archivo'], null)) {
+                                                            if ($usuario->createUsuario()) {
+                                                                if ($usuario->saveFile($_FILES['create_archivo'], $usuario->getRuta(), $usuario->getFoto())) {
+                                                                    $result['status'] = 1;
+            
+            
+                                                                } else {
+                                                                    $result['status'] = 2;
+                                                                    $result['exception'] = 'No se guardó el archivo';
+                                                                }
+                                                            } else {
+                                                                $result['exception'] = 'Operación fallida';
+                                                            }
+                                                        } else {
+                                                            $result['exception'] = $usuario->getImageError();;
+                                                        } 
+                                                    }   else {
+                                                        $result['exception'] = 'Seleccione una imagen';
+                                                    }   
                                                 } else {
-                                                    $result['exception'] = 'Operación fallida';
+                                                        $result['exception'] = 'Clave menor a 6 caracteres';
                                                 }
                                             } else {
-                                                $result['exception'] = $usuario->getImageError();;
-                                            } 
-                                        }   else {
-                                            $result['exception'] = 'Seleccione una imagen';
-                                        }   
+                                                $result['exception'] = 'Claves diferentes';
+                                            }
+                                        } else {
+                                            $result['exception'] = 'Seleccione un tipo de usuario';
+                                        }
                                     } else {
-                                            $result['exception'] = 'Clave menor a 6 caracteres';
+                                        $result['exception'] = 'Estado incorrecto';
                                     }
-                                } else {
-                                    $result['exception'] = 'Claves diferentes';
                                 }
                             } else {
-                                $result['exception'] = 'Seleccione un tipo de usuario';
+                                $result['exception'] = 'Correo incorrecto';
                             }
-                        } else {
-                            $result['exception'] = 'Estado incorrecto';
                         }
+                        
                     } else {
                         $result['exception'] = 'Alias incorrecto';
                     }                                     
@@ -290,42 +305,47 @@ if (isset($_GET['action'])) {
 				if ($usuario->setId($_POST['id_usuario'])) {
 					if ($usuario->getUsuario()) {
 		                if ($usuario->setAlias($_POST['update_alias'])) {
-							if ($usuario->setEstado(isset($_POST['update_estado']) ? 1 : 0)) {
-                                if ($usuario->setTipo_usuario($_POST['update_tipo'])) {
-                                    //Se comprueba que se haya subido una imagen
-                                    if (is_uploaded_file($_FILES['imagen_usuario']['tmp_name'])) {
-                                        if ($usuario->setFoto($_FILES['imagen_usuario'], $_POST['foto_usuario'])) {
-                                            $archivo = true;
-                                        } else {
-                                            $result['exception'] = $usuario->getImageError();
-                                            $archivo = false;
-                                        }
-                                    } else {
-                                        if (!$usuario->setFoto(null, $_POST['foto_usuario'])) {
-                                            $result['exception'] = $usuario->getImageError();
-                                        }
-                                        $archivo = false;
-                                    }
-                                    if ($usuario->updateUsuario()) {
-                                        $result['status'] = 1;
-                                        if ($archivo) {
-                                            if ($usuario->saveFile($_FILES['imagen_usuario'], $usuario->getRuta(), $usuario->getFoto())) {
-                                                $result['message'] = 'Categoría modificada correctamente';
+                            if($usuario->setCorreo($_POST['update_correo'])){
+                                if ($usuario->setEstado(isset($_POST['update_estado']) ? 1 : 0)) {
+                                    if ($usuario->setTipo_usuario($_POST['update_tipo'])) {
+                                        //Se comprueba que se haya subido una imagen
+                                        if (is_uploaded_file($_FILES['imagen_usuario']['tmp_name'])) {
+                                            if ($usuario->setFoto($_FILES['imagen_usuario'], $_POST['foto_usuario'])) {
+                                                $archivo = true;
                                             } else {
-                                                $result['message'] = 'Categoría modificada. No se guardó el archivo';
+                                                $result['exception'] = $usuario->getImageError();
+                                                $archivo = false;
                                             }
                                         } else {
-                                            $result['message'] = 'Categoría modificada. No se subió ningún archivo';
+                                            if (!$usuario->setFoto(null, $_POST['foto_usuario'])) {
+                                                $result['exception'] = $usuario->getImageError();
+                                            }
+                                            $archivo = false;
+                                        }
+                                        if ($usuario->updateUsuario()) {
+                                            $result['status'] = 1;
+                                            if ($archivo) {
+                                                if ($usuario->saveFile($_FILES['imagen_usuario'], $usuario->getRuta(), $usuario->getFoto())) {
+                                                    $result['message'] = 'Categoría modificada correctamente';
+                                                } else {
+                                                    $result['message'] = 'Categoría modificada. No se guardó el archivo';
+                                                }
+                                            } else {
+                                                $result['message'] = 'Categoría modificada. No se subió ningún archivo';
+                                            }
+                                        } else {
+                                            $result['exception'] = 'Operación fallida';
                                         }
                                     } else {
-                                        $result['exception'] = 'Operación fallida';
+                                        $result['exception'] = 'Seleccione un tipo de usuario';
                                     }
                                 } else {
-                                    $result['exception'] = 'Seleccione un tipo de usuario';
+                                    $result['exception'] = 'Estado incorrecto';
                                 }
-							} else {
-								$result['exception'] = 'Estado incorrecto';
-							}
+                            } else{
+                                $result['exception'] = 'Correo incorrecto';
+                            }
+							
 						} else {
 							$result['exception'] = 'Alias incorrecto';
 						}
@@ -397,26 +417,31 @@ if (isset($_GET['action'])) {
                 if ($usuario->setAlias($_POST['usuario'])) {
                     //Se comprueba que el alias exista en la base de datos
                     if ($usuario->checkAlias()) {
-                        //Se comprueba que el estado del usuario este activo
-                        if ($usuario->checkEstado()){
-                            //Se valida que la contraseña no sea menor a 6 caracteres
-                            if ($usuario->setClave($_POST['clave'])) {
-                                //Se comprueba que la contraseña coincida con el usuario a iniciar sesión
-                                if ($usuario->checkPassword()) {
-                                    //Si todo está correcto se inicia sesión y se llenan las variables de sesión con el id y el alias
-                                    $_SESSION['idUsuario'] = $usuario->getId();
-                                    $_SESSION['aliasUsuario'] = $usuario->getAlias();
-                                    $_SESSION['tiempo'] = time();
-                                    $result['status'] = 1;
+                        if ($usuario->checkActivacion()) {
+                            $result['exception'] = 'Su cuenta no ha sido activada';
+                        } else {
+                            //Se comprueba que el estado del usuario este activo
+                            if ($usuario->checkEstado()){
+                                //Se valida que la contraseña no sea menor a 6 caracteres
+                                if ($usuario->setClave($_POST['clave'])) {
+                                    //Se comprueba que la contraseña coincida con el usuario a iniciar sesión
+                                    if ($usuario->checkPassword()) {
+                                        //Si todo está correcto se inicia sesión y se llenan las variables de sesión con el id y el alias
+                                        $_SESSION['idUsuario'] = $usuario->getId();
+                                        $_SESSION['aliasUsuario'] = $usuario->getAlias();
+                                        $_SESSION['tiempo'] = time();
+                                        $result['status'] = 1;
+                                    } else {
+                                        $result['exception'] = 'Clave inexistente';
+                                    }
                                 } else {
-                                    $result['exception'] = 'Clave inexistente';
+                                    $result['exception'] = 'Clave menor a 6 caracteres';
                                 }
                             } else {
-                                $result['exception'] = 'Clave menor a 6 caracteres';
+                                $result['exception'] = 'No tiene acceso al sistema';
                             }
-                        } else {
-                            $result['exception'] = 'No tiene acceso al sistema';
                         }
+                        
                     } else {
                         $result['exception'] = 'Alias inexistente';
                     }
@@ -431,42 +456,79 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Ya existe un usuario registrado';
                 } else {
                     if ($usuario->setAlias($_POST['alias'])) {
-                        if ($usuario->setEstado(isset($_POST['estado']) ? 1 : 0)) {
-                            if ($usuario->setTipo_usuario($_POST['tipo'])) {
-                                //Se comprueba que las claves sean iguales
-                                if ($_POST['clave1'] == $_POST['clave2']) {
-                                    if ($usuario->setClave($_POST['clave1'])) {
-                                        //Se comprueba que se haya seleccionado una imagen anteriormente
-                                        if (is_uploaded_file($_FILES['archivo']['tmp_name'])) {
-                                            if ($usuario->setFoto($_FILES['archivo'], null)) {
-                                                //Si todo está correcto se registra el primer usuario
-                                                if ($usuario->createUsuario()) {
-                                                    if ($usuario->saveFile($_FILES['archivo'], $usuario->getRuta(), $usuario->getFoto())) {
-                                                        $result['status'] = 1;
+                        if($usuario->setCorreo($_POST['correo'])) {
+                            if ($usuario->setEstado(isset($_POST['estado']) ? 1 : 0)) {
+                                if ($usuario->setTipo_usuario($_POST['tipo'])) {
+                                    //Se comprueba que las claves sean iguales
+                                    if ($_POST['clave1'] == $_POST['clave2']) {
+                                        if ($_POST['clave1'] != $_POST['alias']) {
+                                            if ($usuario->setClave($_POST['clave1'])) {
+                                                //Se comprueba que se haya seleccionado una imagen anteriormente
+                                                if (is_uploaded_file($_FILES['archivo']['tmp_name'])) {
+                                                    if ($usuario->setFoto($_FILES['archivo'], null)) {
+                                                        if ($usuario->saveFile($_FILES['archivo'], $usuario->getRuta(), $usuario->getFoto())) {
+                                                            $correo = $usuario->getCorreo();
+                                                            $token_activacion = uniqid();
+                                                            if($usuario->setToken($token_activacion)){
+                                                                if($usuario->updateToken()){
+                                                                    if ($usuario->createUsuario()) {
+                                                                        try {
+                                                                        $mail->isSMTP();                                            // Set mailer to use SMTP
+                                                                        $mail->Host       = 'smtp.gmail.com';                       // Specify main and backup SMTP servers
+                                                                        $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+                                                                        $mail->Username   = 'test503sv@gmail.com';                             // SMTP username
+                                                                        $mail->Password   = '71096669';                             // SMTP password
+                                                                        $mail->SMTPSecure = 'tls';                                  // Enable TLS encryption, `ssl` also accepted
+                                                                        $mail->Port       = 587;
+                                                                        //Recipients
+                                                                        $mail->setFrom('test503sv@gmail.com', 'Activar cuenta');
+                                                                        $mail->addAddress($correo);
+                                                                        // Content
+                                                                        $mail->isHTML(true);                                  // Set email format to HTML
+                                                                        $mail->Subject = 'Activar cuenta';
+                                                                        $mail->Body    = 'Haga click <a href="http://localhost/admin/views/activacion.php?token='.$token_activacion.'">aquí</a> para activar su cuenta';
+                                                                        $mail->send();
+                                                                        $result['status'] = 1;
+                                                                        } catch (Exception $e) {
+                                                                            echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+                                                                        }
+                                                                    } else {
+                                                                        $result['exception'] = 'Operación fallida';
+                                                                    }
+                                                                } else{
+                                                                    $result['exception'] = 'Error al actualizar el token';
+                                                                }
+                                                                
+                                                            } else {
+                                                                $result['exception'] = 'Error al setear el token';
+                                                            }
+                                                        } else {
+                                                            $result['status'] = 2;
+                                                            $result['exception'] = 'No se guardó el archivo';
+                                                        }
                                                     } else {
-                                                        $result['status'] = 2;
-                                                        $result['exception'] = 'No se guardó el archivo';
-                                                    }
-                                                } else {
-                                                    $result['exception'] = 'Operación fallida';
-                                                }
+                                                        $result['exception'] = $usuario->getImageError();;
+                                                    } 
+                                                }   else {
+                                                    $result['exception'] = 'Seleccione una imagen';
+                                                }   
                                             } else {
-                                                $result['exception'] = $usuario->getImageError();;
-                                            } 
-                                        }   else {
-                                            $result['exception'] = 'Seleccione una imagen';
-                                        }   
+                                                    $result['exception'] = 'Clave menor a 6 caracteres';
+                                            }
+                                        } else {
+                                            $result['exception'] = 'La clave no puede ser igual al alias';
+                                        }
                                     } else {
-                                            $result['exception'] = 'Clave menor a 6 caracteres';
+                                        $result['exception'] = 'Claves diferentes';
                                     }
                                 } else {
-                                    $result['exception'] = 'Claves diferentes';
+                                    $result['exception'] = 'Seleccione un tipo de usuario';
                                 }
                             } else {
-                                $result['exception'] = 'Seleccione un tipo de usuario';
+                                $result['exception'] = 'Estado incorrecto';
                             }
                         } else {
-                            $result['exception'] = 'Estado incorrecto';
+                            $result['exception'] = 'Correo incorrecto';
                         }
                     } else {
                         $result['exception'] = 'Alias incorrecto';

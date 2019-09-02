@@ -29,6 +29,9 @@
                                 <input id="alias" type="text" name="alias" class="validate form-control"
                                     placeholder="Nombre De Usuario" required>
                                 <br>
+                                <input id="correo" type="email" name="correo" class="validate form-control"
+                                    placeholder="Correo electronico" required>
+                                <br>
                                 <input id="clave1" type="password" name="clave1" class="validate form-control"
                                     placeholder="Contraseña" required>
                                 <br>

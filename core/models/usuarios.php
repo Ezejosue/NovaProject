@@ -176,6 +176,13 @@ class Usuarios extends Validator
 			return false;
 		}
 	}
+
+	public function checkAlias2()
+	{
+		$sql = 'SELECT id_usuario FROM usuarios WHERE alias = ? AND id_usuario = ?';
+		$params = array($this->alias, $this->id);
+		return Conexion::getRow($sql, $params);
+	}
 	//Método para verificar si el estado del usuario está ativo para dejarlo entrar al sistema
 	public function checkEstado()
 	{
@@ -188,6 +195,13 @@ class Usuarios extends Validator
 		} else {
 			return false;
 		}
+	}
+
+	public function checkActivacion()
+	{
+		$sql = 'SELECT estado_usuario FROM usuarios WHERE alias = ? AND estado_usuario = 3';
+		$params = array($this->alias);
+		return Conexion::getRow($sql, $params);
 	}
 
 	//Méodo para vificar que la contraseña exista y que sea igual al del usuario
@@ -249,7 +263,7 @@ class Usuarios extends Validator
 	//Método para leer la tabla usuarios
 	public function readUsuarios()
 	{
-		$sql = 'SELECT id_usuario, foto_usuario, alias, estado_usuario, fecha_creacion, tipo FROM usuarios INNER JOIN tipousuario USING (id_Tipousuario)';
+		$sql = 'SELECT id_usuario, foto_usuario, alias, correo_usuario, estado_usuario, fecha_creacion, tipo FROM usuarios INNER JOIN tipousuario USING (id_Tipousuario)';
 		$params = array(null);
 		return Conexion::getRows($sql, $params);
 	}
@@ -267,23 +281,23 @@ class Usuarios extends Validator
 	public function createUsuario()
 	{
 		$hash = password_hash($this->clave, PASSWORD_DEFAULT);
-		$sql = 'INSERT INTO usuarios(alias, foto_usuario, estado_usuario, id_Tipousuario, clave_usuario) VALUES(?, ?, ?, ?, ?)';
-		$params = array($this->alias, $this->foto, $this->estado, $this->tipo_usuario, $hash);
+		$sql = 'INSERT INTO usuarios(alias, correo_usuario, foto_usuario, estado_usuario, id_Tipousuario, clave_usuario) VALUES(?, ?, ?, ?, ?, ?)';
+		$params = array($this->alias, $this->correo, $this->foto, 3, $this->tipo_usuario, $hash);
 		return Conexion::executeRow($sql, $params);
 	}
 
 	//Método para obtener la información e un usuario específico
 	public function getUsuario()
 	{
-		$sql = 'SELECT id_usuario, alias, foto_usuario, fecha_creacion, estado_usuario, id_Tipousuario, clave_usuario FROM usuarios WHERE id_usuario = ?';
+		$sql = 'SELECT id_usuario, alias, correo_usuario, foto_usuario, fecha_creacion, estado_usuario, id_Tipousuario, clave_usuario FROM usuarios WHERE id_usuario = ?';
 		$params = array($this->id);
 		return Conexion::getRow($sql, $params);
 	}
 	//Método para modificar la información de un usuario
 	public function updateUsuario()
 	{
-		$sql = 'UPDATE usuarios SET alias = ?, foto_usuario = ?, estado_usuario = ?, id_Tipousuario = ? WHERE id_usuario = ?';
-		$params = array($this->alias, $this->foto, $this->estado, $this->tipo_usuario, $this->id);
+		$sql = 'UPDATE usuarios SET alias = ?, foto_usuario = ?, correo_usuario = ?, estado_usuario = ?, id_Tipousuario = ? WHERE id_usuario = ?';
+		$params = array($this->alias, $this->foto, $this->correo, $this->estado, $this->tipo_usuario, $this->id);
 		return Conexion::executeRow($sql, $params);
 	}
 	//Método para eliminar un usuario
