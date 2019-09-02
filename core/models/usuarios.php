@@ -204,6 +204,13 @@ class Usuarios extends Validator
 		return Conexion::getRow($sql, $params);
 	}
 
+	public function activarCuenta()
+	{
+		$sql = 'UPDATE usuarios SET estado_usuario = 1 WHERE id_usuario = ?';
+		$params = array($this->id);
+		return Conexion::executeRow($sql, $params);
+	}
+
 	//Méodo para vificar que la contraseña exista y que sea igual al del usuario
 	public function checkPassword()
 	{
@@ -281,11 +288,11 @@ class Usuarios extends Validator
 	public function createUsuario()
 	{
 		$hash = password_hash($this->clave, PASSWORD_DEFAULT);
-		$sql = 'INSERT INTO usuarios(alias, correo_usuario, foto_usuario, estado_usuario, id_Tipousuario, clave_usuario) VALUES(?, ?, ?, ?, ?, ?)';
-		$params = array($this->alias, $this->correo, $this->foto, 3, $this->tipo_usuario, $hash);
+		$sql = 'INSERT INTO usuarios(alias, correo_usuario, token_usuario, foto_usuario, estado_usuario, id_Tipousuario, clave_usuario) VALUES(?, ?, ?, ?, ?, ?, ?)';
+		$params = array($this->alias, $this->correo, $this->token, $this->foto, 3, $this->tipo_usuario, $hash);
 		return Conexion::executeRow($sql, $params);
 	}
-
+	
 	//Método para obtener la información e un usuario específico
 	public function getUsuario()
 	{

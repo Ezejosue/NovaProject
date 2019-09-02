@@ -249,8 +249,6 @@ if (isset($_GET['action'])) {
                                                             if ($usuario->createUsuario()) {
                                                                 if ($usuario->saveFile($_FILES['create_archivo'], $usuario->getRuta(), $usuario->getFoto())) {
                                                                     $result['status'] = 1;
-            
-            
                                                                 } else {
                                                                     $result['status'] = 2;
                                                                     $result['exception'] = 'No se guardó el archivo';
@@ -533,6 +531,27 @@ if (isset($_GET['action'])) {
                     } else {
                         $result['exception'] = 'Alias incorrecto';
                     }   
+                }
+                break;
+                case 'activacion':
+                $_POST = $usuario->validateForm($_POST);
+                if($usuario->setToken($_POST['token'])) {
+                    if($usuario->getDatosToken()) {
+                        if($usuario->activarCuenta()) {
+                            if($usuario->deleteToken()) {
+                                $result['status'] = 1;
+                            } else {
+                                $result['exception'] = 'Error al borrar el token';
+                            }
+                            
+                        } else {
+                            $result['exception'] = 'Error al activar la cuenta';
+                        }
+                    } else {
+                        $result['exception'] = 'Error al obtener los datos del usuario';
+                    }
+                } else {
+                    $result['exception'] = 'Error al obtener el token';
                 }
                 break;
                 case 'recuperarContrasena':
