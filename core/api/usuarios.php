@@ -428,7 +428,42 @@ if (isset($_GET['action'])) {
                                         $_SESSION['idUsuario'] = $usuario->getId();
                                         $_SESSION['aliasUsuario'] = $usuario->getAlias();
                                         $_SESSION['tiempo'] = time(); */
-                                        $result['status'] = 1;
+                                        $token_autenticacion = mt_rand(100000, 999999);
+                                        if($usuario->setToken($token_autenticacion)) {
+                                            if($usuario->updateTokenAutenticacion()) {
+                                                if($usuario->getDatosToken()) {
+                                                    $correo = $usuario->getCorreo();
+                                                    try {
+                                                        $mail->isSMTP();                                            // Set mailer to use SMTP
+                                                        $mail->Host       = 'smtp.gmail.com';                       // Specify main and backup SMTP servers
+                                                        $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+                                                        $mail->Username   = 'test503sv@gmail.com';                             // SMTP username
+                                                        $mail->Password   = '71096669';                             // SMTP password
+                                                        $mail->SMTPSecure = 'tls';                                  // Enable TLS encryption, `ssl` also accepted
+                                                        $mail->Port       = 587;
+                                                        //Recipients
+                                                        $mail->setFrom('test503sv@gmail.com', 'Pizza Nova');
+                                                        $mail->addAddress($correo);
+                                                        // Content
+                                                        $mail->isHTML(true);                                  // Set email format to HTML
+                                                        $mail->Subject = 'Código de inicio de sesión';
+                                                        $mail->Body    = 'Tu código de activación es: '.$token_autenticacion;
+                                                        $mail->send();
+                                                        $result['status'] = 1;
+                                                        $_SESSION['aliasUsuario'] = $usuario->getAlias();
+                                                        } catch (Exception $e) {
+                                                            echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+                                                        }
+                                                } else {
+
+                                                }
+                                            } else {
+                                                $result['exception'] = 'Error al asignar el token';
+                                            }
+                                        } else {
+                                            $result['exception'] = 'Error al setear el token';
+                                        }
+                                        
                                     } else {
                                         $result['exception'] = 'Clave inexistente';
                                     }
@@ -439,13 +474,32 @@ if (isset($_GET['action'])) {
                                 $result['exception'] = 'No tiene acceso al sistema';
                             }
                         }
-                        
                     } else {
                         $result['exception'] = 'Alias inexistente';
                     }
                 } else {
                     $result['exception'] = 'Alias incorrecto';
                 }
+                break;
+                case 'autenticacion':
+                $_POST = $usuario->validateForm($_POST);
+                    if($usuario->setToken($_POST['codigo'])) {
+                        if($usuario->getDatosToken()) {
+                            if($usuario->deleteToken()) {
+                                $_SESSION['idUsuario'] = $usuario->getId();
+                                $_SESSION['aliasUsuario'] = $usuario->getAlias();
+                                $_SESSION['tiempo'] = time();
+                                $result['status'] = 1;
+                            } else {
+                                $result['exception'] = 'Error al eliminar el token';
+                            }
+                            
+                        } else {
+                            $result['exception'] = 'Código incorrecto';
+                        }
+                    } else {
+                        $result['exception'] = 'Error al setear el token';
+                    }
                 break;
                 //Operación para registrar el primer usuario
                 case 'register':

@@ -39,13 +39,13 @@
                                 </div>
                             </div>
                             <br>
+                            <form method="post" id="form-autenticacion">
                             <div class="row">
                                 <div class="col-sm-12 md-12"> 
-                                    <input type="text" class="form-control" placeholder="Introduce el código" autofocus>
+                                    <input type="text" class="form-control" placeholder="Introduce el código" autofocus id="codigo" name="codigo">
                                 </div>
                             </div>
                             <br>
-                            <form method="post" id="form-activar-cuenta">
                                 <button class="btn btn-primary btn-block btn-signin" type="submit">VERIFICAR</button>
                             </form>
                         </div>
