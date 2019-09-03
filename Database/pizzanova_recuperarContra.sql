@@ -374,6 +374,15 @@ CREATE TABLE `receta` (
 --
 -- Volcado de datos para la tabla `receta`
 --
+-- Creando la tabla de tareas para la app
+CREATE TABLE `tareas` (
+ `id_tarea` int(10) UNSIGNED NOT NULL,
+ `mensaje` varchar(80) NOT NULL,
+ `importancia` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+--
+--
+--
 
 INSERT INTO `receta` (`id_receta`, `nombre_receta`, `tiempo`, `elaboracion`, `id_categoria`, `idMateria`) VALUES
 (4, 'Pizza de jamÃ³n', '15 min', '', 4, 6),
