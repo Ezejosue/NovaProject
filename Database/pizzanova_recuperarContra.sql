@@ -376,7 +376,7 @@ CREATE TABLE `receta` (
 --
 -- Creando la tabla de tareas para la app
 CREATE TABLE `tareas` (
- `id_tarea` int(10) UNSIGNED NOT NULL,
+ `id_tarea` int(10) UNSIGNED AUTO_INCREMENT NOT NULL,
  `mensaje` varchar(80) NOT NULL,
  `importancia` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
