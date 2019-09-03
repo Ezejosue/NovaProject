@@ -239,13 +239,21 @@ class Usuarios extends Validator
 		return Conexion::executeRow($sql, $params);
 	}
 
+	public function updateTokenAutenticacion()
+	{
+		$sql = 'UPDATE usuarios SET token_usuario = ? WHERE alias = ?';
+		$params = array($this->token, $this->alias);
+		return Conexion::executeRow($sql, $params);
+	}
+
 	public function getDatosToken()
 	{
-		$sql = 'SELECT id_usuario FROM usuarios WHERE token_usuario = ?';
+		$sql = 'SELECT id_usuario, alias, correo_usuario FROM usuarios WHERE token_usuario = ?';
 		$params = array($this->token);
 		$data = Conexion::getRow($sql, $params);
 		if ($data) {
 			$this->id = $data['id_usuario'];
+			$this->correo = $data['correo_usuario'];
 			return true;
 		} else {
 			return false;
