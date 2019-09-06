@@ -101,11 +101,12 @@ class Usuarios extends Validator
 
 	public function setClave($value)
 	{
-		if ($this->validatePassword($value)) {
+		$validator = $this->validatePassword($value);
+		if ($validator[0]) {
 			$this->clave = $value;
-			return true;
+			return array (true, '');
 		} else {
-			return false;
+			return array (false, $validator[1]);
 		}
 	}
 
@@ -147,6 +148,20 @@ class Usuarios extends Validator
 		} else {
 			return false;
 		}
+	}
+
+	public function checkContra()
+	{
+		$sql = 'SELECT alias FROM usuarios WHERE id_usuario = ?';
+		$params = array($this->id);
+		$data = Conexion::getRow($sql, $params);
+	}
+
+	public function checkAlias2()
+	{
+		$sql = 'SELECT id_usuario FROM usuarios WHERE alias = ? AND id_usuario = ?';
+		$params = array($this->alias, $this->id);
+		return Conexion::getRow($sql, $params);
 	}
 	//Método para verificar si el estado del usuario está ativo para dejarlo entrar al sistema
 	public function checkEstado()
