@@ -3,6 +3,15 @@ require_once('../../core/helpers/conexion.php');
 require_once('../../core/helpers/validator.php');
 require_once('../../core/models/usuarios.php');
 
+//Librerias necesarias de PHPMailer
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+require '../../core/libraries/PHPMailer/src/Exception.php';
+require '../../core/libraries/PHPMailer/src/PHPMailer.php';
+require '../../core/libraries/PHPMailer/src/SMTP.php';
+$mail = new PHPMailer();
+$mail->CharSet = "UTF-8";
+
 //Se comprueba si existe una petición del sitio web y la acción a realizar, de lo contrario se muestra una página de error
 if (isset($_GET['action'])) {
     session_start();
@@ -289,11 +298,17 @@ if (isset($_GET['action'])) {
                                                 $result['exception'] = 'Claves diferentes';
                                             }
                                         } else {
-                                                $result['exception'] = 'Clave menor a 6 caracteres';
-                                        } 
+                                            $result['exception'] = 'Seleccione un tipo de usuario';
+                                        }
+                                    } else {
+                                        $result['exception'] = 'Estado incorrecto';
+                                    }
+                                }
                             } else {
-                                $result['exception'] = 'Seleccione un tipo de usuario';
+                                $result['exception'] = 'Correo incorrecto';
                             }
+                        }
+                        
                     } else {
                         $result['exception'] = 'Alias incorrecto';
                     }                                     
@@ -317,42 +332,47 @@ if (isset($_GET['action'])) {
 				if ($usuario->setId($_POST['id_usuario'])) {
 					if ($usuario->getUsuario()) {
 		                if ($usuario->setAlias($_POST['update_alias'])) {
-							if ($usuario->setEstado(isset($_POST['update_estado']) ? 1 : 0)) {
-                                if ($usuario->setTipo_usuario($_POST['update_tipo'])) {
-                                    //Se comprueba que se haya subido una imagen
-                                    if (is_uploaded_file($_FILES['imagen_usuario']['tmp_name'])) {
-                                        if ($usuario->setFoto($_FILES['imagen_usuario'], $_POST['foto_usuario'])) {
-                                            $archivo = true;
-                                        } else {
-                                            $result['exception'] = $usuario->getImageError();
-                                            $archivo = false;
-                                        }
-                                    } else {
-                                        if (!$usuario->setFoto(null, $_POST['foto_usuario'])) {
-                                            $result['exception'] = $usuario->getImageError();
-                                        }
-                                        $archivo = false;
-                                    }
-                                    if ($usuario->updateUsuario()) {
-                                        $result['status'] = 1;
-                                        if ($archivo) {
-                                            if ($usuario->saveFile($_FILES['imagen_usuario'], $usuario->getRuta(), $usuario->getFoto())) {
-                                                $result['message'] = 'Categoría modificada correctamente';
+                            if($usuario->setCorreo($_POST['update_correo'])){
+                                if ($usuario->setEstado(isset($_POST['update_estado']) ? 1 : 0)) {
+                                    if ($usuario->setTipo_usuario($_POST['update_tipo'])) {
+                                        //Se comprueba que se haya subido una imagen
+                                        if (is_uploaded_file($_FILES['imagen_usuario']['tmp_name'])) {
+                                            if ($usuario->setFoto($_FILES['imagen_usuario'], $_POST['foto_usuario'])) {
+                                                $archivo = true;
                                             } else {
-                                                $result['message'] = 'Categoría modificada. No se guardó el archivo';
+                                                $result['exception'] = $usuario->getImageError();
+                                                $archivo = false;
                                             }
                                         } else {
-                                            $result['message'] = 'Categoría modificada. No se subió ningún archivo';
+                                            if (!$usuario->setFoto(null, $_POST['foto_usuario'])) {
+                                                $result['exception'] = $usuario->getImageError();
+                                            }
+                                            $archivo = false;
+                                        }
+                                        if ($usuario->updateUsuario()) {
+                                            $result['status'] = 1;
+                                            if ($archivo) {
+                                                if ($usuario->saveFile($_FILES['imagen_usuario'], $usuario->getRuta(), $usuario->getFoto())) {
+                                                    $result['message'] = 'Categoría modificada correctamente';
+                                                } else {
+                                                    $result['message'] = 'Categoría modificada. No se guardó el archivo';
+                                                }
+                                            } else {
+                                                $result['message'] = 'Categoría modificada. No se subió ningún archivo';
+                                            }
+                                        } else {
+                                            $result['exception'] = 'Operación fallida';
                                         }
                                     } else {
-                                        $result['exception'] = 'Operación fallida';
+                                        $result['exception'] = 'Seleccione un tipo de usuario';
                                     }
                                 } else {
-                                    $result['exception'] = 'Seleccione un tipo de usuario';
+                                    $result['exception'] = 'Estado incorrecto';
                                 }
-							} else {
-								$result['exception'] = 'Estado incorrecto';
-							}
+                            } else{
+                                $result['exception'] = 'Correo incorrecto';
+                            }
+							
 						} else {
 							$result['exception'] = 'Alias incorrecto';
 						}
@@ -473,6 +493,7 @@ if (isset($_GET['action'])) {
                                         } else {
                                             $result['exception'] = 'Error al setear el token';
                                         }
+                                        
                                     } else {
                                         $result['exception'] = 'Clave inexistente';
                                     }
@@ -480,10 +501,8 @@ if (isset($_GET['action'])) {
                                     $result['exception'] = $contrasenia[1];
                                 }
                             } else {
-                                $result['exception'] = 'Clave menor a 6 caracteres';
+                                $result['exception'] = 'No tiene acceso al sistema';
                             }
-                        } else {
-                            $result['exception'] = 'No tiene acceso al sistema';
                         }
                     } else {
                         $result['exception'] = 'Alias inexistente';
@@ -492,9 +511,32 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Alias incorrecto';
                 }
                 break;
+                case 'autenticacion':
+                $_POST = $usuario->validateForm($_POST);
+                    if($usuario->setToken($_POST['codigo'])) {
+                        if($usuario->getDatosToken()) {
+                            if($usuario->deleteToken()) {
+                                $_SESSION['idUsuario'] = $usuario->getId();
+                                $_SESSION['aliasUsuario'] = $usuario->getAlias();
+                                $_SESSION['tiempo'] = time();
+                                $result['status'] = 1;
+                            } else {
+                                $result['exception'] = 'Error al eliminar el token';
+                            }
+                            
+                        } else {
+                            $result['exception'] = 'Código incorrecto';
+                        }
+                    } else {
+                        $result['exception'] = 'Error al setear el token';
+                    }
+                break;
                 //Operación para registrar el primer usuario
                 case 'register':
                 $_POST = $usuario->validateForm($_POST);
+                if($usuario->readUsuarios()){
+                    $result['exception'] = 'Ya existe un usuario registrado';
+                } else {
                     if ($usuario->setAlias($_POST['alias'])) {
                         if($usuario->setCorreo($_POST['correo'])) {
                             if ($usuario->setEstado(isset($_POST['estado']) ? 1 : 0)) {
@@ -562,13 +604,13 @@ if (isset($_GET['action'])) {
                                         $result['exception'] = 'La clave no puede ser igual al alias';
                                     }
                                 } else {
-                                    $result['exception'] = 'Claves diferentes';
+                                    $result['exception'] = 'Seleccione un tipo de usuario';
                                 }
                             } else {
-                                $result['exception'] = 'Seleccione un tipo de usuario';
+                                $result['exception'] = 'Estado incorrecto';
                             }
                         } else {
-                            $result['exception'] = 'Estado incorrecto';
+                            $result['exception'] = 'Correo incorrecto';
                         }
                     } else {
                         $result['exception'] = 'Alias incorrecto';
@@ -679,7 +721,7 @@ if (isset($_GET['action'])) {
         }
     }
 	print(json_encode($result));
- else {
+} else {
 	exit('Recurso denegado');
 }
 ?>

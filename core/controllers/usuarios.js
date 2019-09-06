@@ -19,6 +19,7 @@ function fillTable(rows)
             <tr>
                 <td><img src=" ../resources/img/usuarios/${row.foto_usuario}"> </td>
                 <td>${row.alias}</td>
+                <td>${row.correo_usuario}</td>
                 <td>${row.fecha_creacion}</td>
                 <td>${row.tipo}</td>
                 <td><i class="material-icons">${icon}</i></td>
@@ -131,8 +132,6 @@ $('#form-create').submit(function()
             }
         } else {
             console.log(response);
-            //Se comprueba que el alias no sea repetido
-            sweetAlert(2, error2(response), null);
         }
     })
     .fail(function(jqXHR){
@@ -161,6 +160,7 @@ function modalUpdate(id)
                 $('#form-update')[0].reset();
                 $('#id_usuario').val(result.dataset.id_usuario);
                 $('#update_alias').val(result.dataset.alias);
+                $('#update_correo').val(result.dataset.correo_usuario);
                 showSelectTipo('update_tipo', result.dataset.id_Tipousuario);
                 $('#foto_usuario').val(result.dataset.foto_usuario);
                 (result.dataset.estado_usuario == 1) ? $('#update_estado').prop('checked', true) : $('#update_estado').prop('checked', false);
@@ -267,7 +267,7 @@ function error2(response)
 {
     switch (response){
         case 'Dato duplicado, no se puede guardar':
-            mensaje = 'Nombre de usuario ya existe';
+            mensaje = 'Nombre de usuario o correo ya existe';
             break;
         default:
             mensaje = 'Ocurrió un problema, consulte al administrador'

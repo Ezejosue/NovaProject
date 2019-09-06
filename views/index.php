@@ -31,11 +31,14 @@
                         </div>
                         <div class="login-form">
                             <form method="post" id="form-sesion">
-                                <input type="text" id="usuario" name="usuario" class="validate form-control" placeholder="Usuario" required autofocus>
+                                <input type="text" id="usuario" name="usuario" class="validate form-control"
+                                    placeholder="Usuario" required autofocus>
                                 <br>
-                                <input type="password" id="clave" name="clave" class="validate form-control" placeholder="Contraseña" required autofocus>
+                                <input type="password" id="clave" name="clave" class="validate form-control"
+                                    placeholder="Contraseña" required autofocus>
                                 <br>
-                                <button class="btn btn-lg btn-primary btn-block btn-signin tooltipped" data-tooltip="Ingresar" type="submit">Iniciar Sesión</button>
+                                <button class="btn btn-lg btn-primary btn-block btn-signin tooltipped"
+                                    data-tooltip="Ingresar" type="submit">Iniciar Sesión</button>
                             </form>
                             <div class="container text-center">
                                 <p>
@@ -52,27 +55,37 @@
     </div>
 
 
-    <!-- Modal de Agregar -->
+    <!-- Modal de recuperar contraseña -->
     <div class="modal fade" id="recuperar">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Recuperar contraseña</h5>
-
                 </div>
                 <div class="modal-body">
-                    <div class="row">
-                        <div class="col-sm-1">
-                            <i class="fa fa-list"></i>
+                    <form method="post" id="form-recuperar-contrasena">
+                        <div class="row">
+                            <div class="col-sm-1">
+                                <i class="fa fa-envelope"></i>
+                            </div>
+                            <div class="col-sm-11">
+                                <input type="email" id="correo" name="correo" placeholder="Ingrese su correo"
+                                    class="form-control">
+                                <br>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="alert alert-info text-center" role="alert">
+                                    Se le enviará un correo con las instrucciones para recuperar su contraseña
+                                </div>
+                            </div>
+                            
                         </div>
-                        <div class="col-sm-11">
-                            <input placeholder="Ingrese su correo" class="form-control">
+                        <div class="text-center">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary">Aceptar</button>
+                            <br>
                         </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary">Aceptar</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -83,8 +96,7 @@
     <script src="../resources/js/sweetalert.min.js"></script>
     <script src="../resources/extras/animsition/animsition.min.js"></script>
     <script type="text/javascript" src="../core/helpers/functions.js"></script>
-    <script type="text/javascript" src="../core/controllers/account.js"></script>
-    <script type="text/javascript" src="../core/controllers/index.js"></script>
+    <script type="text/javascript" src="../core/controllers/login.js"></script>
 
 </body>
 
