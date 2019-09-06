@@ -685,26 +685,20 @@ if (isset($_GET['action'])) {
                 case 'nuevaPassword':
                 $_POST = $usuario->validateForm($_POST);
                 if($usuario->setToken($_POST['token'])){
-                    $alias = $usuario->getAlias();
-                    if($usuario->getDatosToken()){
-                        if ($_POST['nueva_contrasena'] == $_POST['nueva_contrasena2']) {
-                            if ($_POST['nueva_contrasena'] == $alias) {
-                            $contrasenia = $usuario->setClave($_POST['nueva_contrasena']);
-                                if ($contrasenia[0]) {
-                                    if ($usuario->changePassword()) {
-                                        if($usuario->deleteToken()){
-                                            $result['status'] = 1;
-                                        } else {
-                                            $result['exception'] = 'Error al borrar el token';
-                                        }
+                    if ($_POST['nueva_contrasena'] == $_POST['nueva_contrasena2']) {
+                        $contrasenia = $usuario->setClave($_POST['nueva_contrasena']);
+                            if ($contrasenia[0]) {
+                                if ($usuario->changePassword()) {
+                                    if($usuario->deleteToken()){
+                                        $result['status'] = 1;
                                     } else {
-                                        $result['exception'] = 'Operación fallida';
+                                        $result['exception'] = 'Error al borrar el token';
                                     }
                                 } else {
-                                    $result['exception'] = $contrasenia[1];
+                                    $result['exception'] = 'Operación fallida';
                                 }
                             } else {
-                                $result['exception'] = 'La clave no puede ser igual al alias';
+                                $result['exception'] = $contrasenia[1];
                             }
                         } else {
                             $result['exception'] = 'Claves diferentes';
@@ -712,9 +706,6 @@ if (isset($_GET['action'])) {
                     } else {
                         $result['exception'] = 'Error al obtener los datos del usuario';
                     }
-                } else {
-                    $result['exception'] = 'Error al setear el token';
-                }
                 break;
             default:
                 exit('Acción no disponible 2');
