@@ -438,6 +438,33 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Contenido no disponible';
                 }
                 break;
+
+                case 'intentos':
+                $_POST = $usuario->validateForm($_POST);
+                    if ($usuario->setAlias($_POST['usuario'])) {
+                        if ($result['dataset'] = $usuario->SumarIntentos()) {
+                            $result['status'] = 1;
+                    } else {
+                        $result['exception'] = 'No pudimos sumar intentos';
+                    }
+                } else {
+                    $result['exception'] = 'Alias incorrecto';
+                }
+                break;
+      
+            case 'BloquearIntentos':
+                $_POST = $usuario->validateForm($_POST);
+                 if ($usuario->setAlias($_POST['usuario'])) {
+                    if ($result['dataset'] = $usuario->BloquearIntentos()) {
+                        $result['status'] = 1;
+                    } else {
+                            $result['exception'] = 'No hemos podido bloquear usuario';
+                        } 
+                    } else {
+                        $result['exception'] = 'Alias incorrecto';
+                }
+                break;
+
             //Operación para iniciar sesión
             case 'login':
                 $_POST = $usuario->validateForm($_POST);
@@ -454,46 +481,49 @@ if (isset($_GET['action'])) {
                                 if ($contrasenia[0]) {
                                     //Se comprueba que la contraseña coincida con el usuario a iniciar sesión
                                     if ($usuario->checkPassword()) {
-                                        /* //Si todo está correcto se inicia sesión y se llenan las variables de sesión con el id y el alias
-                                        $_SESSION['idUsuario'] = $usuario->getId();
-                                        $_SESSION['aliasUsuario'] = $usuario->getAlias();
-                                        $_SESSION['tiempo'] = time(); */
-                                        $token_autenticacion = mt_rand(100000, 999999);
-                                        if($usuario->setToken($token_autenticacion)) {
-                                            if($usuario->updateTokenAutenticacion()) {
-                                                if($usuario->getDatosToken()) {
-                                                    $correo = $usuario->getCorreo();
-                                                    try {
-                                                        $mail->isSMTP();                                            // Set mailer to use SMTP
-                                                        $mail->Host       = 'smtp.gmail.com';                       // Specify main and backup SMTP servers
-                                                        $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-                                                        $mail->Username   = 'test503sv@gmail.com';                             // SMTP username
-                                                        $mail->Password   = '71096669';                             // SMTP password
-                                                        $mail->SMTPSecure = 'tls';                                  // Enable TLS encryption, `ssl` also accepted
-                                                        $mail->Port       = 587;
-                                                        //Recipients
-                                                        $mail->setFrom('test503sv@gmail.com', 'Pizza Nova');
-                                                        $mail->addAddress($correo);
-                                                        // Content
-                                                        $mail->isHTML(true);                                  // Set email format to HTML
-                                                        $mail->Subject = 'Código de inicio de sesión';
-                                                        $mail->Body    = 'Tu código de activación es: '.$token_autenticacion;
-                                                        $mail->send();
-                                                        $result['status'] = 1;
-                                                        $_SESSION['aliasUsuario'] = $usuario->getAlias();
-                                                        } catch (Exception $e) {
-                                                            echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-                                                        }
-                                                } else {
+                                        if ($usuario->UpdateLogin()) {
+                                            /* //Si todo está correcto se inicia sesión y se llenan las variables de sesión con el id y el alias
+                                            $_SESSION['idUsuario'] = $usuario->getId();
+                                            $_SESSION['aliasUsuario'] = $usuario->getAlias();
+                                            $_SESSION['tiempo'] = time(); */
+                                            $token_autenticacion = mt_rand(100000, 999999);
+                                            if($usuario->setToken($token_autenticacion)) {
+                                                if($usuario->updateTokenAutenticacion()) {
+                                                    if($usuario->getDatosToken()) {
+                                                        $correo = $usuario->getCorreo();
+                                                        try {
+                                                            $mail->isSMTP();                                            // Set mailer to use SMTP
+                                                            $mail->Host       = 'smtp.gmail.com';                       // Specify main and backup SMTP servers
+                                                            $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+                                                            $mail->Username   = 'test503sv@gmail.com';                             // SMTP username
+                                                            $mail->Password   = '71096669';                             // SMTP password
+                                                            $mail->SMTPSecure = 'tls';                                  // Enable TLS encryption, `ssl` also accepted
+                                                            $mail->Port       = 587;
+                                                            //Recipients
+                                                            $mail->setFrom('test503sv@gmail.com', 'Pizza Nova');
+                                                            $mail->addAddress($correo);
+                                                            // Content
+                                                            $mail->isHTML(true);                                  // Set email format to HTML
+                                                            $mail->Subject = 'Código de inicio de sesión';
+                                                            $mail->Body    = 'Tu código de activación es: '.$token_autenticacion;
+                                                            $mail->send();
+                                                            $result['status'] = 1;
+                                                            $_SESSION['aliasUsuario'] = $usuario->getAlias();
+                                                            } catch (Exception $e) {
+                                                                echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+                                                            }
+                                                    } else {
 
+                                                    }
+                                                } else {
+                                                    $result['exception'] = 'Error al asignar el token';
                                                 }
                                             } else {
-                                                $result['exception'] = 'Error al asignar el token';
+                                                $result['exception'] = 'Error al setear el token';
                                             }
                                         } else {
-                                            $result['exception'] = 'Error al setear el token';
-                                        }
-                                        
+                                            $result['exception'] = 'No hemos podido actualizar sus intentos';
+                                        } 
                                     } else {
                                         $result['exception'] = 'Clave inexistente';
                                     }
@@ -707,6 +737,8 @@ if (isset($_GET['action'])) {
                         $result['exception'] = 'Error al obtener los datos del usuario';
                     }
                 break;
+
+
             default:
                 exit('Acción no disponible 2');
         }
