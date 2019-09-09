@@ -143,7 +143,7 @@ INSERT INTO `detalle_pedido` (`id_detalle`, `id_pedido`, `id_platillo`, `cantida
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `elaboraciones`
+-- Estructura de tabla para la tabla `elaboraciones`  
 --
 
 CREATE TABLE IF NOT EXISTS `elaboraciones` (
