@@ -209,16 +209,16 @@ class Validator
 						$error = 'Contraseña: debe introducir al menos un signo y una longitud entre 8 a 25 caracteres';
 						return array(false, $error);
 					}
-					$error = 'Contraseña: debe introducir al menos una letra mayuscula';
+					$error = 'Contraseña: debe introducir al menos una letra mayúscula';
 					return array(false, $error);
 				}
-				$error = 'Contraseña: debe introducir al menos una letra minuscula';
+				$error = 'Contraseña: debe introducir al menos una letra minúscula';
 				return array(false, $error);
 			}
 			$error = 'Contraseña: debe introducir al menos un numero entre 0-9';
 			return array(false, $error);
 		}
-		$error = 'Contraseña: su contraseña no cumple con el formato de una mayuscula, una minuscula, un numero y un caracter especial';
+		$error = 'Contraseña: su contraseña no cumple con el formato de una mayúscula, una minúscula, un numero y un caracter especial';
 		return array(false, $error);
 	}
 
