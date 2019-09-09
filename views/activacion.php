@@ -31,7 +31,7 @@
                         </div>
                         <div class="login-form text-center">
                             <form method="post" id="form-activar-cuenta">
-                                <button class="btn btn-primary btn-signin" type="submit">CONTINUAR</button>
+                                <a class="btn btn-primary btn-signin" type="submit" href="index.php">CONTINUAR</a>
                             </form>
                         </div>
                     </div>
