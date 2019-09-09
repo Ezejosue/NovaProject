@@ -280,15 +280,44 @@ if (isset($_GET['action'])) {
                                                         //Se comprueba que se haya subido una imagen
                                                         if (is_uploaded_file($_FILES['create_archivo']['tmp_name'])) {
                                                             if ($usuario->setFoto($_FILES['create_archivo'], null)) {
-                                                                if ($usuario->createUsuario()) {
-                                                                    if ($usuario->saveFile($_FILES['create_archivo'], $usuario->getRuta(), $usuario->getFoto())) {
-                                                                        $result['status'] = 1;
+                                                                if ($usuario->saveFile($_FILES['create_archivo'], $usuario->getRuta(), $usuario->getFoto())) {
+                                                                    $correo = $usuario->getCorreo();
+                                                                    $token_activacion = uniqid();
+                                                                    if($usuario->setToken($token_activacion)){
+                                                                        if($usuario->updateToken()){
+                                                                            if ($usuario->createUsuario()) {
+                                                                                try {
+                                                                                $mail->isSMTP();                                            // Set mailer to use SMTP
+                                                                                $mail->Host       = 'smtp.gmail.com';                       // Specify main and backup SMTP servers
+                                                                                $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+                                                                                $mail->Username   = 'test503sv@gmail.com';                             // SMTP username
+                                                                                $mail->Password   = '71096669';                             // SMTP password
+                                                                                $mail->SMTPSecure = 'tls';                                  // Enable TLS encryption, `ssl` also accepted
+                                                                                $mail->Port       = 587;
+                                                                                //Recipients
+                                                                                $mail->setFrom('test503sv@gmail.com', 'Activar cuenta');
+                                                                                $mail->addAddress($correo);
+                                                                                // Content
+                                                                                $mail->isHTML(true);                                  // Set email format to HTML
+                                                                                $mail->Subject = 'Activar cuenta';
+                                                                                $mail->Body    = 'Haga click <a href="http://localhost/admin/views/activacion.php?token='.$token_activacion.'">aquí</a> para activar su cuenta';
+                                                                                $mail->send();
+                                                                                $result['status'] = 1;
+                                                                                } catch (Exception $e) {
+                                                                                    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+                                                                                }
+                                                                            } else {
+                                                                                $result['exception'] = 'Operación fallida';
+                                                                            }
+                                                                        } else{
+                                                                            $result['exception'] = 'Error al actualizar el token';
+                                                                        }
                                                                     } else {
-                                                                        $result['status'] = 2;
-                                                                        $result['exception'] = 'No se guardó el archivo';
+                                                                        $result['exception'] = 'Error al setear el token';
                                                                     }
                                                                 } else {
-                                                                    $result['exception'] = 'Operación fallida';
+                                                                    $result['status'] = 2;
+                                                                    $result['exception'] = 'No se guardó el archivo';
                                                                 }
                                                             } else {
                                                                 $result['exception'] = $usuario->getImageError();;
@@ -410,6 +439,26 @@ if (isset($_GET['action'])) {
                     }
                 } else {
                     $result['exception'] = 'No se puede eliminar a sí mismo';
+                }
+                break;
+                case 'activacion':
+                $_POST = $usuario->validateForm($_POST);
+                if($usuario->setToken($_POST['token'])) {
+                    if($usuario->getDatosToken()) {
+                        if($usuario->activarCuenta()) {
+                            if($usuario->deleteToken()) {
+                                $result['status'] = 1;
+                            } else {
+                                $result['exception'] = 'Error al borrar el token';
+                            }
+                        } else {
+                            $result['exception'] = 'Error al activar la cuenta';
+                        }
+                    } else {
+                        $result['exception'] = 'Error al obtener los datos del usuario';
+                    }
+                } else {
+                    $result['exception'] = 'Error al obtener el token';
                 }
                 break;
             //Operación para mostrar los tipos de usuario activos en el formulario de modificar usuario
