@@ -111,7 +111,7 @@ class Desperdicios extends Validator
 	
 	public function getDesperdicios()
 	{
-		$sql = 'SELECT id_desperdicios, id_receta, cantidad, id_usuario, id_empleado FROM desperdicios WHERE id_desperdicios = ?';
+		$sql = 'SELECT id_desperdicios, id_receta, cantidad, id_usuario, id_empleado FROM desperdicios WHERE id_desperdicios = ? LIMIT 1';
 		$params = array($this->id);
 		return conexion::getRow($sql, $params);
 	}

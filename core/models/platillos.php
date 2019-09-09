@@ -142,7 +142,7 @@ class Platillos extends Validator
    //se declara la funcion para el getplatillo y que devuelva los datos traendolos por su id
     public function getPlatillo()
     {
-        $sql = 'SELECT id_platillo, nombre_platillo, imagen, precio, estado, id_receta, id_categoria FROM platillos WHERE id_platillo = ?';
+        $sql = 'SELECT id_platillo, nombre_platillo, imagen, precio, estado, id_receta, id_categoria FROM platillos WHERE id_platillo = ? LIMIT 1';
         $params = array($this ->id);
         return Conexion::getRow($sql, $params);
     }
