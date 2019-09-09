@@ -194,7 +194,7 @@ class Usuarios extends Validator
 	//Método para verificar si el estado del usuario está ativo para dejarlo entrar al sistema
 	public function checkEstado()
 	{
-		$sql = 'SELECT estado_usuario FROM usuarios WHERE alias = ? AND estado_usuario = 1';
+		$sql = 'SELECT estado_usuario FROM usuarios WHERE alias = ? AND estado_usuario = 1 ';
 		$params = array($this->alias);
 		$data = Conexion::getRow($sql, $params);
 		if ($data) {
@@ -332,16 +332,17 @@ class Usuarios extends Validator
 
 	public function checkLogin()
 	{
-		$sql = 'SELECT logueado from usuarios where logueado = 1';
+		$sql = 'SELECT logueado from usuarios where logueado = 0';
 		$params = array(null);
 		return Conexion::getRows($sql, $params);
 	}
 
-	public function UpdateLogin()
+	public function UpdateLogin1()
 	{
 		$sql = 'UPDATE usuarios SET logueado = 1 where alias = ?';
 		$params = array($this->alias);
 		return Conexion::getRows($sql, $params);
+		echo('Hola');
 	}
 
 	public function UpdateLogout()
