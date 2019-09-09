@@ -24,14 +24,14 @@ if (isset($_GET['action'])) {
             case 'logout':
                 if (session_destroy()) {
                     if ($usuario->setId($_SESSION['idUsuario'])) {
-                       if ($usuario->UpdateLogout()) { */
+                       if ($usuario->UpdateLogout()) { 
                             header('location: ../../views/');
                         } else {
                             $result['exception'] = 'No hemos podido destruir su sesion';
                         }
                     } else {
                         $result['exception'] = 'No encontramos su usuario';
-                    } */
+                    } 
                 } else {
                     header('location: ../../views/inicio.php');
                 }
@@ -594,8 +594,20 @@ if (isset($_GET['action'])) {
                                                 $result['exception'] = 'No hemos podido actualizar sus intentos';
                                             } 
                                         } else {
-                                            $result['exception'] = 'Clave inexistente';
+                                        if ($usuario->setAlias($_POST['usuario'])) {
+                                           if ($usuario->ConsultarIntentos()) {
+                                            if ($usuario->SumarIntentos()) {
+                                                $result['exception'] = 'Tenga cuidado su sesion se puede bloquear si se equivoca mas de 3 veces';
+                                               }
+                                           } else {
+                                               if ($usuario->BloquearIntentos()) {
+                                                   $result['exception'] = 'Su usuario ha sido bloqueado';
+                                               }
+                                           }
+                                        } else {
+                                            $result['exception'] = 'Alias incorrecto';
                                         }
+                                    }
                                     } else {
                                         $result['exception'] = $contrasenia[1];
                                     }

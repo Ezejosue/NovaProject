@@ -24,8 +24,6 @@ $('#form-sesion').submit(function () {
                     sweetAlert(1, 'Autenticación correcta', 'autenticacion.php');
                 } else {
                     sweetAlert(2, dataset.exception, null);
-                    /* let alias = $('#usuario').val();
-                    sumarIntentos(alias); */
                 }
             } else {
                 console.log(response);

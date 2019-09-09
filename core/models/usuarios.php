@@ -308,9 +308,9 @@ class Usuarios extends Validator
 
 	public function ConsultarIntentos()
 	{
-		$sql = 'SELECT intentos from usuarios where alias = ?';
+		$sql = 'SELECT intentos from usuarios where alias = ? AND intentos <= 3';
 		$params = array($this->alias);
-		return Conexion:: executeRow($sql, $params);
+		return Conexion::getRow($sql, $params);
 	}
 
 	//Metodo para que a la hora de logearse los intentos se refresquen o cambien a 0
