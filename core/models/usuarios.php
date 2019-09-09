@@ -339,17 +339,16 @@ class Usuarios extends Validator
 
 	public function UpdateLogin1()
 	{
-		$sql = 'UPDATE usuarios SET logueado = 1 where alias = ?';
-		$params = array($this->alias);
-		return Conexion::getRows($sql, $params);
-		echo('Hola');
+		$sql = 'UPDATE usuarios SET logueado = 1 where id_usuario = ?';
+		$params = array($this->id);
+		return Conexion::executeRow($sql, $params);
 	}
 
 	public function UpdateLogout()
 	{
 		$sql = 'UPDATE usuarios SET logueado = 0 where id_usuario = ?';
 		$params = array($this->id);
-		return Conexion::getRows($sql, $params);
+		return Conexion::executeRow($sql, $params);
 	}
 
 	//Método para mostrar los tipos de usuario con estado activo

@@ -23,10 +23,10 @@ if (isset($_GET['action'])) {
             //Operación de cerrar sesión
             case 'logout':
                 if (session_destroy()) {
-                   // if ($usuario->setId($_SESSION['idUsuario'])) {
-                      /*   if ($usuario->UpdateLogout()) { */
+                    if ($usuario->setId($_SESSION['idUsuario'])) {
+                       if ($usuario->UpdateLogout()) { */
                             header('location: ../../views/');
-                      /*   } else {
+                        } else {
                             $result['exception'] = 'No hemos podido destruir su sesion';
                         }
                     } else {
@@ -615,11 +615,10 @@ if (isset($_GET['action'])) {
                     if($usuario->setToken($_POST['codigo'])) {
                         if($usuario->getDatosToken()) {
                             if($usuario->deleteToken()) {
-                                $_SESSION['idUsuario'] = $usuario->getId();
-                                $_SESSION['aliasUsuario'] = $usuario->getAlias();
-                                $_SESSION['tiempo'] = time();
-                                echo($usuario->getAlias());
                                 if ($usuario->UpdateLogin1()) {
+                                    $_SESSION['idUsuario'] = $usuario->getId();
+                                    $_SESSION['aliasUsuario'] = $usuario->getAlias();
+                                    $_SESSION['tiempo'] = time();
                                     $result['status'] = 1;
                                 } else {
                                     $result['exception'] = 'No pudimos actualizar su sesion';
