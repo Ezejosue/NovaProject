@@ -17,9 +17,9 @@ $pdf->addPage();
 $pdf->SetFont('Helvetica','B',10);
 $pdf->SetFillColor(239, 127, 26);
 $data = $platillos->readRecetaDesperdicio($_GET['fecha'], $_GET['fecha2']);
-// Cell(ancho, Alto, texto, borde, salto de linea, alineacion de texto)
 $pdf->Ln();
 $pdf->setX(60);
+// Cell(ancho, Alto, texto, borde, salto de linea, alineacion de texto)
 $pdf->Cell(100,5, utf8_decode('REPORTE DE PRODUCTOS DESPERDICIADOS'), 0, 0, 'C');  
 $pdf->Ln(10);
 // Seteamos la posición de la proxima celda en forma fija a 3.8 cm hacia la derecha de la pagina

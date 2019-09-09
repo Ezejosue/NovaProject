@@ -29,14 +29,16 @@
                                 <input id="alias" type="text" name="alias" class="validate form-control"
                                     placeholder="Nombre De Usuario" required>
                                 <br>
+                                <input id="correo" type="email" name="correo" class="validate form-control"
+                                    placeholder="Correo electronico" required>
+                                <br>
                                 <input id="clave1" type="password" name="clave1" class="validate form-control"
                                     placeholder="Contraseña" required>
                                 <br>
                                 <input id="clave2" type="password" name="clave2" class="validate form-control"
                                     placeholder="Repetir contraseña" required>
                                 <br>
-                                <select id="tipo" name="tipo" class="form-control" required> </select>
-                                <br>
+                                <select id="tipo" name="tipo" class="form-control" required hidden> </select>
                                 <div class="custom-file">
                                     <input type="file" class="custom-file-input" id="archivo" name="archivo" required>
                                     <label class="custom-file-label" for="archivo">Escoge un archivo</label>
@@ -68,57 +70,14 @@
             </div>
         </div>
     </div>
-
-
-    <!-- Modal de Agregar -->
-    <div class="modal fade" id="recuperar">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Recuperar contraseña</h5>
-
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-sm-1">
-                            <i class="fa fa-list"></i>
-                        </div>
-                        <div class="col-sm-11">
-                            <input placeholder="Ingrese su correo" class="form-control">
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary">Aceptar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
+    
     <script src="../resources/js/jquery-3.2.1.min.js"></script>
     <script src="../resources/extras/bootstrap-4.1/bootstrap.min.js"></script>
     <script src="../resources/js/sweetalert.min.js"></script>
     <script src="../resources/extras/animsition/animsition.min.js"></script>
     <script type="text/javascript" src="../core/helpers/functions.js"></script>
-    <script type="text/javascript" src="../core/controllers/account.js"></script>
     <script type="text/javascript" src="../core/controllers/register.js"></script>
 
-    <script>
-        bootstrapValidate("clave1", "min:6:Ingrese una contraseña mayor a 5 caracteres")
-    </script>
-    <script>
-        bootstrapValidate("clave2", "min:6:Ingrese una contraseña mayor a 5 caracteres")
-    </script>
-    <script>
-        bootstrapValidate('alias', "min:3:Ingrese un nombre mayor a 3 caracteres")
-    </script>
-    <script>
-        bootstrapValidate('alias', 'required:Ingrese un nombre de usuario')
-    </script>
-    <script>
-        bootstrapValidate('tipo', 'required:Ingrese un tipo de usuario')
-    </script>
 </body>
 
 </html>
