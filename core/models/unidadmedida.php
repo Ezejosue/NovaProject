@@ -74,7 +74,7 @@ class UnidadMedida extends Validator
     
 	public function getMedida()
 	{
-		$sql = 'SELECT id_Medida, nombre_medida, descripcion FROM unidadmedida WHERE id_Medida = ?';
+		$sql = 'SELECT id_Medida, nombre_medida, descripcion FROM unidadmedida WHERE id_Medida = ? LIMIT 1';
 		$params = array($this->idmedida);
 		return conexion::getRow($sql, $params);
 	}

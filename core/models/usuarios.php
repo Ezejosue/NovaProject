@@ -167,7 +167,7 @@ class Usuarios extends Validator
 	//Método para erificar que el nombre de usuario exista a la hora de iniciar sesión
 	public function checkAlias()
 	{
-		$sql = 'SELECT id_usuario FROM usuarios WHERE alias = ?';
+		$sql = 'SELECT id_usuario FROM usuarios WHERE alias = ? LIMIT 1';
 		$params = array($this->alias);
 		$data = Conexion::getRow($sql, $params);
 		if ($data) {
@@ -187,7 +187,7 @@ class Usuarios extends Validator
 
 	public function checkAlias2()
 	{
-		$sql = 'SELECT id_usuario FROM usuarios WHERE alias = ? AND id_usuario = ?';
+		$sql = 'SELECT id_usuario FROM usuarios WHERE alias = ? AND id_usuario = ? LIMIT 1';
 		$params = array($this->alias, $this->id);
 		return Conexion::getRow($sql, $params);
 	}
@@ -207,7 +207,7 @@ class Usuarios extends Validator
 
 	public function checkActivacion()
 	{
-		$sql = 'SELECT estado_usuario FROM usuarios WHERE alias = ? AND estado_usuario = 3';
+		$sql = 'SELECT estado_usuario FROM usuarios WHERE alias = ? AND estado_usuario = 3 LIMIT 1';
 		$params = array($this->alias);
 		return Conexion::getRow($sql, $params);
 	}
@@ -222,7 +222,7 @@ class Usuarios extends Validator
 	//Méodo para vificar que la contraseña exista y que sea igual al del usuario
 	public function checkPassword()
 	{
-		$sql = 'SELECT clave_usuario FROM usuarios WHERE id_usuario = ?';
+		$sql = 'SELECT clave_usuario FROM usuarios WHERE id_usuario = ? LIMIT 1';
 		$params = array($this->id);
 		$data = Conexion::getRow($sql, $params);
 		if (password_verify($this->clave, $data['clave_usuario'])) {
@@ -235,7 +235,7 @@ class Usuarios extends Validator
 	//Método para verificar que el correo ingresado para recuperar la contraseña, esté registrado en el sistema
 	public function checkCorreo()
 	{
-		$sql = 'SELECT correo_usuario FROM usuarios WHERE correo_usuario = ?';
+		$sql = 'SELECT correo_usuario FROM usuarios WHERE correo_usuario = ? LIMIT 1';
 		$params = array($this->correo);
 		return Conexion::getRow($sql, $params);
 	}
@@ -256,7 +256,7 @@ class Usuarios extends Validator
 
 	public function getDatosToken()
 	{
-		$sql = 'SELECT id_usuario, alias, correo_usuario FROM usuarios WHERE token_usuario = ?';
+		$sql = 'SELECT id_usuario, alias, correo_usuario FROM usuarios WHERE token_usuario = ? LIMIT 1';
 		$params = array($this->token);
 		$data = Conexion::getRow($sql, $params);
 		if ($data) {
@@ -277,7 +277,7 @@ class Usuarios extends Validator
 
 	public function validarToken()
 	{
-		$sql = 'SELECT token_usuario FROM usuarios WHERE token_usuario = ?';
+		$sql = 'SELECT token_usuario FROM usuarios WHERE token_usuario = ? LIMIT 1';
 		$params = array($this->token);
 		return Conexion::getRow($sql, $params);
 	}

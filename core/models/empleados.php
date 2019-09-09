@@ -205,14 +205,14 @@ class Empleados extends Validator
 
     public function getEmpleado()
     {
-        $sql = 'SELECT id_empleado, nombre_empleado, apellido_empleado, dui, direccion,  telefono, genero, fecha_nacimiento, nacionalidad, correo, id_cargo, id_usuario FROM empleados WHERE id_empleado = ?';
+        $sql = 'SELECT id_empleado, nombre_empleado, apellido_empleado, dui, direccion,  telefono, genero, fecha_nacimiento, nacionalidad, correo, id_cargo, id_usuario FROM empleados WHERE id_empleado = ? LIMIT 1';
         $params = array($this ->id);
         return Conexion::getRow($sql, $params);
     }
 
     public function readUsuarios()
     {
-        $sql = 'SELECT  id_usuario, alias FROM usuarios ORDER BY alias';
+        $sql = 'SELECT id_usuario, alias FROM usuarios ORDER BY alias';
 		$params = array($this->id_usuario);
 		return Conexion::getRows($sql, $params);
     }
@@ -221,13 +221,6 @@ class Empleados extends Validator
     {
         $sql = 'SELECT id_empleado, nombre_empleado, apellido_empleado, dui, direccion, fecha_nacimiento From empleados ORDER BY nombre_empleado';
         $params = array(null);
-        return Conexion::getRows($sql, $params);
-    }
-
-    public function searchEmpleados()
-    {
-        $sql = 'SELECT * FROM empleados WHERE nombre_empleado LIKE ? OR apellido_empleado LIKE ? ORDER BY nombre_empleado';
-        $params = array("%$value%", "%$value%");
         return Conexion::getRows($sql, $params);
     }
 
