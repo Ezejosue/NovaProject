@@ -38,7 +38,7 @@ class Validator
 	public function validateForm($fields)
 	{
 		foreach ($fields as $index => $value) {
-			$value = trim($value);
+			$value = htmlentities(trim($value));
 			$fields[$index] = $value;
 		}
 		return $fields;
@@ -195,14 +195,31 @@ class Validator
 		}
 	}
 
-	//validación para la contraseña que valida que sea mayor a 5 caracteres.
+	
 	public function validatePassword($value)
 	{
-		if (strlen($value) > 5) {
-			return true;
-		} else {
-			return false;
+		$error;
+		if (strlen($value) > 7 && strlen($value) < 25) {
+			if (preg_match('#[0-9]+#', $value)) {
+				if (preg_match('#[a-z]+#', $value)) {
+					if (preg_match('#[A-Z]+#', $value)) {
+						if (preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&_-])[A-Za-z\d@$!%*?&]{8,12}$/", $value)) {
+							return array(true, '');
+						}
+						$error = 'Contraseña: debe introducir al menos un signo y una longitud entre 8 a 25 caracteres';
+						return array(false, $error);
+					}
+					$error = 'Contraseña: debe introducir al menos una letra mayuscula';
+					return array(false, $error);
+				}
+				$error = 'Contraseña: debe introducir al menos una letra minuscula';
+				return array(false, $error);
+			}
+			$error = 'Contraseña: debe introducir al menos un numero entre 0-9';
+			return array(false, $error);
 		}
+		$error = 'Contraseña: su contraseña no cumple con el formato de una mayuscula, una minuscula, un numero y un caracter especial';
+		return array(false, $error);
 	}
 
 	//validación para las imágenes en donde no aceptan valores nulos.

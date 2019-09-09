@@ -118,11 +118,12 @@ class Usuarios extends Validator
 
 	public function setClave($value)
 	{
-		if ($this->validatePassword($value)) {
+		$validator = $this->validatePassword($value);
+		if ($validator[0]) {
 			$this->clave = $value;
-			return true;
+			return array (true, '');
 		} else {
-			return false;
+			return array (false, $validator[1]);
 		}
 	}
 
@@ -177,6 +178,13 @@ class Usuarios extends Validator
 		}
 	}
 
+	public function checkContra()
+	{
+		$sql = 'SELECT alias FROM usuarios WHERE id_usuario = ?';
+		$params = array($this->id);
+		$data = Conexion::getRow($sql, $params);
+	}
+
 	public function checkAlias2()
 	{
 		$sql = 'SELECT id_usuario FROM usuarios WHERE alias = ? AND id_usuario = ?';
@@ -202,6 +210,13 @@ class Usuarios extends Validator
 		$sql = 'SELECT estado_usuario FROM usuarios WHERE alias = ? AND estado_usuario = 3';
 		$params = array($this->alias);
 		return Conexion::getRow($sql, $params);
+	}
+
+	public function activarCuenta()
+	{
+		$sql = 'UPDATE usuarios SET estado_usuario = 1 WHERE id_usuario = ?';
+		$params = array($this->id);
+		return Conexion::executeRow($sql, $params);
 	}
 
 	//Méodo para vificar que la contraseña exista y que sea igual al del usuario
@@ -232,13 +247,21 @@ class Usuarios extends Validator
 		return Conexion::executeRow($sql, $params);
 	}
 
+	public function updateTokenAutenticacion()
+	{
+		$sql = 'UPDATE usuarios SET token_usuario = ? WHERE alias = ?';
+		$params = array($this->token, $this->alias);
+		return Conexion::executeRow($sql, $params);
+	}
+
 	public function getDatosToken()
 	{
-		$sql = 'SELECT id_usuario FROM usuarios WHERE token_usuario = ?';
+		$sql = 'SELECT id_usuario, alias, correo_usuario FROM usuarios WHERE token_usuario = ?';
 		$params = array($this->token);
 		$data = Conexion::getRow($sql, $params);
 		if ($data) {
 			$this->id = $data['id_usuario'];
+			$this->correo = $data['correo_usuario'];
 			return true;
 		} else {
 			return false;
@@ -258,6 +281,45 @@ class Usuarios extends Validator
 		$params = array($this->token);
 		return Conexion::getRow($sql, $params);
 	}
+/* 
+	//Metodos para manejar el CRUD
+	public function bloquearUsuario()
+	{
+		$sql = 'UPDATE usuarios SET estado_usuario = ? WHERE alias = ?';
+		$params = array(0, $this->alias);
+		return Database::executeRow($sql, $params);
+	}
+ */
+	//Metodos para sumar intentos
+	public function SumarIntentos()
+	{
+		$sql = 'UPDATE usuarios SET intentos = intentos + 1 WHERE alias = ?';
+		$params = array($this->alias);
+		return Conexion::executeRow($sql, $params);
+	}
+
+	//Metodos para bloquear los intentos es decir cambiar el estado a 0
+	public function BloquearIntentos()
+	{
+		$sql = 'UPDATE usuarios SET estado_usuario = 0, intentos = 0 WHERE alias = ? and intentos >= 3';
+		$params = array($this->alias);
+		return Conexion::executeRow($sql, $params);
+	}
+
+	public function ConsultarIntentos()
+	{
+		$sql = 'SELECT intentos from usuarios where alias = ?';
+		$params = array($this->alias);
+		return Conexion:: executeRow($sql, $params);
+	}
+
+	//Metodo para que a la hora de logearse los intentos se refresquen o cambien a 0
+	public function UpdateLogin()
+	{
+		$sql = 'UPDATE usuarios SET intentos = 0';
+		$params = array(null);
+		return Conexion::executeRow($sql, $params);
+	} 
 
 	//Métodos para manejar el CRUD
 	//Método para leer la tabla usuarios
@@ -302,11 +364,11 @@ class Usuarios extends Validator
 	public function createUsuario()
 	{
 		$hash = password_hash($this->clave, PASSWORD_DEFAULT);
-		$sql = 'INSERT INTO usuarios(alias, correo_usuario, foto_usuario, estado_usuario, id_Tipousuario, clave_usuario) VALUES(?, ?, ?, ?, ?, ?)';
-		$params = array($this->alias, $this->correo, $this->foto, 3, $this->tipo_usuario, $hash);
+		$sql = 'INSERT INTO usuarios(alias, correo_usuario, token_usuario, foto_usuario, estado_usuario, id_Tipousuario, clave_usuario) VALUES(?, ?, ?, ?, ?, ?, ?)';
+		$params = array($this->alias, $this->correo, $this->token, $this->foto, 3, $this->tipo_usuario, $hash);
 		return Conexion::executeRow($sql, $params);
 	}
-
+	
 	//Método para obtener la información e un usuario específico
 	public function getUsuario()
 	{

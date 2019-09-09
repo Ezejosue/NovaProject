@@ -21,9 +21,12 @@ $('#form-sesion').submit(function () {
                 const dataset = JSON.parse(response);
                 //Se comprueba si la respuesta es satisfactoria, sino se muestra la excepción
                 if (dataset.status) {
-                    sweetAlert(1, 'Autenticación correcta', 'inicio.php');
+                    sweetAlert(1, 'Autenticación correcta', 'autenticacion.php');
                 } else {
                     sweetAlert(2, dataset.exception, null);
+                    let alias = $('#usuario').val();
+                    sumarIntentos(alias);
+                    bloquearIntentos(alias);
                 }
             } else {
                 console.log(response);
@@ -59,4 +62,51 @@ function checkUsuarios() {
             //Se muestran en consola los posibles errores de la solicitud AJAX
             console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
         });
+}
+
+
+function sumarIntentos (alias)
+{
+    $.ajax({
+        url: apiLogin + 'intentos',
+        type: 'post',
+        data: {
+            usuario: alias
+        },
+        datatype: 'json',
+    })
+    .done(function(response){
+        if (isJSONString(response)) {
+            const result = JSON.parse(response);
+            sweetAlert(2, 'Tiene 3 intentos disponibles para equivocarse ', null);
+        }else{
+            console.log(response);
+        }
+    })
+    .fail(function(jqXHR){
+        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+    });
+}
+
+function bloquearIntentos (alias)
+{
+    $.ajax({
+        url: apiLogin + 'BloquearIntentos',
+        type: 'post',
+        data: {
+            usuario: alias
+        },
+        datatype: 'json',
+    })
+    .done(function(response){
+        if (isJSONString(response)) {
+            const result = JSON.parse(response);
+            sweetAlert(2, 'Usted tiene 3 intentos, si no su usuario se bloqueara', null);
+        }else{
+            console.log(response);
+        }
+    })
+    .fail(function(jqXHR){
+        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+    });
 }
