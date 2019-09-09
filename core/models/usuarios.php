@@ -268,6 +268,27 @@ class Usuarios extends Validator
 		return Conexion::getRows($sql, $params);
 	}
 
+	public function checkLogin()
+	{
+		$sql = 'SELECT logueado from usuarios where logueado = 1';
+		$params = array(null);
+		return Conexion::getRows($sql, $params);
+	}
+
+	public function UpdateLogin()
+	{
+		$sql = 'UPDATE usuarios SET logueado = 1 where alias = ?';
+		$params = array($this->alias);
+		return Conexion::getRows($sql, $params);
+	}
+
+	public function UpdateLogout()
+	{
+		$sql = 'UPDATE usuarios SET logueado = 0 where id_usuario = ?';
+		$params = array($this->id);
+		return Conexion::getRows($sql, $params);
+	}
+
 	//Método para mostrar los tipos de usuario con estado activo
 	public function readTipoUsuario()
 	{
