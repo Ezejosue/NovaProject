@@ -118,11 +118,12 @@ class Usuarios extends Validator
 
 	public function setClave($value)
 	{
-		if ($this->validatePassword($value)) {
+		$validator = $this->validatePassword($value);
+		if ($validator[0]) {
 			$this->clave = $value;
-			return true;
+			return array (true, '');
 		} else {
-			return false;
+			return array (false, $validator[1]);
 		}
 	}
 
@@ -175,6 +176,13 @@ class Usuarios extends Validator
 		} else {
 			return false;
 		}
+	}
+
+	public function checkContra()
+	{
+		$sql = 'SELECT alias FROM usuarios WHERE id_usuario = ?';
+		$params = array($this->id);
+		$data = Conexion::getRow($sql, $params);
 	}
 
 	public function checkAlias2()
@@ -273,6 +281,45 @@ class Usuarios extends Validator
 		$params = array($this->token);
 		return Conexion::getRow($sql, $params);
 	}
+/* 
+	//Metodos para manejar el CRUD
+	public function bloquearUsuario()
+	{
+		$sql = 'UPDATE usuarios SET estado_usuario = ? WHERE alias = ?';
+		$params = array(0, $this->alias);
+		return Database::executeRow($sql, $params);
+	}
+ */
+	//Metodos para sumar intentos
+	public function SumarIntentos()
+	{
+		$sql = 'UPDATE usuarios SET intentos = intentos + 1 WHERE alias = ?';
+		$params = array($this->alias);
+		return Conexion::executeRow($sql, $params);
+	}
+
+	//Metodos para bloquear los intentos es decir cambiar el estado a 0
+	public function BloquearIntentos()
+	{
+		$sql = 'UPDATE usuarios SET estado_usuario = 0, intentos = 0 WHERE alias = ? and intentos >= 3';
+		$params = array($this->alias);
+		return Conexion::executeRow($sql, $params);
+	}
+
+	public function ConsultarIntentos()
+	{
+		$sql = 'SELECT intentos from usuarios where alias = ?';
+		$params = array($this->alias);
+		return Conexion:: executeRow($sql, $params);
+	}
+
+	//Metodo para que a la hora de logearse los intentos se refresquen o cambien a 0
+	public function UpdateLogin()
+	{
+		$sql = 'UPDATE usuarios SET intentos = 0';
+		$params = array(null);
+		return Conexion::executeRow($sql, $params);
+	} 
 
 	//Métodos para manejar el CRUD
 	//Método para leer la tabla usuarios

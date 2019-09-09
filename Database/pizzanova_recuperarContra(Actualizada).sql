@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.4
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 27-08-2019 a las 23:08:11
--- Versión del servidor: 10.1.37-MariaDB
--- Versión de PHP: 7.3.1
+-- Servidor: localhost:3306
+-- Tiempo de generación: 03-09-2019 a las 19:28:00
+-- Versión del servidor: 10.3.16-MariaDB
+-- Versión de PHP: 7.3.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `pizzanova`
+-- Base de datos: `id10741483_pizzanova`
 --
 
 -- --------------------------------------------------------
@@ -31,7 +31,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `bitacoras` (
   `id_bitacora` int(10) UNSIGNED NOT NULL,
   `usuario` varchar(50) DEFAULT NULL,
-  `fecha` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `fecha` timestamp NOT NULL DEFAULT current_timestamp(),
   `accion` varchar(50) NOT NULL,
   `id_usuario` int(10) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -65,7 +65,7 @@ CREATE TABLE `categorias` (
   `nombre_categoria` varchar(50) NOT NULL,
   `descripcion` varchar(1000) NOT NULL,
   `foto_categoria` varchar(50) DEFAULT NULL,
-  `estado` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1 es activo 0 es inactivo'
+  `estado` tinyint(1) NOT NULL DEFAULT 1 COMMENT '1 es activo 0 es inactivo'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -92,7 +92,7 @@ CREATE TABLE `desperdicios` (
   `id_usuario` int(10) UNSIGNED NOT NULL,
   `id_empleado` int(10) UNSIGNED NOT NULL,
   `cantidad` int(11) NOT NULL,
-  `fecha_desperdicio` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `fecha_desperdicio` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -218,7 +218,7 @@ CREATE TABLE `materiasprimas` (
   `foto` varchar(100) DEFAULT NULL,
   `id_categoria` int(10) UNSIGNED DEFAULT NULL,
   `id_Medida` int(10) UNSIGNED DEFAULT NULL,
-  `estado` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1 es activo 0 es inactivo'
+  `estado` tinyint(1) NOT NULL DEFAULT 1 COMMENT '1 es activo 0 es inactivo'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -226,18 +226,19 @@ CREATE TABLE `materiasprimas` (
 --
 
 INSERT INTO `materiasprimas` (`idMateria`, `nombre_materia`, `descripcion`, `cantidad`, `foto`, `id_categoria`, `id_Medida`, `estado`) VALUES
-(4, 'Harina', 'Bolsas Maseca', 35, '5d50d9b9be124.png', 4, 5, 1),
-(5, 'PiÃ±a', 'test', 150, '5d50d9f54ce96.jpg', 4, 5, 1),
-(6, 'JamÃ³n', 'Marca Toledo', 60, '5d50da30af861.jpg', 4, 7, 1),
-(7, 'Naranja', 'test', 80, '5d50da6d548c8.jpg', 5, 5, 1),
-(8, 'Crema batida', 'test', 60, '5d50daa072e78.jpg', 6, 5, 1),
-(9, 'Chocolate', 'test', 45, '5d50dacf71f65.jpg', 6, 7, 1),
-(10, 'Lechuga', 'test', 90, '5d50dafa4cbd7.jpg', 7, 5, 1),
-(11, 'Harina 503', 'TEST', 12, '5d51ce3a07d41.jpg', 4, 5, 1),
-(12, 'Ajo', 'test', 77, '5d523a6eaf7cd.jpg', 9, 5, 1),
-(13, 'Tomates', 'test', 150, '5d523ac7bf5a0.jpg', 7, 4, 1),
-(14, 'Tocino', 'test', 43, '5d523b0258ce3.jpg', 4, 5, 1),
-(15, 'Pepsi', 'test', 100, '5d523b331f60a.jpg', 5, 8, 1);
+(4, 'Harinaaa', 'Bolsas Maseca', 6, '5d50d9b9be124.png', 4, 5, 1),
+(5, 'Harinaaa', 'Bolsas Maseca', 6, '5d50d9f54ce96.jpg', 4, 5, 1),
+(6, 'Harinaaa', 'Bolsas Maseca', 6, '5d50da30af861.jpg', 4, 7, 1),
+(7, 'Harinaaa', 'Bolsas Maseca', 6, '5d50da6d548c8.jpg', 5, 5, 1),
+(8, 'Harinaaa', 'Bolsas Maseca', 6, '5d50daa072e78.jpg', 6, 5, 1),
+(9, 'Harinaaa', 'Bolsas Maseca', 6, '5d50dacf71f65.jpg', 6, 7, 1),
+(10, 'Harinaaa', 'Bolsas Maseca', 6, '5d50dafa4cbd7.jpg', 7, 5, 1),
+(11, 'Harinaaa', 'Bolsas Maseca', 6, '5d51ce3a07d41.jpg', 4, 5, 1),
+(12, 'Harinaaa', 'Bolsas Maseca', 6, '5d523a6eaf7cd.jpg', 9, 5, 1),
+(13, 'Harinaaa', 'Bolsas Maseca', 6, '5d523ac7bf5a0.jpg', 7, 4, 1),
+(14, 'Harinaaa', 'Bolsas Maseca', 6, '5d523b0258ce3.jpg', 4, 5, 1),
+(15, 'Harinaaa', 'Bolsas Maseca', 6, '5d523b331f60a.jpg', 5, 8, 1),
+(17, 'Harinaaa', 'Bolsas Maseca', 6, NULL, NULL, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -248,7 +249,7 @@ INSERT INTO `materiasprimas` (`idMateria`, `nombre_materia`, `descripcion`, `can
 CREATE TABLE `mesas` (
   `id_mesa` int(10) UNSIGNED NOT NULL,
   `numero_mesa` int(10) UNSIGNED NOT NULL,
-  `estado_mesa` tinyint(4) NOT NULL DEFAULT '1'
+  `estado_mesa` tinyint(4) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -280,7 +281,7 @@ INSERT INTO `mesas` (`id_mesa`, `numero_mesa`, `estado_mesa`) VALUES
 
 CREATE TABLE `pedidos` (
   `id_pedido` int(11) UNSIGNED NOT NULL,
-  `fecha_pedido` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `fecha_pedido` datetime NOT NULL DEFAULT current_timestamp(),
   `id_mesa` int(10) UNSIGNED NOT NULL,
   `id_usuario` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -318,7 +319,7 @@ CREATE TABLE `platillos` (
   `id_platillo` int(10) UNSIGNED NOT NULL,
   `nombre_platillo` varchar(50) NOT NULL,
   `precio` double(6,2) DEFAULT NULL,
-  `estado` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1 es activo 0 es inactivo',
+  `estado` tinyint(1) NOT NULL DEFAULT 1 COMMENT '1 es activo 0 es inactivo',
   `id_receta` int(10) UNSIGNED DEFAULT NULL,
   `id_categoria` int(10) UNSIGNED DEFAULT NULL,
   `imagen` varchar(50) DEFAULT NULL
@@ -374,15 +375,6 @@ CREATE TABLE `receta` (
 --
 -- Volcado de datos para la tabla `receta`
 --
--- Creando la tabla de tareas para la app
-CREATE TABLE `tareas` (
- `id_tarea` int(10) UNSIGNED AUTO_INCREMENT NOT NULL,
- `mensaje` varchar(80) NOT NULL,
- `importancia` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
---
---
---
 
 INSERT INTO `receta` (`id_receta`, `nombre_receta`, `tiempo`, `elaboracion`, `id_categoria`, `idMateria`) VALUES
 (4, 'Pizza de jamÃ³n', '15 min', '', 4, 6),
@@ -396,6 +388,25 @@ INSERT INTO `receta` (`id_receta`, `nombre_receta`, `tiempo`, `elaboracion`, `id
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `tareas`
+--
+
+CREATE TABLE `tareas` (
+  `id_tarea` int(10) UNSIGNED NOT NULL,
+  `mensaje` varchar(80) NOT NULL,
+  `importancia` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `tareas`
+--
+
+INSERT INTO `tareas` (`id_tarea`, `mensaje`, `importancia`) VALUES
+(19, 'asdasd', 'asdasd');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `tipousuario`
 --
 
@@ -403,7 +414,7 @@ CREATE TABLE `tipousuario` (
   `id_Tipousuario` int(10) UNSIGNED NOT NULL,
   `tipo` varchar(20) DEFAULT NULL,
   `descripcion` varchar(1000) DEFAULT NULL,
-  `estado` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1 es activo 0 es inactivo'
+  `estado` tinyint(1) NOT NULL DEFAULT 1 COMMENT '1 es activo 0 es inactivo'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -449,8 +460,8 @@ CREATE TABLE `usuarios` (
   `clave_usuario` varchar(60) NOT NULL,
   `foto_usuario` varchar(50) DEFAULT NULL,
   `token_usuario` varchar(100) DEFAULT NULL,
-  `fecha_creacion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `estado_usuario` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1 es activo 0 es inactivo',
+  `fecha_creacion` timestamp NOT NULL DEFAULT current_timestamp(),
+  `estado_usuario` tinyint(1) NOT NULL DEFAULT 1 COMMENT '1 es activo 0 es inactivo',
   `id_Tipousuario` int(10) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -459,7 +470,8 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id_usuario`, `alias`, `correo_usuario`, `clave_usuario`, `foto_usuario`, `token_usuario`, `fecha_creacion`, `estado_usuario`, `id_Tipousuario`) VALUES
-(1, 'Gerardo', 'gerardogo145@gmail.com', '$2y$10$Ccf2pr6dvrjpLRItPpkxZ.ERBXK8OI1uSYWrzuMGV1M5ZShBwSdYG', '5d2c9630ac4f2.jpeg', NULL, '2019-07-15 15:05:20', 1, 1);
+(1, 'Gerardo', 'gerardogo145@gmail.com', '$2y$10$Ccf2pr6dvrjpLRItPpkxZ.ERBXK8OI1uSYWrzuMGV1M5ZShBwSdYG', '5d2c9630ac4f2.jpeg', NULL, '2019-07-15 15:05:20', 1, 1),
+(2, 'Carlos', '', '123456', NULL, NULL, '2019-09-02 16:24:33', 1, 1);
 
 --
 -- Índices para tablas volcadas
@@ -566,6 +578,12 @@ ALTER TABLE `receta`
   ADD KEY `idMateria` (`idMateria`);
 
 --
+-- Indices de la tabla `tareas`
+--
+ALTER TABLE `tareas`
+  ADD PRIMARY KEY (`id_tarea`);
+
+--
 -- Indices de la tabla `tipousuario`
 --
 ALTER TABLE `tipousuario`
@@ -635,7 +653,7 @@ ALTER TABLE `encabezadofactura`
 -- AUTO_INCREMENT de la tabla `materiasprimas`
 --
 ALTER TABLE `materiasprimas`
-  MODIFY `idMateria` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `idMateria` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de la tabla `mesas`
@@ -668,6 +686,12 @@ ALTER TABLE `receta`
   MODIFY `id_receta` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
+-- AUTO_INCREMENT de la tabla `tareas`
+--
+ALTER TABLE `tareas`
+  MODIFY `id_tarea` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+
+--
 -- AUTO_INCREMENT de la tabla `tipousuario`
 --
 ALTER TABLE `tipousuario`
@@ -683,7 +707,7 @@ ALTER TABLE `unidadmedida`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id_usuario` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_usuario` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Restricciones para tablas volcadas

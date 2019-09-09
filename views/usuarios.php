@@ -57,7 +57,7 @@
                                 <i class="fa fa-user"></i>
                             </div>
                             <div class="col-sm-11">
-                                <input id="create_alias" type="text" name="create_alias" class="form-control"
+                                <input id="create_alias" type="text" name="create_alias" autocomplete="off" class="form-control"
                                     placeholder="Nombre De Usuario" required>
                             </div>
                         </div>
@@ -68,7 +68,7 @@
                                 <i class="fa fa-envelope"></i>
                             </div>
                             <div class="col-sm-11">
-                                <input id="create_correo" type="email" name="create_correo" class="form-control"
+                                <input id="create_correo" type="email" name="create_correo" autocomplete="off" class="form-control"
                                     placeholder="Correo" required>
                             </div>
                         </div>

@@ -56,7 +56,7 @@
                                 <i class="fa fa-user"></i>
                             </div>
                             <div class="col-sm-11">
-                                <input id="create_nombre" type="text" name="create_nombre" class="validate form-control"
+                                <input id="create_nombre" type="text" name="create_nombre" autocomplete="off" class="validate form-control"
                                     placeholder="Nombre De Empleado" required>
                             </div>
                         </div>
@@ -67,7 +67,7 @@
                                 <i class="fa fa-user"></i>
                             </div>
                             <div class="col-sm-11">
-                                <input id="create_apellido" type="text" name="create_apellido"
+                                <input id="create_apellido" type="text" name="create_apellido" autocomplete="off"
                                     class="validate form-control" placeholder="Apellido" required>
                             </div>
                         </div>
@@ -78,7 +78,7 @@
                                 <i class="fas fa-id-badge"></i>
                             </div>
                             <div class="col-sm-11">
-                                <input id="create_dui" type="text" name="create_dui" class="validate form-control"
+                                <input id="create_dui" type="text" name="create_dui" autocomplete="off" class="validate form-control"
                                     validate min="00000000" placeholder="00000000-0" required>
                             </div>
                         </div>
@@ -89,8 +89,8 @@
                                 <i class="fas fa-street-view"></i>
                             </div>
                             <div class="col-sm-11">
-                                <input id="create_direccion" type="text" name="create_direccion"
-                                    class="validate form-control" placeholder="Dirección" required>
+                                <input id="create_direccion" type="text" name="create_direccion" autocomplete="off"
+                                 class="validate form-control" placeholder="Dirección" required>
                             </div>
                         </div>
                     </div>
@@ -100,7 +100,7 @@
                                 <i class="fas fa-phone-volume"></i>
                             </div>
                             <div class="col-sm-11">
-                                <input id="create_telefono" type="text" name="create_telefono"
+                                <input id="create_telefono" type="text" name="create_telefono" autocomplete="off"
                                     class="validate form-control" placeholder="0000-0000" required>
                             </div>
                         </div>
@@ -123,7 +123,7 @@
                             </div>
                             <div class="col-sm-11">
                                 <input id="create_fecha" type="date" min="01/01/1952" max="01/01/2001"
-                                    name="create_fecha" class="validate form-control" required>
+                                    name="create_fecha" autocomplete="off" class="validate form-control" required>
                             </div>
                         </div>
                     </div>
@@ -134,7 +134,7 @@
                             </div>
                             <div class="col-sm-11">
                                 <input id="create_nacionalidad" type="text" name="create_nacionalidad"
-                                    class="validate form-control" placeholder="Nacionalidad" required>
+                                autocomplete="off" class="validate form-control" placeholder="Nacionalidad" required>
                             </div>
                         </div>
                     </div>
@@ -144,7 +144,7 @@
                                 <i class="fas fa-at"></i>
                             </div>
                             <div class="col-sm-11">
-                                <input id="create_email" type="text" name="create_email" class="validate form-control"
+                                <input id="create_email" type="text" name="create_email" autocomplete="off" class="validate form-control"
                                     placeholder="@mail.com" required>
                             </div>
                         </div>
