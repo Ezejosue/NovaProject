@@ -64,7 +64,7 @@ function checkUsuarios() {
         });
 }
 
-
+/* 
 function sumarIntentos (alias)
 {
     $.ajax({
@@ -78,7 +78,10 @@ function sumarIntentos (alias)
     .done(function(response){
         if (isJSONString(response)) {
             const result = JSON.parse(response);
-            sweetAlert(2, 'Tiene 3 intentos disponibles para equivocarse ', null);
+            sweetAlert(2, result.exception, null);
+            if (result.status == 2) {
+                sweetAlert(2, result.exception, null);
+            }
         }else{
             console.log(response);
         }
@@ -87,7 +90,8 @@ function sumarIntentos (alias)
         console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
     });
 }
-
+ */
+/* 
 function bloquearIntentos (alias)
 {
     $.ajax({
@@ -101,7 +105,7 @@ function bloquearIntentos (alias)
     .done(function(response){
         if (isJSONString(response)) {
             const result = JSON.parse(response);
-            sweetAlert(2, 'Usted tiene 3 intentos, si no su usuario se bloqueara', null);
+            sweetAlert(2, result.exception, null);
         }else{
             console.log(response);
         }
@@ -109,4 +113,4 @@ function bloquearIntentos (alias)
     .fail(function(jqXHR){
         console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
     });
-}
+} */
