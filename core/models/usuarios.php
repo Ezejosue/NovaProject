@@ -256,16 +256,24 @@ class Usuarios extends Validator
 
 	public function getDatosToken()
 	{
-		$sql = 'SELECT id_usuario, alias, correo_usuario FROM usuarios WHERE token_usuario = ?';
+		$sql = 'SELECT id_usuario, alias, correo_usuario, id_Tipousuario FROM usuarios WHERE token_usuario = ?';
 		$params = array($this->token);
 		$data = Conexion::getRow($sql, $params);
 		if ($data) {
 			$this->id = $data['id_usuario'];
 			$this->correo = $data['correo_usuario'];
+			$this->tipo_usuario = $data['id_Tipousuario'];
 			return true;
 		} else {
 			return false;
 		}
+	}
+
+	public function readMenu()
+	{
+		$sql = 'SELECT nombre_vista, ruta, icono FROM acciones INNER JOIN vistas USING(id_vista) WHERE estado = 1 AND id_Tipousuario = ?';
+		$params = array($this->tipo_usuario);
+		return Conexion::getRows($sql, $params);
 	}
 
 	public function deleteToken()

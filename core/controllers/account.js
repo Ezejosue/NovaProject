@@ -1,6 +1,7 @@
 //Inicialización de las funciones
 $(document).ready(function()
 {
+    showMenu();
     showSelectTipoProfile('profile_tipo', null);
     showDataUser();
     showCountProducts();
@@ -12,7 +13,49 @@ $(document).ready(function()
 
 //Constante para establecer la ruta y parámetros de comunicación con la API
 const apiAccount = '../core/api/usuarios.php?site=private&action=';
+const apiSesion = '../core/api/usuarios.php?action=';
 
+function fillMenu(rows)
+{
+    let content = '';
+    //Se recorren las filas para armar el cuerpo de la tabla y se utiliza comilla invertida para escapar los caracteres especiales
+    rows.forEach(function(row){
+        content += `
+        <li>
+            <a href="${row.ruta}">
+            <i class="fas fa-${row.icono}"></i>${row.nombre_vista}</a>
+        </li>
+        `;
+    });
+    $('#main-menu').html(content);
+}
+function showMenu()
+{
+    $.ajax({
+        url: apiSesion + 'readMenu',
+        type: 'post',
+        data: null,
+        datatype: 'json'
+    })
+    .done(function(response){
+        //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+        if (isJSONString(response)) {
+            const result = JSON.parse(response);
+            //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
+            if (!result.status) {
+                sweetAlert(4, result.exception, null);
+            }
+            console.log(result.dataset);
+            fillMenu(result.dataset);
+        } else {
+            console.log(response);
+        }
+    })
+    .fail(function(jqXHR){
+        //Se muestran en consola los posibles errores de la solicitud AJAX
+        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+    });
+}
 //Función que muestra la foto de perfil y nombre del usuario que ha iniciado sesión
 function showDataUser()
 {
