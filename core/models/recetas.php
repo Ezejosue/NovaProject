@@ -176,7 +176,7 @@ class Recetas extends Validator
 	{
 		$sql = 'SELECT id_receta, nombre_receta, tiempo
 				FROM receta 
-				WHERE id_receta = ?';
+				WHERE id_receta = ? LIMIT 1';
 		$params = array($this->idreceta);
 		return conexion::getRow($sql, $params);
 	}
@@ -186,7 +186,7 @@ class Recetas extends Validator
 		$sql = 'SELECT id_elaboracion, id_receta, e.cantidad, idMateria 
 		FROM elaboraciones e 
 		INNER JOIN materiasprimas USING(idMateria) 
-		WHERE id_elaboracion = ? ';
+		WHERE id_elaboracion = ? LIMIT 1';
 		$params = array($this->idelab);
 		return conexion::getRow($sql, $params);
 	}
@@ -234,7 +234,7 @@ class Recetas extends Validator
 		$sql = 'SELECT id_elaboracion, id_receta, CONCAT(nombre_materia, " (", u.descripcion, ")") AS MateriaPrima, e.cantidad, idMateria 
 		FROM elaboraciones e 
 		INNER JOIN materiasprimas USING (idMateria)
-		INNER JOIN unidadmedida u USING (id_Medida) WHERE id_receta = ?';
+		INNER JOIN unidadmedida u USING (id_Medida) WHERE id_receta = ? LIMIT 1';
 		$params = array($this->idreceta);
 		return conexion::getRows($sql, $params);
 	}

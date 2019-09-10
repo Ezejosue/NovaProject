@@ -165,7 +165,7 @@ class Materias extends Validator
 	{
 		$sql = 'SELECT idMateria , nombre_materia, m.descripcion, cantidad, foto, id_categoria, id_Medida, m.estado 
 				FROM materiasprimas m
-				WHERE idMateria = ?';
+				WHERE idMateria = ? LIMIT 1';
 		$params = array($this->id);
 		return conexion::getRow($sql, $params);
 	}

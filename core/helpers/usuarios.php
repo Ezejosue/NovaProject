@@ -358,6 +358,7 @@ class Usuarios extends Validator
 		$params = array(null);
 		return Conexion::getRows($sql, $params);
 	}
+	
 
 	//Método para crear un usuario
 	public function createUsuario()
