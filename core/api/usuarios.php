@@ -495,7 +495,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Contenido no disponible';
                 }
                 break;
-
+/* 
                 case 'intentos':
                 $_POST = $usuario->validateForm($_POST);
                     if ($usuario->setAlias($_POST['usuario'])) {
@@ -529,7 +529,7 @@ if (isset($_GET['action'])) {
                         $result['exception'] = 'Alias incorrecto';
                 }
                 break;
-
+ */
             //Operación para iniciar sesión
             case 'login':
                 $_POST = $usuario->validateForm($_POST);
