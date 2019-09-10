@@ -11,43 +11,38 @@ class Dashboard
 	
 	public static function headerTemplate($title)
 	{
-		
 		session_start();
-		
 		$result = array('status' => 0, 'exception' => '');
 			if (isset($_SESSION['idUsuario'])) {
-				
-					if (isset($_SESSION['tiempo'])) {
-						require_once("conexion.php");
-						require_once("validator.php");						
-						require_once('usuarios.php');
-						$usuario = new Usuarios;
-						//Tiempo de vida de la sesión, en este caso 15min
-						$inactivo = 900;
-						//calculamos tiempo de vida inactivo
-						$vida_session = time() - $_SESSION['tiempo'];
-						//comparamos si el tiempo de vida de la sesión es mayor inactivo
-						if ($vida_session > $inactivo) {
-							if($usuario->setId($_SESSION['idUsuario'])) {
-								$usuario->UpdateLogout();
-								//remover sesión
-								session_unset();
-								//Destruimos la sesión
-								session_destroy();
+				if (isset($_SESSION['tiempo'])) {
+					require_once("conexion.php");
+					require_once("validator.php");						
+					require_once('usuarios.php');
+					$usuario = new Usuarios;
+					//Tiempo de vida de la sesión, en este caso 15min
+					$inactivo = 900;
+					//calculamos tiempo de vida inactivo
+					$vida_session = time() - $_SESSION['tiempo'];
+					//comparamos si el tiempo de vida de la sesión es mayor inactivo
+					if ($vida_session > $inactivo) {
+						if($usuario->setId($_SESSION['idUsuario'])) {
+							$usuario->UpdateLogout();
+							//remover sesión
+							session_unset();
+							//Destruimos la sesión
+							session_destroy();
 
-								//redirigir a index
-							header("location: ../../views/index.php");
-							}
-							
-
-						} else { //Si no a caducado la sesión, actualizamos
-							$_SESSION['tiempo'] = time();
+							//redirigir a index
+						header("location: ../../views/index.php");
 						}
-						
-					} else { //Activamos sesión tiempo
+					} else { //Si no a caducado la sesión, actualizamos
 						$_SESSION['tiempo'] = time();
-					} 
-				
+					}
+					
+				} else { //Activamos sesión tiempo
+					$_SESSION['tiempo'] = time();
+				} 
+			
 			} else {
 				$result['exception'] = 'Usuario desconocido';
 			}
