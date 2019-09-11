@@ -55,6 +55,18 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Tipo de usuario incorrecto';
                 }
 				break;
+
+			case 'getVistas':
+                if ($tipo_usuario->setId($_POST['id_Tipousuario'])) {
+                    if ($result['dataset'] = $tipo_usuario->readVistas()) {
+                        $result['status'] = 1;
+                    } else {
+                        $result['exception'] = 'Vistas inexistente';
+                    }
+                } else {
+                    $result['exception'] = 'Tipo de usuario incorrecto';
+                }
+				break;
 				
 				/* Operacion para actualizar un tipo_usuario */
 			case 'update':

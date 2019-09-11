@@ -81,6 +81,13 @@ class Tipo_usuario extends Validator
 		return conexion::getRows($sql, $params);
 	}
 
+	public function readVistas()
+	{
+		$sql = 'SELECT id_vista, nombre_vista, id_Tipousuario, estado FROM acciones INNER JOIN vistas USING(id_vista) WHERE id_Tipousuario = ?';
+		$params = array($this->id);
+		return conexion::getRows($sql, $params);
+	}
+
 	public function createTipo_usuario()
 	{
 		$sql = 'INSERT INTO tipousuario(tipo, descripcion, estado) VALUES(?, ?, ?)';
