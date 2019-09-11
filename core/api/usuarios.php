@@ -36,6 +36,23 @@ if (isset($_GET['action'])) {
                     header('location: ../../views/inicio.php');
                 }
                 break;
+
+            case 'ActualizarSesion':
+                if ($usuario->setId($_SESSION['idUsuario'])) {
+                  /* if ($usuario->setAlias($_POST['usuario'])) { */
+                    if ($usuario->UpdateLogout()) {
+                        $result['status'] = 1;
+                        }
+                        else {  
+                            $result['exception'] = 'No pudimos actualizar su sesión';
+                        }
+                   /*  } else {
+                        $result['exception'] = 'Alias inexistente';
+                    } */
+                } else {
+                    $result['exception'] = 'No encontramos su usuario';
+                }
+                break;
             //Operación para mostrar los datos del usuario que ha iniciado sesión
             case 'readProfile':
                 if ($usuario->setId($_SESSION['idUsuario'])) {
@@ -797,6 +814,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Correo incorrecto';
                 }
                 break;
+                
                 case 'nuevaPassword':
                 $_POST = $usuario->validateForm($_POST);
                 if($usuario->setToken($_POST['token'])){

@@ -1,7 +1,10 @@
 //Inicializando la función para verificar que un usuario haya iniciado sesión
 $(document).ready(function () {
     checkUsuarios();
+    checkEntrada();
 })
+
+
 
 //Constante para establecer la ruta y parámetros de comunicación con la API
 const apiLogin = '../core/api/usuarios.php?site=private&action=';
@@ -64,32 +67,30 @@ function checkUsuarios() {
         });
 }
 
-/* 
-function sumarIntentos (alias)
-{
+
+//Función para verificar si existen usuarios en el sitio privado
+function checkEntrada() {
     $.ajax({
-        url: apiLogin + 'intentos',
-        type: 'post',
-        data: {
-            usuario: alias
-        },
-        datatype: 'json',
-    })
-    .done(function(response){
-        if (isJSONString(response)) {
-            const result = JSON.parse(response);
-            sweetAlert(2, result.exception, null);
-            if (result.status == 2) {
-                sweetAlert(2, result.exception, null);
+            url: apiLogin + 'ActualizarSesion',
+            type: 'post',
+            data: null,
+            datatype: 'json'
+        })
+        .done(function (response) {
+            //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+            if (isJSONString(response)) {
+                const result = JSON.parse(response);
+                sweetAlert(1, result.exception, null);
+            } else {
+                console.log(response);
             }
-        }else{
-            console.log(response);
-        }
-    })
-    .fail(function(jqXHR){
-        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
-    });
+        })
+        .fail(function (jqXHR) {
+            //Se muestran en consola los posibles errores de la solicitud AJAX
+            console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+        });
 }
+<<<<<<< Updated upstream
  */
 /* 
 function bloquearIntentos (alias)
@@ -114,3 +115,5 @@ function bloquearIntentos (alias)
         console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
     });
 } */
+=======
+>>>>>>> Stashed changes

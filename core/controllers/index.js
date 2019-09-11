@@ -11,6 +11,7 @@ $(document).ready(function () {
     showSelectCategoria('id_categoria_materia_sobre_existente', 0);
 })
 
+
 //Constante para establecer la ruta y parámetros de comunicación con la API
 const apiSesion = '../core/api/usuarios.php?action=';
 const apiCategorias = '../core/api/categorias.php?site=private&action=';
