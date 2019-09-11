@@ -90,30 +90,3 @@ function checkEntrada() {
             console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
         });
 }
-<<<<<<< Updated upstream
- */
-/* 
-function bloquearIntentos (alias)
-{
-    $.ajax({
-        url: apiLogin + 'BloquearIntentos',
-        type: 'post',
-        data: {
-            usuario: alias
-        },
-        datatype: 'json',
-    })
-    .done(function(response){
-        if (isJSONString(response)) {
-            const result = JSON.parse(response);
-            sweetAlert(2, result.exception, null);
-        }else{
-            console.log(response);
-        }
-    })
-    .fail(function(jqXHR){
-        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
-    });
-} */
-=======
->>>>>>> Stashed changes
