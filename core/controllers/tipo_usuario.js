@@ -20,6 +20,7 @@ function fillTable(rows)
                 <td>${row.descripcion}</td>
                 <td><i class="material-icons">${icon}</i></td>
                 <td>
+                    <a href="#" onclick="modalPrivilegios(${row.id_Tipousuario})" class="btn btn-dark" data-toggle="modal"><i class="fa fa-columns"></i></a>
                     <a href="#" onclick="modalUpdate(${row.id_Tipousuario})" class="btn btn-info tooltipped" data-tooltip="Modificar"><i class="fa fa-edit"></i></a>
                     <a href="#" onclick="confirmDelete(${row.id_Tipousuario})" class="btn btn-danger tooltipped" data-tooltip="Eliminar"><i class="fa fa-times"></i></a>
                 </td>
@@ -96,6 +97,53 @@ $('#form-create').submit(function()
         console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
     });
 })
+
+function modalPrivilegios(id2)
+{
+    $.ajax({
+        url: apiTipo_usuarios + 'getVistas',
+        type: 'post',
+        data:{
+            id_Tipousuario: id2
+        },
+        datatype: 'json'
+    })
+    .done(function(response){
+        // Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+        if (isJSONString(response)) {
+            
+            const result = JSON.parse(response);
+            //Se comprueba si el resultado es satisfactorio para mostrar los valores en el formulario, sino se muestra la excepción
+            if (result.status) {
+                let content = '';
+                result.dataset.forEach(function(row){
+                    //Se crea un botón por cada mesa existente en la base y a través del boton se manda el id_mesa para mostrar el pre pedido correspondiente a cada mesa
+                    content+= `
+                    <div class="col-sm-6 col-md-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="${row.id_vista}">
+                            <label class="form-check-label" for="${row.id_vista}">
+                            ${row.nombre_vista}
+                            </label>
+                        </div>
+                        <br>
+                    </div>
+                    `;
+                });
+                $('#modal-privilegios').modal('show');
+                $('#vistas').html(content);
+            } else {
+                sweetAlert(2, result.exception, null);
+            }
+        } else {
+            console.log(response);
+        }
+    })
+    .fail(function(jqXHR){
+        // Se muestran en consola los posibles errores de la solicitud AJAX
+        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+    });
+}
 
 // Función para mostrar formulario con registro a modificar
 function modalUpdate(id)
@@ -206,6 +254,7 @@ function confirmDelete(id)
                     }
                 } else {
                     console.log(response);
+                    sweetAlert(2, error2(response), null);
                 }
             })
             .fail(function(jqXHR){
@@ -222,6 +271,9 @@ function error2(response)
     switch (response){
         case 'Dato duplicado, no se puede guardar':
             mensaje = 'Nombre de tipo de usuario ya existe';
+            break;
+        case 'Registro ocupado, no se puede eliminar':
+            mensaje = 'Tipo de usuario ocupado, no se puede eliminar'
             break;
         default:
             mensaje = 'Ocurrió un problema, consulte al administrador'
