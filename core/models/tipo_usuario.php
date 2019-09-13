@@ -97,7 +97,7 @@ class Tipo_usuario extends Validator
 
 	public function getTipo_usuario()
 	{
-		$sql = 'SELECT id_Tipousuario, tipo, descripcion, estado FROM tipousuario WHERE id_Tipousuario = ?';
+		$sql = 'SELECT id_Tipousuario, tipo, descripcion, estado FROM tipousuario WHERE id_Tipousuario = ? LIMIT 1';
 		$params = array($this->id);
 		return conexion::getRow($sql, $params);
 	}

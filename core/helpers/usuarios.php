@@ -262,18 +262,10 @@ class Usuarios extends Validator
 		if ($data) {
 			$this->id = $data['id_usuario'];
 			$this->correo = $data['correo_usuario'];
-			$this->tipo_usuario = $data['id_Tipousuario'];
 			return true;
 		} else {
 			return false;
 		}
-	}
-
-	public function readMenu()
-	{
-		$sql = 'SELECT nombre_vista, ruta, icono FROM acciones INNER JOIN vistas USING(id_vista) WHERE estado = 1 AND id_Tipousuario = ?';
-		$params = array($this->tipo_usuario);
-		return Conexion::getRows($sql, $params);
 	}
 
 	public function deleteToken()

@@ -69,7 +69,7 @@ class Mesas extends Validator
 
 	public function getMesa()
 	{
-		$sql = 'SELECT id_mesa, numero_mesa, estado_mesa FROM mesas WHERE id_mesa = ?';
+		$sql = 'SELECT id_mesa, numero_mesa, estado_mesa FROM mesas WHERE id_mesa = ? LIMIT 1';
 		$params = array($this->idMesa);
 		return conexion::getRow($sql, $params);
 	}
