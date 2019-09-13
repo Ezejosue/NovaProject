@@ -256,7 +256,7 @@ class Usuarios extends Validator
 
 	public function getDatosToken()
 	{
-		$sql = 'SELECT id_usuario, alias, correo_usuario FROM usuarios WHERE token_usuario = ? LIMIT 1';
+		$sql = 'SELECT id_usuario, alias, correo_usuario, id_Tipousuario FROM usuarios WHERE token_usuario = ? LIMIT 1';
 		$params = array($this->token);
 		$data = Conexion::getRow($sql, $params);
 		if ($data) {
