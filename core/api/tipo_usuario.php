@@ -24,17 +24,17 @@ if (isset($_GET['action'])) {
 				$_POST = $tipo_usuario->validateForm($_POST);
         		if ($tipo_usuario->setNombre($_POST['create_nombre'])) {
 					if ($tipo_usuario->setDescripcion($_POST['create_descripcion'])) {
-								if ($tipo_usuario->setEstado(isset($_POST['create_estado']) ? 1:0)) {
-								if ($tipo_usuario->createTipo_usuario()) {
-									$result['id'] = conexion::getLastRowId();
-									$result['status'] = 1;
-									$result['message'] = 'Tipo de usuario creado correctamente';
-								} else {
-									$result['exception'] = 'Operacion fallida';
-								}
-								} else {
-									$result['exception'] = 'Estado incorrecto';
-								}
+						if ($tipo_usuario->setEstado(isset($_POST['create_estado']) ? 1:0)) {
+							if ($tipo_usuario->createTipo_usuario()) {
+								$result['id'] = conexion::getLastRowId();
+								$result['status'] = 1;
+								$result['message'] = 'Tipo de usuario creado correctamente';
+							} else {
+								$result['exception'] = 'Operacion fallida';
+							}
+						} else {
+							$result['exception'] = 'Estado incorrecto';
+						}
 					} else {
 						$result['exception'] = 'Descripción incorrecta';
 					}
@@ -56,9 +56,9 @@ if (isset($_GET['action'])) {
                 }
 				break;
 
-			case 'getVistas':
+			case 'getAcciones':
                 if ($tipo_usuario->setId($_POST['id_Tipousuario'])) {
-                    if ($result['dataset'] = $tipo_usuario->readVistas()) {
+                    if ($result['dataset'] = $tipo_usuario->readAcciones()) {
                         $result['status'] = 1;
                     } else {
                         $result['exception'] = 'Vistas inexistente';
@@ -67,7 +67,23 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Tipo de usuario incorrecto';
                 }
 				break;
-				
+			case 'updateAcciones':
+				if ($tipo_usuario->setId($_POST['id_Tipousuario'])) {
+					if ($result['dataset'] = $tipo_usuario->readAcciones()) {
+						foreach($result['dataset'] as $datos){
+							$tipo_usuario->setEstado("1");
+							$tipo_usuario->setIdVista($datos['id_vista']);
+							$tipo_usuario->setId($datos['id_Tipousuario']);
+							$tipo_usuario->updateAcciones();
+						}
+						$result['status'] = 1;
+					} else {
+						$result['exception'] = 'Vistas inexistente';
+					}
+				} else {
+					$result['exception'] = 'Tipo de usuario incorrecto';
+				}
+				break;
 				/* Operacion para actualizar un tipo_usuario */
 			case 'update':
 				$_POST = $tipo_usuario->validateForm($_POST);
