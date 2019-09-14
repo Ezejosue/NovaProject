@@ -117,11 +117,11 @@ function modalPrivilegios(id2)
             if (result.status) {
                 let content = '';
                 result.dataset.forEach(function(row){
-                    //Se crea un botón por cada mesa existente en la base y a través del boton se manda el id_mesa para mostrar el pre pedido correspondiente a cada mesa
+                    (row.estado == 1) ? check = 'checked' : check = '';
                     content+= `
                     <div class="col-sm-6 col-md-4">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="${row.id_vista}">
+                            <input class="form-check-input" type="checkbox" ${check} id="${row.id_vista}">
                             <label class="form-check-label" for="${row.id_vista}">
                             ${row.nombre_vista}
                             </label>
@@ -129,6 +129,7 @@ function modalPrivilegios(id2)
                         <br>
                     </div>
                     `;
+                    
                 });
                 $('#modal-privilegios').modal('show');
                 $('#vistas').html(content);
