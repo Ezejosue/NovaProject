@@ -173,10 +173,8 @@
                         </div>
                     </div>
 
-                    <div class="modal-body text-center">
-                    <hr>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-primary tooltipped" data-tooltip="Crear">Aceptar</button>
+                    <div class="modal-body text-center" id="footer">
+                    
                     </div>
                 </form>
             </div>

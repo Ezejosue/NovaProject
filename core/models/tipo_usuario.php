@@ -6,6 +6,7 @@ class Tipo_usuario extends Validator
 	private $nombre = null;
 	private $descripcion = null;
 	private $estado = null;
+	private $idVista = null;
 
 	// Métodos para sobrecarga de propiedades
 	public function setId($value)
@@ -73,6 +74,21 @@ class Tipo_usuario extends Validator
 		return $this->estado;
 	}
 
+	public function setIdVista($value)
+	{
+		if ($this->validateId($value)) {
+			$this->idVista = $value;
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public function getIdVista()
+	{
+		return $this->idVista;
+	}
+
 	// Metodos para el manejo del SCRUD
 	public function readTipo_usuario()
 	{
@@ -81,11 +97,18 @@ class Tipo_usuario extends Validator
 		return conexion::getRows($sql, $params);
 	}
 
-	public function readVistas()
+	public function readAcciones()
 	{
 		$sql = 'SELECT id_vista, nombre_vista, id_Tipousuario, estado FROM acciones INNER JOIN vistas USING(id_vista) WHERE id_Tipousuario = ?';
 		$params = array($this->id);
 		return conexion::getRows($sql, $params);
+	}
+
+	public function updateAcciones()
+	{
+		$sql = 'UPDATE acciones SET estado = ? WHERE id_vista = ? AND id_Tipousuario = ?';
+		$params = array($this->estado, $this->idVista, $this->id);
+		return conexion::executeRow($sql, $params);
 	}
 
 	public function createTipo_usuario()
