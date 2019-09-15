@@ -22,6 +22,7 @@ function fillTable(rows)
                     <a href="#" onclick="modalMateriasPrimas(${row.id_receta})" class="btn btn-dark tooltipped"><i class="fa fa-cart-plus"></i></a>
                     <a href="#" onclick="showTableRecetas(${row.id_receta})" class="btn btn-warning tooltipped"><i class="fa fa-concierge-bell"></i></a>
                     <a href="#" onclick="modalMateriasRecetas(${row.id_receta})" class="btn btn-primary tooltipped"><i class="fa fa-edit"></i></a>
+                    <a href="#" onclick="confirmDeleteReceta(${row.id_receta})" class="btn btn-danger tooltipped"><i class="fa fa-times"></i></a>
                 </td>
             </tr>
         `;
@@ -417,7 +418,6 @@ function showTableRecetas(id)
     });
 }
 
-//Función para eliminar un registro seleccionado
 function confirmDeleteMateria(id)
 {
     swal({
@@ -431,7 +431,7 @@ function confirmDeleteMateria(id)
     .then(function(value){
         if (value) {
             $.ajax({
-                url: apiRecetas + 'delete',
+                url: apiRecetas + 'deleteMateria',
                 type: 'post',
                 data:{
                     idElaboracion: id
@@ -446,6 +446,50 @@ function confirmDeleteMateria(id)
                     if (result.status) {
                         sweetAlert(1, 'Materia prima eliminada correctamente', null);
                         showTableRecetas(idReceta);
+                    } else {
+                        sweetAlert(2, result.exception, null);
+                    }
+                } else {
+                    console.log(response);
+                }
+            })
+            .fail(function(jqXHR){
+                //Se muestran en consola los posibles errores de la solicitud AJAX
+                console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+            });
+        }
+    });
+}
+
+function confirmDeleteReceta(id)
+{
+    swal({
+        title: 'Advertencia',
+        text: '¿Quiere eliminar esta receta?',
+        icon: 'warning',
+        buttons: ['Cancelar', 'Aceptar'],
+        closeOnClickOutside: false,
+        closeOnEsc: false
+    })
+    .then(function(value){
+        if (value) {
+            $.ajax({
+                url: apiRecetas + 'deleteReceta',
+                type: 'post',
+                data:{
+                    id_receta: id
+                },
+                datatype: 'json'
+            })
+            .done(function(response){
+                //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+                if (isJSONString(response)) {
+                    const result = JSON.parse(response);
+                    //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
+                    if (result.status) {
+                        sweetAlert(1, 'Receta eliminada correctamente', null);
+                        destroy('#tabla-recetas');
+                        showTable();
                     } else {
                         sweetAlert(2, result.exception, null);
                     }

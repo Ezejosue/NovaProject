@@ -147,9 +147,20 @@ if (isset($_GET['action'])) {
                                 $result['exception'] = 'Receta incorrecta';
                             }
                         break;
-            case 'delete':
+            case 'deleteMateria':
                     if ($recetas->setIdElab($_POST['idElaboracion'])) {
                         if ($recetas->deleteElaboracion()) {
+                            $result['status'] = 1;
+                        } else {
+                            $result['exception'] = 'Operación fallida';
+                        }
+                    } else {
+                        $result['exception'] = 'Materia prima inexistente';
+                    }
+                break;
+                case 'deleteReceta':
+                    if ($recetas->setIdReceta($_POST['id_receta'])) {
+                        if ($recetas->deleteReceta()) {
                             $result['status'] = 1;
                         } else {
                             $result['exception'] = 'Operación fallida';
