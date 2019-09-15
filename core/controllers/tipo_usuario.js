@@ -97,7 +97,6 @@ $('#form-create').submit(function()
         console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
     });
 })
-var arreglo = [];
 function modalPrivilegios(id2)
 {
     $.ajax({
@@ -120,11 +119,10 @@ function modalPrivilegios(id2)
                 let content2 = ''
                 result.dataset.forEach(function(row){
                     (row.estado == 1) ? check = 'checked' : check = '';
-                    (row.estado == 1) ? arreglo.push("1") : arreglo.push("0");
                     content+= `
                     <div class="col-sm-6 col-md-4">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" ${check} id="${row.id_vista}">
+                            <input class="form-check-input get_value" type="checkbox" ${check} id="${row.id_vista}">
                             <label class="form-check-label" for="${row.id_vista}">
                             ${row.nombre_vista}
                             </label>
@@ -191,20 +189,25 @@ function modalUpdate(id)
         console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
     });
 }
-function modificar(id3, id4){
+function modificar(id3){
     $('#form-privilegios').submit(function()
-    
     {
-        for(var i = 0; i <= arreglo.length - 1; i++){
-            console.log(arreglo[i]);
-        }
         event.preventDefault();
+        var estados = [];
+        $('.get_value').each(function(){
+            if($(this).is(":checked")){
+                estados.push("1");
+            } else {
+                estados.push("0");
+            }
+        });
+        //console.log(estados);
         $.ajax({
             url: apiTipo_usuarios + 'updateAcciones',
             type: 'post',
             data: {
                 id_Tipousuario: id3,
-                arreglo: id4,
+                estados:estados,
             },
             datatype: 'json'
         })
@@ -214,7 +217,7 @@ function modificar(id3, id4){
                 const result = JSON.parse(response);
                 // Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
                 if (result.status) {
-                    sweetAlert(1, 'EXITOOO', null);
+                    sweetAlert(1, 'Privilegios modificados correctamente', 'tipo_usuarios.php');
                 } else {
                     sweetAlert(2, result.exception, null);
                 }
@@ -297,11 +300,11 @@ function confirmDelete(id)
                     const result = JSON.parse(response);
                     // Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
                     if (result.status) {
-                        sweetAlert(2, result.exception, null);
-                    } else {
-                        sweetAlert(1, result.message, null);
+                        sweetAlert(1, 'Tipo de usuario eliminado correctamente', null);
                         destroy('#tabla-tipo_usuarios');
                         showTable();
+                    } else {
+                        sweetAlert(2, result.message, null);
                     }
                 } else {
                     console.log(response);
