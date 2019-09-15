@@ -167,14 +167,16 @@
                 <form method="post" id="form-privilegios">
                     <input type="hidden" id="id_tipo_usuario2" name="id_tipo_usuario2" />
                     <div class="container">
-                    <br>
+                        <br>
                         <div class="row" id="vistas" name="vistas">
 
                         </div>
                     </div>
 
                     <div class="modal-body text-center" id="footer">
-                    
+                        <hr>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary tooltipped" data-tooltip="Crear">Aceptar</button>
                     </div>
                 </form>
             </div>

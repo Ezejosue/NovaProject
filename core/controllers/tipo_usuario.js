@@ -97,7 +97,6 @@ $('#form-create').submit(function()
         console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
     });
 })
-var arreglo = [];
 function modalPrivilegios(id2)
 {
     $.ajax({
@@ -115,16 +114,13 @@ function modalPrivilegios(id2)
             const result = JSON.parse(response);
             //Se comprueba si el resultado es satisfactorio para mostrar los valores en el formulario, sino se muestra la excepción
             if (result.status) {
-                arreglo = [];
                 let content = '';
-                let content2 = ''
                 result.dataset.forEach(function(row){
                     (row.estado == 1) ? check = 'checked' : check = '';
-                    (row.estado == 1) ? arreglo.push("1") : arreglo.push("0");
                     content+= `
                     <div class="col-sm-6 col-md-4">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" ${check} id="${row.id_vista}">
+                            <input class="form-check-input get_value" type="checkbox" ${check} id="${row.id_vista}">
                             <label class="form-check-label" for="${row.id_vista}">
                             ${row.nombre_vista}
                             </label>
@@ -133,14 +129,6 @@ function modalPrivilegios(id2)
                     </div>
                     `;
                 });
-                content2+= `
-                    <hr>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-primary tooltipped" data-tooltip="Crear" onclick="modificar(`+arreglo+`)">Aceptar</button>
-                `;
-                
-                
-                $('#footer').html(content2);
                 $('#modal-privilegios').modal('show');
                 $('#vistas').html(content);
             } else {
@@ -191,20 +179,25 @@ function modalUpdate(id)
         console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
     });
 }
-function modificar(id3, id4){
+function modificar(id3){
     $('#form-privilegios').submit(function()
-    
     {
-        for(var i = 0; i <= arreglo.length - 1; i++){
-            console.log(arreglo[i]);
-        }
         event.preventDefault();
+        var estados = [];
+        $('.get_value').each(function(){
+            if($(this).is(":checked")){
+                estados.push("1");
+            } else {
+                estados.push("0");
+            }
+        });
+        //console.log(estados);
         $.ajax({
             url: apiTipo_usuarios + 'updateAcciones',
             type: 'post',
             data: {
                 id_Tipousuario: id3,
-                arreglo: id4,
+                estados:estados,
             },
             datatype: 'json'
         })
@@ -214,7 +207,7 @@ function modificar(id3, id4){
                 const result = JSON.parse(response);
                 // Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
                 if (result.status) {
-                    sweetAlert(1, 'EXITOOO', null);
+                    sweetAlert(1, 'Privilegios modificados correctamente', null);
                 } else {
                     sweetAlert(2, result.exception, null);
                 }

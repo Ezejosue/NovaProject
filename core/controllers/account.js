@@ -45,7 +45,6 @@ function showMenu()
             if (!result.status) {
                 sweetAlert(4, result.exception, null);
             }
-            console.log(result.dataset);
             fillMenu(result.dataset);
         } else {
             console.log(response);

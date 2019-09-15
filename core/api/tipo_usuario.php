@@ -70,21 +70,29 @@ if (isset($_GET['action'])) {
 			case 'updateAcciones':
 				if ($tipo_usuario->setId($_POST['id_Tipousuario'])) {
 					if ($result['dataset'] = $tipo_usuario->readAcciones()) {
-						foreach($result['dataset'] as $datos){
-							$tipo_usuario->setEstado("1");
-							$tipo_usuario->setIdVista($datos['id_vista']);
-							$tipo_usuario->setId($datos['id_Tipousuario']);
-							$tipo_usuario->updateAcciones();
+						if(isset($_POST['estados'])){
+							$i = 0;
+							$estados = $_POST['estados'];
+							foreach($result['dataset'] as $datos){
+								$tipo_usuario->setIdVista($datos['id_vista']);
+								$tipo_usuario->setId($datos['id_Tipousuario']);
+								$tipo_usuario->setEstado($estados[$i]);
+								$tipo_usuario->updateAcciones();
+								$result['status'] = 1;
+								$i = $i + 1;
+							}
+							$_SESSION['vistas'] = $tipo_usuario->readMenu();	
+						} else {
+							$result['exception'] = 'Error al obtener los estados';
 						}
-						$result['status'] = 1;
 					} else {
 						$result['exception'] = 'Vistas inexistente';
 					}
 				} else {
 					$result['exception'] = 'Tipo de usuario incorrecto';
 				}
-				break;
-				/* Operacion para actualizar un tipo_usuario */
+			break;
+			/* Operacion para actualizar un tipo_usuario */
 			case 'update':
 				$_POST = $tipo_usuario->validateForm($_POST);
 				if ($tipo_usuario->setId($_POST['id_tipo_usuario'])) {
