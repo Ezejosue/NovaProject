@@ -220,8 +220,8 @@ class Recetas extends Validator
 
 	public function deleteReceta()
 	{
-		$sql = 'DELETE FROM receta WHERE id_receta = ?';
-		$params = array($this->idreceta);
+		$sql = 'DELETE FROM elaboraciones WHERE id_receta = ? ; DELETE FROM receta WHERE id_receta = ?';
+		$params = array($this->idreceta, $this->idreceta);
 		return conexion::executeRow($sql, $params);
 	}
 
