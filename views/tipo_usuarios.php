@@ -55,7 +55,7 @@
                             </div>
                             <div class="col-sm-11">
                                 <input placeholder="Nombre" class="form-control" id="create_nombre" name="create_nombre"
-                                   autocomplete="off" for="nombre_categoria">
+                                    autocomplete="off" for="nombre_categoria">
                             </div>
                         </div>
                     </div>
@@ -147,6 +147,34 @@
                         </div>
                     </div>
                     <div class="modal-body text-center">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary tooltipped" data-tooltip="Crear">Aceptar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-privilegios" class="modal fade bd-example-modal-lg">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">EDITAR PRIVILEGIOS</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form method="post" id="form-privilegios">
+                    <input type="hidden" id="id_tipo_usuario2" name="id_tipo_usuario2" />
+                    <div class="container">
+                        <br>
+                        <div class="row" id="vistas" name="vistas">
+
+                        </div>
+                    </div>
+
+                    <div class="modal-body text-center" id="footer">
+                        <hr>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                         <button type="submit" class="btn btn-primary tooltipped" data-tooltip="Crear">Aceptar</button>
                     </div>

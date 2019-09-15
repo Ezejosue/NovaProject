@@ -48,6 +48,16 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Usuario incorrecto';
                 }
                 break;
+            case 'readMenu':
+                if ($usuario->setTipo_usuario($_SESSION['tipoUsuario'])){
+                     if ($result['dataset'] = $usuario->readMenu()) {
+                            $result['status'] = 1;
+                    } else {
+                        $result['exception'] = 'Usuario incorrecto 55';
+                    }
+                }
+                
+                break;
             case 'readDataProducts':
                 if ($usuario->setId($_SESSION['idUsuario'])) {
                     if ($result['dataset'] = $usuario->getCantidadProductos()) {
@@ -630,6 +640,8 @@ if (isset($_GET['action'])) {
                                 if ($usuario->UpdateLogin1()) {
                                     $_SESSION['idUsuario'] = $usuario->getId();
                                     $_SESSION['aliasUsuario'] = $usuario->getAlias();
+                                    $_SESSION['tipoUsuario'] = $usuario->getTipo_usuario();
+                                    $_SESSION['vistas'] = $usuario->readMenu();
                                     $_SESSION['tiempo'] = time();
                                     $result['status'] = 1;
                                 } else {

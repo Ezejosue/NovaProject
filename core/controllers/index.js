@@ -1,5 +1,6 @@
 //Inicializando la función para verificar que un usuario haya iniciado sesión
 $(document).ready(function () {
+    showMenu();
     graficar_existencia_categoria_agotar();
     graficar_existencia_categoria_sobre_existencias();
     graficar_ventas_platillos();
@@ -12,7 +13,6 @@ $(document).ready(function () {
 })
 
 //Constante para establecer la ruta y parámetros de comunicación con la API
-const apiSesion = '../core/api/usuarios.php?action=';
 const apiCategorias = '../core/api/categorias.php?site=private&action=';
 const apiPlatillos = '../core/api/platillos.php?site=private&action=';
 
