@@ -19,18 +19,32 @@ if (isset($_GET['action'])) {
 				}
 				break;
 
-				/* Operacion para crear un tipo_usuario */
+			/* Operacion para crear un tipo de usuario */
 			case 'create':
 				$_POST = $tipo_usuario->validateForm($_POST);
         		if ($tipo_usuario->setNombre($_POST['create_nombre'])) {
 					if ($tipo_usuario->setDescripcion($_POST['create_descripcion'])) {
 						if ($tipo_usuario->setEstado(isset($_POST['create_estado']) ? 1:0)) {
 							if ($tipo_usuario->createTipo_usuario()) {
-								$result['id'] = conexion::getLastRowId();
-								$result['status'] = 1;
-								$result['message'] = 'Tipo de usuario creado correctamente';
+								if($tipo_usuario->readUltimoTipo()){
+									if($result['dataset'] = $tipo_usuario->getVistas()){
+										foreach($result['dataset'] as $datos){
+											$tipo_usuario->setIdVista($datos['id_vista']);
+											$tipo_usuario->setEstado('0');
+											$tipo_usuario->createAccion();
+										}
+										$result['status'] = 1;
+										$result['message'] = 'Tipo de usuario creado correctamente';
+									} else {
+										$result['exception'] = 'Error al obtener las vistas';
+									}
+									
+								} else {
+									$result['exception'] = 'Error al obtener el último tipo de usuario';
+								}
+								
 							} else {
-								$result['exception'] = 'Operacion fallida';
+								$result['exception'] = 'Error al crear el tipo de usuario';
 							}
 						} else {
 							$result['exception'] = 'Estado incorrecto';
@@ -128,11 +142,16 @@ if (isset($_GET['action'])) {
             case 'delete':
 				if ($tipo_usuario->setId($_POST['id_Tipousuario'])) {
 					if ($tipo_usuario->getTipo_usuario()) {
-						if ($tipo_usuario->deleteTipo_usuario()) {
-							$result['message'] = 'Tipo de usuario eliminado correctamente';
+						if($tipo_usuario->deleteAcciones()){
+							if ($tipo_usuario->deleteTipo_usuario()) {
+								$result['status'] = 1;
+							} else {
+								$result['exception'] = 'Operación fallida';
+							}
 						} else {
-							$result['exception'] = 'Operación fallida';
+							$result['exception'] = 'Error al eliminar las acciones';
 						}
+						
 					} else {
 						$result['exception'] = 'Tipo de usuario inexistente';
 					}

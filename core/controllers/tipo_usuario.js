@@ -207,7 +207,7 @@ function modificar(id3){
                 const result = JSON.parse(response);
                 // Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
                 if (result.status) {
-                    sweetAlert(1, 'Privilegios modificados correctamente', null);
+                    sweetAlert(1, 'Privilegios modificados correctamente', 'tipo_usuarios.php');
                 } else {
                     sweetAlert(2, result.exception, null);
                 }
@@ -290,11 +290,11 @@ function confirmDelete(id)
                     const result = JSON.parse(response);
                     // Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
                     if (result.status) {
-                        sweetAlert(2, result.exception, null);
-                    } else {
-                        sweetAlert(1, result.message, null);
+                        sweetAlert(1, 'Tipo de usuario eliminado correctamente', null);
                         destroy('#tabla-tipo_usuarios');
                         showTable();
+                    } else {
+                        sweetAlert(2, result.message, null);
                     }
                 } else {
                     console.log(response);
