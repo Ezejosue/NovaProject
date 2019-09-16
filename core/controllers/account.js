@@ -15,6 +15,7 @@ $(document).ready(function()
 const apiAccount = '../core/api/usuarios.php?site=private&action=';
 const apiSesion = '../core/api/usuarios.php?action=';
 
+//Función que llena el menú según el tipo de usuario
 function fillMenu(rows)
 {
     let content = '';
@@ -29,6 +30,8 @@ function fillMenu(rows)
     });
     $('#main-menu').html(content);
 }
+
+//Función que muestra el menú según el tipo de usuario
 function showMenu()
 {
     $.ajax({
@@ -484,35 +487,6 @@ function showCountEmployees(){
         console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
     });
 }
-
-$('#form-recuperar-contrasena').submit(function()
-{
-    event.preventDefault();
-    $.ajax({
-        url: apiAccount + 'recuperarContrasena',
-        type: 'post',
-        data: $('#form-recuperar-contrasena').serialize(),
-        datatype: 'json'
-    })
-    .done(function(response){
-        //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
-        if (isJSONString(response)) {
-            const dataset = JSON.parse(response);
-            //Se comprueba si la respuesta es satisfactoria, sino se muestra la excepción
-            if (dataset.status == 1) {
-                sweetAlert(1, 'Se ha enviado el correo exitosamente', null);
-            } else {
-                sweetAlert(2, dataset.exception, null);
-            }
-        } else {
-            console.log(response);
-        }
-    })
-    .fail(function(jqXHR){
-        //Se muestran en consola los posibles errores de la solicitud AJAX
-        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
-    });
-})
 
 function getParameterByName(name) {
     name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");

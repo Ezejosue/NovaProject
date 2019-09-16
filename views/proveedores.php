@@ -1,7 +1,7 @@
 <!-- SIDEBAR-->
 <?php
     require_once('../core/helpers/dashboard.php');
-    Dashboard::headerTemplate('Usuarios');
+    Dashboard::headerTemplate('Proveedores');
 ?>
 <!-- Contenido-->
 <div class="main-content">
@@ -20,15 +20,12 @@
         <div class="container">
             <div class="row">
                 <div class="table-responsive">
-                    <table class="table" id="tabla-usuarios" width="100%">
+                    <table class="table" id="tabla-proveedores" width="100%">
                         <thead>
                             <tr>
-                                <th>IMAGEN</th>
-                                <th>ALIAS</th>
-                                <th>CORREO</th>
-                                <th>FECHA DE CREACIÓN</th>
-                                <th>TIPO DE USUARIO</th>
-                                <th>LOGUEADO</th>
+                                <th>PROVEEDOR</th>
+                                <th>CONTACTO</th>
+                                <th>TELÉFONO</th>
                                 <th>ESTADO</th>
                                 <th>ACCIÓN</th>
                             </tr>
@@ -46,54 +43,42 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">AGREGAR USUARIO</h5>
+                    <h5 class="modal-title">AGREGAR PROVEEDOR</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+                        <span aria-hidden="tyrue">&times;</span>
                     </button>
                 </div>
-                <form class="was-validated" method="post" id="form-create" enctype="multipart/form-data">
+                <form class="was-validated" method="post" id="form-create" enctype="multipart/form-data" autocomplete="off">
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-1">
                                 <i class="fa fa-user"></i>
                             </div>
                             <div class="col-sm-11">
-                                <input id="create_alias" type="text" name="create_alias" autocomplete="off" class="form-control"
-                                    placeholder="Nombre De Usuario" required>
+                                <input id="create_proveedor" type="text" name="create_proveedor"
+                                    class="validate form-control" placeholder="Proveedor" required>
                             </div>
                         </div>
                     </div>
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-1">
-                                <i class="fa fa-envelope"></i>
+                                <i class="fa fa-user"></i>
                             </div>
                             <div class="col-sm-11">
-                                <input id="create_correo" type="email" name="create_correo" autocomplete="off" class="form-control"
-                                    placeholder="Correo" required>
+                                <input id="create_contacto" type="text" name="create_contacto"
+                                    class="validate form-control" placeholder="Nombre de contacto" required>
                             </div>
                         </div>
                     </div>
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-1">
-                                <i class="fa fa-lock"></i>
+                                <i class="fa fa-user"></i>
                             </div>
                             <div class="col-sm-11">
-                                <input id="create_clave1" type="password" name="create_clave1"
-                                    class="validate form-control" placeholder="Contraseña" required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-sm-1">
-                                <i class="fa fa-lock"></i>
-                            </div>
-                            <div class="col-sm-11">
-                                <input id="create_clave2" type="password" name="create_clave2"
-                                    class="validate form-control" placeholder="Repetir contraseña" required
-                                    data-match="#create_clave1">
+                                <input id="create_telefono" type="text" name="create_telefono"
+                                    class="validate form-control" placeholder="Teléfono"required>
                             </div>
                         </div>
                     </div>
@@ -103,36 +88,9 @@
                                 <i class="fas fa-users"></i>
                             </div>
                             <div class="col-sm-11">
-                                <select id="create_tipo" name="create_tipo" class="form-control" required>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-sm-1">
-                                <i class="fa fa-image"></i>
-                            </div>
-                            <div class="col-sm-11">
-                                <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="create_archivo"
-                                        name="create_archivo" required>
-                                    <label class="custom-file-label" for="create_archivo">Escoge un archivo</label>
-                                    <div class="invalid-feedback">Por favor seleccione una imagen 500 x 500</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-sm-1">
-                                <i class="fa fa-eye-slash"></i>
-                            </div>
-                            <div class="col-sm-11">
                                 <div class="custom-control custom-switch">
                                     <input type="checkbox" class="custom-control-input" id="create_estado"
                                         name="create_estado">
-
                                     <label class="custom-control-label" for="create_estado">
                                         <i class="fa fa-eye"></i>
                                     </label>
@@ -153,41 +111,43 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">MODIFICAR USUARIO</h5>
+                    <h5 class="modal-title">MODIFICAR PROVEEDOR</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <form class="was-validated" method="post" id="form-update" enctype="multipart/form-data">
-                    <input type="hidden" id="foto_usuario" name="foto_usuario" />
-                    <input type="hidden" id="id_usuario" name="id_usuario" />
+                    <input type="hidden" id="id_proveedor" name="id_proveedor" />
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-1">
                                 <i class="fa fa-user"></i>
                             </div>
                             <div class="col-sm-11">
-                                <input id="update_alias" type="text" name="update_alias" class="validate form-control" required>
+                                <input id="update_proveedor" type="text" name="update_proveedor"
+                                    class="validate form-control" placeholder="Proveedor" required>
                             </div>
                         </div>
                     </div>
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-1">
-                                <i class="fas fa-envelope"></i>
+                                <i class="fa fa-user"></i>
                             </div>
                             <div class="col-sm-11">
-                            <input id="update_correo" type="email" name="update_correo" class="validate form-control" required>
+                                <input id="update_contacto" type="text" name="update_contacto"
+                                    class="validate form-control" placeholder="Nombre de contacto" required>
                             </div>
                         </div>
                     </div>
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-1">
-                                <i class="fas fa-user"></i>
+                                <i class="fa fa-user"></i>
                             </div>
                             <div class="col-sm-11">
-                            <input id="update_logueo" type="text" name="update_logueo" class="validate form-control" required>
+                                <input id="update_telefono" type="text" name="update_telefono"
+                                    class="validate form-control" placeholder="Teléfono"required>
                             </div>
                         </div>
                     </div>
@@ -197,35 +157,9 @@
                                 <i class="fas fa-users"></i>
                             </div>
                             <div class="col-sm-11">
-                                <select id="update_tipo" name="update_tipo" class="form-control">
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-sm-1">
-                                <i class="fa fa-image"></i>
-                            </div>
-                            <div class="col-sm-11">
-                                <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="imagen_usuario"
-                                        name="imagen_usuario">
-                                    <label class="custom-file-label" for="imagen_usuario">Escoge un archivo</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-sm-1">
-                                <i class="fa fa-eye-slash"></i>
-                            </div>
-                            <div class="col-sm-11">
                                 <div class="custom-control custom-switch">
                                     <input type="checkbox" class="custom-control-input" id="update_estado"
                                         name="update_estado">
-
                                     <label class="custom-control-label" for="update_estado">
                                         <i class="fa fa-eye"></i>
                                     </label>
@@ -241,29 +175,29 @@
             </div>
         </div>
     </div>
-    <!-- Footer-->
     <?php
-        Dashboard::footerTemplate('usuarios.js', '#tabla-usuarios');
-        ?>
-    <!-- Validaciones del lado del cliente-->
+Dashboard::footerTemplate('proveedores.js', '#tabla-proveedores');
+?>
+
+    <!-- validaciones del lado de cliente para agregar materias primas -->
     <script>
-        bootstrapValidate("#create_clave1", "min:6:Ingrese una contraseña mayor a 5 caracteres")
-    </script>
-    <script>
-        bootstrapValidate("#create_clave2", "min:6:Ingrese una contraseña mayor a 5 caracteres")
-    </script>
-    <script>
-        bootstrapValidate('#create_alias', "min:3:Ingrese un nombre mayor a 3 caracteres")
-    </script>
-    <script>
-        bootstrapValidate('#create_alias', 'required:Ingrese un nombre de usuario')
-    </script>
-    <script>
-        bootstrapValidate('#update_alias', 'required:Ingrese un nombre de usuario')
-    </script>
-    <script>
-        bootstrapValidate('#update_alias', "min:3:Ingrese un nombre mayor a 3 caracteres",
-            "max:80:Ingrese un nombre menor a 80 caracteres")
+        bootstrapValidate("#create_nombre_materia", "min:3:Ingrese un nombre mayor a 3 caracteres");
+        bootstrapValidate("#create_nombre_materia", "max:10:Ingrese un nombre menor a 10 caracteres");
+
+        bootstrapValidate("#create_descripcion_materia", "min:6:Ingrese una descripción mayor de 6 caracteres");
+        bootstrapValidate("#create_descripcion_materia", "max:80:Ingrese una descripción menor a 80 caracteres");
+
+        bootstrapValidate("#create_cantidad", "min:1:Ingrese una cantidad válida");
+        bootstrapValidate("#create_cantidad", "max:6:Ingrese una cantidad válida");
+
+        bootstrapValidate("#nombre_materia", "min:3:Ingrese un nombre mayor a 3 caracteres");
+        bootstrapValidate("#nombre_materia", "max:10:Ingrese un nombre menor a 10 caracteres");
+
+        bootstrapValidate("#descripcion_materia", "min:6:Ingrese una descripción mayor de 6 caracteres");
+        bootstrapValidate("#descripcion_materia", "max:80:Ingrese una descripción menor a 80 caracteres");
+
+        bootstrapValidate("#cantidad", "min:1:Ingrese una cantidad válida");
+        bootstrapValidate("#cantidad", "max:6:Ingrese una cantidad válida");
     </script>
 
     </body>
