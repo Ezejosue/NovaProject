@@ -1,5 +1,5 @@
 <?php
-//aqui es donde se llama la conexion, el modal de platillos y el archivo para validaciones
+//aqui es donde se llama la conexión, el modal de platillos y el archivo para validaciones
 require_once('../../core/helpers/conexion.php');
 require_once('../../core/helpers/validator.php');
 require_once('../../core/models/platillos.php');
@@ -55,7 +55,7 @@ if (isset($_GET['action'])) {
                                         $result['exception'] = 'Seleccione una receta';
                                     }  
                                 } else {
-                                $result['exception'] = 'Seleccione una categoria';
+                                $result['exception'] = 'Seleccione una categoría';
                             }  
                             } else {
                                 $result['exception'] = 'Precio incorrecto';
@@ -123,7 +123,7 @@ if (isset($_GET['action'])) {
                                             $result['exception'] = 'Seleccione una receta';
                                             }
                                     }else {
-                                        $result['exception'] = 'Seleccione una categoria';
+                                        $result['exception'] = 'Seleccione una categoría';
                                     } 
                                 }else {
                                     $result['exception'] = 'Precio incorrecto';
@@ -138,7 +138,7 @@ if (isset($_GET['action'])) {
                         $result['exception'] = 'Platillo incorrecto';
                     }
                     break;
-            //Operación para eliminar un platillo esto lo hace atraves del id
+            //Operación para eliminar un platillo esto lo hace a través del id
             //platillo que mandamos a traer desde el getId
             case 'delete':
             //El caso a elimiar es el de deleteplatillo
