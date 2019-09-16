@@ -384,7 +384,7 @@ if (isset($_GET['action'])) {
 					if ($usuario->getUsuario()) {
 		                if ($usuario->setAlias($_POST['update_alias'])) {
                             if($usuario->setCorreo($_POST['update_correo'])){
-                                if($usuario->setLogueo($_POST['update_logueo'])){
+                                if($usuario->setLogueo(isset($_POST['update_logueo']) ? 1 : 0)){
                                     if ($usuario->setEstado(isset($_POST['update_estado']) ? 1 : 0)) {
                                         if ($usuario->setTipo_usuario($_POST['update_tipo'])) {
                                             //Se comprueba que se haya subido una imagen
