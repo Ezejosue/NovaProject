@@ -265,7 +265,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Usuario incorrecto';
                 }
                 break;
-            //Operación para comprobar que haya usuarios registrados
+            //Operación para comprobar que existan usuarios registrados
             case 'read':
                 if ($result['dataset'] = $usuario->readUsuarios()) {
                     $result['status'] = 1;
@@ -645,6 +645,7 @@ if (isset($_GET['action'])) {
                                     $_SESSION['idUsuario'] = $usuario->getId();
                                     $_SESSION['aliasUsuario'] = $usuario->getAlias();
                                     $_SESSION['tipoUsuario'] = $usuario->getTipo_usuario();
+                                    //Se llena la variable 'vistas' con las opciones del menú, según el tipo de usuario que ha iniciado sesión
                                     $_SESSION['vistas'] = $usuario->readMenu();
                                     $_SESSION['tiempo'] = time();
                                     $result['status'] = 1;

@@ -3,12 +3,8 @@
     Clase para definir las plantillas en las páginas web del sitio privado.
 */
 
-
-
 class Dashboard
 {
-	
-	
 	public static function headerTemplate($title)
 	{
 		if(!isset($_SESSION)) 
@@ -84,10 +80,15 @@ class Dashboard
 
 		//Se comprueba si existe una sesión para mostrar el menú de opciones, de lo contrario se muestra un menú vacío
 		if (isset($_SESSION['idUsuario'])) {
+			//se obtiene el nombre del archivo de la vista
 			$filename = basename($_SERVER['PHP_SELF']);
+			//Si la página es diferente del index, se muestra el menú
 			if ($filename != 'index.php') {
 				$menu = null;
+				/* Por cada dato en la variable 'vistas', 
+				se comprueba que el nombre de la vista exista en la variable 'vistas' para ser mostrada como opción */
 				foreach($_SESSION['vistas'] as $vista){
+					//in_array(lo que se quiere buscar, el arreglo)
 					if(in_array($filename, $vista)) {
 						$menu = true;
 						break;
