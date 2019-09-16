@@ -23,7 +23,7 @@ if (isset($_GET['action'])) {
 				if ($result['dataset'] = $ordenes->readCategorias()) {
 					$result['status'] = 1;
 				} else {
-					$result['exception'] = 'No hay categorias registradas';
+					$result['exception'] = 'No hay categorías registradas';
 				}
 				break;
 
@@ -61,13 +61,13 @@ if (isset($_GET['action'])) {
 									$result['message'] = 'Producto agregado correctamente';
 							}
 							else {
-									$result['exception'] = 'Operacion fallida';
+									$result['exception'] = 'Operación fallida';
 							}
 						} else {
 							$result['exception'] = 'Cantidad incorrecta';
 						}
 					} else {
-						$result['exception'] = 'Platilllo incorrecto';
+						$result['exception'] = 'Platillo incorrecto';
 					}
 				} else {
 					$result['exception'] = 'Mesa incorrecta';

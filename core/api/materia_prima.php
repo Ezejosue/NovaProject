@@ -34,30 +34,30 @@ if (isset($_GET['action'])) {
                                                     if ($materia->createMateriaPrima()) {
                                                         if ($materia->saveFile($_FILES['create_archivo'], $materia->getRuta(), $materia->getImagen())) {
                                                             $result['status'] = 1;
+                                                                } else {
+                                                                    $result['status'] = 2;
+                                                                    $result['exception'] = 'No se guardó el archivo';
+                                                                }
+                                                            } else {
+                                                                $result['exception'] = 'Operación fallida';
+                                                            }
                                                         } else {
-                                                            $result['status'] = 2;
-                                                            $result['exception'] = 'No se guardó el archivo';
-                                                        }
+                                                            $result['exception'] = $materia->getImageError();;
+                                                        } 
                                                     } else {
-                                                        $result['exception'] = 'Operación fallida';
-                                                    }
-                                                } else {
-                                                    $result['exception'] = $materia->getImageError();;
-                                                } 
-                                            }   else {
-                                                $result['exception'] = 'Seleccione una imagen';
+                                                        $result['exception'] = 'Seleccione una imagen';
                                                     } 
                                                 } else {
                                                     $result['exception'] = 'Seleccione una unidad de medida';
                                                 } 
                                             } else {
-                                            $result['exception'] = 'Seleccione una categoria';
+                                                $result['exception'] = 'Seleccione una categoría';
                                         }  
                                     } else {
                                         $result['exception'] = 'Cantidad incorrecta';
                                     }
                                 } else {
-                                    $result['exception'] = 'Descripcion incorrecta';
+                                    $result['exception'] = 'Descripción incorrecta';
                                 }
                             } else {
                                 $result['exception'] = 'Estado incorrecto';
@@ -109,20 +109,20 @@ if (isset($_GET['action'])) {
                                             if ($archivo) {
                                                 if ($materia->saveFile($_FILES['foto'], $materia->getRuta(), $materia->getImagen())) {
                                                     $result['message'] = 'Categoría modificada correctamente';
+                                                            } else {
+                                                                $result['message'] = 'Categoría modificada. No se guardó el archivo';
+                                                            }
                                                         } else {
-                                                            $result['message'] = 'Categoría modificada. No se guardó el archivo';
+                                                            $result['message'] = 'Categoría modificada. No se subió ningún archivo';
                                                         }
                                                     } else {
-                                                        $result['message'] = 'Categoría modificada. No se subió ningún archivo';
+                                                        $result['exception'] = 'Operación fallida';
                                                     }
                                                 } else {
-                                                    $result['exception'] = 'Operación fallida';
+                                                    $result['exception'] = 'Seleccione una unidad de medida';
                                                 }
                                             } else {
-                                                $result['exception'] = 'Seleccione una unidad de medida';
-                                            }
-                                            } else {
-                                                $result['exception'] = 'Seleccione una categoria';
+                                                $result['exception'] = 'Seleccione una categoría';
                                             }
                                         } else {
                                             $result['exception'] = 'Estado incorrecto';
@@ -131,7 +131,7 @@ if (isset($_GET['action'])) {
                                         $result['exception'] = 'Cantidad incorrecta';
                                     } 
                                 }else {
-                                    $result['exception'] = 'Descripcion incorrecta';
+                                    $result['exception'] = 'Descripción incorrecta';
                                 }
                             }else {
                                 $result['exception'] = 'Nombre de materia prima incorrecta';

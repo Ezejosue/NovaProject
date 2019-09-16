@@ -95,26 +95,4 @@ $('#form-recuperar-contrasena').submit(function()
         console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
     });
 })
-/* 
-function sumarIntentos (alias)
-{
-    $.ajax({
-            url: apiLogin + 'ActualizarSesion',
-            type: 'post',
-            data: null,
-            datatype: 'json'
-        })
-        .done(function (response) {
-            //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
-            if (isJSONString(response)) {
-                const result = JSON.parse(response);
-                sweetAlert(1, result.exception, null);
-            } else {
-                console.log(response);
-            }
-        })
-        .fail(function (jqXHR) {
-            //Se muestran en consola los posibles errores de la solicitud AJAX
-            console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
-        });
-}
+

@@ -27,7 +27,7 @@ if (isset($_GET['action'])) {
                        if ($usuario->UpdateLogout()) { 
                             header('location: ../../views/');
                         } else {
-                            $result['exception'] = 'No hemos podido destruir su sesion';
+                            $result['exception'] = 'No hemos podido destruir su sesión';
                         }
                     } else {
                         $result['exception'] = 'No encontramos su usuario';
@@ -530,41 +530,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Contenido no disponible';
                 }
                 break;
-/* 
-                case 'intentos':
-                $_POST = $usuario->validateForm($_POST);
-                    if ($usuario->setAlias($_POST['usuario'])) {
-                        if ($result['dataset'] = $usuario->SumarIntentos()) {
-                            $result['status'] = 1;
-                            $result['exception'] = 'Tiene 3 intentos, si no su usuario se bloqueara indefinidamente MUERASE';
-                        if ($result['dataset'] = $usuario->BloquearIntentos()) {
-                            $result['status'] = 2;
-                            $result['exception'] = 'Su usuario ha sido bloqueado';
-                        } else {
-                            $result['exception'] = 'No hemos podido bloquear su usuario';
-                        }
-                    } else {
-                        $result['exception'] = 'No pudimos sumar intentos';
-                    }
-                } else {
-                    $result['exception'] = 'Alias incorrecto';
-                }
-                break;
-      
-            case 'BloquearIntentos':
-                $_POST = $usuario->validateForm($_POST);
-                 if ($usuario->setAlias($_POST['usuario'])) {
-                    if ($result['dataset'] = $usuario->BloquearIntentos()) {
-                        $result['status'] = 1;
-                        $result['exception'] = 'Hemos bloqueado el usuario';
-                    } else {
-                        $result['exception'] = 'No hemos podido bloquear usuario';
-                        } 
-                    } else {
-                        $result['exception'] = 'Alias incorrecto';
-                }
-                break;
- */
+
             //Operación para iniciar sesión
             case 'login':
                 $_POST = $usuario->validateForm($_POST);
@@ -671,7 +637,7 @@ if (isset($_GET['action'])) {
                                     $_SESSION['tiempo'] = time();
                                     $result['status'] = 1;
                                 } else {
-                                    $result['exception'] = 'No pudimos actualizar su sesion';
+                                    $result['exception'] = 'No pudimos actualizar su sesión';
                                 }
                             } else {
                                 $result['exception'] = 'Error al eliminar el token';

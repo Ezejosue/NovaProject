@@ -28,7 +28,7 @@ if (isset($_GET['action'])) {
 								$result['message'] = 'Unidad de medida creada correctamente';
                         }
 						 else {
-								$result['exception'] = 'Operacion fallida';
+								$result['exception'] = 'Operación fallida';
 						}
 					} else {
 						$result['exception'] = 'Descripción incorrecta';
@@ -60,19 +60,19 @@ if (isset($_GET['action'])) {
 										} else {
 											$result['message'] = 'Unidad de medida modificada. No se guardó el archivo';
 										}
-						}else {
-								$result['exception'] = 'Descripción incorrecta';
+									}else {
+											$result['exception'] = 'Descripción incorrecta';
+										}
+									} else {
+										$result['exception'] = 'Nombre de unidad de medida incorrecto';
+									}
+								} else {
+									$result['exception'] = 'Unidad de medida inexistente';
+								}
+							} else {
+								$result['exception'] = 'Unidad de medida incorrecta';
 							}
-						} else {
-							$result['exception'] = 'Nombre de unidad de medida incorrecto';
-						}
-					} else {
-						$result['exception'] = 'Unidad de medida inexistente';
-					}
-				} else {
-					$result['exception'] = 'Unidad de medida incorrecta';
-				}
-            	break;
+							break;
             case 'delete':
 				if ($unidad->setIdMedida($_POST['id_Medida'])) {
 					if ($unidad->getMedida()) {

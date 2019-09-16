@@ -37,7 +37,7 @@ const apiPlatillos = '../core/api/platillos.php?site=private&action=';
                     nombre.push(row.nombre_categoria);
                     existencia.push(parseInt(row.cantidad));
                 });
-                //se mandar los parametros de la funcion que se crea en el controlador de function.js los cuales son el id, xAxis, yAxis y legend
+                //se mandar los parámetros de la función que se crea en el controlador de function.js los cuales son el id, xAxis, yAxis y legend
                 grafico_existencia_categoria_agotar("existencia_categoria_agotar", nombre, existencia, "Existencias.", "Existencia de materia prima por categoria (productos a punto de acabarse)")
             })
 
@@ -70,7 +70,7 @@ function graficar_existencia_categoria_sobre_existencias() {
                 nombre.push(row.nombre_categoria);
                 existencia.push(parseInt(row.cantidad));
             });
-            //se mandar los parametros de la funcion que se crea en el controlador de function.js los cuales son el id, xAxis, yAxis y legend
+            //se mandar los parámetros de la función que se crea en el controlador de function.js los cuales son el id, xAxis, yAxis y legend
             grafico_existencia_categoria_sobre_existen("existencia_categoria_sobre_existen", nombre, existencia, "Existencias.", "Existencia de materia prima por categoria (productos a punto de acabarse)")
         })
 
@@ -102,7 +102,7 @@ function graficar_ventas_platillos() {
                 nombre.push(row.nombre_platillo);
                 venta.push(row.subtotal);
             });
-            //se mandar los parametros de la funcion que se crea en el controlador de function.js los cuales son el id, xAxis, yAxis y legend
+            //se mandar los parámetros de la funcion que se crea en el controlador de function.js los cuales son el id, xAxis, yAxis y legend
             grafica_venta_platillos_mayor("venta_platillo", nombre, venta, "dolares", "Top 5 platillos más vendidos")
         })
 
