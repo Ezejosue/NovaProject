@@ -277,6 +277,7 @@ class Usuarios extends Validator
 		$data = Conexion::getRow($sql, $params);
 		if ($data) {
 			$this->id = $data['id_usuario'];
+			$this->alias = $data['alias'];
 			$this->correo = $data['correo_usuario'];
 			$this->tipo_usuario = $data['id_Tipousuario'];
 			return true;
