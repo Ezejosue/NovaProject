@@ -88,7 +88,7 @@ if (isset($_GET['action'])) {
                         if ($result['dataset'] = $recetas->getMateriasRecetas()) {
                             $result['status'] = 1;
                         } else {
-                            $result['exception'] = 'No hay recetas registradas';
+                            $result['exception'] = 'No hay materia prima registrada';
                         }
                     }else{
                         $result['exception'] = 'Receta incorrecta';
@@ -126,7 +126,7 @@ if (isset($_GET['action'])) {
                                 if ($recetas->setIdReceta($_POST['id_receta_updatemate'])) {
                                     if ($recetas->setIdMateria($_POST['id_update_materia'])) {
                                         if ($recetas->setCantidad($_POST['cantidad_materia_update'])) {
-                                                    if ($recetas->updateReceta()) {
+                                                    if ($recetas->updateElaboracion()) {
                                                         $result['status'] = 1;
                                                     } else {
                                                         $result['exception'] = 'Operación fallida';
@@ -147,24 +147,28 @@ if (isset($_GET['action'])) {
                                 $result['exception'] = 'Receta incorrecta';
                             }
                         break;
-            //Operación para eliminar un usuario
-            case 'delete':
-            //Se comprueba que el usuario a eliminar no sea igual al que ha iniciado sesión
-                    if ($recetas->setId($_POST['idMateria'])) {
-                        if ($recetas->getMateriaPrima()) {
-                            if ($recetas->deleteMateriaPrima()) {
-                                $result['status'] = 1;
-                            } else {
-                                $result['exception'] = 'Operación fallida';
-                            }
+            case 'deleteMateria':
+                    if ($recetas->setIdElab($_POST['idElaboracion'])) {
+                        if ($recetas->deleteElaboracion()) {
+                            $result['status'] = 1;
                         } else {
-                            $result['exception'] = 'Materia prima inexistente';
+                            $result['exception'] = 'Operación fallida';
                         }
                     } else {
-                        $result['exception'] = 'Materia prima incorrecta';
+                        $result['exception'] = 'Materia prima inexistente';
                     }
                 break;
-            //Operación para mostrar los tipos de usuario activos en el formulario de modificar usuario
+                case 'deleteReceta':
+                    if ($recetas->setIdReceta($_POST['id_receta'])) {
+                        if ($recetas->deleteReceta()) {
+                            $result['status'] = 1;
+                        } else {
+                            $result['exception'] = 'Operación fallida';
+                        }
+                    } else {
+                        $result['exception'] = 'Materia prima inexistente';
+                    }
+                break;
             case 'readMateriaPrima':
                 if ($result['dataset'] = $recetas->readMateriasPrimas()) {
                     $result['status'] = 1;
