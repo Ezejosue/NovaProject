@@ -101,7 +101,7 @@ function modalUpdate(id)
         url: apiProveedores + 'get',
         type: 'post',
         data:{
-            id_Cargo: id
+            id_proveedor: id
         },
         datatype: 'json'
     })
@@ -112,8 +112,11 @@ function modalUpdate(id)
             //Se comprueba si el resultado es satisfactorio para mostrar los valores en el formulario, sino se muestra la excepción
             if (result.status) {
                 $('#form-update')[0].reset();
-                $('#id_Cargo').val(result.dataset.id_Cargo);
-                $('#update_nombre_cargo').val(result.dataset.nombre_cargo);
+                $('#id_proveedor').val(result.dataset.id_proveedor);
+                $('#update_proveedor').val(result.dataset.nom_proveedor);
+                $('#update_contacto').val(result.dataset.contacto);
+                $('#update_telefono').val(result.dataset.telefono);
+                (result.dataset.estado == 1) ? $('#update_estado').prop('checked', true) : $('#update_estado').prop('checked', false);
                 $('#modal-update').modal('show');
             } else {
                 sweetAlert(2, result.exception, null);
@@ -148,9 +151,9 @@ $('#form-update').submit(function()
             //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
             if (result.status) {
                 $('#modal-update').modal('hide');
-                sweetAlert(1, 'Cargo modificada correctamente', null);
+                sweetAlert(1, 'Proveedor modificada correctamente', null);
                 //Se destruye la tabla de materias primas y se vuelve a crear para que muestre los cambios realizados
-                destroy('#tabla-cargo');
+                destroy('#tabla-proveedores');
                 showTable();
             } else {
                 sweetAlert(2, result.exception, null);
@@ -168,7 +171,7 @@ function confirmDelete(id)
 {
     swal({
         title: 'Advertencia',
-        text: '¿Quiere eliminar el empleado?',
+        text: '¿Quiere eliminar el proveedor?',
         icon: 'warning',
         buttons: ['Cancelar', 'Aceptar'],
         closeOnClickOutside: false,
@@ -180,7 +183,7 @@ function confirmDelete(id)
                 url: apiProveedores + 'delete',
                 type: 'post',
                 data:{
-                    id_Cargo: id
+                    id_proveedor: id
                 },
                 datatype: 'json'
             })
@@ -190,8 +193,8 @@ function confirmDelete(id)
                     const result = JSON.parse(response);
                     // Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
                     if (result.status) {
-                        sweetAlert(1, 'Cargo eliminado correctamente', null);
-                        destroy('#tabla-cargo');
+                        sweetAlert(1, 'Proveedor eliminado correctamente', null);
+                        destroy('#tabla-proveedores');
                         showTable();
                     } else {
                         sweetAlert(2, result.exception, null);
