@@ -1,7 +1,7 @@
 <!-- SIDEBAR-->
 <?php
     require_once('../core/helpers/dashboard.php');
-    Dashboard::headerTemplate('Poveedores');
+    Dashboard::headerTemplate('Proveedores');
 ?>
 <!-- Contenido-->
 <div class="main-content">
@@ -26,7 +26,6 @@
                                 <th>PROVEEDOR</th>
                                 <th>CONTACTO</th>
                                 <th>TELÉFONO</th>
-                                <th>RUBRO</th>
                                 <th>ESTADO</th>
                                 <th>ACCIÓN</th>
                             </tr>
@@ -49,7 +48,7 @@
                         <span aria-hidden="tyrue">&times;</span>
                     </button>
                 </div>
-                <form class="was-validated" method="post" id="form-create" enctype="multipart/form-data">
+                <form class="was-validated" method="post" id="form-create" enctype="multipart/form-data" autocomplete="off">
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-1">
@@ -78,8 +77,8 @@
                                 <i class="fa fa-user"></i>
                             </div>
                             <div class="col-sm-11">
-                                <input id="create_telefono" type="number" name="create_telefono"
-                                    class="validate form-control" placeholder="Teléfono" max="999999" min="1" required>
+                                <input id="create_telefono" type="text" name="create_telefono"
+                                    class="validate form-control" placeholder="Teléfono"required>
                             </div>
                         </div>
                     </div>
@@ -87,49 +86,11 @@
                         <div class="row">
                             <div class="col-sm-1">
                                 <i class="fas fa-users"></i>
-                            </div>
-                            <div class="col-sm-11">
-                                <select id="create_categoria" name="create_categoria" class="form-control" required>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-sm-1">
-                                <i class="fas fa-users"></i>
-                            </div>
-                            <div class="col-sm-11">
-                                <select id="create_unidad" name="create_unidad" class="form-control" required>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-sm-1">
-                                <i class="fa fa-image"></i>
-                            </div>
-                            <div class="col-sm-11">
-                                <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="create_archivo"
-                                        name="create_archivo" required>
-                                    <label class="custom-file-label" for="create_archivo">Escoge un archivo</label>
-                                    <div class="invalid-feedback">Por favor seleccione una imagen 500 x 500</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-sm-1">
-                                <i class="fa fa-eye-slash"></i>
                             </div>
                             <div class="col-sm-11">
                                 <div class="custom-control custom-switch">
                                     <input type="checkbox" class="custom-control-input" id="create_estado"
                                         name="create_estado">
-
                                     <label class="custom-control-label" for="create_estado">
                                         <i class="fa fa-eye"></i>
                                     </label>
@@ -255,7 +216,7 @@
         </div>
     </div>
     <?php
-Dashboard::footerTemplate('materia_prima.js', '#tabla-materia_prima');
+Dashboard::footerTemplate('proveedores.js', '#tabla-proveedores');
 ?>
 
     <!-- validaciones del lado de cliente para agregar materias primas -->

@@ -196,6 +196,10 @@ class Dashboard
 										<i class="fas fa-list"></i> Ordenes</a>
 									</li>
 									<li>
+										<a href="proveedores.php">
+										<i class="fas fa-chart-bar"></i> Proveedores</a>
+									</li>
+									<li>
 										<a href="pedidos.php">
 										<i class="fas fa-pizza-slice"></i> Pedidos</a>
 									</li>
