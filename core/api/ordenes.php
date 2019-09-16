@@ -75,18 +75,18 @@ if (isset($_GET['action'])) {
 				break;
 	
 				case 'deleteProducto':
-				if($ordenes->setIdPrepedido($_POST['id_prepedido'])){
-                    if ($ordenes->getPre()){
+				if($ordenes->setPlatillo($_POST['id_platillo'])) {
+                    if ($ordenes->setIdMesa($_POST['id_mesa'])){
                         if ($ordenes->deletePrepedido()){
                             $result['status'] = 1;
                         } else {
 							$result['exception'] = 'Operación fallida';
                         }
                     } else {
-						$result['exception'] = 'Pedido no encontrado';
+						$result['exception'] = 'Mesa incorrecta';
                     }
                 } else {
-					$result['exception'] = 'Pedido incorrecto';
+					$result['exception'] = 'Platillo incorrecto';
                 }
 				break;
 				

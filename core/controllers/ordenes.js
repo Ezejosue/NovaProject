@@ -207,6 +207,7 @@ function showPrepedido(id){
                 //variable que crea el boton para cambiar de mesa el pre pedido actual
                 let boton_modificar_mesa = '';
                 total = 0;
+                console.log(result.dataset);
                 result.dataset.forEach(function(row){
                     //En este ciclo se obtiene el subtotal por cada producto que se obtiene en la consulta y tambien el total
                     subtotal = parseFloat(row.cantidad * row.precio).toFixed(2);
@@ -219,7 +220,7 @@ function showPrepedido(id){
                         <td>$ ${row.precio}</td>
                         <td>${row.cantidad}</td>
                         <td>${subtotal}</td>
-                        <td><a href="#" onclick="deleteProducto('${row.id_prepedido}')" class="btn btn-danger" style="border-radius: 15px;" data-toggle="tooltip" data-placement="right" title="Eliminar producto"><i class="fas fa-times"></i></a>
+                        <td><a href="#" onclick="deleteProducto(${row.id_platillo}, ${row.id_mesa})" class="btn btn-danger" style="border-radius: 15px;" data-toggle="tooltip" data-placement="right" title="Eliminar producto"><i class="fas fa-times"></i></a>
                         <a href="#modal-modificar" class="btn btn-primary modal-trigger" data-toggle="modal" style="border-radius: 15px;" data-tooltip="tooltip" data-placement="right" title="Editar cantidad"><i class="fas fa-edit"></i>
                         </a>
                         </td>
@@ -366,7 +367,7 @@ function updateNumeroMesa(id, id2){
 }
 
 //Función para eliminar un registro seleccionado
-function deleteProducto(id)
+function deleteProducto(id, id2)
 {
     swal({
         title: 'Advertencia',
@@ -382,7 +383,8 @@ function deleteProducto(id)
                 url: apiOrdenes + 'deleteProducto',
                 type: 'post',
                 data:{
-                    id_prepedido: id
+                    id_platillo: id,
+                    id_mesa: id2,
                 },
                 datatype: 'json'
             })
