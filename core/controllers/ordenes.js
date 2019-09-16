@@ -207,7 +207,6 @@ function showPrepedido(id){
                 //variable que crea el boton para cambiar de mesa el pre pedido actual
                 let boton_modificar_mesa = '';
                 total = 0;
-                console.log(result.dataset);
                 result.dataset.forEach(function(row){
                     //En este ciclo se obtiene el subtotal por cada producto que se obtiene en la consulta y tambien el total
                     subtotal = parseFloat(row.cantidad * row.precio).toFixed(2);
