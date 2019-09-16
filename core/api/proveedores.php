@@ -47,55 +47,65 @@ if (isset($_GET['action'])) {
                 
             /* Operación para obtener el id del empleado */
 			case 'get':
-                if ($proveedores->setId($_POST['id_Cargo']) 
-                ) {
-                   if ($result['dataset'] = 
-                   $proveedores->searchCargo()) {
+                if ($proveedores->setId($_POST['id_proveedor'])) {
+                   if ($result['dataset'] = $proveedores->getProveedor()) {
                        $result['status'] = 1;
                    } else {
-                       $result['exception'] = 'Cargo no existente';
+                       $result['exception'] = 'Proveedor no existente';
                     }
                 } else {
-                    $result['exception'] = 'Cargo incorrecto';
+                    $result['exception'] = 'Proveedor incorrecto';
                 }
                break;
 
             case 'update':
 					$_POST = $proveedores->validateForm($_POST);
-					if ($proveedores->setId($_POST['id_Cargo'])) 
-					{
-                        if ($proveedores->searchCargo()) {
-                            if ($proveedores->setCargo($_POST['update_nombre_cargo'])) {
-                                if ($proveedores->updateCargo()) {
-                                    $result['status'] = 1;
-                                    $result['message'] = 'Cargo actualizado correctamente';
+					if ($proveedores->setId($_POST['id_proveedor'])) {
+                        if ($proveedores->getProveedor()) {
+                            if ($proveedores->setNomProveedor($_POST['update_proveedor'])) {
+                                if ($proveedores->setContanto($_POST['update_contacto'])) {
+                                    if ($proveedores->setTelefono($_POST['update_telefono'])) {
+                                        if ($proveedores->setEstado(isset($_POST['update_estado']) ? 1 : 0)) {
+                                            if ($proveedores->updateProveedor()) {
+                                                $result['status'] = 1;
+                                                $result['message'] = 'Proveedor actualizado correctamente';
+                                            } else {
+                                                $result['exception'] = 'Operación fallida';                    
+                                            }  
+                                        } else {
+                                            $result['exception'] = 'Estado incorrecto';
+                                        }  
+                                    } else {
+                                        $result['exception'] = 'Telefono incorrecto';
+                                    }  
                                 } else {
-                                    $result['exception'] = 'Operación fallida';                    
-                                }
-                                
+                                    $result['exception'] = 'Contacto incorrecto';
+                                }                          
                             } else {
-                                $result['exception'] = 'Cargo incorrecto';                    
-                            }
-                            
-                        }
-                        
-					}
+                                $result['exception'] = 'Nombre de proveedor incorrecto';              
+                            }                            
+                        } else {
+                            $result['exception'] = 'Proveedor inexistente'; 
+                        }                    
+					} else {
+                        $result['exception'] = 'Proveedor incorrecto';
+                    }
                     break;
                     
             case 'delete':
-                    if ($proveedores->setId($_POST['id_Cargo'])) {
-                        if ($proveedores->searchCargo()) {
-                            if ($proveedores->deleteCargo()) {
-                               $result['status'] = 1;
-                               $result['message'] = 'Cargo eliminado correctamente';
+                    if ($proveedores->setId($_POST['id_proveedor'])) {
+                        if ($proveedores->getProveedor()) {
+                            if ($proveedores->deleteProveedor()) {
+                                $result['status'] = 1;
+                                $result['message'] = 'Proveedor eliminado correctamente';
                             } else {
                                 $result['exception'] = 'Operación fallida';
                             }
                         } else {
-                            $result['exception'] = 'Cargo inexistente';
+                            $result['exception'] = 'Proveedor inexistente';
                         }
                     } else {
-                        $result['exception'] = 'Cargo incorrecto';
+                        $result['exception'] = 'Proveedor incorrecto';
                     }
                     break;
             default:

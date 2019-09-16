@@ -95,21 +95,28 @@ class Proveedores extends Validator
 
     public function createProveedor()
     {
-        $sql = 'INSERT INTO Proveedores(nom_proveedor, contacto, telefono, estado) VALUES (?, ?, ?, ?)';
+        $sql = 'INSERT INTO proveedores(nom_proveedor, contacto, telefono, estado) VALUES (?, ?, ?, ?)';
         $params = array($this->nom_proveedor, $this->contacto, $this->telefono, $this->estado);
 		return conexion::executeRow($sql, $params);
     }
 
-    public function updateCargo()
+    public function getProveedor()
+    {
+        $sql = 'SELECT id_proveedor, nom_proveedor, contacto, telefono, estado FROM proveedores WHERE id_proveedor = ? LIMIT 1';
+        $params = array($this->id);
+		return conexion::getRow($sql, $params);
+    }
+
+    public function updateProveedor()
 	{
-		$sql = 'UPDATE cargo SET nombre_cargo = ? WHERE id_Cargo = ?';
-		$params = array($this->nombre_cargo, $this->id);
+		$sql = 'UPDATE proveedores SET nom_proveedor = ?, contacto = ?, telefono = ?, estado = ? WHERE id_proveedor = ?';
+		$params = array($this->nombre_cargo, $this->contacto, $this->telefono, $this->estado, $this->id);
 		return conexion::executeRow($sql, $params);
 	}
 
-    public function deleteCargo()
+    public function deleteProveedor()
     {
-        $sql = 'DELETE FROM cargo WHERE id_Cargo = ?';
+        $sql = 'DELETE FROM proveedores WHERE id_proveedor = ?';
         $params = array($this->id);
         return Conexion::executeRow($sql, $params);
     }
