@@ -1,4 +1,3 @@
-
 //Inicializando la función para verificar que un usuario haya iniciado sesión
 $(document).ready(function () {
     showSelectCategoria('id_categoria', 0);
@@ -6,7 +5,6 @@ $(document).ready(function () {
 })
 
 //Constante para establecer la ruta y parámetros de comunicación con la API
-const apiSesion = '../core/api/usuarios.php?action=';
 const apiCategorias = '../core/api/categorias.php?site=private&action=';
 const apiPlatillos = '../core/api/platillos.php?site=private&action=';
 const apiDesperdicios = '../core/api/desperdicios.php?site=private&action=';
