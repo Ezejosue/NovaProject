@@ -28,7 +28,7 @@
                                 <th>CORREO</th>
                                 <th>FECHA DE CREACIÓN</th>
                                 <th>TIPO DE USUARIO</th>
-                                <th>LOGUEADO</th>
+                                <th>ESTADO SESIÓN</th>
                                 <th>ESTADO</th>
                                 <th>ACCIÓN</th>
                             </tr>
@@ -59,7 +59,7 @@
                             </div>
                             <div class="col-sm-11">
                                 <input id="create_alias" type="text" name="create_alias" autocomplete="off" class="form-control"
-                                    placeholder="Nombre De Usuario" required>
+                                    placeholder="Nombre de usuario" required>
                             </div>
                         </div>
                     </div>
