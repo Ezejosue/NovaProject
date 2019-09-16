@@ -28,6 +28,7 @@
                                 <th>CORREO</th>
                                 <th>FECHA DE CREACIÓN</th>
                                 <th>TIPO DE USUARIO</th>
+                                <th>LOGUEADO</th>
                                 <th>ESTADO</th>
                                 <th>ACCIÓN</th>
                             </tr>
@@ -177,6 +178,16 @@
                             </div>
                             <div class="col-sm-11">
                             <input id="update_correo" type="email" name="update_correo" class="validate form-control" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-1">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="col-sm-11">
+                            <input id="update_logueo" type="text" name="update_logueo" class="validate form-control" required>
                             </div>
                         </div>
                     </div>

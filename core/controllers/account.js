@@ -15,6 +15,7 @@ $(document).ready(function()
 const apiAccount = '../core/api/usuarios.php?site=private&action=';
 const apiSesion = '../core/api/usuarios.php?action=';
 
+//Función que llena el menú según el tipo de usuario
 function fillMenu(rows)
 {
     let content = '';
@@ -29,6 +30,8 @@ function fillMenu(rows)
     });
     $('#main-menu').html(content);
 }
+
+//Función que muestra el menú según el tipo de usuario
 function showMenu()
 {
     $.ajax({

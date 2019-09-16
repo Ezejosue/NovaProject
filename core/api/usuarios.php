@@ -265,7 +265,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Usuario incorrecto';
                 }
                 break;
-            //Operación para comprobar que haya usuarios registrados
+            //Operación para comprobar que existan usuarios registrados
             case 'read':
                 if ($result['dataset'] = $usuario->readUsuarios()) {
                     $result['status'] = 1;
@@ -384,42 +384,46 @@ if (isset($_GET['action'])) {
 					if ($usuario->getUsuario()) {
 		                if ($usuario->setAlias($_POST['update_alias'])) {
                             if($usuario->setCorreo($_POST['update_correo'])){
-                                if ($usuario->setEstado(isset($_POST['update_estado']) ? 1 : 0)) {
-                                    if ($usuario->setTipo_usuario($_POST['update_tipo'])) {
-                                        //Se comprueba que se haya subido una imagen
-                                        if (is_uploaded_file($_FILES['imagen_usuario']['tmp_name'])) {
-                                            if ($usuario->setFoto($_FILES['imagen_usuario'], $_POST['foto_usuario'])) {
-                                                $archivo = true;
-                                            } else {
-                                                $result['exception'] = $usuario->getImageError();
-                                                $archivo = false;
-                                            }
-                                        } else {
-                                            if (!$usuario->setFoto(null, $_POST['foto_usuario'])) {
-                                                $result['exception'] = $usuario->getImageError();
-                                            }
-                                            $archivo = false;
-                                        }
-                                        if ($usuario->updateUsuario()) {
-                                            $result['status'] = 1;
-                                            if ($archivo) {
-                                                if ($usuario->saveFile($_FILES['imagen_usuario'], $usuario->getRuta(), $usuario->getFoto())) {
-                                                    $result['message'] = 'Categoría modificada correctamente';
+                                if($usuario->setLogueo($_POST['update_logueo'])){
+                                    if ($usuario->setEstado(isset($_POST['update_estado']) ? 1 : 0)) {
+                                        if ($usuario->setTipo_usuario($_POST['update_tipo'])) {
+                                            //Se comprueba que se haya subido una imagen
+                                            if (is_uploaded_file($_FILES['imagen_usuario']['tmp_name'])) {
+                                                if ($usuario->setFoto($_FILES['imagen_usuario'], $_POST['foto_usuario'])) {
+                                                    $archivo = true;
                                                 } else {
-                                                    $result['message'] = 'Categoría modificada. No se guardó el archivo';
+                                                    $result['exception'] = $usuario->getImageError();
+                                                    $archivo = false;
                                                 }
                                             } else {
-                                                $result['message'] = 'Categoría modificada. No se subió ningún archivo';
+                                                if (!$usuario->setFoto(null, $_POST['foto_usuario'])) {
+                                                    $result['exception'] = $usuario->getImageError();
+                                                }
+                                                $archivo = false;
+                                            }
+                                            if ($usuario->updateUsuario()) {
+                                                $result['status'] = 1;
+                                                if ($archivo) {
+                                                    if ($usuario->saveFile($_FILES['imagen_usuario'], $usuario->getRuta(), $usuario->getFoto())) {
+                                                        $result['message'] = 'Categoría modificada correctamente';
+                                                    } else {
+                                                        $result['message'] = 'Categoría modificada. No se guardó el archivo';
+                                                    }
+                                                } else {
+                                                    $result['message'] = 'Categoría modificada. No se subió ningún archivo';
+                                                }
+                                            } else {
+                                                $result['exception'] = 'Operación fallida';
                                             }
                                         } else {
-                                            $result['exception'] = 'Operación fallida';
+                                            $result['exception'] = 'Seleccione un tipo de usuario';
                                         }
                                     } else {
-                                        $result['exception'] = 'Seleccione un tipo de usuario';
+                                        $result['exception'] = 'Estado incorrecto';
                                     }
-                                } else {
-                                    $result['exception'] = 'Estado incorrecto';
-                                }
+                                } else{
+                                    $result['exception'] = 'Logueo incorrecto';
+                                } 
                             } else{
                                 $result['exception'] = 'Correo incorrecto';
                             }
@@ -645,6 +649,7 @@ if (isset($_GET['action'])) {
                                     $_SESSION['idUsuario'] = $usuario->getId();
                                     $_SESSION['aliasUsuario'] = $usuario->getAlias();
                                     $_SESSION['tipoUsuario'] = $usuario->getTipo_usuario();
+                                    //Se llena la variable 'vistas' con las opciones del menú, según el tipo de usuario que ha iniciado sesión
                                     $_SESSION['vistas'] = $usuario->readMenu();
                                     $_SESSION['tiempo'] = time();
                                     $result['status'] = 1;
