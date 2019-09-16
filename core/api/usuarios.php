@@ -651,6 +651,7 @@ if (isset($_GET['action'])) {
                                     $_SESSION['tipoUsuario'] = $usuario->getTipo_usuario();
                                     //Se llena la variable 'vistas' con las opciones del menú, según el tipo de usuario que ha iniciado sesión
                                     $_SESSION['vistas'] = $usuario->readMenu();
+                                    var_dump($_SESSION['vistas']);
                                     $_SESSION['tiempo'] = time();
                                     $result['status'] = 1;
                                 } else {
