@@ -2,40 +2,50 @@
 /*
     Clase para definir las plantillas en las páginas web del sitio privado.
 */
+
 class Dashboard
 {
 	public static function headerTemplate($title)
 	{
-		session_start();
-		if (isset($_SESSION['idUsuario'])) {
-			if (isset($_SESSION['tiempo'])) {
-				//Tiempo de vida de la sesión, en este caso 15min
-				$inactivo = 900;
+		if(!isset($_SESSION)) 
+    	{ 
+        	session_start(); 
+    	} 
+			if (isset($_SESSION['idUsuario'])) {
+					if (isset($_SESSION['tiempo'])) {
+						require_once("../core/helpers/conexion.php");
+						require_once("../core/helpers/validator.php");						
+						require_once('../core/helpers/usuarios.php');
+						$usuario = new Usuarios;
+						//Tiempo de vida de la sesión, en este caso 15min
+						$inactivo = 900;
+						//calculamos tiempo de vida inactivo
+						$vida_session = time() - $_SESSION['tiempo'];
+						//comparamos si el tiempo de vida de la sesión es mayor inactivo
+						if ($vida_session > $inactivo) {
+							if($usuario->setId($_SESSION['idUsuario'])) {
+								$usuario->UpdateLogout();
+								//remover sesión
+								session_unset();
+								//Destruimos la sesión
+								session_destroy();
 
-				//calculamos tiempo de vida inactivo
-				$vida_session = time() - $_SESSION['tiempo'];
+								//redirigir a index
+							header("location: ../../views/index.php");
+							}
+							
 
-				//comparamos si el tiempo de vida de la sesión es mayor inactivo
-				if ($vida_session > $inactivo) {
-					//remover sesión
-					session_unset();
-					//Destruimos la sesión
-					session_destroy();
-
-					//redirigir a index
-					header("location: ../../views/index.php");
-
-				} else { //Si no a caducado la sesión, actualizamos
-					$_SESSION['tiempo'] = time();
-				}
+						} else { //Si no a caducado la sesión, actualizamos
+							$_SESSION['tiempo'] = time();
+						}
+						
+					} else { //Activamos sesión tiempo
+						$_SESSION['tiempo'] = time();
+					} 
 				
-			} else { //Activamos sesión tiempo
-				$_SESSION['tiempo'] = time();
-			}
-			
-		} else {
-			
-		}
+			} else {
+				$result['exception'] = 'Usuario desconocido';
+			} 
 		
 		print('
         <!DOCTYPE html>
@@ -70,233 +80,166 @@ class Dashboard
 
 		//Se comprueba si existe una sesión para mostrar el menú de opciones, de lo contrario se muestra un menú vacío
 		if (isset($_SESSION['idUsuario'])) {
+			//se obtiene el nombre del archivo de la vista
 			$filename = basename($_SERVER['PHP_SELF']);
+			//Si la página es diferente del index, se muestra el menú
 			if ($filename != 'index.php') {
-				self::modals();
-				print('
-                <aside class="menu-sidebar2">
-					<div id="logo_pizza_nova" class="logo">  
-						<a align="center" href="#">
-							<img src="../resources/img/logo.png" alt="Pizza Nova"/>
-						</a>
-					</div>
-					<div class="menu-sidebar2__content js-scrollbar1">
-						<div class="account2">
-							<div class="image img-cir img-120" id="foto-user">
-							</div>
-							<div id="nombre-user">
-							</div>
-							<div class="row">
-								<a href="#modal-profile" class="modal-trigger" data-toggle="modal" onclick="modalProfile()"> <h6> <i class="fa fa-edit"></i> |</h6> </a>
-								<a href="#modal-password" class="modal-trigger" data-toggle="modal"> <h6> | <i class="fa fa-key"></i> | </h6> </a>
-								<a href="#" onclick="signOff()"> <h6> | <i class="fa fa-sign-out-alt"></i></h6> </a>
-							</div>
+				$menu = null;
+				/* Por cada dato en la variable 'vistas', 
+				se comprueba que el nombre de la vista exista en la variable 'vistas' para ser mostrada como opción */
+				foreach($_SESSION['vistas'] as $vista){
+					//in_array(lo que se quiere buscar, el arreglo)
+					if(in_array($filename, $vista)) {
+						$menu = true;
+						break;
+					} else {
+						$menu = false;
+					}
+				}
+				if ($menu) {
+					self::modals();
+					print('
+					<aside class="menu-sidebar2">
+						<div id="logo_pizza_nova" class="logo">  
+							<a align="center" href="#">
+								<img src="../resources/img/logo.png" alt="Pizza Nova"/>
+							</a>
 						</div>
-						<nav class="navbar-sidebar2">
-							<ul class="list-unstyled navbar__list">
-								<li>
-									<a href="inicio.php">
-										<i class="fas fa-tachometer-alt"></i>Vista General
-									</a>
-								</li>
-										<li>
-											<a href="#itemsDrop" data-toggle="collapse" class="collapsed"><i class="fab fa-dropbox"></i><span>
-											Productos</span><i class="fas fa-sort-down"></i></a>
-												<div id="itemsDrop" class="collapse">
-													<ul>
-													<li>
-															<a href="categorias.php">
-																<i class="fas fa-list"></i> Categorías</a>
-														</li>
-														<li>													
-															<a href="materia_prima.php">
-															<i class="fas fa-cart-plus"></i> Materia prima</a>
-														</li>
-														<li>
-															<a href="platillos.php">
-															<i class="fas fa-utensils"></i> Platillos</a>
-														</li>
-														<li>
-															<a href="recetas.php">
-															<i class="fas fa-book"></i> Recetas</a>
-													</li> 
-													<li>
-															<a href="unidadmedida.php">
-															<i class="fas fa-balance-scale"></i> Unidades de medida</a>
-													</li> 
-													</ul>
-												</div>
-										</li>
-										<li>
-											<a href="#itemsDrop1" data-toggle="collapse" class="collapsed"><i class="fas fa-clipboard"></i><span>
-											Logistica</span><i class="fas fa-sort-down"></i></a>
-												<div id="itemsDrop1" class="collapse">
-													<ul>
-														<li>
-															<a href="ordenes.php">
-																<i class="fas fa-list"></i> Ordenes</a>
-														</li>
-														<li>													
-															<a href="pedidos.php">
-															<i class="fas fa-pizza-slice"></i> Pedidos</a>
-														</li>
-														<li>
-															<a href="mesas.php">
-															<i class="fas fa-utensils"></i> Mesas</a>
-														</li>
-														<li>
-															<a href="desperdicios.php">
-															<i class="fas fa-trash"></i> Desperdicios</a>
-														</li>
-													</ul>
-												</div>
-										</li>
-										<li>
-											<a href="#itemsDrop2" data-toggle="collapse" class="collapsed"><i class="fas fa-user-circle"></i><span>
-											Perfiles</span><i class="fas fa-sort-down"></i></a>
-												<div id="itemsDrop2" class="collapse">
-													<ul>
-													<li>
-											<a href="usuarios.php">
-												<i class="fas fa-user-plus"></i> Usuarios</a>
-										</li>
-										<li>
-											<a href="tipo_usuarios.php">
-											<i class="fas fa-users"></i> Tipo de usuarios</a>
-										</li>
-										<li>
-											<a href="empleados.php">
-												<i class="fas fa-id-card"></i> Empleados</a>
-										</li>
-										<li>
-													<a href="cargo.php">
-													<i class="far fa-address-book"></i>Cargo</a>
-												</li>
-									</li>
-										</li>
-										<li>
-													<a href="cargo.php">
-													<i class="far fa-address-book"></i>Cargo</a>
-												</li>
-													</ul>
-												</div>
-										</li>
-										<li>
-											<a href="reportes.php">
-												<i class="fas fa-chart-bar"></i> Reportes</a>
-										</li>									
-							</ul>
-						</nav>
-					</div>
-				</aside>
-				<div class="page-container2">
-					<!-- Menu Responsive-->
-					<header class="header-desktop2">
-						<div class="section__content section__content--p30">
-							<div class="container-fluid">
-								<div class="header-wrap2">
-									<div class="logo d-block d-lg-none">
-										<a href="inicio.php">
-											<img src="../resources/img/logo.png" alt="PizzaNova" />
-										</a>
-									</div>
+						<div class="menu-sidebar2__content js-scrollbar1">
+							<div class="account2">
+								<div class="image img-cir img-120" id="foto-user">
+								</div>
+								<div id="nombre-user">
+								</div>
+								<div class="row">
+									<a href="#modal-profile" class="modal-trigger" data-toggle="modal" onclick="modalProfile()"> <h6> <i class="fa fa-edit"></i> |</h6> </a>
+									<a href="#modal-password" class="modal-trigger" data-toggle="modal"> <h6> | <i class="fa fa-key"></i> | </h6> </a>
+									<a href="#" onclick="signOff()"> <h6> | <i class="fa fa-sign-out-alt"></i></h6> </a>
+								</div>
+							</div>
+							<nav class="navbar-sidebar2">
+								<ul class="list-unstyled navbar__list" id="main-menu">
+																
+								</ul>
+							</nav>
+						</div>
+					</aside>
+					<div class="page-container2">
+						<!-- Menu Responsive-->
+						<header class="header-desktop2">
+							<div class="section__content section__content--p30">
+								<div class="container-fluid">
+									<div class="header-wrap2">
+										<div class="logo d-block d-lg-none">
+											<a href="inicio.php">
+												<img src="../resources/img/logo.png" alt="PizzaNova" />
+											</a>
+										</div>
 
-									<div class="header-button-item mr-0 js-sidebar-btn">
-										<i class="zmdi zmdi-menu"></i>
+										<div class="header-button-item mr-0 js-sidebar-btn">
+											<i class="zmdi zmdi-menu"></i>
+										</div>
+										
 									</div>
 									
 								</div>
 								
 							</div>
-							
-						</div>
-					</header>
-					<aside class="menu-sidebar2 js-right-sidebar d-block d-lg-none">
-						<div class="logo">
-							<a href="#">
-								<img src="../resources/img/logo.png" alt="PizzaNova" />
-							</a>
-						</div>
-						<div class="menu-sidebar2__content js-scrollbar1">
-						<div class="account2">
-							<div class="image img-cir img-120" id="foto-user-responsive">
+						</header>
+						<aside class="menu-sidebar2 js-right-sidebar d-block d-lg-none">
+							<div class="logo">
+								<a href="#">
+									<img src="../resources/img/logo.png" alt="PizzaNova" />
+								</a>
 							</div>
-							<div id="nombre-user-responsive">
+							<div class="menu-sidebar2__content js-scrollbar1">
+							<div class="account2">
+								<div class="image img-cir img-120" id="foto-user-responsive">
+								</div>
+								<div id="nombre-user-responsive">
+								</div>
+								<div class="row">
+									<a href="#modal-profile" class="modal-trigger" data-toggle="modal" onclick="modalProfile()"> <h6> <i class="fa fa-edit"></i> |</h6> </a>
+									<a href="#modal-password1" class="modal-trigger" data-toggle="modal"> <h6> | <i class="fa fa-key"></i> | </h6> </a>
+									<a href="#" onclick="signOff()"> <h6> | <i class="fa fa-sign-out-alt"></i></h6> </a>
+								</div>
 							</div>
-							<div class="row">
-								<a href="#modal-profile" class="modal-trigger" data-toggle="modal" onclick="modalProfile()"> <h6> <i class="fa fa-edit"></i> |</h6> </a>
-								<a href="#modal-password1" class="modal-trigger" data-toggle="modal"> <h6> | <i class="fa fa-key"></i> | </h6> </a>
-								<a href="#" onclick="signOff()"> <h6> | <i class="fa fa-sign-out-alt"></i></h6> </a>
+								<nav class="navbar-sidebar2">
+								<ul class="list-unstyled navbar__list">
+									<li>
+										<a href="inicio.php">
+											<i class="fas fa-tachometer-alt"></i> Vista General
+										</a>
+									</li>
+									<li>
+										<a href="categorias.php">
+										<i class="fas fa-list"></i> Categorías</a>
+									</li>
+									<li>													
+										<a href="materia_prima.php">
+										<i class="fas fa-cart-plus"></i> Materia prima</a>
+									</li>
+									<li>
+										<a href="platillos.php">
+										<i class="fas fa-utensils"></i> Platillos</a>
+									</li>
+									<li>
+										<a href="recetas.php">
+										<i class="fas fa-book"></i> Recetas</a>
+									</li> 
+									<li>
+										<a href="unidadmedida.php">
+										<i class="fas fa-balance-scale"></i> Unidades de medida</a>
+									</li> 
+									
+									<li>
+										<a href="ordenes.php">
+										<i class="fas fa-list"></i> Ordenes</a>
+									</li>
+									<li>
+										<a href="proveedores.php">
+										<i class="fas fa-chart-bar"></i> Proveedores</a>
+									</li>
+									<li>
+										<a href="pedidos.php">
+										<i class="fas fa-pizza-slice"></i> Pedidos</a>
+									</li>
+									<li>
+										<a href="mesas.php">
+										<i class="fas fa-utensils"></i> Mesas</a>
+									</li>
+									<li>
+										<a href="desperdicios.php">
+										<i class="fas fa-trash"></i> Desperdicios</a>
+									</li>
+									<li>
+										<a href="usuarios.php">
+										<i class="fas fa-user-plus"></i> Usuarios</a>
+									</li>
+									<li>
+										<a href="tipo_usuarios.php">
+										<i class="fas fa-users"></i> Tipo de usuarios</a>
+									</li>
+									<li>
+										<a href="empleados.php">
+										<i class="fas fa-id-card"></i> Empleados</a>
+									</li>
+									</li>
+									<li>
+										<a href="reportes.php">
+										<i class="fas fa-chart-bar"></i> Reportes</a>
+									</li>
+								</ul>
+							</nav>
 							</div>
-						</div>
-							<nav class="navbar-sidebar2">
-							<ul class="list-unstyled navbar__list">
-								<li>
-									<a href="inicio.php">
-										<i class="fas fa-tachometer-alt"></i> Vista General
-									</a>
-								</li>
-											<li>
-												<a href="categorias.php">
-												<i class="fas fa-list"></i> Categorías</a>
-											</li>
-											<li>													
-												<a href="materia_prima.php">
-												<i class="fas fa-cart-plus"></i> Materia prima</a>
-											</li>
-											<li>
-												<a href="platillos.php">
-												<i class="fas fa-utensils"></i> Platillos</a>
-											</li>
-											<li>
-												<a href="recetas.php">
-												<i class="fas fa-book"></i> Recetas</a>
-											</li> 
-											<li>
-												<a href="unidadmedida.php">
-												<i class="fas fa-balance-scale"></i> Unidades de medida</a>
-											</li> 
-											
-											<li>
-												<a href="ordenes.php">
-												<i class="fas fa-list"></i> Ordenes</a>
-											</li>
-											<li>
-												<a href="pedidos.php">
-												<i class="fas fa-pizza-slice"></i> Pedidos</a>
-											</li>
-											<li>
-												<a href="mesas.php">
-												<i class="fas fa-utensils"></i> Mesas</a>
-											</li>
-											<li>
-												<a href="desperdicios.php">
-												<i class="fas fa-trash"></i> Desperdicios</a>
-											</li>
-											<li>
-												<a href="usuarios.php">
-												<i class="fas fa-user-plus"></i> Usuarios</a>
-											</li>
-											<li>
-												<a href="tipo_usuarios.php">
-												<i class="fas fa-users"></i> Tipo de usuarios</a>
-											</li>
-											<li>
-												<a href="empleados.php">
-												<i class="fas fa-id-card"></i> Empleados</a>
-											</li>
-											</li>
-											<li>
-												<a href="reportes.php">
-												<i class="fas fa-chart-bar"></i> Reportes</a>
-											</li>
-							</ul>
-						</nav>
-						</div>
-					</aside>
-					<!-- Fin Menu Responsive-->
-					<br>
-				');
+						</aside>
+						<!-- Fin Menu Responsive-->
+						<br>
+					');
+				} else {
+					header('location: inicio.php');
+				}
+				
 			} else {
 				header('location: inicio.php');
 			}

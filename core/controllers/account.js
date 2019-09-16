@@ -1,6 +1,7 @@
 //Inicialización de las funciones
 $(document).ready(function()
 {
+    showMenu();
     showSelectTipoProfile('profile_tipo', null);
     showDataUser();
     showCountProducts();
@@ -12,7 +13,51 @@ $(document).ready(function()
 
 //Constante para establecer la ruta y parámetros de comunicación con la API
 const apiAccount = '../core/api/usuarios.php?site=private&action=';
+const apiSesion = '../core/api/usuarios.php?action=';
 
+//Función que llena el menú según el tipo de usuario
+function fillMenu(rows)
+{
+    let content = '';
+    //Se recorren las filas para armar el cuerpo de la tabla y se utiliza comilla invertida para escapar los caracteres especiales
+    rows.forEach(function(row){
+        content += `
+        <li>
+            <a href="${row.ruta}">
+            <i class="fas fa-${row.icono}"></i>${row.nombre_vista}</a>
+        </li>
+        `;
+    });
+    $('#main-menu').html(content);
+}
+
+//Función que muestra el menú según el tipo de usuario
+function showMenu()
+{
+    $.ajax({
+        url: apiSesion + 'readMenu',
+        type: 'post',
+        data: null,
+        datatype: 'json'
+    })
+    .done(function(response){
+        //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+        if (isJSONString(response)) {
+            const result = JSON.parse(response);
+            //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
+            if (!result.status) {
+                sweetAlert(4, result.exception, null);
+            }
+            fillMenu(result.dataset);
+        } else {
+            console.log(response);
+        }
+    })
+    .fail(function(jqXHR){
+        //Se muestran en consola los posibles errores de la solicitud AJAX
+        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+    });
+}
 //Función que muestra la foto de perfil y nombre del usuario que ha iniciado sesión
 function showDataUser()
 {
@@ -442,35 +487,6 @@ function showCountEmployees(){
         console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
     });
 }
-
-$('#form-recuperar-contrasena').submit(function()
-{
-    event.preventDefault();
-    $.ajax({
-        url: apiAccount + 'recuperarContrasena',
-        type: 'post',
-        data: $('#form-recuperar-contrasena').serialize(),
-        datatype: 'json'
-    })
-    .done(function(response){
-        //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
-        if (isJSONString(response)) {
-            const dataset = JSON.parse(response);
-            //Se comprueba si la respuesta es satisfactoria, sino se muestra la excepción
-            if (dataset.status == 1) {
-                sweetAlert(1, 'Se ha enviado el correo exitosamente', null);
-            } else {
-                sweetAlert(2, dataset.exception, null);
-            }
-        } else {
-            console.log(response);
-        }
-    })
-    .fail(function(jqXHR){
-        //Se muestran en consola los posibles errores de la solicitud AJAX
-        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
-    });
-})
 
 function getParameterByName(name) {
     name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");

@@ -152,9 +152,6 @@ class Recetas extends Validator
 		return $this->cantidad;
 	}
 
-	
-
-
 	// Metodos para el manejo del SCRUD
 	public function readRecetas()
 	{
@@ -176,7 +173,7 @@ class Recetas extends Validator
 	{
 		$sql = 'SELECT id_receta, nombre_receta, tiempo
 				FROM receta 
-				WHERE id_receta = ?';
+				WHERE id_receta = ? LIMIT 1';
 		$params = array($this->idreceta);
 		return conexion::getRow($sql, $params);
 	}
@@ -186,7 +183,7 @@ class Recetas extends Validator
 		$sql = 'SELECT id_elaboracion, id_receta, e.cantidad, idMateria 
 		FROM elaboraciones e 
 		INNER JOIN materiasprimas USING(idMateria) 
-		WHERE id_elaboracion = ? ';
+		WHERE id_elaboracion = ? LIMIT 1';
 		$params = array($this->idelab);
 		return conexion::getRow($sql, $params);
 	}
@@ -223,8 +220,15 @@ class Recetas extends Validator
 
 	public function deleteReceta()
 	{
-		$sql = 'DELETE FROM receta WHERE id_receta = ?';
-		$params = array($this->idreceta);
+		$sql = 'DELETE FROM elaboraciones WHERE id_receta = ? ; DELETE FROM receta WHERE id_receta = ?';
+		$params = array($this->idreceta, $this->idreceta);
+		return conexion::executeRow($sql, $params);
+	}
+
+	public function deleteElaboracion()
+	{
+		$sql = 'DELETE FROM elaboraciones WHERE id_elaboracion = ?';
+		$params = array($this->idelab);
 		return conexion::executeRow($sql, $params);
 	}
 	

@@ -20,6 +20,7 @@ function fillTable(rows)
                 <td>${row.descripcion}</td>
                 <td><i class="material-icons">${icon}</i></td>
                 <td>
+                    <a href="#" onclick="modalPrivilegios(${row.id_Tipousuario}), modificar(${row.id_Tipousuario})" class="btn btn-dark" data-toggle="modal"><i class="fa fa-columns"></i></a>
                     <a href="#" onclick="modalUpdate(${row.id_Tipousuario})" class="btn btn-info tooltipped" data-tooltip="Modificar"><i class="fa fa-edit"></i></a>
                     <a href="#" onclick="confirmDelete(${row.id_Tipousuario})" class="btn btn-danger tooltipped" data-tooltip="Eliminar"><i class="fa fa-times"></i></a>
                 </td>
@@ -97,6 +98,56 @@ $('#form-create').submit(function()
     });
 })
 
+//Función que muestra las acciones del tipo de usuario
+function modalPrivilegios(id2)
+{
+    $.ajax({
+        url: apiTipo_usuarios + 'getAcciones',
+        type: 'post',
+        data:{
+            id_Tipousuario: id2
+        },
+        datatype: 'json'
+    })
+    .done(function(response){
+        // Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+        if (isJSONString(response)) {
+            
+            const result = JSON.parse(response);
+            //Se comprueba si el resultado es satisfactorio para mostrar los valores en el formulario, sino se muestra la excepción
+            if (result.status) {
+                let content = '';
+                //Por cada acción se crea un checkbox con un id único
+                result.dataset.forEach(function(row){
+                    //Si el estado de la acción es 1, se chequea el checkbox
+                    (row.estado == 1) ? check = 'checked' : check = '';
+                    content+= `
+                    <div class="col-sm-6 col-md-4">
+                        <div class="form-check">
+                            <input class="form-check-input get_value" type="checkbox" ${check} id="${row.id_vista}">
+                            <label class="form-check-label" for="${row.id_vista}">
+                            ${row.nombre_vista}
+                            </label>
+                        </div>
+                        <br>
+                    </div>
+                    `;
+                });
+                $('#modal-privilegios').modal('show');
+                $('#vistas').html(content);
+            } else {
+                sweetAlert(2, result.exception, null);
+            }
+        } else {
+            console.log(response);
+        }
+    })
+    .fail(function(jqXHR){
+        // Se muestran en consola los posibles errores de la solicitud AJAX
+        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+    });
+}
+
 // Función para mostrar formulario con registro a modificar
 function modalUpdate(id)
 {
@@ -104,7 +155,7 @@ function modalUpdate(id)
         url: apiTipo_usuarios + 'get',
         type: 'post',
         data:{
-            id_Tipousuario: id
+            id_Tipousuario: id,
         },
         datatype: 'json'
     })
@@ -133,9 +184,59 @@ function modalUpdate(id)
     });
 }
 
+//Función que verifica el estado de los checkbox para actualizar las acciones
+function modificar(id3){
+    $('#form-privilegios').submit(function()
+    {
+        event.preventDefault();
+        //se declara el arreglo vacío
+        var estados = [];
+        //Por cada checkbox se verifica si está chequedo y se agrega el valor 1 al arreglo, si no se agrega 0
+        $('.get_value').each(function(){
+            if($(this).is(":checked")){
+                estados.push("1");
+            } else {
+                estados.push("0");
+            }
+        });
+        
+        $.ajax({
+            url: apiTipo_usuarios + 'updateAcciones',
+            type: 'post',
+            data: {
+                id_Tipousuario: id3,
+                estados:estados,
+            },
+            datatype: 'json'
+        })
+        .done(function(response){
+            // Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+            if (isJSONString(response)) {
+                const result = JSON.parse(response);
+                // Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
+                if (result.status) {
+                    sweetAlert(1, 'Privilegios modificados correctamente', 'tipo_usuarios.php');
+                    //console.log(estados);
+                } else {
+                    sweetAlert(2, result.exception, null);
+                }
+            } else {
+                console.log(response);
+                //Se comprueba que el nombre no esté repetido
+                sweetAlert(2, error2(response), null);
+            }
+        })
+        .fail(function(jqXHR){
+            // Se muestran en consola los posibles errores de la solicitud AJAX
+            console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+        });
+    })
+}
+
 // Función para modificar un registro seleccionado previamente
 $('#form-update').submit(function()
 {
+    
     event.preventDefault();
     $.ajax({
         url: apiTipo_usuarios + 'update',
@@ -198,14 +299,15 @@ function confirmDelete(id)
                     const result = JSON.parse(response);
                     // Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
                     if (result.status) {
-                        sweetAlert(2, result.exception, null);
-                    } else {
-                        sweetAlert(1, result.message, null);
+                        sweetAlert(1, 'Tipo de usuario eliminado correctamente', null);
                         destroy('#tabla-tipo_usuarios');
                         showTable();
+                    } else {
+                        sweetAlert(2, result.message, null);
                     }
                 } else {
                     console.log(response);
+                    sweetAlert(2, error2(response), null);
                 }
             })
             .fail(function(jqXHR){
@@ -222,6 +324,9 @@ function error2(response)
     switch (response){
         case 'Dato duplicado, no se puede guardar':
             mensaje = 'Nombre de tipo de usuario ya existe';
+            break;
+        case 'Registro ocupado, no se puede eliminar':
+            mensaje = 'Tipo de usuario ocupado, no se puede eliminar'
             break;
         default:
             mensaje = 'Ocurrió un problema, consulte al administrador'

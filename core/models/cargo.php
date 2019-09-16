@@ -52,13 +52,6 @@ class Cargo extends Validator
 		return conexion::executeRow($sql, $params);
     }
 
-    public function searchCargo()
-    {
-        $sql = 'SELECT id_Cargo, nombre_cargo FROM cargo WHERE id_Cargo = ?';
-        $params = array($this->id);
-        return Conexion::getRow($sql, $params);
-    }
-
     public function updateCargo()
 	{
 		$sql = 'UPDATE cargo SET nombre_cargo = ? WHERE id_Cargo = ?';

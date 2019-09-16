@@ -114,7 +114,7 @@ class Categorias extends Validator
 
 	public function getCategoria()
 	{
-		$sql = 'SELECT id_categoria, nombre_categoria, descripcion, foto_categoria, estado FROM categorias WHERE id_categoria = ?';
+		$sql = 'SELECT id_categoria, nombre_categoria, descripcion, foto_categoria, estado FROM categorias WHERE id_categoria = ? LIMIT 1';
 		$params = array($this->id);
 		return conexion::getRow($sql, $params);
 	}

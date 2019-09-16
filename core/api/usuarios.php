@@ -48,6 +48,16 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Usuario incorrecto';
                 }
                 break;
+            case 'readMenu':
+                if ($usuario->setTipo_usuario($_SESSION['tipoUsuario'])){
+                     if ($result['dataset'] = $usuario->readMenu()) {
+                            $result['status'] = 1;
+                    } else {
+                        $result['exception'] = 'Usuario incorrecto 55';
+                    }
+                }
+                
+                break;
             case 'readDataProducts':
                 if ($usuario->setId($_SESSION['idUsuario'])) {
                     if ($result['dataset'] = $usuario->getCantidadProductos()) {
@@ -152,39 +162,43 @@ if (isset($_GET['action'])) {
                     //Se comprueba que las claves actuales sean iguales
                     if ($_POST['clave_actual_1'] == $_POST['clave_actual_2']) {
                         $alias = $usuario->checkContra();
-                        if ($alias != $_POST['clave_actual_1']) {
-                            $contrasenia = $usuario->setClave($_POST['clave_actual_1']);
-                            if ($contrasenia[0]) {
-                                if ($usuario->checkPassword()) {
-                                    //Se comprueba que las nuevas claves sean iguales
-                                    if ($_POST['clave_nueva_1'] == $_POST['clave_nueva_2']) {
-                                        $alias = $usuario->checkContra();
-                                        if ($alias != $_POST['clave_actual_1']) {
-                                            $contrasenia = $usuario->setClave($_POST['clave_nueva_1']);
-                                                if ($contrasenia[0]) {
-                                                    //Si todo está correcto se ejecuta el método para cambiar la contraseña, de lo contrario se muestra el mensaje de error
-                                                    if ($usuario->changePassword()) {
-                                                        $result['status'] = 1;
+                        if($_POST['clave_nueva_1'] != $_POST['clave_actual_1']){
+                            if ($alias != $_POST['clave_actual_1']) {
+                                $contrasenia = $usuario->setClave($_POST['clave_actual_1']);
+                                if ($contrasenia[0]) {
+                                    if ($usuario->checkPassword()) {
+                                        //Se comprueba que las nuevas claves sean iguales
+                                        if ($_POST['clave_nueva_1'] == $_POST['clave_nueva_2']) {
+                                            $alias = $usuario->checkContra();
+                                            if ($alias != $_POST['clave_actual_1']) {
+                                                $contrasenia = $usuario->setClave($_POST['clave_nueva_1']);
+                                                    if ($contrasenia[0]) {
+                                                        //Si todo está correcto se ejecuta el método para cambiar la contraseña, de lo contrario se muestra el mensaje de error
+                                                        if ($usuario->changePassword()) {
+                                                            $result['status'] = 1;
+                                                        } else {
+                                                            $result['exception'] = 'Operación fallida';
+                                                        }
                                                     } else {
-                                                        $result['exception'] = 'Operación fallida';
+                                                        $result['exception'] = $contrasenia[1];
                                                     }
-                                                } else {
-                                                    $result['exception'] = $contrasenia[1];
+                                                }else {
+                                                    $result['exception'] = 'La clave debe ser diferente al usuario';
                                                 }
-                                            }else {
-                                                $result['exception'] = 'La clave debe ser diferente al usuario';
+                                            } else {
+                                                $result['exception'] = 'Claves nuevas diferentes';
                                             }
                                         } else {
-                                            $result['exception'] = 'Claves nuevas diferentes';
+                                            $result['exception'] = 'Clave actual incorrecta';
                                         }
                                     } else {
-                                        $result['exception'] = 'Clave actual incorrecta';
+                                        $result['exception'] = $contrasenia[1];
                                     }
                                 } else {
-                                    $result['exception'] = $contrasenia[1];
+                                    $result['exception'] = 'La clave debe ser diferente al usuario';
                                 }
                             } else {
-                                $result['exception'] = 'La clave debe ser diferente al usuario';
+                                $result['exception'] = 'La clave nueva es igual a la clave actual';
                             }
                         } else {
                             $result['exception'] = 'Claves actuales diferentes';
@@ -251,7 +265,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Usuario incorrecto';
                 }
                 break;
-            //Operación para comprobar que haya usuarios registrados
+            //Operación para comprobar que existan usuarios registrados
             case 'read':
                 if ($result['dataset'] = $usuario->readUsuarios()) {
                     $result['status'] = 1;
@@ -499,7 +513,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Contenido no disponible';
                 }
                 break;
-
+/* 
                 case 'intentos':
                 $_POST = $usuario->validateForm($_POST);
                     if ($usuario->setAlias($_POST['usuario'])) {
@@ -533,7 +547,7 @@ if (isset($_GET['action'])) {
                         $result['exception'] = 'Alias incorrecto';
                 }
                 break;
-
+ */
             //Operación para iniciar sesión
             case 'login':
                 $_POST = $usuario->validateForm($_POST);
@@ -634,6 +648,9 @@ if (isset($_GET['action'])) {
                                 if ($usuario->UpdateLogin1()) {
                                     $_SESSION['idUsuario'] = $usuario->getId();
                                     $_SESSION['aliasUsuario'] = $usuario->getAlias();
+                                    $_SESSION['tipoUsuario'] = $usuario->getTipo_usuario();
+                                    //Se llena la variable 'vistas' con las opciones del menú, según el tipo de usuario que ha iniciado sesión
+                                    $_SESSION['vistas'] = $usuario->readMenu();
                                     $_SESSION['tiempo'] = time();
                                     $result['status'] = 1;
                                 } else {
