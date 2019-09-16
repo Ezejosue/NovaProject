@@ -32,7 +32,7 @@
                         <div class="login-form">
                             <form method="post" id="form-sesion">
                                 <input type="text" id="usuario" name="usuario" class="validate form-control"
-                                    placeholder="Usuario" required autofocus>
+                                    placeholder="Usuario" required autofocus autocomplete="off">
                                 <br>
                                 <input type="password" id="clave" name="clave" class="validate form-control"
                                     placeholder="Contraseña" required autofocus>
@@ -70,7 +70,7 @@
                             </div>
                             <div class="col-sm-11">
                                 <input type="email" id="correo" name="correo" placeholder="Ingrese su correo"
-                                    class="form-control">
+                                    class="form-control" autocomplete="off">
                                 <br>
                             </div>
                             <div class="col-sm-12">
@@ -78,7 +78,7 @@
                                     Se le enviará un correo con las instrucciones para recuperar su contraseña
                                 </div>
                             </div>
-                            
+
                         </div>
                         <div class="text-center">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
