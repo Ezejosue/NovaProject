@@ -25,18 +25,18 @@ if (isset($_GET['action'])) {
 						if (is_uploaded_file($_FILES['create_archivo']['tmp_name'])) {
 							if ($categoria->setImagen($_FILES['create_archivo'], null)) {
 								if ($categoria->setEstado(isset($_POST['create_estado']) ? 1:0)) {
-								if ($categoria->createCategoria()) {
-									$result['id'] = conexion::getLastRowId();
-									$result['status'] = 1;
-									if ($categoria->saveFile($_FILES['create_archivo'], $categoria->getRuta(), $categoria->getImagen())) {
-										$result['message'] = 'Categoría creada correctamente';
-									} else {
-										$result['message'] = 'Categoría creada. No se guardó el archivo';
+									if ($categoria->createCategoria()) {
+										$result['id'] = conexion::getLastRowId();
+										$result['status'] = 1;
+										if ($categoria->saveFile($_FILES['create_archivo'], $categoria->getRuta(), $categoria->getImagen())) {
+											$result['message'] = 'Categoría creada correctamente';
+										} else {
+											$result['message'] = 'Categoría creada. No se guardó el archivo';
+										}
 									}
-								}
-								else {
-									$result['exception'] = 'Operacion fallida';
-								}
+									else {
+										$result['exception'] = 'Operacion fallida';
+									}
 								} else {
 									$result['exception'] = 'Estado incorrecto';
 								}
