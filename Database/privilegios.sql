@@ -33,7 +33,7 @@ CREATE TABLE `acciones` (
   `id_vista` int(10) UNSIGNED NOT NULL,
   `id_Tipousuario` int(10) UNSIGNED NOT NULL,
   `estado` tinyint(2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB;
 
 --
 -- Volcado de datos para la tabla `acciones`
@@ -68,7 +68,7 @@ CREATE TABLE `bitacoras` (
   `fecha` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `accion` varchar(50) NOT NULL,
   `id_usuario` int(10) UNSIGNED DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB;
 
 -- --------------------------------------------------------
 
@@ -79,7 +79,7 @@ CREATE TABLE `bitacoras` (
 CREATE TABLE `cargo` (
   `id_Cargo` int(10) UNSIGNED NOT NULL,
   `nombre_Cargo` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB;
 
 --
 -- Volcado de datos para la tabla `cargo`
@@ -100,7 +100,7 @@ CREATE TABLE `categorias` (
   `descripcion` varchar(1000) NOT NULL,
   `foto_categoria` varchar(50) DEFAULT NULL,
   `estado` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1 es activo 0 es inactivo'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB;
 
 --
 -- Volcado de datos para la tabla `categorias`
@@ -127,7 +127,7 @@ CREATE TABLE `desperdicios` (
   `id_empleado` int(10) UNSIGNED NOT NULL,
   `cantidad` int(11) NOT NULL,
   `fecha_desperdicio` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB;
 
 -- --------------------------------------------------------
 
@@ -140,7 +140,7 @@ CREATE TABLE `detalle_pedido` (
   `id_pedido` int(11) UNSIGNED NOT NULL,
   `id_platillo` int(11) NOT NULL,
   `cantidad` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB;
 
 --
 -- Volcado de datos para la tabla `detalle_pedido`
@@ -189,7 +189,7 @@ CREATE TABLE `elaboraciones` (
   `id_receta` int(10) UNSIGNED DEFAULT NULL,
   `cantidad` int(11) DEFAULT NULL,
   `idMateria` int(10) UNSIGNED DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB;
 
 --
 -- Volcado de datos para la tabla `elaboraciones`
@@ -218,7 +218,7 @@ CREATE TABLE `empleados` (
   `correo` varchar(100) NOT NULL,
   `id_Cargo` int(10) UNSIGNED DEFAULT NULL,
   `id_usuario` int(10) UNSIGNED DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB;
 
 -- --------------------------------------------------------
 
@@ -230,7 +230,7 @@ CREATE TABLE `encabezadofactura` (
   `id_EncabezadoFac` int(10) UNSIGNED NOT NULL,
   `nombre_cliente` varchar(50) DEFAULT NULL,
   `id_empleado` int(10) UNSIGNED DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB;
 
 -- --------------------------------------------------------
 
@@ -247,7 +247,7 @@ CREATE TABLE `materiasprimas` (
   `id_categoria` int(10) UNSIGNED DEFAULT NULL,
   `id_Medida` int(10) UNSIGNED DEFAULT NULL,
   `estado` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1 es activo 0 es inactivo'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB;
 
 --
 -- Volcado de datos para la tabla `materiasprimas`
@@ -267,7 +267,7 @@ CREATE TABLE `mesas` (
   `id_mesa` int(10) UNSIGNED NOT NULL,
   `numero_mesa` int(10) UNSIGNED NOT NULL,
   `estado_mesa` tinyint(4) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB;
 
 --
 -- Volcado de datos para la tabla `mesas`
@@ -301,7 +301,7 @@ CREATE TABLE `pedidos` (
   `fecha_pedido` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `id_mesa` int(10) UNSIGNED NOT NULL,
   `id_usuario` int(10) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB;
 
 --
 -- Volcado de datos para la tabla `pedidos`
@@ -340,7 +340,7 @@ CREATE TABLE `platillos` (
   `id_receta` int(10) UNSIGNED DEFAULT NULL,
   `id_categoria` int(10) UNSIGNED DEFAULT NULL,
   `imagen` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB;
 
 --
 -- Volcado de datos para la tabla `platillos`
@@ -372,7 +372,7 @@ CREATE TABLE `pre_pedido` (
   `id_mesa` int(10) UNSIGNED NOT NULL,
   `id_platillo` int(10) UNSIGNED NOT NULL,
   `cantidad` int(10) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB;
 
 -- --------------------------------------------------------
 
@@ -384,7 +384,7 @@ CREATE TABLE `receta` (
   `id_receta` int(10) UNSIGNED NOT NULL,
   `nombre_receta` varchar(1000) NOT NULL,
   `tiempo` varchar(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB;
 
 --
 -- Volcado de datos para la tabla `receta`
@@ -403,7 +403,7 @@ CREATE TABLE `tareas` (
   `id_tarea` int(10) UNSIGNED NOT NULL,
   `mensaje` varchar(80) NOT NULL,
   `importancia` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB;
 
 --
 -- Volcado de datos para la tabla `tareas`
@@ -423,7 +423,7 @@ CREATE TABLE `tipousuario` (
   `tipo` varchar(20) DEFAULT NULL,
   `descripcion` varchar(1000) DEFAULT NULL,
   `estado` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1 es activo 0 es inactivo'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB;
 
 --
 -- Volcado de datos para la tabla `tipousuario`
@@ -442,7 +442,7 @@ CREATE TABLE `unidadmedida` (
   `id_Medida` int(10) UNSIGNED NOT NULL,
   `nombre_medida` varchar(40) NOT NULL,
   `descripcion` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB;
 
 --
 -- Volcado de datos para la tabla `unidadmedida`
@@ -473,7 +473,7 @@ CREATE TABLE `usuarios` (
   `logueado` tinyint(4) NOT NULL DEFAULT '0',
   `estado_usuario` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1 es activo 0 es inactivo',
   `id_Tipousuario` int(10) UNSIGNED DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB;
 
 --
 -- Volcado de datos para la tabla `usuarios`
@@ -493,7 +493,7 @@ CREATE TABLE `vistas` (
   `nombre_vista` varchar(100) NOT NULL,
   `ruta` varchar(100) NOT NULL,
   `icono` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB;
 
 --
 -- Volcado de datos para la tabla `vistas`
