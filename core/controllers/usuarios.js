@@ -22,6 +22,7 @@ function fillTable(rows)
                 <td>${row.correo_usuario}</td>
                 <td>${row.fecha_creacion}</td>
                 <td>${row.tipo}</td>
+                <td>${row.logueado}</td>
                 <td><i class="material-icons">${icon}</i></td>
                 <td>
                     <a href="#" onclick="modalUpdate(${row.id_usuario})" class="btn btn-info tooltipped" data-tooltip="Modificar"><i class="fa fa-edit"></i></a>
@@ -161,6 +162,7 @@ function modalUpdate(id)
                 $('#id_usuario').val(result.dataset.id_usuario);
                 $('#update_alias').val(result.dataset.alias);
                 $('#update_correo').val(result.dataset.correo_usuario);
+                $('#update_logueo').val(result.dataset.logueado);
                 showSelectTipo('update_tipo', result.dataset.id_Tipousuario);
                 $('#foto_usuario').val(result.dataset.foto_usuario);
                 (result.dataset.estado_usuario == 1) ? $('#update_estado').prop('checked', true) : $('#update_estado').prop('checked', false);

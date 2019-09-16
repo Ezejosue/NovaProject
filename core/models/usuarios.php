@@ -13,6 +13,7 @@ class Usuarios extends Validator
 	private $token = null;
 	private $cantidad_productos = null;
 	private $cantidad_categorias = null;
+	private $logueo = null;
 	private $ruta = '../../resources/img/usuarios/';
 
 	//Métodos para sobrecarga de propiedades
@@ -29,6 +30,21 @@ class Usuarios extends Validator
 	public function getId()
 	{
 		return $this->id;
+	}
+
+	public function setLogueo($value)
+	{
+		if ($this->validateLogueo($value)) {
+			$this->logueo = $value;
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public function getLogueo()
+	{
+		return $this->logueo;
 	}
 
 	public function setAlias($value)
@@ -325,7 +341,7 @@ class Usuarios extends Validator
 	//Método para leer la tabla usuarios
 	public function readUsuarios()
 	{
-		$sql = 'SELECT id_usuario, foto_usuario, alias, correo_usuario, estado_usuario, fecha_creacion, tipo FROM usuarios INNER JOIN tipousuario USING (id_Tipousuario)';
+		$sql = 'SELECT id_usuario, foto_usuario, alias, correo_usuario, estado_usuario, logueado, fecha_creacion, tipo FROM usuarios INNER JOIN tipousuario USING (id_Tipousuario)';
 		$params = array(null);
 		return Conexion::getRows($sql, $params);
 	}
@@ -372,15 +388,15 @@ class Usuarios extends Validator
 	//Método para obtener la información e un usuario específico
 	public function getUsuario()
 	{
-		$sql = 'SELECT id_usuario, alias, correo_usuario, foto_usuario, fecha_creacion, estado_usuario, id_Tipousuario, clave_usuario FROM usuarios WHERE id_usuario = ?';
+		$sql = 'SELECT id_usuario, alias, correo_usuario, foto_usuario, fecha_creacion, estado_usuario, logueado, id_Tipousuario, clave_usuario FROM usuarios WHERE id_usuario = ?';
 		$params = array($this->id);
 		return Conexion::getRow($sql, $params);
 	}
 	//Método para modificar la información de un usuario
 	public function updateUsuario()
 	{
-		$sql = 'UPDATE usuarios SET alias = ?, foto_usuario = ?, correo_usuario = ?, estado_usuario = ?, id_Tipousuario = ? WHERE id_usuario = ?';
-		$params = array($this->alias, $this->foto, $this->correo, $this->estado, $this->tipo_usuario, $this->id);
+		$sql = 'UPDATE usuarios SET alias = ?, foto_usuario = ?, correo_usuario = ?, estado_usuario = ?, id_Tipousuario = ?, logueado = ? WHERE id_usuario = ?';
+		$params = array($this->alias, $this->foto, $this->correo, $this->estado, $this->tipo_usuario, $this->logueo, $this->id);
 		return Conexion::executeRow($sql, $params);
 	}
 	//Método para eliminar un usuario
