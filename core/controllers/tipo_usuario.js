@@ -216,7 +216,7 @@ function modificar(id3){
                 // Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
                 if (result.status) {
                     sweetAlert(1, 'Privilegios modificados correctamente', 'tipo_usuarios.php');
-                    console.log(estados);
+                    //console.log(estados);
                 } else {
                     sweetAlert(2, result.exception, null);
                 }
