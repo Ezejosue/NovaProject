@@ -100,7 +100,7 @@
             </div>
         </div>
     </div>
-<?php
+    <?php
 Dashboard::footerTemplate('cargo.js', '#tabla-cargo');
 ?>
     <script>

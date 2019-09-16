@@ -157,7 +157,7 @@
                             <div class="col-sm-11">
 
                                 <input id="update_descripcion" type="text" name="update_descripcion"
-                                    class="validate form-control" placeholder="Descripcion" required>
+                                    class="validate form-control" placeholder="Descripción" required>
                             </div>
                         </div>
                     </div>

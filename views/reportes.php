@@ -18,17 +18,13 @@
                             <a class="btn btn-primary btn-lg btn-block active" href="../core/report/reporte1.php"
                                 target="_blank" role="button">Platillos por categoría</a>
                             <a class="btn btn-primary btn-lg btn-block active" href="../core/report/reporte2.php"
-                                target="_blank" role="button">Pedidos
-                                por fecha</a>
+                                target="_blank" role="button">Pedidos por fecha</a>
                             <a class="btn btn-primary btn-lg btn-block active" href="../core/report/reporte3.php"
-                                target="_blank" role="button">Materia
-                                prima por categoría</a>
+                                target="_blank" role="button">Materia prima por categoría</a>
                             <a class="btn btn-primary btn-lg btn-block active" href="../core/report/reporte4.php"
-                                target="_blank" role="button">Ganancia
-                                por platillo</a>
+                                target="_blank" role="button">Ganancia por platillo</a>
                             <a class="btn btn-primary btn-lg btn-block active" href="../core/report/reporte5.php"
-                                target="_blank" role="button">Ganancia
-                                por categoría</a>
+                                target="_blank" role="button">Ganancia por categoría</a>
                         </div>
                         <div class="col-md-3 col-lg-3"></div>
                     </div>
@@ -77,7 +73,7 @@
                             </div>
                             </form>
                             <br>
-                            <h5 align="center">Cantidad de materia prima por categoria</h5>
+                            <h5 align="center">Cantidad de materia prima por categoría</h5>
                             <br>
                             <form method="post" id="form3" name="form3">
                                 <div class="form-group">
