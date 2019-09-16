@@ -131,7 +131,7 @@ function modalUpdate(id)
     });
 }
 
-// Función para modificar un registro seleccionado previamente
+//Función para modificar un registro seleccionado previamente
 $('#form-update').submit(function()
 {
     event.preventDefault();
@@ -145,24 +145,23 @@ $('#form-update').submit(function()
         processData: false
     })
     .done(function(response){
-        // Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+        //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
         if (isJSONString(response)) {
             const result = JSON.parse(response);
-            // Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
+            //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
             if (result.status) {
                 $('#modal-update').modal('hide');
-                sweetAlert(1, result.message, null);
+                sweetAlert(1, 'Proveedor modificada correctamente', null);
+                //Se destruye la tabla de materias primas y se vuelve a crear para que muestre los cambios realizados
                 destroy('#tabla-proveedores');
                 showTable();
             } else {
                 sweetAlert(2, result.exception, null);
             }
-        } else {
-            console.log(response);
         }
     })
     .fail(function(jqXHR){
-        // Se muestran en consola los posibles errores de la solicitud AJAX
+        //Se muestran en consola los posibles errores de la solicitud AJAX
         console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
     });
 })

@@ -110,7 +110,7 @@ class Proveedores extends Validator
     public function updateProveedor()
 	{
 		$sql = 'UPDATE proveedores SET nom_proveedor = ?, contacto = ?, telefono = ?, estado = ? WHERE id_proveedor = ?';
-		$params = array($this->nom_proveedor, $this->contacto, $this->telefono, $this->estado, $this->id);
+		$params = array($this->nombre_cargo, $this->contacto, $this->telefono, $this->estado, $this->id);
 		return conexion::executeRow($sql, $params);
 	}
 
