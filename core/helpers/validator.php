@@ -54,16 +54,6 @@ class Validator
 		}
 	}
 
-	//validación para que el logueo sea 0 o 1.
-	public function validateLogueo($value)
-	{
-		if (preg_match('/^[0-1]{1}$/', $value)) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
 	public function validateImageFile($file, $path, $name, $maxWidth, $maxHeigth)
 	{
 		if ($file) {
