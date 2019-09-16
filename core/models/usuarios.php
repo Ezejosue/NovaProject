@@ -417,8 +417,8 @@ class Usuarios extends Validator
 	public function changePassword()
 	{
 		$hash = password_hash($this->clave, PASSWORD_DEFAULT);
-		$sql = 'UPDATE usuarios SET clave_usuario = ? WHERE id_usuario = ?';
-		$params = array($hash, $this->id);
+		$sql = 'UPDATE usuarios SET clave_usuario = ? WHERE token_usuario = ?';
+		$params = array($hash, $this->token);
 		return Conexion::executeRow($sql, $params);
 	}
 
