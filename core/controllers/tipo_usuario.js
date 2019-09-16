@@ -199,7 +199,7 @@ function modificar(id3){
                 estados.push("0");
             }
         });
-        //console.log(estados);
+        
         $.ajax({
             url: apiTipo_usuarios + 'updateAcciones',
             type: 'post',
@@ -216,6 +216,7 @@ function modificar(id3){
                 // Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
                 if (result.status) {
                     sweetAlert(1, 'Privilegios modificados correctamente', 'tipo_usuarios.php');
+                    console.log(estados);
                 } else {
                     sweetAlert(2, result.exception, null);
                 }
