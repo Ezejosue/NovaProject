@@ -95,7 +95,7 @@ function showSelectReceta(idSelect, value)
 
 function CategoriasClick_1()
 {
-    window.open('../core/report/reporte6.php?id_categoria='+$('#id_categoria').val());
+    window.open('../core/report/reporte6.php?id_categoria='+$('#id_categoria').val(),null, null,"status=yes,toolbar=no,menubar=no,location=no");
 }
 
 
@@ -117,12 +117,12 @@ function pegarFecha1(){
 
 function CategoriasClick_2()
 {
-    window.open('../core/report/reporte7.php?fecha='+ fecha_string1);
+    window.open('../core/report/reporte7.php?fecha='+ fecha_string1,null, null, "status=yes,toolbar=no,menubar=no,location=no");
 }
 
 function CategoriasClick_3()
 {
-    window.open('../core/report/reporte8.php?categoria='+$('#id_materia').val());
+    window.open('../core/report/reporte8.php?categoria='+$('#id_materia').val(),null, null, "status=yes,toolbar=no,menubar=no,location=no");
 }
 
 var fecha;
@@ -142,10 +142,10 @@ function pegarFecha(){
 
 function CategoriasClick_4()
 {
-    window.open('../core/report/reporte9.php?fecha='+fecha_string+'&fecha2='+fecha_string2);
+    window.open('../core/report/reporte9.php?fecha='+fecha_string+'&fecha2='+fecha_string2 ,null, null, "status=yes,toolbar=no,menubar=no,location=no");
 }
 
 function CategoriasClick_5()
 {
-    window.open('../core/report/reporte10.php?idMes='+$('#idMes').val());
+    window.open('../core/report/reporte10.php?idMes='+$('#idMes').val() ,null, null, "status=yes,toolbar=no,menubar=no,location=no" );
 }
