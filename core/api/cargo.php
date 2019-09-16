@@ -35,10 +35,8 @@ if (isset($_GET['action'])) {
                 
             /* Operación para obtener el id del empleado */
 			case 'get':
-                if ($cargo->setId($_POST['id_Cargo']) 
-                ) {
-                   if ($result['dataset'] = 
-                   $cargo->searchCargo()) {
+                if ($cargo->setId($_POST['id_Cargo'])) {
+                   if ($result['dataset'] = $cargo->searchCargo()) {
                        $result['status'] = 1;
                    } else {
                        $result['exception'] = 'Cargo no existente';
