@@ -78,7 +78,7 @@
                             </div>
                             <div class="col-sm-11">
                                 <input id="create_telefono" type="text" name="create_telefono"
-                                    class="validate form-control" placeholder="Teléfono"required>
+                                    class="validate form-control" placeholder="Teléfono Ej. (2222-2222)"required>
                             </div>
                         </div>
                     </div>
@@ -147,14 +147,14 @@
                             </div>
                             <div class="col-sm-11">
                                 <input id="update_telefono" type="text" name="update_telefono"
-                                    class="validate form-control" placeholder="Teléfono"required>
+                                    class="validate form-control" placeholder="Teléfono Ej.(2222-2222)"required>
                             </div>
                         </div>
                     </div>
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-1">
-                                <i class="fas fa-users"></i>
+                                <i class="fa fa-eye-slas    h"></i>
                             </div>
                             <div class="col-sm-11">
                                 <div class="custom-control custom-switch">

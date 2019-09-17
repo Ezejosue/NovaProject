@@ -26,45 +26,41 @@ if (isset($_GET['action'])) {
                     if ($materia->setNombre($_POST['create_nombre_materia'])) {
                         if ($materia->setEstado(isset($_POST['create_estado']) ? 1 : 0)) {
                             if ($materia->setDescripcion($_POST['create_descripcion_materia'])) {
-                                if ($materia->setCantidad($_POST['create_cantidad'])) {
-                                    if ($materia->setCategorias($_POST['create_categoria'])) {
-                                        if ($materia->setIdMedida($_POST['create_unidad'])) {
-                                            if (is_uploaded_file($_FILES['create_archivo']['tmp_name'])) {
-                                                if ($materia->setImagen($_FILES['create_archivo'], null)) {
-                                                    if ($materia->createMateriaPrima()) {
-                                                        if ($materia->saveFile($_FILES['create_archivo'], $materia->getRuta(), $materia->getImagen())) {
+                                if ($materia->setCategorias($_POST['create_categoria'])) {
+                                    if ($materia->setIdMedida($_POST['create_unidad'])) {
+                                        if (is_uploaded_file($_FILES['create_archivo']['tmp_name'])) {
+                                            if ($materia->setImagen($_FILES['create_archivo'], null)) {
+                                                if ($materia->createMateriaPrima()) {
+                                                    if ($materia->saveFile($_FILES['create_archivo'], $materia->getRuta(), $materia->getImagen())) {
                                                             $result['status'] = 1;
-                                                                } else {
-                                                                    $result['status'] = 2;
-                                                                    $result['exception'] = 'No se guardó el archivo';
-                                                                }
-                                                            } else {
-                                                                $result['exception'] = 'Operación fallida';
-                                                            }
-                                                        } else {
-                                                            $result['exception'] = $materia->getImageError();;
-                                                        } 
                                                     } else {
-                                                        $result['exception'] = 'Seleccione una imagen';
-                                                    } 
+                                                            $result['status'] = 2;
+                                                            $result['exception'] = 'No se guardó el archivo';
+                                                    }
                                                 } else {
-                                                    $result['exception'] = 'Seleccione una unidad de medida';
-                                                } 
+                                                    $result['exception'] = 'Operación fallida';
+                                                }
                                             } else {
-                                                $result['exception'] = 'Seleccione una categoría';
-                                        }  
+                                                $result['exception'] = $materia->getImageError();;
+                                            } 
+                                        } else {
+                                            $result['exception'] = 'Seleccione una imagen';
+                                        } 
                                     } else {
-                                        $result['exception'] = 'Cantidad incorrecta';
-                                    }
+                                        $result['exception'] = 'Seleccione una unidad de medida';
+                                    } 
                                 } else {
-                                    $result['exception'] = 'Descripción incorrecta';
+                                    $result['exception'] = 'Seleccione una categoria';
                                 }
                             } else {
-                                $result['exception'] = 'Estado incorrecto';
+                                $result['exception'] = 'Descripcion incorrecta';
                             }
                         } else {
-                            $result['exception'] = 'Nombre incorrecto';
-                        }                                     
+                            $result['exception'] = 'Estado incorrecto';
+                        }
+                    } else {
+                        $result['exception'] = 'Nombre incorrecto';
+                    }                                     
                     break;
                 
             //Operación para saber el usuario que se va a modificar
@@ -86,11 +82,10 @@ if (isset($_GET['action'])) {
 					if ($materia->getMateriaPrima()) {
 		                if ($materia->setNombre($_POST['nombre_materia'])) {
                             if ($materia->setDescripcion($_POST['descripcion_materia'])) {
-                                if ($materia->setCantidad($_POST['cantidad'])) {
-                                    if ($materia->setEstado(isset($_POST['update_estado']) ? 1 : 0)) {
-                                        if ($materia->setCategorias($_POST['update_categoria'])) {
-                                            if ($materia->setIdMedida($_POST['update_unidad'])) {
-                                            //Se comprueba que se haya subido una imagen
+                                if ($materia->setEstado(isset($_POST['update_estado']) ? 1 : 0)) {
+                                    if ($materia->setCategorias($_POST['update_categoria'])) {
+                                        if ($materia->setIdMedida($_POST['update_unidad'])) {
+                                        //Se comprueba que se haya subido una imagen
                                             if (is_uploaded_file($_FILES['foto']['tmp_name'])) {
                                                 if ($materia->setImagen($_FILES['foto'], $_POST['foto_materia'])) {
                                                     $archivo = true;
@@ -104,14 +99,11 @@ if (isset($_GET['action'])) {
                                                 }
                                                 $archivo = false;
                                             }
-                                        if ($materia->updateMateriaPrima()) {
-                                            $result['status'] = 1;
-                                            if ($archivo) {
-                                                if ($materia->saveFile($_FILES['foto'], $materia->getRuta(), $materia->getImagen())) {
-                                                    $result['message'] = 'Categoría modificada correctamente';
-                                                            } else {
-                                                                $result['message'] = 'Categoría modificada. No se guardó el archivo';
-                                                            }
+                                                if ($materia->updateMateriaPrima()) {
+                                                    $result['status'] = 1;
+                                                    if ($archivo) {
+                                                        if ($materia->saveFile($_FILES['foto'], $materia->getRuta(), $materia->getImagen())) {
+                                                            $result['message'] = 'Categoría modificada correctamente';
                                                         } else {
                                                             $result['message'] = 'Categoría modificada. No se subió ningún archivo';
                                                         }
@@ -122,14 +114,14 @@ if (isset($_GET['action'])) {
                                                     $result['exception'] = 'Seleccione una unidad de medida';
                                                 }
                                             } else {
-                                                $result['exception'] = 'Seleccione una categoría';
+                                                $result['exception'] = 'Seleccione una unidad de medida';
                                             }
                                         } else {
-                                            $result['exception'] = 'Estado incorrecto';
-                                            }
-                                    }else {
-                                        $result['exception'] = 'Cantidad incorrecta';
-                                    } 
+                                            $result['exception'] = 'Seleccione una categoria';
+                                        }
+                                    } else {
+                                        $result['exception'] = 'Estado incorrecto';
+                                        } 
                                 }else {
                                     $result['exception'] = 'Descripción incorrecta';
                                 }

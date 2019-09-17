@@ -26,7 +26,6 @@
                                 <th>IMAGEN</th>
                                 <th>NOMBRE</th>
                                 <th>DESCRIPCIÓN</th>
-                                <th>CANTIDAD</th>
                                 <th>CATEGORÍA</th>
                                 <th>UNIDAD DE MEDIDA</th>
                                 <th>ESTADO</th>
@@ -73,18 +72,6 @@
                                 <textarea placeholder="Descripción" class="form-control" id="create_descripcion_materia"
                                     name="create_descripcion_materia" for="create_descripcion_materia" rows="3"
                                     required></textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-sm-1">
-                                <i class="fa fa-user"></i>
-                            </div>
-                            <div class="col-sm-11">
-
-                                <input id="create_cantidad" type="number" name="create_cantidad"
-                                    class="validate form-control" placeholder="Cantidad" max="999999" min="1" required>
                             </div>
                         </div>
                     </div>
@@ -184,18 +171,6 @@
 
                                 <textarea placeholder="Descripción" class="form-control" id="descripcion_materia"
                                     name="descripcion_materia" for="descripcion_materia" rows="3"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-sm-1">
-                                <i class="fa fa-user"></i>
-                            </div>
-                            <div class="col-sm-11">
-
-                                <input type="number" id="cantidad" name="cantidad" class="validate form-control"
-                                    placeholder="Cantidad" max="999999" min="1" required>
                             </div>
                         </div>
                     </div>
