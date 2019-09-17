@@ -21,7 +21,11 @@ $('#form-sesion').submit(function () {
                 const dataset = JSON.parse(response);
                 //Se comprueba si la respuesta es satisfactoria, sino se muestra la excepción
                 if (dataset.status) {
-                    sweetAlert(1, 'Autenticación correcta', 'autenticacion.php');
+                    if (dataset.status == 2) {
+                        sweetAlert(2, dataset.exception, 'actualizarpwd.php');
+                    } else {
+                        sweetAlert(1, 'Autenticación correcta', 'autenticacion.php');
+                    }                    
                 } else {
                     sweetAlert(2, dataset.exception, null);
                 }
