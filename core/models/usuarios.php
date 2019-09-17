@@ -14,6 +14,8 @@ class Usuarios extends Validator
 	private $cantidad_productos = null;
 	private $cantidad_categorias = null;
 	private $logueo = null;
+	private $fecha_contrasena = null;
+	private $fecha_cambiopw = null;
 	private $ruta = '../../resources/img/usuarios/';
 
 	//Métodos para sobrecarga de propiedades
@@ -159,6 +161,26 @@ class Usuarios extends Validator
 		return $this->token;
 	}
 
+	public function setFecha_cambiopw($value)
+	{
+		$this->fecha_cambiopw = $value;
+	}
+
+	public function getFecha_cambiopw()
+	{
+		return $this->fecha_cambiopw;
+	}
+
+	public function setFecha_contrasena($value)
+	{
+		$this->fecha_contrasena = $value;
+	}
+
+	public function getFecha_contrasena()
+	{
+		return $this->fecha_contrasena;
+	}
+
 	public function getRuta()
 	{
 		return $this->ruta;
@@ -183,11 +205,12 @@ class Usuarios extends Validator
 	//Método para erificar que el nombre de usuario exista a la hora de iniciar sesión
 	public function checkAlias()
 	{
-		$sql = 'SELECT id_usuario FROM usuarios WHERE alias = ? LIMIT 1';
+		$sql = 'SELECT id_usuario, ADDDATE(fecha_contrasena, 90) AS fecha_cambiopw FROM usuarios WHERE alias = ? LIMIT 1';
 		$params = array($this->alias);
 		$data = Conexion::getRow($sql, $params);
 		if ($data) {
 			$this->id = $data['id_usuario'];
+			$this->fecha_cambiopw = $data['fecha_cambiopw'];
 			return true;
 		} else {
 			return false;
@@ -389,7 +412,7 @@ class Usuarios extends Validator
 	public function createUsuario()
 	{
 		$hash = password_hash($this->clave, PASSWORD_DEFAULT);
-		$sql = 'INSERT INTO usuarios(alias, correo_usuario, token_usuario, foto_usuario, estado_usuario, id_Tipousuario, clave_usuario) VALUES(?, ?, ?, ?, ?, ?, ?)';
+		$sql = 'INSERT INTO usuarios(alias, correo_usuario, token_usuario, foto_usuario, estado_usuario, id_Tipousuario, clave_usuario, fecha_contrasena) VALUES(?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)';
 		$params = array($this->alias, $this->correo, $this->token, $this->foto, 3, $this->tipo_usuario, $hash);
 		return Conexion::executeRow($sql, $params);
 	}
@@ -419,7 +442,7 @@ class Usuarios extends Validator
 	public function changePassword()
 	{
 		$hash = password_hash($this->clave, PASSWORD_DEFAULT);
-		$sql = 'UPDATE usuarios SET clave_usuario = ? WHERE token_usuario = ?';
+		$sql = 'UPDATE usuarios SET clave_usuario = ?, fecha_contrasena = CURRENT_TIMESTAMP WHERE token_usuario = ?';
 		$params = array($hash, $this->token);
 		return Conexion::executeRow($sql, $params);
 	}

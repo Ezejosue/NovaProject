@@ -17,6 +17,7 @@ if (isset($_GET['action'])) {
     session_start();
     $usuario = new Usuarios;
     $result = array('status' => 0, 'exception' => '');
+    date_default_timezone_set('America/El_Salvador');
     //Se verifica si existe una sesión iniciada como administrador para realizar las operaciones correspondientes
     if (isset($_SESSION['idUsuario'])) {
         switch ($_GET['action']) {
@@ -513,13 +514,13 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Contenido no disponible';
                 }
                 break;
-
             //Operación para iniciar sesión
             case 'login':
                 $_POST = $usuario->validateForm($_POST);
                 if ($usuario->setAlias($_POST['usuario'])) {
                     //Se comprueba que el alias exista en la base de datos
-                    if ($usuario->checkAlias()) {
+                    if ($user_data = $usuario->checkAlias()) {
+                        if (date('Y-m-d H:i:s') <= $usuario->getFecha_cambiopw()){
                         if ($usuario->checkActivacion()) {
                             $result['exception'] = 'Su cuenta no ha sido activada';
                         } else {
@@ -563,7 +564,7 @@ if (isset($_GET['action'])) {
                                                                     echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
                                                                 }
                                                             } else {
-
+                                                                $result['exception'] = 'Error al obtener datos';
                                                             }
                                                         } else {
                                                             $result['exception'] = 'Error al asignar el token';
@@ -599,6 +600,10 @@ if (isset($_GET['action'])) {
                                     $result['exception'] = 'No tiene acceso al sistema';
                                 }
                             }
+                        } else {
+                            $result['exception'] = 'Su contraseña no se ha cambio por 90 días. Se te enviará al formulario para actualizarla.';
+                            $result['status'] = 2;
+                        }
                         } else {
                             $result['exception'] = 'Alias inexistente';
                         }
