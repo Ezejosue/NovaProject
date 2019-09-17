@@ -3,7 +3,7 @@
     Este archivo contiene una clase para realizar el manejo de la base de datos del sistema.
 */
 
-class Conexion 
+class Conexion
 {
 /*
     Estos son los atributos de la clase para almacenar los datos necesarios para realizar las acciones respectivas.
@@ -20,7 +20,7 @@ class Conexion
         $server = 'localhost';
         $db = 'pizzanova';
         $username = 'root';
-        $password = '';
+        $password = 'admin';
         try {
             @self::$connection = new PDO('mysql:host='.$server.'; dbname='.$db, $username, $password);
         } catch(PDOException $error) {
