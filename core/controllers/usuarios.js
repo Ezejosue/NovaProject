@@ -15,6 +15,7 @@ function fillTable(rows)
     //Se recorren las filas para armar el cuerpo de la tabla y se utiliza comilla invertida para escapar los caracteres especiales
     rows.forEach(function(row){
         (row.estado_usuario == 1) ? icon = '<i class="fa fa-eye"></i>' : icon = '<i class="fa fa-eye-slash"></i>';
+        (row.logueado == 1) ? log = '<i class="fas fa-laptop"></i>' : log = '<i class="fas fa-power-off"></i>';
         content += `
             <tr>
                 <td><img src=" ../resources/img/usuarios/${row.foto_usuario}"> </td>
@@ -22,7 +23,7 @@ function fillTable(rows)
                 <td>${row.correo_usuario}</td>
                 <td>${row.fecha_creacion}</td>
                 <td>${row.tipo}</td>
-                <td>${row.logueado}</td>
+                <td>${log}</td>
                 <td><i class="material-icons">${icon}</i></td>
                 <td>
                     <a href="#" onclick="modalUpdate(${row.id_usuario})" class="btn btn-info tooltipped" data-tooltip="Modificar"><i class="fa fa-edit"></i></a>
@@ -162,7 +163,7 @@ function modalUpdate(id)
                 $('#id_usuario').val(result.dataset.id_usuario);
                 $('#update_alias').val(result.dataset.alias);
                 $('#update_correo').val(result.dataset.correo_usuario);
-                $('#update_logueo').val(result.dataset.logueado);
+                (result.dataset.logueado == 1) ? $('#update_logueo').prop('checked', true) : $('#update_logueo').prop('checked', false);
                 showSelectTipo('update_tipo', result.dataset.id_Tipousuario);
                 $('#foto_usuario').val(result.dataset.foto_usuario);
                 (result.dataset.estado_usuario == 1) ? $('#update_estado').prop('checked', true) : $('#update_estado').prop('checked', false);

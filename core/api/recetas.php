@@ -76,11 +76,11 @@ if (isset($_GET['action'])) {
                     if ($result['dataset'] = $recetas->getElab()) {
                         $result['status'] = 1;
                     } else {
-                        $result['exception'] = 'Elaboracion inexistente';
+                        $result['exception'] = 'Elaboración inexistente';
                     }
                 } else {
                     
-                    $result['exception'] = 'Elaboracion incorrecta';
+                    $result['exception'] = 'Elaboración incorrecta';
                 }
                 break;
                 case 'readTableRecetas':

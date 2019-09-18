@@ -105,13 +105,13 @@ if (isset($_GET['action'])) {
                                                         if ($materia->saveFile($_FILES['foto'], $materia->getRuta(), $materia->getImagen())) {
                                                             $result['message'] = 'Categoría modificada correctamente';
                                                         } else {
-                                                            $result['message'] = 'Categoría modificada. No se guardó el archivo';
+                                                            $result['message'] = 'Categoría modificada. No se subió ningún archivo';
                                                         }
                                                     } else {
-                                                        $result['message'] = 'Categoría modificada. No se subió ningún archivo';
+                                                        $result['exception'] = 'Operación fallida';
                                                     }
                                                 } else {
-                                                    $result['exception'] = 'Operación fallida';
+                                                    $result['exception'] = 'Seleccione una unidad de medida';
                                                 }
                                             } else {
                                                 $result['exception'] = 'Seleccione una unidad de medida';
@@ -123,7 +123,7 @@ if (isset($_GET['action'])) {
                                         $result['exception'] = 'Estado incorrecto';
                                         } 
                                 }else {
-                                    $result['exception'] = 'Descripcion incorrecta';
+                                    $result['exception'] = 'Descripción incorrecta';
                                 }
                             }else {
                                 $result['exception'] = 'Nombre de materia prima incorrecta';

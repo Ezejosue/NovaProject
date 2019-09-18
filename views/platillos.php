@@ -72,7 +72,7 @@
                                 <i class="fa fa-dollar-sign"></i>
                             </div>
                             <div class="col-sm-11">
-                                <!-- Aquí se agrega el segundo campo que es el del precio con su validacion respectiva en la parte de abajo -->
+                                <!-- Aquí se agrega el segundo campo que es el del precio con su validación respectiva en la parte de abajo -->
                                 <input id="create_precio" type="number" name="create_precio"
                                     class="validate form-control" placeholder="0.00" max="999.99" min="0.01" required />
                             </div>
@@ -84,7 +84,7 @@
                                 <i class="fas fa-users"></i>
                             </div>
                             <div class="col-sm-11">
-                                <!-- Aquí es donde se manda a traer el campo de categoria  -->
+                                <!-- Aquí es donde se manda a traer el campo de categoría  -->
                                 <select id="create_categoria" name="create_categoria" class="form-control" required>
                                 </select>
                             </div>

@@ -76,7 +76,7 @@ if (isset($_GET['action'])) {
                                         $result['exception'] = 'Estado incorrecto';
                                     }  
                                 } else {
-                                    $result['exception'] = 'Telefono incorrecto';
+                                    $result['exception'] = 'Teléfono incorrecto';
                                 }  
                             } else {
                                 $result['exception'] = 'Contacto incorrecto';

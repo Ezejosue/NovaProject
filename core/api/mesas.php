@@ -27,7 +27,7 @@ if (isset($_GET['action'])) {
 								$result['message'] = 'Mesa creada correctamente';
                         }
 						 else {
-								$result['exception'] = 'Operacion fallida';
+								$result['exception'] = 'Operación fallida';
 						}
 					} else {
 						$result['exception'] = 'Estado incorrecto';

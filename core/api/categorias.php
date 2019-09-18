@@ -35,7 +35,7 @@ if (isset($_GET['action'])) {
 										}
 									}
 									else {
-										$result['exception'] = 'Operacion fallida';
+										$result['exception'] = 'Operación fallida';
 									}
 								} else {
 									$result['exception'] = 'Estado incorrecto';

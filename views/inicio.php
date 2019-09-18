@@ -31,13 +31,13 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-xl-12">
-            <!-- Contenedor para la gráfica-->  
+            <!-- Contenedor para la gráfica-->
 
             <div class="recent-report2">
                 <h3 align="center" class="title-1">Existencias.</h3>
                 <div class="chart-info">
                 </div>
-                
+
                 <div class="au-card-inner">
                     <h5 align="center">Existencias por categoría (productos por agotar)</h5>
                     <canvas id="existencia_categoria_agotar"></canvas>
@@ -69,7 +69,7 @@
                         </div>
                     </div>
                 </div>
-                
+
 
 
                 <div class="container-fluid">
@@ -173,7 +173,8 @@
                                         </div>
                                         </form>
                                         <hr>
-                                        <h5 align="center">Cantidad de materia prima por categoria. (productos por agotar)</h5>
+                                        <h5 align="center">Cantidad de materia prima por categoría. (productos por
+                                            agotar)</h5>
                                         <canvas id="existencia_categoria_materia_agotar"></canvas>
                                         <div class="form-group">
                                             <form>
@@ -187,7 +188,8 @@
                                         </div>
                                         </form>
                                         <hr>
-                                        <h5 align="center">Cantidad de materia prima por categoria. (productos sobre existentes)</h5>
+                                        <h5 align="center">Cantidad de materia prima por categoria. (productos sobre
+                                            existentes)</h5>
                                         <canvas id="existencia_categoria_materia_sobre_existente"></canvas>
                                         <div class="form-group">
                                             <form>
@@ -197,7 +199,8 @@
                                                 <br>
                                                 <button id="botonmateria_ex" class="btn btn-primary mx-auto "
                                                     title="Refresque la pagina en caso de querer una segunda gráfica."
-                                                    type="button" onclick="Materia_sobre_Click()">Obtener gráfico</button>
+                                                    type="button" onclick="Materia_sobre_Click()">Obtener
+                                                    gráfico</button>
                                         </div>
                                         </form>
                                     </div>
