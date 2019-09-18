@@ -98,7 +98,7 @@ class Pedidos extends Validator
 
 	public function readPedidos()
 	{
-		$sql = 'SELECT id_pedido, fecha_pedido, alias FROM pedidos INNER JOIN usuarios USING(id_usuario)';
+		$sql = 'SELECT id_pedido, fecha_pedido, hora_pedido, alias FROM pedidos INNER JOIN usuarios USING(id_usuario)';
 		$params = array(null);
 		return conexion::getRows($sql, $params);
 	}

@@ -17,6 +17,7 @@ function fillTable(rows)
             <tr>
                 <td>${row.id_pedido}</td>
                 <td>${row.fecha_pedido}</td>
+                <td>${row.hora_pedido}</td>
                 <td>${row.alias}</td>
                 <td>
                     <a href="#" onclick="modalDetalle(${row.id_pedido})" class="btn btn-info tooltipped" data-tooltip="Modificar"><i class="fa fa-edit"></i></a>
