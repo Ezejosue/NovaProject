@@ -2,8 +2,8 @@
 # | Custom error messages/pages                                        |
 # ----------------------------------------------------------------------
 
-ErrorDocument 404 /admin/resources/pages/page-404.html
-ErrorDocument 403 /admin/resources/pages/page-403.html
+ErrorDocument 404 /admin/resources/pages/error404.html
+ErrorDocument 403 /admin/resources/pages/error403.html
 
 
 # ----------------------------------------------------------------------
