@@ -15,7 +15,6 @@ $pdf->SetAutoPageBreak(true,20);
 $pdf->addPage();
 $pedidos = new Pedidos();
 $pdf->SetFont('Arial','B',10);
-$data = $pedidos->readPedidosFecha();
 $pdf->Ln();
 $pdf->setX(60);
 // Cell(ancho, Alto, texto, borde, salto de linea, alineacion de texto)
@@ -26,13 +25,15 @@ $pdf->setX(30);
 //Se coloca el color del fondo de las celdas en formato rgb
 $pdf->SetFillColor(239, 127, 26);
 //Se coloca el color del texto en formato rgb
-$pdf->SetTextColor(0,0,0);
-$pdf->Cell(125,10, utf8_decode('FECHA'),1,0,'C', true);
-$pdf->Cell(25,10, utf8_decode('PEDIDOS'),1,0,'C', true);
-$pdf->Ln();
 
- //Comienza a crear las filas de productos según la consulta mysql del modelo
-foreach($data as $datos){
+if ($pedidos->readPedidosFecha()) {
+        $data = $pedidos->readPedidosFecha();
+        $pdf->SetTextColor(0,0,0);
+        $pdf->Cell(125,10, utf8_decode('FECHA'),1,0,'C', true);
+        $pdf->Cell(25,10, utf8_decode('PEDIDOS'),1,0,'C', true);
+        $pdf->Ln();
+         //Comienza a crear las filas de productos según la consulta mysql del modelo
+        foreach($data as $datos){
         $pdf->setX(30);
          // Cell(ancho, Alto, texto, borde, salto de linea, alineación de texto, color)
         //convertimos el texto a utf8
@@ -40,8 +41,10 @@ foreach($data as $datos){
         $pdf->Cell(25,10, utf8_decode($datos['Pedidos']),1,0,'C');
         //saldo de linea
         $pdf->Ln();
+        }
+} else {
+        $pdf->Cell(145,5, utf8_decode('NO HAY DATOS REGISTRADOS'), 0, 0, 'C');
 }
-
 
 $pdf->AliasNbPages();
 $pdf->Output();
