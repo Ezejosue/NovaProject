@@ -21,6 +21,8 @@ class Conexion
         $db = 'pizzanova';
         $username = 'root';
         $password = '';
+        /* $username = 'Gerardo';
+        $password = 'Knvq7oBEzl8LRKi2'; */
         try {
             @self::$connection = new PDO('mysql:host='.$server.'; dbname='.$db, $username, $password);
         } catch(PDOException $error) {
@@ -41,7 +43,7 @@ class Conexion
             exit(self::getException($error[1], $error[2]));
         }
     }
-
+        
 /*
     Este método tiene por objetivo ejecutar las siguientes sentencias SQL: insert, update y delete.
     Recibe como parámetros la sentencia SQL de tipo string y los valores de los campos respectivos en un arreglo.

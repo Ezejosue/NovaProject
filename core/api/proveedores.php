@@ -59,55 +59,55 @@ if (isset($_GET['action'])) {
                break;
 
             case 'update':
-					$_POST = $proveedores->validateForm($_POST);
-					if ($proveedores->setId($_POST['id_proveedor'])) {
-                        if ($proveedores->getProveedor()) {
-                            if ($proveedores->setNomProveedor($_POST['update_proveedor'])) {
-                                if ($proveedores->setContanto($_POST['update_contacto'])) {
-                                    if ($proveedores->setTelefono($_POST['update_telefono'])) {
-                                        if ($proveedores->setEstado(isset($_POST['update_estado']) ? 1 : 0)) {
-                                            if ($proveedores->updateProveedor()) {
-                                                $result['status'] = 1;
-                                                $result['message'] = 'Proveedor actualizado correctamente';
-                                            } else {
-                                                $result['exception'] = 'Operación fallida';                    
-                                            }  
+                $_POST = $proveedores->validateForm($_POST);
+                if ($proveedores->setId($_POST['id_proveedor'])) {
+                    if ($proveedores->getProveedor()) {
+                        if ($proveedores->setNomProveedor($_POST['update_proveedor'])) {
+                            if ($proveedores->setContacto($_POST['update_contacto'])) {
+                                if ($proveedores->setTelefono($_POST['update_telefono'])) {
+                                    if ($proveedores->setEstado(isset($_POST['update_estado']) ? 1 : 0)) {
+                                        if ($proveedores->updateProveedor()) {
+                                            $result['status'] = 1;
+                                            $result['message'] = 'Proveedor actualizado correctamente';
                                         } else {
-                                            $result['exception'] = 'Estado incorrecto';
+                                            $result['exception'] = 'Operación fallida';                    
                                         }  
                                     } else {
-                                        $result['exception'] = 'Teléfono incorrecto';
+                                        $result['exception'] = 'Estado incorrecto';
                                     }  
                                 } else {
-                                    $result['exception'] = 'Contacto incorrecto';
-                                }                          
+                                    $result['exception'] = 'Teléfono incorrecto';
+                                }  
                             } else {
-                                $result['exception'] = 'Nombre de proveedor incorrecto';              
-                            }                            
+                                $result['exception'] = 'Contacto incorrecto';
+                            }                          
                         } else {
-                            $result['exception'] = 'Proveedor inexistente'; 
-                        }                    
-					} else {
-                        $result['exception'] = 'Proveedor incorrecto';
-                    }
-                    break;
+                            $result['exception'] = 'Nombre de proveedor incorrecto';              
+                        }                            
+                    } else {
+                        $result['exception'] = 'Proveedor inexistente'; 
+                    }                    
+                } else {
+                    $result['exception'] = 'Proveedor incorrecto';
+                }
+                break;
                     
             case 'delete':
-                    if ($proveedores->setId($_POST['id_proveedor'])) {
-                        if ($proveedores->getProveedor()) {
-                            if ($proveedores->deleteProveedor()) {
-                                $result['status'] = 1;
-                                $result['message'] = 'Proveedor eliminado correctamente';
-                            } else {
-                                $result['exception'] = 'Operación fallida';
-                            }
+                if ($proveedores->setId($_POST['id_proveedor'])) {
+                    if ($proveedores->getProveedor()) {
+                        if ($proveedores->deleteProveedor()) {
+                            $result['status'] = 1;
+                            $result['message'] = 'Proveedor eliminado correctamente';
                         } else {
-                            $result['exception'] = 'Proveedor inexistente';
+                            $result['exception'] = 'Operación fallida';
                         }
                     } else {
-                        $result['exception'] = 'Proveedor incorrecto';
+                        $result['exception'] = 'Proveedor inexistente';
                     }
-                    break;
+                } else {
+                    $result['exception'] = 'Proveedor incorrecto';
+                }
+                break;
             default:
 				 exit('Acción no disponible');                
         }

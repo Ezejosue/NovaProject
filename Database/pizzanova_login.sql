@@ -54,7 +54,8 @@ INSERT INTO `acciones` (`id_accion`, `id_vista`, `id_Tipousuario`, `estado`) VAL
 (18, 12, 1, 1),
 (19, 13, 1, 1),
 (20, 14, 1, 1),
-(21, 15, 1, 1);
+(21, 15, 1, 1),
+(22, 16, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -384,6 +385,20 @@ CREATE TABLE `pre_pedido` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `proveedores`
+--
+
+CREATE TABLE `proveedores` (
+  `id_proveedor` int(10) UNSIGNED NOT NULL,
+  `nom_proveedor` varchar(50) COLLATE latin1_spanish_ci DEFAULT NULL,
+  `contacto` varchar(100) COLLATE latin1_spanish_ci DEFAULT NULL,
+  `telefono` varchar(8) COLLATE latin1_spanish_ci DEFAULT NULL,
+  `estado` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `receta`
 --
 
@@ -521,7 +536,8 @@ INSERT INTO `vistas` (`id_vista`, `nombre_vista`, `ruta`, `icono`) VALUES
 (12, 'Reportes', 'reportes.php', 'chart-bar'),
 (13, 'Tipo de Usuario', 'tipo_usuarios.php', 'users'),
 (14, 'Unidades de medida', 'unidadmedida.php', 'balance-scale'),
-(15, 'Usuarios', 'usuarios.php', 'user-plus');
+(15, 'Usuarios', 'usuarios.php', 'user-plus'),
+(15, 'Proveedores', 'proveedores.php', 'user-plus');
 
 --
 -- Índices para tablas volcadas
@@ -635,6 +651,11 @@ ALTER TABLE `pre_pedido`
   ADD KEY `id_mesa` (`id_mesa`),
   ADD KEY `id_platillo` (`id_platillo`);
 
+--
+-- Indices de la tabla `proveedores`
+--
+ALTER TABLE `proveedores`
+  ADD PRIMARY KEY (`id_proveedor`);
 --
 -- Indices de la tabla `receta`
 --
@@ -762,6 +783,12 @@ ALTER TABLE `platillos`
 --
 ALTER TABLE `pre_pedido`
   MODIFY `id_prepedido` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `proveedores`
+--
+ALTER TABLE `proveedores`
+  MODIFY `id_proveedor` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `receta`

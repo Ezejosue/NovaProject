@@ -23,7 +23,7 @@
                     <table class="table" id="tabla-cargo" width="100%">
                         <thead>
                             <tr>
-                                <th>ID</th>
+                                <th>#</th>
                                 <th>NOMBRE</th>
                                 <th>ACCIÓN</th>
                             </tr>
