@@ -250,7 +250,6 @@ CREATE TABLE `materiasprimas` (
   `idMateria` int(10) UNSIGNED NOT NULL,
   `nombre_materia` varchar(50) COLLATE latin1_spanish_ci NOT NULL,
   `descripcion` varchar(50) COLLATE latin1_spanish_ci DEFAULT NULL,
-  `cantidad` int(11) DEFAULT NULL,
   `foto` varchar(100) COLLATE latin1_spanish_ci DEFAULT NULL,
   `id_categoria` int(10) UNSIGNED DEFAULT NULL,
   `id_Medida` int(10) UNSIGNED DEFAULT NULL,
@@ -261,9 +260,9 @@ CREATE TABLE `materiasprimas` (
 -- Volcado de datos para la tabla `materiasprimas`
 --
 
-INSERT INTO `materiasprimas` (`idMateria`, `nombre_materia`, `descripcion`, `cantidad`, `foto`, `id_categoria`, `id_Medida`, `estado`) VALUES
-(17, 'Harinaaa', 'Bolsas Maseca', 6, NULL, NULL, NULL, 1),
-(18, 'Harina', 'test', 2, '5d7679b0e55b8.png', 4, 5, 1);
+INSERT INTO `materiasprimas` (`idMateria`, `nombre_materia`, `descripcion`, `foto`, `id_categoria`, `id_Medida`, `estado`) VALUES
+(17, 'Harinaaa', 'Bolsas Maseca', NULL, NULL, NULL, 1),
+(18, 'Harina', 'test', '5d7679b0e55b8.png', 4, 5, 1);
 
 -- --------------------------------------------------------
 
@@ -494,15 +493,16 @@ CREATE TABLE `usuarios` (
   `intentos` int(11) DEFAULT NULL,
   `logueado` tinyint(4) UNSIGNED NOT NULL DEFAULT 0,
   `estado_usuario` tinyint(1) NOT NULL DEFAULT 1 COMMENT '1 es activo 0 es inactivo',
-  `id_Tipousuario` int(10) UNSIGNED DEFAULT NULL
+  `id_Tipousuario` int(10) UNSIGNED DEFAULT NULL,
+  `fecha_contrasena` datetime NOT NULL  
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`id_usuario`, `alias`, `correo_usuario`, `clave_usuario`, `foto_usuario`, `token_usuario`, `fecha_creacion`, `intentos`, `logueado`, `estado_usuario`, `id_Tipousuario`) VALUES
-(1, 'Gerardo', 'gerardogo145@gmail.com', '$2y$10$ZE50pCP2.8jSAQxVrCFxBukNvUsehi0S9jh3Fi47bRtjKkowIo4wi', '', NULL, '2019-09-10 16:28:55', 0, 0, 1, 1);
+INSERT INTO `usuarios` (`id_usuario`, `alias`, `correo_usuario`, `clave_usuario`, `foto_usuario`, `token_usuario`, `fecha_creacion`, `intentos`, `logueado`, `estado_usuario`, `id_Tipousuario`,`fecha_contrasena`) VALUES
+(1, 'Gerardo', 'gerardogo145@gmail.com', '$2y$10$ZE50pCP2.8jSAQxVrCFxBukNvUsehi0S9jh3Fi47bRtjKkowIo4wi', '', NULL, '2019-09-10 16:28:55', 0, 0, 1, 1, current_timestamp);
 
 -- --------------------------------------------------------
 
@@ -537,7 +537,7 @@ INSERT INTO `vistas` (`id_vista`, `nombre_vista`, `ruta`, `icono`) VALUES
 (13, 'Tipo de Usuario', 'tipo_usuarios.php', 'users'),
 (14, 'Unidades de medida', 'unidadmedida.php', 'balance-scale'),
 (15, 'Usuarios', 'usuarios.php', 'user-plus'),
-(15, 'Proveedores', 'proveedores.php', 'user-plus');
+(16, 'Proveedores', 'proveedores.php', 'user-plus');
 
 --
 -- Índices para tablas volcadas

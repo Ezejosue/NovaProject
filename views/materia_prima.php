@@ -246,17 +246,12 @@ Dashboard::footerTemplate('materia_prima.js', '#tabla-materia_prima');
         bootstrapValidate("#create_descripcion_materia", "min:6:Ingrese una descripción mayor de 6 caracteres");
         bootstrapValidate("#create_descripcion_materia", "max:80:Ingrese una descripción menor a 80 caracteres");
 
-        bootstrapValidate("#create_cantidad", "min:1:Ingrese una cantidad válida");
-        bootstrapValidate("#create_cantidad", "max:6:Ingrese una cantidad válida");
-
         bootstrapValidate("#nombre_materia", "min:3:Ingrese un nombre mayor a 3 caracteres");
         bootstrapValidate("#nombre_materia", "max:10:Ingrese un nombre menor a 10 caracteres");
 
         bootstrapValidate("#descripcion_materia", "min:6:Ingrese una descripción mayor de 6 caracteres");
         bootstrapValidate("#descripcion_materia", "max:80:Ingrese una descripción menor a 80 caracteres");
 
-        bootstrapValidate("#cantidad", "min:1:Ingrese una cantidad válida");
-        bootstrapValidate("#cantidad", "max:6:Ingrese una cantidad válida");
     </script>
 
     </body>
