@@ -305,8 +305,8 @@ INSERT INTO `mesas` (`id_mesa`, `numero_mesa`, `estado_mesa`) VALUES
 
 CREATE TABLE `pedidos` (
   `id_pedido` int(11) UNSIGNED NOT NULL,
-  `fecha_pedido` date NOT NULL DEFAULT current_date(),
-  `hora_pedido` time NOT NULL DEFAULT current_time(),
+  `fecha_pedido` date NOT NULL,
+  `hora_pedido` time NOT NULL,
   `id_mesa` int(10) UNSIGNED NOT NULL,
   `id_usuario` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
