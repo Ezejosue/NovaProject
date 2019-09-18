@@ -215,7 +215,7 @@ class Ordenes extends Validator
 	}
 
 	public function createPedido(){
-		$sql = 'INSERT INTO pedidos(id_usuario, id_mesa) VALUES (?, ?)';
+		$sql = 'INSERT INTO pedidos(fecha_pedido, hora_pedido, id_usuario, id_mesa) VALUES (CURDATE(), CURTIME(), ?, ?)';
 		$params = array($this->idUsuario, $this->idMesa);
 		return Conexion::executeRow($sql, $params);
 	}
