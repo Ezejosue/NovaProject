@@ -38,6 +38,13 @@ class Cargo extends Validator
     }
     
 	// Métodos para el manejo del SCRUD
+	public function searchCargo()
+    {
+        $sql = 'SELECT id_Cargo, nombre_cargo FROM cargo WHERE id_Cargo = ?';
+        $params = array($this->id);
+        return conexion::getRow($sql, $params);
+	}
+	
     public function readCargo()
     {
         $sql = 'SELECT id_Cargo, nombre_Cargo FROM cargo';

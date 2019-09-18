@@ -30,7 +30,7 @@
                                     placeholder="Nombre De Usuario" required>
                                 <br>
                                 <input id="correo" type="email" name="correo" class="validate form-control"
-                                    placeholder="Correo electronico" required>
+                                    placeholder="Correo electrónico" required>
                                 <br>
                                 <input id="clave1" type="password" name="clave1" class="validate form-control"
                                     placeholder="Contraseña" required>

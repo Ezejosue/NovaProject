@@ -97,6 +97,8 @@ $('#form-create').submit(function()
         console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
     });
 })
+
+//Función que muestra las acciones del tipo de usuario
 function modalPrivilegios(id2)
 {
     $.ajax({
@@ -116,8 +118,9 @@ function modalPrivilegios(id2)
             if (result.status) {
                 arreglo = [];
                 let content = '';
-                let content2 = ''
+                //Por cada acción se crea un checkbox con un id único
                 result.dataset.forEach(function(row){
+                    //Si el estado de la acción es 1, se chequea el checkbox
                     (row.estado == 1) ? check = 'checked' : check = '';
                     content+= `
                     <div class="col-sm-6 col-md-4">
@@ -189,11 +192,15 @@ function modalUpdate(id)
         console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
     });
 }
+
+//Función que verifica el estado de los checkbox para actualizar las acciones
 function modificar(id3){
     $('#form-privilegios').submit(function()
     {
         event.preventDefault();
+        //se declara el arreglo vacío
         var estados = [];
+        //Por cada checkbox se verifica si está chequedo y se agrega el valor 1 al arreglo, si no se agrega 0
         $('.get_value').each(function(){
             if($(this).is(":checked")){
                 estados.push("1");
@@ -201,7 +208,7 @@ function modificar(id3){
                 estados.push("0");
             }
         });
-        //console.log(estados);
+        
         $.ajax({
             url: apiTipo_usuarios + 'updateAcciones',
             type: 'post',
@@ -218,6 +225,7 @@ function modificar(id3){
                 // Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
                 if (result.status) {
                     sweetAlert(1, 'Privilegios modificados correctamente', 'tipo_usuarios.php');
+                    //console.log(estados);
                 } else {
                     sweetAlert(2, result.exception, null);
                 }

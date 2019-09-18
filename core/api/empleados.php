@@ -59,10 +59,10 @@ if (isset($_GET['action'])) {
 															$result['exception'] = 'Genero incorrecto';
 														}
 												} else {
-													$result['exception'] = 'Telefono incorrecto';
+													$result['exception'] = 'Teléfono incorrecto';
 												}
 										} else {
-											$result['exception'] = 'Direccion incorrecto';
+											$result['exception'] = 'Dirección incorrecto';
 										}
 								} else {
 									$result['exception'] = 'Dui incorrecto';
@@ -107,7 +107,7 @@ if (isset($_GET['action'])) {
 							$result['exception'] = 'Empleado no existente';
  						}
 					 } else {
-						 $result['exception'] = 'Empleado incorrecot';
+						 $result['exception'] = 'Empleado incorrecto';
 					 }
 					break;
 
@@ -138,7 +138,7 @@ if (isset($_GET['action'])) {
 																		$result['exception'] = 'Usuario fallido';
 																	}
 																} else {
-																	$result['exception'] = 'Cargo incorrecot';
+																	$result['exception'] = 'Cargo incorrecto';
 																}
 															}	else {
 																$result['exception'] = 'Correo Incorrecto';
@@ -153,10 +153,10 @@ if (isset($_GET['action'])) {
 													$result['exception'] = 'Genero Correcto';
 												}
 											}	else {
-												$result['exception'] = 'Telefono incorrecto';
+												$result['exception'] = 'Teléfono incorrecto';
 											}
 										}	else {
-											$result['exception'] = 'Direccion incorrecta';
+											$result['exception'] = 'Dirección incorrecta';
 										}
 									}	else {
 										$result['exception'] = 'Dui incorrecto';

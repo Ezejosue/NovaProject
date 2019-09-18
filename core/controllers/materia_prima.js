@@ -21,7 +21,6 @@ function fillTable(rows)
                 <td><img src=" ../resources/img/materia/${row.foto}"> </td>
                 <td>${row.nombre_materia}</td>
                 <td>${row.descripcion}</td>
-                <td>${row.cantidad}</td>
                 <td>${row.nombre_categoria}</td>
                 <td>${row.nombre_medida}</td>
                 <td><i class="material-icons">${icon}</i></td>
@@ -207,7 +206,6 @@ function modalUpdate(id)
                 $('#id_materia').val(result.dataset.idMateria);
                 $('#nombre_materia').val(result.dataset.nombre_materia);
                 $('#descripcion_materia').val(result.dataset.descripcion);
-                $('#cantidad').val(result.dataset.cantidad);
                 showSelectCategoria('update_categoria', result.dataset.id_categoria);
                 showSelectUnidad('update_unidad', result.dataset.id_Medida);
                 $('#foto_materia').val(result.dataset.foto);
@@ -263,6 +261,7 @@ $('#form-update').submit(function()
         //Se muestran en consola los posibles errores de la solicitud AJAX
         console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
     });
+    
 })
 
 //Función para eliminar un registro seleccionado

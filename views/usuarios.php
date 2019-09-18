@@ -28,6 +28,7 @@
                                 <th>CORREO</th>
                                 <th>FECHA DE CREACIÓN</th>
                                 <th>TIPO DE USUARIO</th>
+                                <th>ESTADO SESIÓN</th>
                                 <th>ESTADO</th>
                                 <th>ACCIÓN</th>
                             </tr>
@@ -58,7 +59,7 @@
                             </div>
                             <div class="col-sm-11">
                                 <input id="create_alias" type="text" name="create_alias" autocomplete="off" class="form-control"
-                                    placeholder="Nombre De Usuario" required>
+                                    placeholder="Nombre de usuario" required>
                             </div>
                         </div>
                     </div>
@@ -177,6 +178,22 @@
                             </div>
                             <div class="col-sm-11">
                             <input id="update_correo" type="email" name="update_correo" class="validate form-control" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-1">
+                                <i class="fas fa-power-off"></i>
+                            </div>
+                            <div class="col-sm-11">
+                                <div class="custom-control custom-switch">
+                                    <input type="checkbox" class="custom-control-input" id="update_logueo"
+                                        name="update_logueo">
+                                    <label class="custom-control-label" for="update_logueo">
+                                        <i class="fas fa-laptop"></i>
+                                    </label>
+                                </div>
                             </div>
                         </div>
                     </div>

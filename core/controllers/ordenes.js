@@ -219,7 +219,7 @@ function showPrepedido(id){
                         <td>$ ${row.precio}</td>
                         <td>${row.cantidad}</td>
                         <td>${subtotal}</td>
-                        <td><a href="#" onclick="deleteProducto('${row.id_prepedido}')" class="btn btn-danger" style="border-radius: 15px;" data-toggle="tooltip" data-placement="right" title="Eliminar producto"><i class="fas fa-times"></i></a>
+                        <td><a href="#" onclick="deleteProducto(${row.id_platillo}, ${row.id_mesa})" class="btn btn-danger" style="border-radius: 15px;" data-toggle="tooltip" data-placement="right" title="Eliminar producto"><i class="fas fa-times"></i></a>
                         <a href="#modal-modificar" class="btn btn-primary modal-trigger" data-toggle="modal" style="border-radius: 15px;" data-tooltip="tooltip" data-placement="right" title="Editar cantidad"><i class="fas fa-edit"></i>
                         </a>
                         </td>
@@ -367,7 +367,7 @@ function updateNumeroMesa(id, id2){
 }
 
 //Función para eliminar un registro seleccionado
-function deleteProducto(id)
+function deleteProducto(id, id2)
 {
     swal({
         title: 'Advertencia',
@@ -383,7 +383,8 @@ function deleteProducto(id)
                 url: apiOrdenes + 'deleteProducto',
                 type: 'post',
                 data:{
-                    id_prepedido: id
+                    id_platillo: id,
+                    id_mesa: id2,
                 },
                 datatype: 'json'
             })

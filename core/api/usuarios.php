@@ -17,6 +17,7 @@ if (isset($_GET['action'])) {
     session_start();
     $usuario = new Usuarios;
     $result = array('status' => 0, 'exception' => '');
+    date_default_timezone_set('America/El_Salvador');
     //Se verifica si existe una sesión iniciada como administrador para realizar las operaciones correspondientes
     if (isset($_SESSION['idUsuario'])) {
         switch ($_GET['action']) {
@@ -27,7 +28,7 @@ if (isset($_GET['action'])) {
                        if ($usuario->UpdateLogout()) { 
                             header('location: ../../views/');
                         } else {
-                            $result['exception'] = 'No hemos podido destruir su sesion';
+                            $result['exception'] = 'No hemos podido destruir su sesión';
                         }
                     } else {
                         $result['exception'] = 'No encontramos su usuario';
@@ -265,7 +266,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Usuario incorrecto';
                 }
                 break;
-            //Operación para comprobar que haya usuarios registrados
+            //Operación para comprobar que existan usuarios registrados
             case 'read':
                 if ($result['dataset'] = $usuario->readUsuarios()) {
                     $result['status'] = 1;
@@ -384,42 +385,46 @@ if (isset($_GET['action'])) {
 					if ($usuario->getUsuario()) {
 		                if ($usuario->setAlias($_POST['update_alias'])) {
                             if($usuario->setCorreo($_POST['update_correo'])){
-                                if ($usuario->setEstado(isset($_POST['update_estado']) ? 1 : 0)) {
-                                    if ($usuario->setTipo_usuario($_POST['update_tipo'])) {
-                                        //Se comprueba que se haya subido una imagen
-                                        if (is_uploaded_file($_FILES['imagen_usuario']['tmp_name'])) {
-                                            if ($usuario->setFoto($_FILES['imagen_usuario'], $_POST['foto_usuario'])) {
-                                                $archivo = true;
-                                            } else {
-                                                $result['exception'] = $usuario->getImageError();
-                                                $archivo = false;
-                                            }
-                                        } else {
-                                            if (!$usuario->setFoto(null, $_POST['foto_usuario'])) {
-                                                $result['exception'] = $usuario->getImageError();
-                                            }
-                                            $archivo = false;
-                                        }
-                                        if ($usuario->updateUsuario()) {
-                                            $result['status'] = 1;
-                                            if ($archivo) {
-                                                if ($usuario->saveFile($_FILES['imagen_usuario'], $usuario->getRuta(), $usuario->getFoto())) {
-                                                    $result['message'] = 'Categoría modificada correctamente';
+                                if($usuario->setLogueo(isset($_POST['update_logueo']) ? 1 : 0)){
+                                    if ($usuario->setEstado(isset($_POST['update_estado']) ? 1 : 0)) {
+                                        if ($usuario->setTipo_usuario($_POST['update_tipo'])) {
+                                            //Se comprueba que se haya subido una imagen
+                                            if (is_uploaded_file($_FILES['imagen_usuario']['tmp_name'])) {
+                                                if ($usuario->setFoto($_FILES['imagen_usuario'], $_POST['foto_usuario'])) {
+                                                    $archivo = true;
                                                 } else {
-                                                    $result['message'] = 'Categoría modificada. No se guardó el archivo';
+                                                    $result['exception'] = $usuario->getImageError();
+                                                    $archivo = false;
                                                 }
                                             } else {
-                                                $result['message'] = 'Categoría modificada. No se subió ningún archivo';
+                                                if (!$usuario->setFoto(null, $_POST['foto_usuario'])) {
+                                                    $result['exception'] = $usuario->getImageError();
+                                                }
+                                                $archivo = false;
+                                            }
+                                            if ($usuario->updateUsuario()) {
+                                                $result['status'] = 1;
+                                                if ($archivo) {
+                                                    if ($usuario->saveFile($_FILES['imagen_usuario'], $usuario->getRuta(), $usuario->getFoto())) {
+                                                        $result['message'] = 'Categoría modificada correctamente';
+                                                    } else {
+                                                        $result['message'] = 'Categoría modificada. No se guardó el archivo';
+                                                    }
+                                                } else {
+                                                    $result['message'] = 'Categoría modificada. No se subió ningún archivo';
+                                                }
+                                            } else {
+                                                $result['exception'] = 'Operación fallida';
                                             }
                                         } else {
-                                            $result['exception'] = 'Operación fallida';
+                                            $result['exception'] = 'Seleccione un tipo de usuario';
                                         }
                                     } else {
-                                        $result['exception'] = 'Seleccione un tipo de usuario';
+                                        $result['exception'] = 'Estado incorrecto';
                                     }
-                                } else {
-                                    $result['exception'] = 'Estado incorrecto';
-                                }
+                                } else{
+                                    $result['exception'] = 'Logueo incorrecto';
+                                } 
                             } else{
                                 $result['exception'] = 'Correo incorrecto';
                             }
@@ -509,47 +514,13 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Contenido no disponible';
                 }
                 break;
-/* 
-                case 'intentos':
-                $_POST = $usuario->validateForm($_POST);
-                    if ($usuario->setAlias($_POST['usuario'])) {
-                        if ($result['dataset'] = $usuario->SumarIntentos()) {
-                            $result['status'] = 1;
-                            $result['exception'] = 'Tiene 3 intentos, si no su usuario se bloqueara indefinidamente MUERASE';
-                        if ($result['dataset'] = $usuario->BloquearIntentos()) {
-                            $result['status'] = 2;
-                            $result['exception'] = 'Su usuario ha sido bloqueado';
-                        } else {
-                            $result['exception'] = 'No hemos podido bloquear su usuario';
-                        }
-                    } else {
-                        $result['exception'] = 'No pudimos sumar intentos';
-                    }
-                } else {
-                    $result['exception'] = 'Alias incorrecto';
-                }
-                break;
-      
-            case 'BloquearIntentos':
-                $_POST = $usuario->validateForm($_POST);
-                 if ($usuario->setAlias($_POST['usuario'])) {
-                    if ($result['dataset'] = $usuario->BloquearIntentos()) {
-                        $result['status'] = 1;
-                        $result['exception'] = 'Hemos bloqueado el usuario';
-                    } else {
-                        $result['exception'] = 'No hemos podido bloquear usuario';
-                        } 
-                    } else {
-                        $result['exception'] = 'Alias incorrecto';
-                }
-                break;
- */
             //Operación para iniciar sesión
             case 'login':
                 $_POST = $usuario->validateForm($_POST);
                 if ($usuario->setAlias($_POST['usuario'])) {
                     //Se comprueba que el alias exista en la base de datos
-                    if ($usuario->checkAlias()) {
+                    if ($user_data = $usuario->checkAlias()) {
+                        if (date('Y-m-d H:i:s') <= $usuario->getFecha_cambiopw()){
                         if ($usuario->checkActivacion()) {
                             $result['exception'] = 'Su cuenta no ha sido activada';
                         } else {
@@ -593,7 +564,7 @@ if (isset($_GET['action'])) {
                                                                     echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
                                                                 }
                                                             } else {
-
+                                                                $result['exception'] = 'Error al obtener datos';
                                                             }
                                                         } else {
                                                             $result['exception'] = 'Error al asignar el token';
@@ -630,6 +601,10 @@ if (isset($_GET['action'])) {
                                 }
                             }
                         } else {
+                            $result['exception'] = 'Su contraseña no se ha cambio por 90 días. Se te enviará al formulario para actualizarla.';
+                            $result['status'] = 2;
+                        }
+                        } else {
                             $result['exception'] = 'Alias inexistente';
                         }
                     } else {
@@ -645,11 +620,12 @@ if (isset($_GET['action'])) {
                                     $_SESSION['idUsuario'] = $usuario->getId();
                                     $_SESSION['aliasUsuario'] = $usuario->getAlias();
                                     $_SESSION['tipoUsuario'] = $usuario->getTipo_usuario();
+                                    //Se llena la variable 'vistas' con las opciones del menú, según el tipo de usuario que ha iniciado sesión
                                     $_SESSION['vistas'] = $usuario->readMenu();
                                     $_SESSION['tiempo'] = time();
                                     $result['status'] = 1;
                                 } else {
-                                    $result['exception'] = 'No pudimos actualizar su sesion';
+                                    $result['exception'] = 'No pudimos actualizar su sesión';
                                 }
                             } else {
                                 $result['exception'] = 'Error al eliminar el token';

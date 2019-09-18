@@ -35,17 +35,19 @@
                                     <img src="../resources/img/phone.png" style="height: 100px">
                                 </div>
                                 <div class="col-sm-8 md-8">
-                                    <p class="text-left">Introduce el código de verificación que ha sido enviado a tu correo eléctronico.</p>
+                                    <p class="text-left">Introduce el código de verificación que ha sido enviado a tu
+                                        correo electrónico.</p>
                                 </div>
                             </div>
                             <br>
                             <form method="post" id="form-autenticacion">
-                            <div class="row">
-                                <div class="col-sm-12 md-12"> 
-                                    <input type="text" class="form-control" placeholder="Introduce el código" autofocus id="codigo" name="codigo">
+                                <div class="row">
+                                    <div class="col-sm-12 md-12">
+                                        <input type="text" class="form-control" placeholder="Introduce el código"
+                                            autofocus id="codigo" name="codigo">
+                                    </div>
                                 </div>
-                            </div>
-                            <br>
+                                <br>
                                 <button class="btn btn-primary btn-block btn-signin" type="submit">VERIFICAR</button>
                             </form>
                         </div>

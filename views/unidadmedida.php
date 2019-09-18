@@ -163,7 +163,7 @@ Dashboard::footerTemplate('unidadmedida.js', '#tabla-unidad');
             "max:30:Ingrese una descripción menor a 30 caracteres")
     </script>
     <script>
-        bootstrapValidate('#update_unidad', 'required:Ingrese una categoria')
+        bootstrapValidate('#update_unidad', 'required:Ingrese una categoría')
     </script>
 
     </body>

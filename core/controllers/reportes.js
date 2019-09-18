@@ -1,4 +1,3 @@
-
 //Inicializando la función para verificar que un usuario haya iniciado sesión
 $(document).ready(function () {
     showSelectCategoria('id_categoria', 0);
@@ -6,7 +5,6 @@ $(document).ready(function () {
 })
 
 //Constante para establecer la ruta y parámetros de comunicación con la API
-const apiSesion = '../core/api/usuarios.php?action=';
 const apiCategorias = '../core/api/categorias.php?site=private&action=';
 const apiPlatillos = '../core/api/platillos.php?site=private&action=';
 const apiDesperdicios = '../core/api/desperdicios.php?site=private&action=';
@@ -92,10 +90,11 @@ function showSelectReceta(idSelect, value)
     });
 }
 
+var winFeature = 'location=no,toolbar=no,menubar=no,scrollbars=yes,resizable=yes';
 
 function CategoriasClick_1()
 {
-    window.open('../core/report/reporte6.php?id_categoria='+$('#id_categoria').val());
+    window.open('../core/report/reporte6.php?id_categoria='+$('#id_categoria').val(),null,winFeature);
 }
 
 
@@ -117,12 +116,12 @@ function pegarFecha1(){
 
 function CategoriasClick_2()
 {
-    window.open('../core/report/reporte7.php?fecha='+ fecha_string1);
+    window.open('../core/report/reporte7.php?fecha='+ fecha_string1,null,winFeature);
 }
 
 function CategoriasClick_3()
 {
-    window.open('../core/report/reporte8.php?categoria='+$('#id_materia').val());
+    window.open('../core/report/reporte8.php?categoria='+$('#id_materia').val(),null,winFeature);
 }
 
 var fecha;
@@ -142,10 +141,10 @@ function pegarFecha(){
 
 function CategoriasClick_4()
 {
-    window.open('../core/report/reporte9.php?fecha='+fecha_string+'&fecha2='+fecha_string2);
+    window.open('../core/report/reporte9.php?fecha='+fecha_string+'&fecha2='+fecha_string2 ,null,winFeature);
 }
 
 function CategoriasClick_5()
 {
-    window.open('../core/report/reporte10.php?idMes='+$('#idMes').val());
+    window.open('../core/report/reporte10.php?idMes='+$('#idMes').val(),null,winFeature);
 }

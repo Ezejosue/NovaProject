@@ -161,20 +161,20 @@ class Ordenes extends Validator
 	}
 	
 	public function readProductos(){
-	$sql = 'SELECT id_platillo, nombre_platillo, imagen, precio FROM platillos where estado = 1 AND id_categoria = ? LIMIT 1';
+	$sql = 'SELECT id_platillo, nombre_platillo, imagen, precio FROM platillos where estado = 1 AND id_categoria = ?';
     $params = array($this->categoria);
     return conexion::getRows($sql, $params);
 	}
 	
 	public function readPrepedido(){
-		$sql = 'SELECT id_prepedido, id_mesa, id_platillo, cantidad, nombre_platillo, precio, imagen FROM pre_pedido INNER JOIN platillos USING (id_platillo) where id_mesa = ? LIMIT 1';
+		$sql = 'SELECT id_prepedido, id_mesa, id_platillo, cantidad, nombre_platillo, precio, imagen FROM pre_pedido INNER JOIN platillos USING (id_platillo) where id_mesa = ?';
 		$params = array($this->idMesa);
 		return conexion::getRows($sql, $params);
 	}
 
 	public function readPrepedido2(){
 		
-		$sql = 'SELECT id_prepedido, id_mesa, id_platillo, cantidad FROM pre_pedido where id_mesa = ? LIMIT 1';
+		$sql = 'SELECT id_prepedido, id_mesa, id_platillo, cantidad FROM pre_pedido where id_mesa = ?';
 		$params = array($this->idMesa);
 		$data = Conexion::getRows($sql, $params);
 		if($data){
@@ -196,13 +196,13 @@ class Ordenes extends Validator
 	
 	public function deletePrepedido()
 	{
-		$sql = 'DELETE FROM pre_pedido WHERE id_prepedido = ?';
-		$params = array($this->IdPrepedido);
+		$sql = 'DELETE FROM pre_pedido WHERE id_mesa = ? AND id_platillo = ?';
+		$params = array($this->idMesa, $this->platillo);
 		return conexion::executeRow($sql, $params);
 	}
 
 	public function getPre(){
-		$sql = 'SELECT id_prepedido FROM pre_pedido WHERE id_prepedido = ? LIMIT 1';
+		$sql = 'SELECT id_prepedido FROM pre_pedido WHERE id_prepedido = ?';
 		$params = array($this->IdPrepedido);
 		return Conexion::getRow($sql, $params);
 	}
@@ -215,7 +215,7 @@ class Ordenes extends Validator
 	}
 
 	public function createPedido(){
-		$sql = 'INSERT INTO pedidos(id_usuario, id_mesa) VALUES (?, ?)';
+		$sql = 'INSERT INTO pedidos(fecha_pedido, hora_pedido, id_usuario, id_mesa) VALUES (CURDATE(), CURTIME(), ?, ?)';
 		$params = array($this->idUsuario, $this->idMesa);
 		return Conexion::executeRow($sql, $params);
 	}
@@ -246,7 +246,7 @@ class Ordenes extends Validator
 	}
 
 	public function updateNumeroMesa(){
-		$sql = 'UPDATE pre_pedido SET id_mesa = ? WHERE id_mesa = ? LIMIT 1';
+		$sql = 'UPDATE pre_pedido SET id_mesa = ? WHERE id_mesa = ?';
 		$params = array($this->idMesaNueva, $this->idMesa);
 		return Conexion::executeRow($sql, $params);
 	}

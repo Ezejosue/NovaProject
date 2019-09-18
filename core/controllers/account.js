@@ -15,10 +15,11 @@ $(document).ready(function()
 const apiAccount = '../core/api/usuarios.php?site=private&action=';
 const apiSesion = '../core/api/usuarios.php?action=';
 
+//Función que llena el menú según el tipo de usuario
 function fillMenu(rows)
 {
     let content = '';
-    //Se recorren las filas para armar el cuerpo de la tabla y se utiliza comilla invertida para escapar los caracteres especiales
+    //Se recorren las filas para armar el cuerpo de la tabla y se utiliza comillas invertida para escapar los caracteres especiales
     rows.forEach(function(row){
         content += `
         <li>
@@ -29,6 +30,8 @@ function fillMenu(rows)
     });
     $('#main-menu').html(content);
 }
+
+//Función que muestra el menú según el tipo de usuario
 function showMenu()
 {
     $.ajax({

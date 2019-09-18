@@ -21,7 +21,11 @@ $('#form-sesion').submit(function () {
                 const dataset = JSON.parse(response);
                 //Se comprueba si la respuesta es satisfactoria, sino se muestra la excepción
                 if (dataset.status) {
-                    sweetAlert(1, 'Autenticación correcta', 'autenticacion.php');
+                    if (dataset.status == 2) {
+                        sweetAlert(2, dataset.exception, 'actualizarpwd.php');
+                    } else {
+                        sweetAlert(1, 'Autenticación correcta', 'autenticacion.php');
+                    }                    
                 } else {
                     sweetAlert(2, dataset.exception, null);
                 }
@@ -89,54 +93,3 @@ $('#form-recuperar-contrasena').submit(function()
         console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
     });
 })
-
-/* 
-function sumarIntentos (alias)
-{
-    $.ajax({
-        url: apiLogin + 'intentos',
-        type: 'post',
-        data: {
-            usuario: alias
-        },
-        datatype: 'json',
-    })
-    .done(function(response){
-        if (isJSONString(response)) {
-            const result = JSON.parse(response);
-            sweetAlert(2, result.exception, null);
-            if (result.status == 2) {
-                sweetAlert(2, result.exception, null);
-            }
-        }else{
-            console.log(response);
-        }
-    })
-    .fail(function(jqXHR){
-        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
-    });
-}
- */
-/* 
-function bloquearIntentos (alias)
-{
-    $.ajax({
-        url: apiLogin + 'BloquearIntentos',
-        type: 'post',
-        data: {
-            usuario: alias
-        },
-        datatype: 'json',
-    })
-    .done(function(response){
-        if (isJSONString(response)) {
-            const result = JSON.parse(response);
-            sweetAlert(2, result.exception, null);
-        }else{
-            console.log(response);
-        }
-    })
-    .fail(function(jqXHR){
-        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
-    });
-} */

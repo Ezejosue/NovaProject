@@ -11,7 +11,8 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>FECHA Y HORA DEL PEDIDO</th>
+                            <th>FECHA</th>
+                            <th>HORA</th>
                             <th>USUARIO</th>
                             <th>DETALLE</th>
                         </tr>
