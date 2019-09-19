@@ -156,10 +156,19 @@ class Inventarios extends Validator
 	// Metodos para el manejo del SCRUD
 	public function readFacturas()
 	{
-		$sql = 'SELECT correlativo, p.nom_proveedor, fecha_ingreso, u.alias 
+		$sql = 'SELECT id_factura, correlativo, p.nom_proveedor, fecha_ingreso, u.alias 
         FROM facturas f INNER JOIN proveedores p USING(id_proveedor) 
         INNER JOIN usuarios u USING(id_usuario)';
 		$params = array(null);
+		return conexion::getRows($sql, $params);
+	}
+
+	public function readFactura()
+	{
+		$sql = 'SELECT id_factura, correlativo, p.nom_proveedor, fecha_ingreso, u.alias 
+        FROM facturas f INNER JOIN proveedores p USING(id_proveedor) 
+        INNER JOIN usuarios u USING(id_usuario) WHERE id_factura = ?';
+		$params = array($this->id_factura);
 		return conexion::getRows($sql, $params);
 	}
 

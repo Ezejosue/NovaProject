@@ -2,7 +2,6 @@
 $(document).ready(function()
 {
     showTableFacturas();
-    showSelectProveedores('create_proveedor', null);
     showTableDetalleFactura();
 })
 
@@ -22,7 +21,7 @@ function fillTableFacturas(rows)
                 <td>${row.fecha_ingreso}</td>
                 <td>${row.alias}</td>
                 <td>
-                    <a href="#" onclick="modalDetalle(${row.id_pedido})" class="btn btn-info tooltipped" data-tooltip="Modificar"><i class="fa fa-edit"></i></a>
+                    <a href="#" onclick="modalDetalle(${row.id_factura})" class="btn btn-info tooltipped" data-tooltip="Modificar"><i class="fa fa-edit"></i></a>
                 </td>
             </tr>
         `;
@@ -49,83 +48,6 @@ function showTableFacturas()
                 sweetAlert(4, result.exception, null);
             }
             fillTableFacturas(result.dataset);
-        } else {
-            console.log(response);
-        }
-    })
-    .fail(function(jqXHR){
-        //Se muestran en consola los posibles errores de la solicitud AJAX
-        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
-    });
-}
-//Función para crear una nueva factura
-$('#form-create-factura').submit(function()
-{
-    event.preventDefault();
-    $.ajax({
-        url: apiFacturas + 'createFactura',
-        type: 'post',
-        data: new FormData($('#form-create-factura')[0]),
-        datatype: 'json',
-        cache: false,
-        contentType: false,
-        processData: false
-    })
-    .done(function(response){
-        //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
-        if (isJSONString(response)) {
-            const result = JSON.parse(response);
-            //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
-            if (result.status) {
-                $('#form-create-factura')[0].reset();
-                $('#modal-create-factura').modal('hide');
-                sweetAlert(1, 'Factura creada correctamente', null);
-            } else {
-                sweetAlert(2, result.exception, null);
-            }
-        } else {
-            console.log(response);
-            //Se comprueba que el alias no sea repetido
-            sweetAlert(2, error2(response), null);
-        }
-    })
-    .fail(function(jqXHR){
-        //Se muestran en consola los posibles errores de la solicitud AJAX
-        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
-    });
-})
-
-
-//Función para cargar los nombres de proveedores en el select del formulario para agregar facturas
-function showSelectProveedores(idSelect, value)
-{
-    $.ajax({
-        url: apiFacturas + 'readProveedores',
-        type: 'post',
-        data: null,
-        datatype: 'json'
-    })
-    .done(function(response){
-        //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
-        if (isJSONString(response)) {
-            const result = JSON.parse(response);
-            //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
-            if (result.status) {
-                let content = '';
-                if (!value) {
-                    content += '<option value="" disabled selected>Seleccione una opción</option>';
-                }
-                result.dataset.forEach(function(row){
-                    if (row.id_proveedor != value) {
-                        content += `<option value="${row.id_proveedor}">${row.nom_proveedor}</option>`;
-                    } else {
-                        content += `<option value="${row.id_proveedor}" selected>${row.nom_proveedor}</option>`;
-                    }
-                });
-                $('#' + idSelect).html(content);
-            } else {
-                $('#' + idSelect).html('<option value="">No hay opciones</option>');
-            }
         } else {
             console.log(response);
         }
@@ -186,6 +108,40 @@ function showTableDetalleFactura(id)
                 sweetAlert(4, result.exception, null);
             }
             fillTableDetalleFactura(result.dataset);
+        } else {
+            console.log(response);
+        }
+    })
+    .fail(function(jqXHR){
+        //Se muestran en consola los posibles errores de la solicitud AJAX
+        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+    });
+}
+
+function modalFactura(id)
+{
+    $.ajax({
+        url: apiFacturas + 'getFactura',
+        type: 'post',
+        data:{
+            id_factura: id
+        },
+        datatype: 'json'
+    })
+    .done(function(response){
+        //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+        if (isJSONString(response)) {
+            const result = JSON.parse(response);
+            //Se comprueba si el resultado es satisfactorio para mostrar los valores en el formulario, sino se muestra la excepción
+            if (result.status) {
+                $('#form-detalle')[0].reset();
+                $('#id_pedido').val(id);
+                console.log(result.dataset);
+                showTableDetalle(id);
+                $('#modal-detalle').modal('show');
+            } else {
+                sweetAlert(2, result.exception, null);
+            }
         } else {
             console.log(response);
         }

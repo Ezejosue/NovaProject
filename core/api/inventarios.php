@@ -106,17 +106,18 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Pedido incorrecto';
                 }
                 break;
-            case 'getDetalle':
-                if ($inventarios->setIdPedido($_POST['id_pedido'])) {
-                    if ($result['dataset'] = $inventarios->readDetalle()) {
-                        $result['status'] = 1;
+            case 'getFactura':
+                $_POST = $inventarios->validateForm($_POST);
+                    if ($inventarios->setId_factura($_POST['id_factura'])) {
+                        if ($result['dataset'] = $inventarios->readFactura()) {
+                            $result['status'] = 1;
+                        } else {
+                            $result['exception'] = 'Factura inexistente';
+                        }
                     } else {
-                        $result['exception'] = 'Mesa inexistente';
+                        $result['exception'] = 'Factura incorrecta';
                     }
-                } else {
-                    $result['exception'] = 'Mesa incorrecta';
-                }
-                break;
+            break;
                 case 'readDetalle':
                 if ($inventarios->setIdPedido($_POST['id_pedido'])){
                     if ($result['dataset'] = $inventarios->readDetalle()) {

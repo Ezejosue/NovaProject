@@ -218,13 +218,6 @@ class Recetas extends Validator
 		return conexion::executeRow($sql, $params);
 	}
 
-	public function deleteElaboracion()
-	{
-		$sql = 'DELETE FROM elaboraciones WHERE id_elaboracion = ?';
-		$params = array($this->idelab);
-		return conexion::executeRow($sql, $params);
-	}
-
 	public function deleteReceta()
 	{
 		$sql = 'DELETE FROM elaboraciones WHERE id_receta = ? ; DELETE FROM receta WHERE id_receta = ?';
