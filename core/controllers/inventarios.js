@@ -3,6 +3,7 @@ $(document).ready(function()
 {
     showTableInventario();
     showSelectFacturas('create_factura', null);
+    showSelectProveedores('create_proveedor', null);
     showSelectMaterias('create_materia', null);
     showTableDetalleFactura();
 })
@@ -178,6 +179,46 @@ function showSelectMaterias(idSelect, value)
         console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
     });
 }
+//Función para cargar los nombres de proveedores en el select del formulario para agregar facturas
+function showSelectProveedores(idSelect, value)
+{
+    $.ajax({
+        url: apiInventarios + 'readProveedores',
+        type: 'post',
+        data: null,
+        datatype: 'json'
+    })
+    .done(function(response){
+        //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+        if (isJSONString(response)) {
+            const result = JSON.parse(response);
+            //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
+            if (result.status) {
+                let content = '';
+                if (!value) {
+                    content += '<option value="" disabled selected>Seleccione una opción</option>';
+                }
+                result.dataset.forEach(function(row){
+                    if (row.id_proveedor != value) {
+                        content += `<option value="${row.id_proveedor}">${row.nom_proveedor}</option>`;
+                    } else {
+                        content += `<option value="${row.id_proveedor}" selected>${row.nom_proveedor}</option>`;
+                    }
+                });
+                $('#' + idSelect).html(content);
+            } else {
+                $('#' + idSelect).html('<option value="">No hay opciones</option>');
+            }
+        } else {
+            console.log(response);
+        }
+    })
+    .fail(function(jqXHR){
+        //Se muestran en consola los posibles errores de la solicitud AJAX
+        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+    });
+}
+
 
 //Función para crear una nueva factura
 $('#form-create').submit(function()

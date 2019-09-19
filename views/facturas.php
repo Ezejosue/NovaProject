@@ -102,6 +102,39 @@
             </div>
         </div>
     </div>
+    <div id="modal-factura" class="modal fade">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">DETALLE DEL PEDIDO #</h5>
+                    <h5 class="modal-title" id="id-pedido" name="id-pedido"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form method="post" id="form-factura" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <table class="table" id="tabla-detalle-factura">
+                            <thead>
+                                <tr>
+                                    <th>PLATILLO</th>
+                                    <th>CANTIDAD</th>
+                                    <th>PRECIO UNITARIO</th>
+                                    <th>SUBTOTAL</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody-read-detalle">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-body">
+                        <div id="total">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     <?php
 Dashboard::footerTemplate('facturas.js', '#tabla-facturas');
 ?>
