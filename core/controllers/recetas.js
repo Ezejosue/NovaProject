@@ -388,8 +388,8 @@ var idReceta;
 //Función para obtener y mostrar los registros disponibles
 function showTableRecetas(id)
 {
-    $('#tbody-read-materias').html('');
-    idReceta = id;
+    //$('#tbody-read-materias').html('');
+    //idReceta = id;
     $.ajax({
         url: apiRecetas + 'readTableRecetas',
         type: 'post',
@@ -445,6 +445,7 @@ function confirmDeleteMateria(id)
                     //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
                     if (result.status) {
                         sweetAlert(1, 'Materia prima eliminada correctamente', null);
+                        destroy('#table-materias-recetas');
                         showTableRecetas(idReceta);
                     } else {
                         sweetAlert(2, result.exception, null);
@@ -488,7 +489,6 @@ function confirmDeleteReceta(id)
                     //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
                     if (result.status) {
                         sweetAlert(1, 'Receta eliminada correctamente', null);
-                        destroy('#tabla-recetas');
                         showTable();
                     } else {
                         sweetAlert(2, result.exception, null);
