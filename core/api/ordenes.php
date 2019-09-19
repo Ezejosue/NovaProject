@@ -132,7 +132,6 @@ if (isset($_GET['action'])) {
 						if($ordenes->createPedido()){
 							if($ordenes->readUltimoPedido()){
 								if($ordenes->setIdMesa($_POST['idMesa'])){
-									print_r('test');
 									if ($ordenes->readPrepedido()){
 										if($data = $ordenes->readPrepedido2()){
 											foreach($data as $platillo){

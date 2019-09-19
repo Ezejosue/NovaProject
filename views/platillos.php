@@ -253,14 +253,10 @@ Dashboard::footerTemplate('platillos.js', '#tabla-platillos');
 ?>
     <!--Aquí es donde se hace las validaciones del lado del cliente en el crud de platillos   -->
     <script>
-        bootstrapValidate("#create_precio", "required:Ingrese un precio correcto")
-    </script>
-    <script>
-        bootstrapValidate('#create_platillos', 'required:Ingrese un nombre de un platillo')
-    </script>
-    <script>
+        bootstrapValidate("#create_precio", "required:Ingrese un precio correcto");
+        bootstrapValidate('#create_platillos', 'required:Ingrese un nombre de un platillo');
         bootstrapValidate('#create_platillos', 'min:3:Ingrese un platillo mayor de 3 caracteres',
-            "max:80:Ingrese un platillo menor de 80 caracteres")
+            "max:80:Ingrese un platillo menor de 80 caracteres");
     </script>
     </body>
 
