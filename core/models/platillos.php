@@ -236,9 +236,15 @@ class Platillos extends Validator
 		$sql = 'SELECT SUM(cantidad) as Vendidos, nombre_categoria, precio*SUM(cantidad) as Ganancia 
 		from detalle_pedido 
 		INNER JOIN platillos USING(id_platillo) 
-		INNER JOIN categorias USING(id_categoria) GROUP by nombre_categoria LIMIT 10';
+		INNER JOIN categorias USING(id_categoria) GROUP by nombre_categoria';
 		$params = array(null);
 		return conexion::getRows($sql, $params);
 	}
+
+	/* SELECT cantidad, nombre_categoria, precio*cantidad as Ganancia 
+		from detalle_pedido 
+		INNER JOIN platillos USING(id_platillo) 
+		INNER JOIN categorias USING(id_categoria) */
+
 }
 ?>
