@@ -218,6 +218,13 @@ class Recetas extends Validator
 		return conexion::executeRow($sql, $params);
 	}
 
+	public function deleteElaboracion()
+	{
+		$sql = 'DELETE FROM elaboraciones WHERE id_elaboracion = ?';
+		$params = array($this->idelab);
+		return conexion::executeRow($sql, $params);
+	}
+
 	public function deleteReceta()
 	{
 		$sql = 'DELETE FROM elaboraciones WHERE id_receta = ? ; DELETE FROM receta WHERE id_receta = ?';
@@ -228,7 +235,7 @@ class Recetas extends Validator
 	
 	public function getMateriasRecetas()
 	{
-		$sql = 'SELECT id_elaboracion, id_receta, CONCAT(nombre_materia, " (", u.descripcion, ")") AS MateriaPrima, e.cantidad, idMateria 
+		$sql = 'SELECT id_elaboracion, id_receta, CONCAT(nombre_materia, " (", u.descripcion, ")") AS MateriaPrima, e.cantidad
 		FROM elaboraciones e 
 		INNER JOIN materiasprimas USING (idMateria)
 		INNER JOIN unidadmedida u USING (id_Medida) WHERE id_receta = ?';
