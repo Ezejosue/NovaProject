@@ -15,48 +15,39 @@ $pdf->SetAutoPageBreak(true,20);
 $pdf->addPage();
 $platillos = new Platillos();
 $pdf->SetFont('Arial','B',10);
-$data = $platillos->platillos_vendidos();
 $pdf->Ln();
 $pdf->setX(60);
 // Cell(ancho, Alto, texto, borde, salto de linea, alineacion de texto)
 $pdf->Cell(100,5, utf8_decode('REPORTE DE GANANCIA POR PLATILLO'), 0, 0, 'C');  
 $pdf->Ln(10);
 // Seteamos la posición de la proxima celda en forma fija a 3.8 cm hacia la derecha de la pagina
-$pdf->setX(38);
-$pdf->Ln();
+$pdf->setX(20);
+//Se coloca el color del fondo de las celdas en formato rgb
+$pdf->SetFillColor(239, 127, 26);
 $categoria = '';
-
-//Comienza a crear las filas de productos según la consulta mysql del modelo
-foreach($data as $datos){
-    if(utf8_decode($datos['nombre_platillo']) != $categoria){
-        //Se coloca el color del fondo de las celdas en formato rgb
-        $pdf->SetFillColor(239, 127, 26);
-        //Se coloca el color del texto en formato rgb
-        $pdf->SetTextColor(0,0,0);
-        $pdf->Ln();
-        $pdf->setX(30);
-        // Cell(ancho, Alto, texto, borde, salto de linea, alineación de texto, color)
-        //convertimos el texto a utf8
-        $pdf->Cell(160,10, utf8_decode($datos['nombre_platillo']),1,0,'C',true);
-        $pdf->Ln();        
-        $pdf->setX(30);
-        $pdf->Cell(15,10, utf8_decode('Vendidos'),1,0,'C');
-        $pdf->Cell(145,10, utf8_decode('Ganancia ($)'),1,0,'C');
-        $categoria = $datos['nombre_platillo'];
-        //saldo de linea
-        $pdf->Ln();
-    }
-        
-        $pdf->setX(30);
-          // Cell(ancho, Alto, texto, borde, salto de linea, alineación de texto, color)
-        //convertimos el texto a utf8
-        $pdf->Cell(15,10, utf8_decode($datos['Vendidos']),1,0,'C');
-        $pdf->Cell(145,10, utf8_decode($datos['Ganancia']),1,0,'C');
-        $pdf->Ln();
+if($platillos->platillos_vendidos()) {
+  $data = $platillos->platillos_vendidos();
+  //Se coloca el color del texto en formato rgb
+  $pdf->SetTextColor(0,0,0);
+  // Cell(ancho, Alto, texto, borde, salto de linea, alineación de texto, color)
+  //convertimos el texto a utf8
+  $pdf->Cell(125,10, utf8_decode('Platillo'),1,0,'C', true);
+  $pdf->Cell(20,10, utf8_decode('Vendidos'),1,0,'C', true);
+  $pdf->Cell(30,10, utf8_decode('Ganancia ($)'),1,0,'C', true);
+  //Comienza a crear las filas de productos según la consulta mysql del modelo
+  foreach($data as $datos){
+      $pdf->Ln();
+      $pdf->setX(20);
+      // Cell(ancho, Alto, texto, borde, salto de linea, alineación de texto, color)
+      //convertimos el texto a utf8
+      $pdf->Cell(125,10, utf8_decode($datos['nombre_platillo']),1,0,'C');
+      $pdf->Cell(20,10, utf8_decode($datos['Vendidos']),1,0,'C');
+      $pdf->Cell(30,10, utf8_decode($datos['Ganancia']),1,0,'C');
+  }
+} else {
+  $pdf->setX(37);
+  $pdf->Cell(145,5, utf8_decode('NO HAY DATOS REGISTRADOS'), 0, 0, 'C');
 }
-
-
-
 
 $pdf->AliasNbPages();
 $pdf->Output();
