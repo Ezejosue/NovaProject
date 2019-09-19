@@ -233,18 +233,13 @@ class Platillos extends Validator
 
 	public function platillos_vendidos_categoria()
 	{//funcion para traer la consulta de platillos más baratos
-		$sql = 'SELECT SUM(cantidad) as Vendidos, nombre_categoria, precio*SUM(cantidad) as Ganancia 
+		$sql = 'SELECT SUM(cantidad) as cant, nombre_platillo, nombre_categoria, precio*SUM(cantidad) as Ganancia 
 		from detalle_pedido 
 		INNER JOIN platillos USING(id_platillo) 
-		INNER JOIN categorias USING(id_categoria) GROUP by nombre_categoria';
+		INNER JOIN categorias USING(id_categoria) GROUP BY nombre_platillo';
 		$params = array(null);
 		return conexion::getRows($sql, $params);
 	}
-
-	/* SELECT cantidad, nombre_categoria, precio*cantidad as Ganancia 
-		from detalle_pedido 
-		INNER JOIN platillos USING(id_platillo) 
-		INNER JOIN categorias USING(id_categoria) */
 
 }
 ?>
