@@ -8,6 +8,8 @@ $(document).ready(function()
 //Constante para establecer la ruta y parámetros de comunicación con la API
 const apiRecetas = '../core/api/recetas.php?site=private&action=';
 
+//variable para usar el id de la receta en deleteMateriaPrima y updateMateriaPrima
+var idReceta;
 //Función para llenar tabla con los datos de los registros
 function fillTable(rows)
 {
@@ -384,12 +386,11 @@ function fillTableRecetas(rows)
     $('#tbody-read-materias').html(content);
     table('#table-materias-recetas');
 }
-var idReceta;
+
 //Función para obtener y mostrar los registros disponibles
 function showTableRecetas(id)
 {
-    //$('#tbody-read-materias').html('');
-    //idReceta = id;
+    idReceta = id;
     $.ajax({
         url: apiRecetas + 'readTableRecetas',
         type: 'post',
@@ -445,7 +446,6 @@ function confirmDeleteMateria(id)
                     //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
                     if (result.status) {
                         sweetAlert(1, 'Materia prima eliminada correctamente', null);
-                        destroy('#table-materias-recetas');
                         showTableRecetas(idReceta);
                     } else {
                         sweetAlert(2, result.exception, null);
