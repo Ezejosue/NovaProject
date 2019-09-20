@@ -80,7 +80,7 @@
                     </button>
                 </div>
                 <form class="was-validated" method="post" id="form-update-factura" enctype="multipart/form-data" autocomplete="off">
-                    <input type="hiddenx" id="id_factura" name="id_factura" />
+                    <input type="hidden" id="id_factura" name="id_factura" />
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-1">
@@ -134,6 +134,10 @@
                         </div>
                     </div>
                     <div class="modal-body">
+                        <div id="estado">
+                        </div>
+                    </div>
+                    <div class="modal-body">
                         <div id="responsable">
                         </div>
                     </div>
@@ -141,7 +145,7 @@
                         <div id="total">
                         </div>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body" id='estado_btn'>
                         <div class="row">
                             <div class="col-sm-11">
                                 <div class="custom-control custom-switch">

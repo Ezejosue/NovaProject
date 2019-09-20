@@ -78,7 +78,9 @@ function fillTableDetalleFactura(rows)
         alias = row.alias;
         fecha_ingreso = row.fecha_ingreso;
         correlativo = row.correlativo;
+        estado = row.estado;
 
+        if (row.estado == 2){
         content += `
             <tr>
                 <td>${row.Materia}</td>
@@ -86,24 +88,84 @@ function fillTableDetalleFactura(rows)
                 <td>$${row.precio}</td>
                 <td>$${subtotal}</td>
                 <td>
-                <a href="#" onclick="modalUpdateMaterias(${row.id_inventario})" class="btn btn-info tooltipped" data-tooltip="Modificar"><i class="fa fa-edit"></i></a>
-                <a href="#" onclick="confirmDeleteMateria(${row.id_inventario})" class="btn btn-danger tooltipped" data-tooltip="Eliminar"><i class="fa fa-times"></i></a>
+                    <a href="#" onclick="modalUpdateMaterias(${row.id_inventario})" class="btn btn-info tooltipped" data-tooltip="Modificar"><i class="fa fa-edit"></i></a>
+                    <a href="#" onclick="confirmDeleteMateria(${row.id_inventario})" class="btn btn-danger tooltipped" data-tooltip="Eliminar"><i class="fa fa-times"></i></a>
                 </td>
             </tr>
         `;
+        } else {
+            content += `
+            <tr>
+                <td>${row.Materia}</td>
+                <td>${row.cantidad}</td>
+                <td>$${row.precio}</td>
+                <td>$${subtotal}</td>
+                <td>NO MODIFICABLE</td>
+            </tr>
+        `;
+        }
 
         console.log(row.id_inventario);
         
         //$("#id-pedido").text(row.id_pedido);
     });
+
+    let nombre_estado = '';
+
+    if (estado == 0) {
+
+        nombre_estado = 'Anulada';
+
         contentTotal += `<h6>TOTAL DE FACTURA: $${total}.</h6>`;
         contentResponsable += `<h6>USUARIO: ${alias}.</h6>`;
         contentFecha += `<h6>FECHA DE INGRESO: ${fecha_ingreso}.</h6>`;
         contentCorrelativo += `<h6># CORRELATIVO: ${correlativo}.</h6>`;
-    $("#total").html(contentTotal);
-    $("#correlativo").html(contentCorrelativo);
-    $("#responsable").html(contentResponsable);
-    $("#fecha_ingreso").html(contentFecha);
+        contentEstado += `<h6>ESTADO: ${nombre_estado}.</h6>`;
+        $("#total").html(contentTotal);
+        $("#correlativo").html(contentCorrelativo);
+        $("#responsable").html(contentResponsable);
+        $("#fecha_ingreso").html(contentFecha);
+        $("#estado").html(contentEstado);
+        destroy('#estado_btn');
+    } else {
+        if (estado == 1) {
+
+            nombre_estado = 'Ingresada';
+    
+            contentTotal += `<h6>TOTAL DE FACTURA: $${total}.</h6>`;
+            contentResponsable += `<h6>USUARIO: ${alias}.</h6>`;
+            contentFecha += `<h6>FECHA DE INGRESO: ${fecha_ingreso}.</h6>`;
+            contentCorrelativo += `<h6># CORRELATIVO: ${correlativo}.</h6>`;
+            contentEstado += `<h6>ESTADO: ${nombre_estado}.</h6>`;
+            $("#total").html(contentTotal);
+            $("#correlativo").html(contentCorrelativo);
+            $("#responsable").html(contentResponsable);
+            $("#fecha_ingreso").html(contentFecha);
+            $("#estado").html(contentEstado);
+        } else {
+            if (estado == 2) {
+
+                nombre_estado = 'En proceso';
+        
+                contentTotal += `<h6>TOTAL DE FACTURA: $${total}.</h6>`;
+                contentResponsable += `<h6>USUARIO: ${alias}.</h6>`;
+                contentFecha += `<h6>FECHA DE INGRESO: ${fecha_ingreso}.</h6>`;
+                contentCorrelativo += `<h6># CORRELATIVO: ${correlativo}.</h6>`;
+                contentEstado += `<h6>ESTADO: ${nombre_estado}.</h6>`;
+                $("#total").html(contentTotal);
+                $("#correlativo").html(contentCorrelativo);
+                $("#responsable").html(contentResponsable);
+                $("#fecha_ingreso").html(contentFecha);
+                $("#estado").html(contentEstado);
+            }
+        }
+    }
+
+    
+
+    
+
+
     $('#tbody-read-detalle-factura').html(content);
     table('#tabla-detalle-factura');
 }
@@ -178,6 +240,45 @@ function showSelectProveedores(idSelect, value)
     });
 }
 
+//Función para modificar un registro seleccionado previamente
+$('#form-update-factura').submit(function()
+{
+    event.preventDefault();
+    $.ajax({
+        url: apiFacturas + 'updateFactura',
+        type: 'post',
+        data: new FormData($('#form-update-factura')[0]),
+        datatype: 'json',
+        cache: false,
+        contentType: false,
+        processData: false
+    })
+    .done(function(response){
+        //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+        if (isJSONString(response)) {
+            const result = JSON.parse(response);
+            //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
+            if (result.status) {
+                $('#modal-update-factura').modal('hide');
+                sweetAlert(1, 'Factura modificada correctamente', null);
+                //Se destruye la tabla de materias primas y se vuelve a crear para que muestre los cambios realizados
+                destroy('#tabla-facturas');
+                showTableFacturas();
+            } else {
+                sweetAlert(2, result.exception, null);
+            }
+        } else {
+            console.log(response);
+            //Se comprueba que el alias no sea repetido
+            sweetAlert(2, error2(response), null);
+        }
+    })
+    .fail(function(jqXHR){
+        //Se muestran en consola los posibles errores de la solicitud AJAX
+        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+    });
+})
+
 //Función para mostrar materias primas de las recetas disponibles
 function modalFacturaDatos(id)
 {
@@ -243,4 +344,20 @@ function modalFacturaDetalle(id)
         //Se muestran en consola los posibles errores de la solicitud AJAX
         console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
     });
+}
+
+//Función para verificar que nombre de la categoría no se repita ya que es un dato de tipo único
+function error2(response){
+    switch (response){
+        case 'Dato duplicado, no se puede guardar':
+            mensaje = 'Nombre de receta ya existe';
+            break;
+        case 'Registro ocupado, no se puede eliminar':
+            mensaje = 'Tipo de usuario ocupado, no se puede eliminar'
+            break;
+        default:
+            mensaje = 'Ocurrió un problema, consulte al administrador'
+            break;
+    }
+    return mensaje;
 }

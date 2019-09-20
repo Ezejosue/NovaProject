@@ -213,7 +213,7 @@ class Inventarios extends Validator
     
     public function readInventario()
 	{
-		$sql = 'SELECT correlativo, CONCAT(nombre_materia, " (" ,u.descripcion, ")") AS Materia, cantidad, p.nom_proveedor, fecha_ingreso, us.alias 
+		$sql = 'SELECT correlativo, f.estado, CONCAT(nombre_materia, " (" ,u.descripcion, ")") AS Materia, cantidad, p.nom_proveedor, fecha_ingreso, us.alias 
         FROM inventarios INNER JOIN materiasprimas m USING(idMateria) 
         INNER JOIN unidadmedida u USING(id_Medida) 
         INNER JOIN facturas f USING(id_factura) 
@@ -228,7 +228,14 @@ class Inventarios extends Validator
 		$sql = 'INSERT INTO `inventarios` (`idMateria`, `cantidad`, `precio`, `id_factura`) VALUES (?, ?, ?, ?);';
 		$params = array($this->idMateria, $this->cantidad, $this->precio, $this->id_factura);
 		return conexion::executeRow($sql, $params);
-    }
+	}
+	
+	public function updateFactura()
+	{
+		$sql = 'UPDATE facturas SET correlativo = ?, id_proveedor = ? WHERE id_factura = ?';
+		$params = array($this->correlativo,  $this->id_proveedor, $this->id_factura);
+		return conexion::executeRow($sql, $params);
+	}
 	
 	public function getDesperdicios()
 	{
