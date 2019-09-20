@@ -95,41 +95,31 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Correlativo incorrecto';
                 }
             break;
-            case 'get':
-                if ($pedido->setIdPedido($_POST['id_pedido'])) {
-                    if ($result['dataset'] = $pedido->getPedido()) {
+            case 'getFactura':
+                if ($inventarios->setId_factura($_POST['id_factura'])) {
+                    if ($result['dataset'] = $inventarios->getFactura()) {
                         $result['status'] = 1;
                     } else {
-                        $result['exception'] = 'Pedido inexistente';
+                        $result['exception'] = 'Factura inexistente';
                     }
                 } else {
-                    $result['exception'] = 'Pedido incorrecto';
+                    
+                    $result['exception'] = 'Factura incorrecta';
                 }
                 break;
-            case 'getFactura':
-                $_POST = $inventarios->validateForm($_POST);
-                    if ($inventarios->setId_factura($_POST['id_factura'])) {
-                        if ($result['dataset'] = $inventarios->readFactura()) {
-                            $result['status'] = 1;
-                        } else {
-                            $result['exception'] = 'Factura inexistente';
-                        }
-                    } else {
-                        $result['exception'] = 'Factura incorrecta';
-                    }
-            break;
-                case 'readDetalle':
-                if ($inventarios->setIdPedido($_POST['id_pedido'])){
-                    if ($result['dataset'] = $inventarios->readDetalle()) {
+            case 'readDetalleFactura':
+                if ($inventarios->setId_factura($_POST['id_factura'])) {
+                    if ($result['dataset'] = $inventarios->readFactura()) {
+                        
                         $result['status'] = 1;
-
+                        /* print_r($result['dataset']); */
                     } else {
                         $result['exception'] = 'No hay detalles registrados';
                     }
-                } else {
-                    $result['exception'] = 'Pedido inexistente';
+                }else{
+                    $result['exception'] = 'Factura incorrecta';
                 }
-                break;
+            break;
 			    default:
 				    exit('Acción no disponible');
         }
