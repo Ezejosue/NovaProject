@@ -165,11 +165,21 @@ class Inventarios extends Validator
 
 	public function readFactura()
 	{
-		$sql = 'SELECT id_factura, correlativo, p.nom_proveedor, fecha_ingreso, u.alias 
-        FROM facturas f INNER JOIN proveedores p USING(id_proveedor) 
-        INNER JOIN usuarios u USING(id_usuario) WHERE id_factura = ?';
+		$sql = 'SELECT correlativo, id_inventario, p.nom_proveedor, fecha_ingreso, us.alias , CONCAT(nombre_materia, " (" ,u.descripcion, ")") AS Materia, cantidad, precio 
+		FROM inventarios inv INNER JOIN materiasprimas m USING(idMateria) 
+		INNER JOIN unidadmedida u USING(id_Medida) 
+		INNER JOIN facturas f USING(id_factura) 
+		INNER JOIN usuarios us USING(id_usuario) 
+		INNER JOIN proveedores p USING(id_proveedor) WHERE id_factura = ?';
 		$params = array($this->id_factura);
 		return conexion::getRows($sql, $params);
+	}
+
+	public function getFactura()
+	{
+		$sql = 'SELECT id_factura, correlativo, id_proveedor FROM facturas WHERE id_factura = ? LIMIT 1';
+		$params = array($this->id_factura);
+		return conexion::getRow($sql, $params);
 	}
 
 	public function createFactura()
