@@ -424,6 +424,13 @@ class Usuarios extends Validator
 		$params = array($this->id);
 		return Conexion::getRow($sql, $params);
 	}
+
+	public function updateProfile()
+	{
+		$sql = 'UPDATE usuarios SET alias = ?, foto_usuario = ?, correo_usuario = ? WHERE id_usuario = ?';
+		$params = array($this->alias, $this->foto, $this->correo, $this->id);
+		return Conexion::executeRow($sql, $params);
+	}
 	//Método para modificar la información de un usuario
 	public function updateUsuario()
 	{
@@ -444,7 +451,7 @@ class Usuarios extends Validator
 		$hash = password_hash($this->clave, PASSWORD_DEFAULT);
 		$sql = 'UPDATE usuarios SET clave_usuario = ?, fecha_contrasena = CURRENT_TIMESTAMP WHERE token_usuario = ?';
 		$params = array($hash, $this->token);
-		return Conexion::executeRow($sql, $params);
+			return Conexion::executeRow($sql, $params);
 	}
 
 	//Método para contar el numero de registros en la tabla productos

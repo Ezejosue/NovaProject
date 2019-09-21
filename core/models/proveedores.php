@@ -57,7 +57,7 @@ class Proveedores extends Validator
 
     public function setTelefono($value)
 	{
-		if($this->validateAlphanumeric($value, 1, 8)) {
+		if($this->validateTelefono($value)) {
 			$this->telefono = $value;
 			return true;
 		} else {
@@ -72,7 +72,7 @@ class Proveedores extends Validator
 
     public function setEstado($value)
 	{
-		if($this->validateId($value)) {
+		if ($value == 0 || $value == 1) {
 			$this->estado = $value;
 			return true;
 		} else {

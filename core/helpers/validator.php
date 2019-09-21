@@ -130,6 +130,16 @@ class Validator
 		}
 	}
 
+	//validación que permite ingresar solamente números.
+	public function validateCorrelativo($value)
+	{
+		if (preg_match('/^[0-9]{8}$/', $value)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	//validación que permite ingresar solamente letras y números.
 	public function validateAlphanumeric($value, $minimum, $maximum)
 	{
@@ -143,7 +153,7 @@ class Validator
 	//validación para el DUI que permite ingresar números del 0 al 9 sin espacios en blanco y permitiendo el guión.
 	public function validateDui($value)
 	{
-		if (preg_match('/^[0-9]{8}+(-)+[0-9]{1}$/', $value)) {
+		if (preg_match('/^[0-9]{8}+(-)+[0-9]$/', $value)) {
 			return true;
 		} else {
 			return false;

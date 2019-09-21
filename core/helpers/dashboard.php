@@ -57,16 +57,12 @@ class Dashboard
 			<meta http-equiv="X-UA-Compatible" content="ie=edge">
 			<title>Dashboard - '.$title.'</title>
 
-			<!-- Fontfaces CSS-->
 			<link href="../resources/css/font-face.css" rel="stylesheet" media="all">
 			<link href="../resources/css/all.css" rel="stylesheet" media="all">
 			<link href="../resources/extras/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
-			<!-- Bootstrap CSS-->
 			<link href="../resources/extras/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
 			<link href="../resources/extras/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
-			<!-- Main CSS-->
 			<link href="../resources/css/theme.css" rel="stylesheet" media="all">
-			<!-- Vendor CSS-->
 			<link href="../resources/extras/animsition/animsition.min.css" rel="stylesheet" media="all">
 			<link href="../resources/css/dataTables.bootstrap4.min.css" rel="stylesheet" media="all">
 			<link href="../resources/css/jquery.dataTables.min.css" rel="stylesheet" media="all">
@@ -248,19 +244,7 @@ class Dashboard
 			if ($filename != 'index.php') {
 				header('location: index.php');
 			} else {
-				print('
-					<header>
-						<div class="navbar-fixed">
-							<nav class="teal">
-								<div class="nav-wrapper">
-									<a href="index.php" class="brand-logo"><i class="material-icons">dashboard</i></a>
-								</div>
-							</nav>
-						</div>
-					</header>
-					<main class="container">
-						<h3 class="center-align">'.$title.'</h3>
-				');
+				header('location: index.php');
 			}
 		}
 	}
@@ -268,7 +252,6 @@ class Dashboard
 	public static function footerTemplate($controller, $tabla)
 	{
 		print('
-
 			<script src="../resources/js/jquery-3.2.1.min.js"></script>
             <script src="../resources/js/bootstrap.bundle.min.js"></script>
             <script src="../resources/extras/animsition/animsition.min.js"></script>
@@ -290,6 +273,7 @@ class Dashboard
 			<script>bootstrapValidate("#clave_nueva_1", "min:6:Ingrese una contraseña mayor a 5 caracteres")</script>
 			<script>bootstrapValidate("#clave_nueva_2", "min:6:Ingrese una contraseña mayor a 5 caracteres")</script>
 			<script>bootstrapValidate("#profile_alias", "required:Ingrese un nombre de usuario")</script>
+			<script>bootstrapValidate("#profile_correo", "required:Ingrese un correo")</script>
 			
 		');
 	}
@@ -310,9 +294,9 @@ class Dashboard
             <script type="text/javascript" src="../core/helpers/functions.js"></script>
             <script type="text/javascript" src="../core/controllers/account.js"></script>
             <script type="text/javascript" src="../core/controllers/'.$controller.'"></script>
-</body>
+		</body>
 
-</html>
+		</html>
 		');
 	}
 	private function modals()
@@ -328,13 +312,7 @@ class Dashboard
 								</button>
 						</div>
 						<form method="post" id="form-profile" enctype="multipart/form-data">
-							<select id="profile_tipo" name="profile_tipo" hidden>
 							<input type="hidden" id="profile_imagen" name="profile_imagen" />
-							<div class="custom-control custom-switch" hidden>
-                                <input type="checkbox" class="custom-control-input" id="profile_estado" name="profile_estado">
-                                <label class="custom-control-label" for="profile_estado">
-                                </label>
-                        	 </div>
 							<div class="modal-body">
 								<div class="row">
 									<div class="col-sm-1">
@@ -348,14 +326,23 @@ class Dashboard
 							<div class="modal-body">
 								<div class="row">
 									<div class="col-sm-1">
+										<i class="fa fa-envelope"></i>
+									</div>
+									<div class="col-sm-11">
+										<input id="profile_correo" type="email" name="profile_correo" class="form-control" required>
+									</div>
+								</div>
+							</div>
+							<div class="modal-body">
+								<div class="row">
+									<div class="col-sm-1">
 										<i class="fa fa-image"></i>
 									</div>
 									<div class="col-sm-11">
 										<div class="custom-file">
 											<input type="file" class="custom-file-input" id="profile_foto"
-												name="profile_foto" required>
+												name="profile_foto">
 											<label class="custom-file-label" for="profile_foto">Escoge un archivo</label>
-											<div class="invalid-feedback">Example invalid custom file feedback</div>
 										</div>
 									</div>
 								</div>

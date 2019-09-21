@@ -234,7 +234,7 @@ class Recetas extends Validator
 	
 	public function getMateriasRecetas()
 	{
-		$sql = 'SELECT id_elaboracion, id_receta, CONCAT(nombre_materia, " (", u.descripcion, ")") AS MateriaPrima, e.cantidad, idMateria 
+		$sql = 'SELECT id_elaboracion, id_receta, CONCAT(nombre_materia, " (", u.descripcion, ")") AS MateriaPrima, e.cantidad
 		FROM elaboraciones e 
 		INNER JOIN materiasprimas USING (idMateria)
 		INNER JOIN unidadmedida u USING (id_Medida) WHERE id_receta = ?';

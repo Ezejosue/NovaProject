@@ -122,46 +122,33 @@ if (isset($_GET['action'])) {
                 break;
             //Operación para editar el perfil del usuario que ha iniciado sesión
             case 'editProfile':
+                $_POST = $usuario->validateForm($_POST);
                 if ($usuario->setId($_SESSION['idUsuario'])) {
                     if ($usuario->getUsuario()) {
-                        $_POST = $usuario->validateForm($_POST);
                         if ($usuario->setAlias($_POST['profile_alias'])) {
-							if ($usuario->setEstado(isset($_POST['profile_estado']) ? 1 : 0)) {
-                                if ($usuario->setTipo_usuario($_POST['profile_tipo'])) {
-                                    //Se comprueba que se haya subido una imagen
-                                    if (is_uploaded_file($_FILES['profile_foto']['tmp_name'])) {
-                                        if ($usuario->setFoto($_FILES['profile_foto'], $_POST['profile_imagen'])) {
-                                            $archivo = true;
-                                        } else {
-                                            $result['exception'] = $usuario->getImageError();
-                                            $archivo = false;
-                                        }
+                            if ($usuario->setCorreo($_POST['profile_correo'])) {
+                                //Se comprueba que se haya subido una imagen
+                                if (is_uploaded_file($_FILES['profile_foto']['tmp_name'])) {
+                                    if ($usuario->setFoto($_FILES['profile_foto'], $_POST['profile_imagen'])) {
+                                        $archivo = true;
                                     } else {
-                                        if (!$usuario->setFoto(null, $_POST['profile_imagen'])) {
-                                            $result['exception'] = $usuario->getImageError();
-                                        }
+                                        $result['exception'] = $usuario->getImageError();
                                         $archivo = false;
                                     }
-                                    if ($usuario->updateUsuario()) {
-                                        $result['status'] = 1;
-                                        if ($archivo) {
-                                            if ($usuario->saveFile($_FILES['profile_foto'], $usuario->getRuta(), $usuario->getFoto())) {
-                                                $result['message'] = 'Categoría modificada correctamente';
-                                            } else {
-                                                $result['message'] = 'Categoría modificada. No se guardó el archivo';
-                                            }
-                                        } else {
-                                            $result['message'] = 'Categoría modificada. No se subió ningún archivo';
-                                        }
-                                    } else {
-                                        $result['exception'] = 'Operación fallida';
-                                    }
                                 } else {
-                                    $result['exception'] = 'Seleccione un tipo de usuario';
+                                    if (!$usuario->setFoto(null, $_POST['profile_imagen'])) {
+                                        $result['exception'] = $usuario->getImageError();
+                                    }
+                                    $archivo = false;
                                 }
-							} else {
-								$result['exception'] = 'Estado incorrecto';
-							}
+                                if ($usuario->updateProfile()) {
+                                    $result['status'] = 1;
+                                } else {
+                                    $result['exception'] = 'Operación fallida';
+                                }
+                            } else {
+                                $result['exception'] = 'Correo incorrecto';
+                            }
 						} else {
 							$result['exception'] = 'Alias incorrecto';
 						}

@@ -175,10 +175,11 @@ class Categorias extends Validator
 
 	public function ventas_categoria_reporte($id_categoria)
 	{
-		$sql = "SELECT SUM(cantidad) as cantidad, nombre_platillo, precio*SUM(cantidad) as subtotal FROM platillos 
+		$sql = "SELECT SUM(cantidad) as cantidad, nombre_platillo, precio*SUM(cantidad) as subtotal, nombre_categoria
+		FROM platillos 
 		INNER JOIN categorias USING (id_categoria) 
 		INNER JOIN detalle_pedido USING (id_platillo) 
-		WHERE platillos.estado = 1 AND id_categoria = $id_categoria  GROUP BY nombre_platillo ORDER BY subtotal";
+		WHERE id_categoria = $id_categoria  GROUP BY nombre_platillo ORDER BY subtotal";
 		$params = array(null);
 		return conexion::getRows($sql, $params);
 	}

@@ -1,41 +1,57 @@
 //Inicializando la función para mostrar la tabla de unidad de mesas
 $(document).ready(function()
 {
-    showTable();
+    showTableInventario();
+    showSelectFacturas('create_factura', null);
+    showSelectProveedores('create_proveedor', null);
+    showSelectMaterias('create_materia', null);
+    showTableDetalleFactura();
 })
 
 // Constante para establecer la ruta y parámetros de comunicación con la API
-const apiPedidos = '../core/api/pedidos.php?site=private&action=';
+const apiInventarios = '../core/api/inventarios.php?site=private&action=';
 
-// Función para llenar tabla con los datos de los registros
-function fillTable(rows)
+
+
+function fillTableDetalleFactura(rows)
 {
     let content = '';
+    let total = 0;
+    let content2 = '';
+    let content3 = '';
+
     //Se recorren las filas para armar el cuerpo de la tabla y se utiliza comilla invertida para escapar los caracteres especiales
     rows.forEach(function(row){
+
+        subtotal = parseFloat(row.cantidad * row.precio).toFixed(2);
+        total = parseFloat(subtotal) + parseFloat(total);
+        total = parseFloat(total).toFixed(2);
         content += `
             <tr>
-                <td>${row.id_pedido}</td>
-                <td>${row.fecha_pedido}</td>
-                <td>${row.hora_pedido}</td>
-                <td>${row.alias}</td>
-                <td>
-                    <a href="#" onclick="modalDetalle(${row.id_pedido})" class="btn btn-info tooltipped" data-tooltip="Modificar"><i class="fa fa-edit"></i></a>
-                </td>
+                <td>${row.nombre_platillo}</td>
+                <td>${row.cantidad}</td>
+                <td>$${row.precio}</td>
+                <td>$${subtotal}</td>
             </tr>
         `;
+        
+        $("#id-pedido").text(row.id_pedido);
     });
-    $('#tbody-read').html(content);
-    table('#tabla-pedidos');
+    content2 += `<h6>TOTAL A PAGAR: $${total}</h6>`;
+    content3 += `<h6>USUARIO: $${rows.nombre_usuario}</h6>`;
+    $("#total").html(content2);
+    $("#usuario").html(content3);
+    $('#tbody-read-detalle').html(content);
 }
 
-//Función para obtener y mostrar los registros disponibles
-function showTable()
+function showTableDetalleFactura(id)
 {
     $.ajax({
-        url: apiPedidos+ 'read',
+        url: apiInventarios + 'readDetalle',
         type: 'post',
-        data: null,
+        data: {
+            id_pedido: id
+        },
         datatype: 'json'
     })
     .done(function(response){
@@ -46,7 +62,7 @@ function showTable()
             if (!result.status) {
                 sweetAlert(4, result.exception, null);
             }
-            fillTable(result.dataset);
+            fillTableDetalleFactura(result.dataset);
         } else {
             console.log(response);
         }
@@ -60,7 +76,7 @@ function showTable()
 function modalDetalle(id)
 {
     $.ajax({
-        url: apiPedidos + 'getDetalle',
+        url: apiInventarios + 'getDetalle',
         type: 'post',
         data:{
             id_pedido: id
@@ -125,7 +141,7 @@ function fillTableDetalle(rows)
 function showTableDetalle(id)
 {
     $.ajax({
-        url: apiPedidos + 'readDetalle',
+        url: apiInventarios + 'readDetalle',
         type: 'post',
         data: {
             id_pedido: id
@@ -149,4 +165,20 @@ function showTableDetalle(id)
         //Se muestran en consola los posibles errores de la solicitud AJAX
         console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
     });
+}
+
+function error2(response)
+{
+    switch (response){
+        case 'Dato duplicado, no se puede guardar':
+            mensaje = 'Correlativo ya existe';
+            break;
+        case 'Registro ocupado, no se puede eliminar':
+            mensaje = 'Tipo de usuario ocupado, no se puede eliminar'
+            break;
+        default:
+            mensaje = 'Ocurrió un problema, consulte al administrador'
+            break;
+    }
+    return mensaje;
 }

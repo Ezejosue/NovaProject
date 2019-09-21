@@ -15,19 +15,29 @@
                     </span>
                 </a>
             </div>
+            <div class="col-sm-1 col-3">
+                <a href="#modal-create-factura" class="btn btn-success tooltipped modal-trigger" data-toggle="modal"
+                    data-tooltip="Agregar">
+                    <span class="btn-label">
+                        AGREGAR FACTURA
+                    </span>
+                </a>
+            </div>
         </div>
         <br>
         <div class="container">
             <div class="row">
                 <div class="table-responsive">
-                    <table class="table" id="tabla-proveedores" width="100%">
+                    <table class="table" id="tabla-inventarios" width="100%">
                         <thead>
                             <tr>
+                                <th>FACTURA</th>
+                                <th>MATERIA PRIMA</th>
+                                <th>CANTIDAD</th>
                                 <th>PROVEEDOR</th>
-                                <th>CONTACTO</th>
-                                <th>TELÉFONO</th>
-                                <th>ESTADO</th>
-                                <th>ACCIÓN</th>
+                                <th>FECHA DE INGRESO</th>
+                                <th>RESPONSABLE</th>
+                                <th>ACCIONES</th>
                             </tr>
                         </thead>
                         <tbody id="tbody-read">
@@ -38,74 +48,7 @@
         </div>
     </div>
     <!-- Modals-->
-    <!-- Modal de Agregar -->
-    <div class="modal fade" id="modal-create">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">AGREGAR PROVEEDOR</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="tyrue">&times;</span>
-                    </button>
-                </div>
-                <form class="was-validated" method="post" id="form-create" enctype="multipart/form-data" autocomplete="off">
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-sm-1">
-                                <i class="fa fa-user"></i>
-                            </div>
-                            <div class="col-sm-11">
-                                <input id="create_proveedor" type="text" name="create_proveedor"
-                                    class="validate form-control" placeholder="Proveedor" required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-sm-1">
-                                <i class="fa fa-user"></i>
-                            </div>
-                            <div class="col-sm-11">
-                                <input id="create_contacto" type="text" name="create_contacto"
-                                    class="validate form-control" placeholder="Nombre de contacto" required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-sm-1">
-                                <i class="fa fa-user"></i>
-                            </div>
-                            <div class="col-sm-11">
-                                <input id="create_telefono" type="text" name="create_telefono"
-                                    class="validate form-control" placeholder="Teléfono Ej. (2222-2222)"required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-sm-1">
-                                <i class="fas fa-users"></i>
-                            </div>
-                            <div class="col-sm-11">
-                                <div class="custom-control custom-switch">
-                                    <input type="checkbox" class="custom-control-input" id="create_estado"
-                                        name="create_estado">
-                                    <label class="custom-control-label" for="create_estado">
-                                        <i class="fa fa-eye"></i>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-body text-center">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-primary tooltipped" data-tooltip="Crear">Aceptar</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+    
     <!-- Modal de Modificar -->
     <div id="modal-update" class="modal fade">
         <div class="modal-dialog">
@@ -176,7 +119,7 @@
         </div>
     </div>
     <?php
-Dashboard::footerTemplate('proveedores.js', '#tabla-proveedores');
+Dashboard::footerTemplate('inventarios.js', '#tabla-inventarios');
 ?>
 
     <!-- validaciones del lado de cliente para agregar materias primas -->

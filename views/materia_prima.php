@@ -26,7 +26,6 @@
                                 <th>IMAGEN</th>
                                 <th>NOMBRE</th>
                                 <th>DESCRIPCIÓN</th>
-                                <th>CANTIDAD</th>
                                 <th>CATEGORÍA</th>
                                 <th>UNIDAD DE MEDIDA</th>
                                 <th>ESTADO</th>
@@ -73,18 +72,6 @@
                                 <textarea placeholder="Descripción" class="form-control" id="create_descripcion_materia"
                                     name="create_descripcion_materia" for="create_descripcion_materia" rows="3"
                                     required></textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-sm-1">
-                                <i class="fa fa-user"></i>
-                            </div>
-                            <div class="col-sm-11">
-
-                                <input id="create_cantidad" type="number" name="create_cantidad"
-                                    class="validate form-control" placeholder="Cantidad" max="999999" min="1" required>
                             </div>
                         </div>
                     </div>
@@ -190,18 +177,6 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-1">
-                                <i class="fa fa-user"></i>
-                            </div>
-                            <div class="col-sm-11">
-
-                                <input type="number" id="cantidad" name="cantidad" class="validate form-control"
-                                    placeholder="Cantidad" max="999999" min="1" required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-sm-1">
                                 <i class="fas fa-users"></i>
                             </div>
                             <div class="col-sm-11">
@@ -271,17 +246,12 @@ Dashboard::footerTemplate('materia_prima.js', '#tabla-materia_prima');
         bootstrapValidate("#create_descripcion_materia", "min:6:Ingrese una descripción mayor de 6 caracteres");
         bootstrapValidate("#create_descripcion_materia", "max:80:Ingrese una descripción menor a 80 caracteres");
 
-        bootstrapValidate("#create_cantidad", "min:1:Ingrese una cantidad válida");
-        bootstrapValidate("#create_cantidad", "max:6:Ingrese una cantidad válida");
-
         bootstrapValidate("#nombre_materia", "min:3:Ingrese un nombre mayor a 3 caracteres");
         bootstrapValidate("#nombre_materia", "max:10:Ingrese un nombre menor a 10 caracteres");
 
         bootstrapValidate("#descripcion_materia", "min:6:Ingrese una descripción mayor de 6 caracteres");
         bootstrapValidate("#descripcion_materia", "max:80:Ingrese una descripción menor a 80 caracteres");
 
-        bootstrapValidate("#cantidad", "min:1:Ingrese una cantidad válida");
-        bootstrapValidate("#cantidad", "max:6:Ingrese una cantidad válida");
     </script>
 
     </body>
