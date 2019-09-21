@@ -15,25 +15,24 @@ $pdf->SetAutoPageBreak(true,20);
 $pdf->addPage();
 $platillos = new Platillos();
 $pdf->SetFont('Arial','B',10);
+//Se coloca el color del fondo de las celdas en formato rgb
+$pdf->SetFillColor(239, 127, 26);
+//Se coloca el color del texto en formato rgb
+$pdf->SetTextColor(0,0,0);
 $pdf->Ln();
 $pdf->setX(60);
 // Cell(ancho, Alto, texto, borde, salto de linea, alineacion de texto)
 $pdf->Cell(100,5, utf8_decode('REPORTE DE GANANCIAS POR CATEGORÍA'), 0, 0, 'C');  
 $pdf->Ln(10);
-// Seteamos la posición de la proxima celda en forma fija a 3.8 cm hacia la derecha de la pagina
-$pdf->setX(38);
-$pdf->Ln();
 $categoria = '';
 
 if($platillos->platillos_vendidos_categoria()) {
   $data = $platillos->platillos_vendidos_categoria();
-  //Comienza a crear las filas de productos según la consulta mysql del modelo
   foreach($data as $datos){
     if(utf8_decode($datos['nombre_categoria']) != $categoria){
-        //Se coloca el color del fondo de las celdas en formato rgb
-        $pdf->SetFillColor(239, 127, 26);
-        //Se coloca el color del texto en formato rgb
-        $pdf->SetTextColor(0,0,0);
+        $cuenta = 0;
+        $ganacias = 0;
+        $vendidos = 0;
         $pdf->Ln();
         $pdf->setX(30);
         // Cell(ancho, Alto, texto, borde, salto de linea, alineación de texto, color)
@@ -41,21 +40,29 @@ if($platillos->platillos_vendidos_categoria()) {
         $pdf->Cell(155,10, utf8_decode($datos['nombre_categoria']),1,0,'C',true);
         $pdf->Ln();        
         $pdf->setX(30);
-        $pdf->Cell(15,10, utf8_decode('Vendidos'),1,0,'C');
-        $pdf->Cell(125,10, utf8_decode('Platillo'),1,0,'C');
-        $pdf->Cell(15,10, utf8_decode('Ganancia'),1,0,'C');
+        $pdf->Cell(123,10, utf8_decode('Platillo'),1,0,'C');
+        $pdf->Cell(15,10, utf8_decode('Vendido'),1,0,'C');
+        $pdf->Cell(17,10, utf8_decode('Ganancia'),1,0,'C');
         $categoria = $datos['nombre_categoria'];
         //saldo de linea
         $pdf->Ln();
     }
         $pdf->setX(30);
-        // Cell(ancho, Alto, texto, borde, salto de linea, alineación de texto, color)
-        //convertimos el texto a utf8
+        $pdf->Cell(123,10, utf8_decode($datos['nombre_platillo']),1,0,'C');
         $pdf->Cell(15,10, utf8_decode($datos['cant']),1,0,'C');
-        $pdf->Cell(125,10, utf8_decode($datos['nombre_platillo']),1,0,'C');
-        $pdf->Cell(15,10, utf8_decode($datos['Ganancia']),1,0,'C');
-        $pdf->Ln();
+        $pdf->Cell(17,10, utf8_decode('$'.$datos['Ganancia']),1,1,'C');
+        $ganacias = $ganacias + $datos['Ganancia'];
+        $vendidos = $vendidos + $datos['cant'];
+        $cuenta = $cuenta + 1;
+        if($cuenta != 1) {
+          $pdf->setX(30);
+          $pdf->Cell(123,10, 'TOTAL',1,0,'C');
+          $pdf->Cell(15,10, utf8_decode($vendidos),1,0,'C');
+          $pdf->Cell(17,10, utf8_decode('$'.$ganacias),1,0,'C');
+          $pdf->Ln();
+        }
   }
+  
 } else {
   $pdf->setX(37);
   $pdf->Cell(145,5, utf8_decode('NO HAY DATOS REGISTRADOS'), 0, 0, 'C');
