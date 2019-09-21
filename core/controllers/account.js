@@ -222,6 +222,7 @@ function modalProfile()
             if (result.status) {
                 $('#form-profile')[0].reset();
                 $('#profile_alias').val(result.dataset.alias);
+                $('#profile_correo').val(result.dataset.correo_usuario);
                 showSelectTipoProfile('profile_tipo', result.dataset.id_Tipousuario);
                 $('#profile_imagen').val(result.dataset.foto_usuario);
                 (result.dataset.estado_usuario == 1) ? $('#profile_estado').prop('checked', true) : $('#profile_estado').prop('checked', false);
@@ -230,6 +231,7 @@ function modalProfile()
                 sweetAlert(2, result.exception, null);
             }
         } else {
+            
             console.log(response);
         }
     })
