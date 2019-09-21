@@ -136,6 +136,8 @@
                     <div class="modal-body">
                         <div id="estado">
                         </div>
+                        <input type="hidden" id="hestado" name="hestado"/>
+                        <input type="hidden" id="hid_factura" name="hid_factura"/>
                     </div>
                     <div class="modal-body">
                         <div id="responsable">
@@ -146,13 +148,6 @@
                         </div>
                     </div>
                     <div class="modal-body" id='estado_btn'>
-                        <div class="row">
-                            <div class="col-sm-11">
-                                <div class="custom-control custom-switch">
-                                    <button type="submit" class="btn btn-primary tooltipped" data-tooltip="Crear">CAMBIAR ESTADO</button>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </form>
                 <form method="post" id="form-factura" enctype="multipart/form-data">

@@ -122,9 +122,9 @@ if (isset($_GET['action'])) {
             case 'updateFactura':
                 $_POST = $inventarios->validateForm($_POST);
                 if ($inventarios->setId_factura($_POST['id_factura'])) {
-                    if ($inventarios->updateFactura()) {
-                        if ($inventarios->setCorrelativo($_POST['update_materia'])) {
-                            if ($inventarios->setId_proveedor($_POST['update_cantidad'])) {
+                    if ($inventarios->getFactura()) {
+                        if ($inventarios->setCorrelativo($_POST['update_correlativo'])) {
+                            if ($inventarios->setId_proveedor($_POST['update_proveedor'])) {
                                 if ($inventarios->updateFactura()) {
                                     $result['status'] = 1;
                                     $result['message'] = 'Factura actualizada correctamente';
@@ -134,6 +134,28 @@ if (isset($_GET['action'])) {
                                 }
                             } else {
                                 $result['exception'] = 'Cantidad incorrecta';
+                            }
+                        } else {
+                            $result['exception'] = 'Materia prima incorrecta';
+                        }
+                    } else {
+                        $result['exception'] = 'Factura inexistente';
+                    }
+                } else {
+                    $result['exception'] = 'Factura incorrecta';
+                }            
+            break;
+            case 'updateEstado':
+                $_POST = $inventarios->validateForm($_POST);
+                if ($inventarios->setId_factura($_POST['hid_factura'])) {
+                    if ($inventarios->getFactura()) {
+                        if ($inventarios->setEstado($_POST['hestado'])) {
+                            if ($inventarios->updateEstado()) {
+                                $result['status'] = 1;
+                                $result['message'] = 'Factura actualizada correctamente';
+                            }
+                            else {
+                                $result['exception'] = 'Operación fallida';
                             }
                         } else {
                             $result['exception'] = 'Materia prima incorrecta';
