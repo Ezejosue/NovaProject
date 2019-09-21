@@ -121,7 +121,7 @@ $('#form-update-recetas').submit(function()
             //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
             if (result.status) {
                 $('#modal-update-recetas').modal('hide');
-                sweetAlert(1, 'Platillos modificada correctamente', null);
+                sweetAlert(1, 'Receta modificada correctamente', null);
                 //Se destruye la tabla de materias primas y se vuelve a crear para que muestre los cambios realizados
                 destroy('#tabla-recetas');
                 showTable();

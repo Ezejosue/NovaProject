@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 4.7.0
 -- https://www.phpmyadmin.net/
 --
--- Servidor: localhost
--- Tiempo de generación: 16-09-2019 a las 06:59:54
--- Versión del servidor: 10.3.15-MariaDB
--- Versión de PHP: 7.2.19
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 20-09-2019 a las 07:18:42
+-- Versión del servidor: 10.1.25-MariaDB
+-- Versión de PHP: 5.6.31
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -21,6 +21,8 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `pizzanova`
 --
+CREATE DATABASE IF NOT EXISTS `pizzanova` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `pizzanova`;
 
 -- --------------------------------------------------------
 
@@ -55,7 +57,9 @@ INSERT INTO `acciones` (`id_accion`, `id_vista`, `id_Tipousuario`, `estado`) VAL
 (19, 13, 1, 1),
 (20, 14, 1, 1),
 (21, 15, 1, 1),
-(22, 16, 1, 1);
+(22, 16, 1, 1),
+(23, 17, 1, 1),
+(24, 18, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -66,7 +70,7 @@ INSERT INTO `acciones` (`id_accion`, `id_vista`, `id_Tipousuario`, `estado`) VAL
 CREATE TABLE `bitacoras` (
   `id_bitacora` int(10) UNSIGNED NOT NULL,
   `usuario` varchar(50) COLLATE latin1_spanish_ci DEFAULT NULL,
-  `fecha` timestamp NOT NULL DEFAULT current_timestamp(),
+  `fecha` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `accion` varchar(50) COLLATE latin1_spanish_ci NOT NULL,
   `id_usuario` int(10) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
@@ -100,7 +104,7 @@ CREATE TABLE `categorias` (
   `nombre_categoria` varchar(50) COLLATE latin1_spanish_ci NOT NULL,
   `descripcion` varchar(1000) COLLATE latin1_spanish_ci NOT NULL,
   `foto_categoria` varchar(50) COLLATE latin1_spanish_ci DEFAULT NULL,
-  `estado` tinyint(1) NOT NULL DEFAULT 1 COMMENT '1 es activo 0 es inactivo'
+  `estado` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1 es activo 0 es inactivo'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
 --
@@ -127,7 +131,7 @@ CREATE TABLE `desperdicios` (
   `id_usuario` int(10) UNSIGNED NOT NULL,
   `id_empleado` int(10) UNSIGNED NOT NULL,
   `cantidad` int(11) NOT NULL,
-  `fecha_desperdicio` datetime NOT NULL DEFAULT current_timestamp()
+  `fecha_desperdicio` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
 -- --------------------------------------------------------
@@ -243,6 +247,53 @@ CREATE TABLE `encabezadofactura` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `facturas`
+--
+
+CREATE TABLE `facturas` (
+  `id_factura` int(11) UNSIGNED NOT NULL,
+  `correlativo` varchar(8) NOT NULL,
+  `id_proveedor` int(11) UNSIGNED NOT NULL,
+  `fecha_ingreso` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `id_usuario` int(11) UNSIGNED NOT NULL,
+  `estado` int(11) NOT NULL COMMENT '2 es en proceso 1 es ingresada 0 es nulo'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `facturas`
+--
+
+INSERT INTO `facturas` (`id_factura`, `correlativo`, `id_proveedor`, `fecha_ingreso`, `id_usuario`, `estado`) VALUES
+(1, '00000001', 1, '2019-09-18 23:21:23', 1, 0),
+(2, '00000000', 1, '2019-09-19 16:30:53', 1, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `inventarios`
+--
+
+CREATE TABLE `inventarios` (
+  `id_inventario` int(11) UNSIGNED NOT NULL,
+  `idMateria` int(11) UNSIGNED NOT NULL,
+  `cantidad` varchar(10) NOT NULL,
+  `precio` double(6,2) NOT NULL,
+  `id_factura` int(11) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `inventarios`
+--
+
+INSERT INTO `inventarios` (`id_inventario`, `idMateria`, `cantidad`, `precio`, `id_factura`) VALUES
+(1, 18, '3', 1.01, 1),
+(2, 18, '5', 6.01, 1),
+(3, 18, '68', 1.01, 1),
+(4, 18, '43', 3.01, 2);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `materiasprimas`
 --
 
@@ -253,7 +304,7 @@ CREATE TABLE `materiasprimas` (
   `foto` varchar(100) COLLATE latin1_spanish_ci DEFAULT NULL,
   `id_categoria` int(10) UNSIGNED DEFAULT NULL,
   `id_Medida` int(10) UNSIGNED DEFAULT NULL,
-  `estado` tinyint(1) NOT NULL DEFAULT 1 COMMENT '1 es activo 0 es inactivo'
+  `estado` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1 es activo 0 es inactivo'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
 --
@@ -273,7 +324,7 @@ INSERT INTO `materiasprimas` (`idMateria`, `nombre_materia`, `descripcion`, `fot
 CREATE TABLE `mesas` (
   `id_mesa` int(10) UNSIGNED NOT NULL,
   `numero_mesa` int(10) UNSIGNED NOT NULL,
-  `estado_mesa` tinyint(4) NOT NULL DEFAULT 1
+  `estado_mesa` tinyint(4) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
 --
@@ -316,23 +367,23 @@ CREATE TABLE `pedidos` (
 --
 
 INSERT INTO `pedidos` (`id_pedido`, `fecha_pedido`, `hora_pedido`, `id_mesa`, `id_usuario`) VALUES
-(129, '2019-08-11','21:36:40', 1, 1),
-(130, '2019-08-11','21:36:40', 1, 1),
-(131, '2019-08-11','21:36:40', 4, 1),
-(132, '2019-08-11','21:36:40', 14, 1),
-(133, '2019-08-11','21:36:40', 15, 1),
-(134, '2019-08-12','21:36:40', 1, 1),
-(135, '2019-08-12','21:36:40', 1, 1),
-(136, '2019-08-12','21:36:40', 1, 1),
-(137, '2019-08-12','21:36:40', 1, 1),
-(138, '2019-08-12','21:36:40', 1, 1),
-(139, '2019-08-12','21:36:40', 1, 1),
-(140, '2019-08-12','21:36:40', 1, 1),
-(141, '2019-08-12','21:36:40', 1, 1),
-(142, '2019-08-13','21:36:40', 1, 1),
-(143, '2019-08-13','21:36:40', 1, 1),
-(144, '2019-05-01','21:36:40', 4, 1),
-(145, '2019-05-01','21:36:40', 9, 1);
+(129, '2019-08-11', '21:36:40', 1, 1),
+(130, '2019-08-11', '21:36:40', 1, 1),
+(131, '2019-08-11', '21:36:40', 4, 1),
+(132, '2019-08-11', '21:36:40', 14, 1),
+(133, '2019-08-11', '21:36:40', 15, 1),
+(134, '2019-08-12', '21:36:40', 1, 1),
+(135, '2019-08-12', '21:36:40', 1, 1),
+(136, '2019-08-12', '21:36:40', 1, 1),
+(137, '2019-08-12', '21:36:40', 1, 1),
+(138, '2019-08-12', '21:36:40', 1, 1),
+(139, '2019-08-12', '21:36:40', 1, 1),
+(140, '2019-08-12', '21:36:40', 1, 1),
+(141, '2019-08-12', '21:36:40', 1, 1),
+(142, '2019-08-13', '21:36:40', 1, 1),
+(143, '2019-08-13', '21:36:40', 1, 1),
+(144, '2019-05-01', '21:36:40', 4, 1),
+(145, '2019-05-01', '21:36:40', 9, 1);
 
 -- --------------------------------------------------------
 
@@ -344,7 +395,7 @@ CREATE TABLE `platillos` (
   `id_platillo` int(10) UNSIGNED NOT NULL,
   `nombre_platillo` varchar(50) COLLATE latin1_spanish_ci NOT NULL,
   `precio` double(6,2) DEFAULT NULL,
-  `estado` tinyint(1) NOT NULL DEFAULT 1 COMMENT '1 es activo 0 es inactivo',
+  `estado` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1 es activo 0 es inactivo',
   `id_receta` int(10) UNSIGNED DEFAULT NULL,
   `id_categoria` int(10) UNSIGNED DEFAULT NULL,
   `imagen` varchar(50) COLLATE latin1_spanish_ci DEFAULT NULL
@@ -367,7 +418,8 @@ INSERT INTO `platillos` (`id_platillo`, `nombre_platillo`, `precio`, `estado`, `
 (23, 'Pan con ajo orden de 4', 7.01, 1, 10, 9, '5d523a0aac1ed.jpg'),
 (24, 'Pizza Hawaiana grande', 15.01, 1, 7, 4, '5d52c99cc7771.jpg'),
 (25, 'Pizza hawaiana mediana', 7.01, 1, 7, 4, '5d52cd00c06e5.jpg'),
-(26, 'Pizza de jamÃ³n mediana', 7.01, 1, 4, 4, '5d52cd1a99de0.jpg');
+(26, 'Pizza de jamÃ³n mediana', 7.01, 1, 4, 4, '5d52cd1a99de0.jpg'),
+(27, 'Pizza Jamon', 3.01, 1, 1, 4, '5d831425aac42.jpg');
 
 -- --------------------------------------------------------
 
@@ -392,9 +444,17 @@ CREATE TABLE `proveedores` (
   `id_proveedor` int(10) UNSIGNED NOT NULL,
   `nom_proveedor` varchar(50) COLLATE latin1_spanish_ci DEFAULT NULL,
   `contacto` varchar(100) COLLATE latin1_spanish_ci DEFAULT NULL,
-  `telefono` varchar(8) COLLATE latin1_spanish_ci DEFAULT NULL,
+  `telefono` varchar(9) COLLATE latin1_spanish_ci DEFAULT NULL,
   `estado` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `proveedores`
+--
+
+INSERT INTO `proveedores` (`id_proveedor`, `nom_proveedor`, `contacto`, `telefono`, `estado`) VALUES
+(1, 'Unica', 'Jorge', '2222-2222', 1),
+(2, 'Siman', 'George', '2222-2222', 0);
 
 -- --------------------------------------------------------
 
@@ -413,7 +473,8 @@ CREATE TABLE `receta` (
 --
 
 INSERT INTO `receta` (`id_receta`, `nombre_receta`, `tiempo`) VALUES
-(1, 'Receta 1', '15 min');
+(1, 'Receta 1', '15 min'),
+(2, 'Receta2', '1h');
 
 -- --------------------------------------------------------
 
@@ -444,7 +505,7 @@ CREATE TABLE `tipousuario` (
   `id_Tipousuario` int(10) UNSIGNED NOT NULL,
   `tipo` varchar(20) COLLATE latin1_spanish_ci DEFAULT NULL,
   `descripcion` varchar(1000) COLLATE latin1_spanish_ci DEFAULT NULL,
-  `estado` tinyint(1) NOT NULL DEFAULT 1 COMMENT '1 es activo 0 es inactivo'
+  `estado` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1 es activo 0 es inactivo'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
 --
@@ -490,20 +551,21 @@ CREATE TABLE `usuarios` (
   `clave_usuario` varchar(60) COLLATE latin1_spanish_ci NOT NULL,
   `foto_usuario` varchar(50) COLLATE latin1_spanish_ci DEFAULT NULL,
   `token_usuario` varchar(100) COLLATE latin1_spanish_ci DEFAULT NULL,
-  `fecha_creacion` timestamp NOT NULL DEFAULT current_timestamp(),
+  `fecha_creacion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `intentos` int(11) DEFAULT NULL,
-  `logueado` tinyint(4) UNSIGNED NOT NULL DEFAULT 0,
-  `estado_usuario` tinyint(1) NOT NULL DEFAULT 1 COMMENT '1 es activo 0 es inactivo',
+  `logueado` tinyint(4) UNSIGNED NOT NULL DEFAULT '0',
+  `estado_usuario` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1 es activo 0 es inactivo',
   `id_Tipousuario` int(10) UNSIGNED DEFAULT NULL,
-  `fecha_contrasena` datetime NOT NULL  
+  `fecha_contrasena` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`id_usuario`, `alias`, `correo_usuario`, `clave_usuario`, `foto_usuario`, `token_usuario`, `fecha_creacion`, `intentos`, `logueado`, `estado_usuario`, `id_Tipousuario`,`fecha_contrasena`) VALUES
-(1, 'Gerardo', 'gerardogo145@gmail.com', '$2y$10$ZE50pCP2.8jSAQxVrCFxBukNvUsehi0S9jh3Fi47bRtjKkowIo4wi', '', NULL, '2019-09-10 16:28:55', 0, 0, 1, 1, current_timestamp);
+INSERT INTO `usuarios` (`id_usuario`, `alias`, `correo_usuario`, `clave_usuario`, `foto_usuario`, `token_usuario`, `fecha_creacion`, `intentos`, `logueado`, `estado_usuario`, `id_Tipousuario`, `fecha_contrasena`) VALUES
+(1, 'Gerardo', 'riverapj99@gmail.com', '$2y$10$ZE50pCP2.8jSAQxVrCFxBukNvUsehi0S9jh3Fi47bRtjKkowIo4wi', '', NULL, '2019-09-10 16:28:55', 0, 1, 1, 1, '2019-09-18 16:04:17'),
+(2, 'RJ01', 'kk@gmail.com', '$2y$10$Eacm1R0b3dOnLENXHO/aGuowcOyZy36sVxsIn5Ip/PBMdOApgUkL.', '5d83217a74b2d.jpg', '5d83217a74f16', '2019-09-19 06:34:34', 0, 0, 3, 1, '2019-09-19 00:34:34');
 
 -- --------------------------------------------------------
 
@@ -538,7 +600,9 @@ INSERT INTO `vistas` (`id_vista`, `nombre_vista`, `ruta`, `icono`) VALUES
 (13, 'Tipo de Usuario', 'tipo_usuarios.php', 'users'),
 (14, 'Unidades de medida', 'unidadmedida.php', 'balance-scale'),
 (15, 'Usuarios', 'usuarios.php', 'user-plus'),
-(16, 'Proveedores', 'proveedores.php', 'user-plus');
+(16, 'Proveedores', 'proveedores.php', 'user-plus'),
+(17, 'Inventario', 'inventarios.php', 'cart-plus'),
+(18, 'Facturas', 'facturas.php', 'list');
 
 --
 -- Índices para tablas volcadas
@@ -614,6 +678,23 @@ ALTER TABLE `encabezadofactura`
   ADD KEY `id_empleado` (`id_empleado`);
 
 --
+-- Indices de la tabla `facturas`
+--
+ALTER TABLE `facturas`
+  ADD PRIMARY KEY (`id_factura`),
+  ADD UNIQUE KEY `correlativo` (`correlativo`),
+  ADD KEY `id_usuario` (`id_usuario`),
+  ADD KEY `facturas_ibfk_1` (`id_proveedor`);
+
+--
+-- Indices de la tabla `inventarios`
+--
+ALTER TABLE `inventarios`
+  ADD PRIMARY KEY (`id_inventario`),
+  ADD KEY `idMateria` (`idMateria`),
+  ADD KEY `id_factura` (`id_factura`);
+
+--
 -- Indices de la tabla `materiasprimas`
 --
 ALTER TABLE `materiasprimas`
@@ -657,6 +738,7 @@ ALTER TABLE `pre_pedido`
 --
 ALTER TABLE `proveedores`
   ADD PRIMARY KEY (`id_proveedor`);
+
 --
 -- Indices de la tabla `receta`
 --
@@ -705,128 +787,117 @@ ALTER TABLE `vistas`
 -- AUTO_INCREMENT de la tabla `acciones`
 --
 ALTER TABLE `acciones`
-  MODIFY `id_accion` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
-
+  MODIFY `id_accion` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 --
 -- AUTO_INCREMENT de la tabla `bitacoras`
 --
 ALTER TABLE `bitacoras`
   MODIFY `id_bitacora` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT de la tabla `cargo`
 --
 ALTER TABLE `cargo`
   MODIFY `id_Cargo` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
 --
 -- AUTO_INCREMENT de la tabla `categorias`
 --
 ALTER TABLE `categorias`
   MODIFY `id_categoria` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
 --
 -- AUTO_INCREMENT de la tabla `desperdicios`
 --
 ALTER TABLE `desperdicios`
   MODIFY `id_desperdicios` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT de la tabla `detalle_pedido`
 --
 ALTER TABLE `detalle_pedido`
   MODIFY `id_detalle` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
-
 --
 -- AUTO_INCREMENT de la tabla `elaboraciones`
 --
 ALTER TABLE `elaboraciones`
-  MODIFY `id_elaboracion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
+  MODIFY `id_elaboracion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT de la tabla `empleados`
 --
 ALTER TABLE `empleados`
   MODIFY `id_empleado` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
 --
 -- AUTO_INCREMENT de la tabla `encabezadofactura`
 --
 ALTER TABLE `encabezadofactura`
   MODIFY `id_EncabezadoFac` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
+--
+-- AUTO_INCREMENT de la tabla `facturas`
+--
+ALTER TABLE `facturas`
+  MODIFY `id_factura` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT de la tabla `inventarios`
+--
+ALTER TABLE `inventarios`
+  MODIFY `id_inventario` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT de la tabla `materiasprimas`
 --
 ALTER TABLE `materiasprimas`
   MODIFY `idMateria` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
-
 --
 -- AUTO_INCREMENT de la tabla `mesas`
 --
 ALTER TABLE `mesas`
   MODIFY `id_mesa` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
-
 --
 -- AUTO_INCREMENT de la tabla `pedidos`
 --
 ALTER TABLE `pedidos`
   MODIFY `id_pedido` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=146;
-
 --
 -- AUTO_INCREMENT de la tabla `platillos`
 --
 ALTER TABLE `platillos`
-  MODIFY `id_platillo` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
-
+  MODIFY `id_platillo` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 --
 -- AUTO_INCREMENT de la tabla `pre_pedido`
 --
 ALTER TABLE `pre_pedido`
   MODIFY `id_prepedido` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT de la tabla `proveedores`
 --
 ALTER TABLE `proveedores`
-  MODIFY `id_proveedor` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
+  MODIFY `id_proveedor` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `receta`
 --
 ALTER TABLE `receta`
-  MODIFY `id_receta` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
+  MODIFY `id_receta` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `tareas`
 --
 ALTER TABLE `tareas`
   MODIFY `id_tarea` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
-
 --
 -- AUTO_INCREMENT de la tabla `tipousuario`
 --
 ALTER TABLE `tipousuario`
   MODIFY `id_Tipousuario` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
 --
 -- AUTO_INCREMENT de la tabla `unidadmedida`
 --
 ALTER TABLE `unidadmedida`
   MODIFY `id_Medida` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id_usuario` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
+  MODIFY `id_usuario` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `vistas`
 --
 ALTER TABLE `vistas`
-  MODIFY `id_vista` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
-
+  MODIFY `id_vista` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 --
 -- Restricciones para tablas volcadas
 --
@@ -870,6 +941,20 @@ ALTER TABLE `empleados`
 --
 ALTER TABLE `encabezadofactura`
   ADD CONSTRAINT `encabezadofactura_ibfk_1` FOREIGN KEY (`id_empleado`) REFERENCES `empleados` (`id_empleado`);
+
+--
+-- Filtros para la tabla `facturas`
+--
+ALTER TABLE `facturas`
+  ADD CONSTRAINT `facturas_ibfk_1` FOREIGN KEY (`id_proveedor`) REFERENCES `proveedores` (`id_proveedor`),
+  ADD CONSTRAINT `facturas_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`);
+
+--
+-- Filtros para la tabla `inventarios`
+--
+ALTER TABLE `inventarios`
+  ADD CONSTRAINT `inventarios_ibfk_1` FOREIGN KEY (`idMateria`) REFERENCES `materiasprimas` (`idMateria`),
+  ADD CONSTRAINT `inventarios_ibfk_2` FOREIGN KEY (`id_factura`) REFERENCES `facturas` (`id_factura`);
 
 --
 -- Filtros para la tabla `materiasprimas`

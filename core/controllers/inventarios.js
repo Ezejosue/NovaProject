@@ -179,6 +179,7 @@ function showSelectMaterias(idSelect, value)
         console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
     });
 }
+
 //Función para cargar los nombres de proveedores en el select del formulario para agregar facturas
 function showSelectProveedores(idSelect, value)
 {
