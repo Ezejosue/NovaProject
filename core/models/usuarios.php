@@ -424,6 +424,13 @@ class Usuarios extends Validator
 		$params = array($this->id);
 		return Conexion::getRow($sql, $params);
 	}
+
+	public function updateProfile()
+	{
+		$sql = 'UPDATE usuarios SET alias = ?, foto_usuario = ?, correo_usuario = ? WHERE id_usuario = ?';
+		$params = array($this->alias, $this->foto, $this->correo, $this->id);
+		return Conexion::executeRow($sql, $params);
+	}
 	//Método para modificar la información de un usuario
 	public function updateUsuario()
 	{
