@@ -66,6 +66,7 @@ function fillTableDetalleFactura(rows)
     let contentResponsable = '';
     let contentFecha = '';
     let contentCorrelativo = '';
+    let contentEstado = '';
     let row = '';
     console.log(rows);
 
@@ -79,90 +80,71 @@ function fillTableDetalleFactura(rows)
         fecha_ingreso = row.fecha_ingreso;
         correlativo = row.correlativo;
         estado = row.estado;
+        id_factura = row.id_factura;
 
-        if (row.estado == 2){
+        
         content += `
             <tr>
                 <td>${row.Materia}</td>
                 <td>${row.cantidad}</td>
                 <td>$${row.precio}</td>
                 <td>$${subtotal}</td>
-                <td>
-                    <a href="#" onclick="modalUpdateMaterias(${row.id_inventario})" class="btn btn-info tooltipped" data-tooltip="Modificar"><i class="fa fa-edit"></i></a>
-                    <a href="#" onclick="confirmDeleteMateria(${row.id_inventario})" class="btn btn-danger tooltipped" data-tooltip="Eliminar"><i class="fa fa-times"></i></a>
-                </td>
+                
+                <td>`;
+                console.log(row.estado);
+                if(row.estado==2){
+                content+=  `<a href="#" onclick="modalUpdateMaterias(${row.id_inventario})" class="btn btn-info tooltipped" data-tooltip="Modificar"><i class="fa fa-edit"></i></a>
+                <a href="#" onclick="confirmDeleteMateria(${row.id_inventario})" class="btn btn-danger tooltipped" data-tooltip="Eliminar"><i class="fa fa-times"></i></a>`;
+            }else{
+                content+=  `NO MODIFICABLE`;
+            }
+                
+        content+=  `</td>
             </tr>
         `;
-        } else {
-            content += `
-            <tr>
-                <td>${row.Materia}</td>
-                <td>${row.cantidad}</td>
-                <td>$${row.precio}</td>
-                <td>$${subtotal}</td>
-                <td>NO MODIFICABLE</td>
-            </tr>
-        `;
-        }
 
         console.log(row.id_inventario);
         
         //$("#id-pedido").text(row.id_pedido);
     });
 
+    contentTotal += `<h6>TOTAL DE FACTURA: $${total}.</h6>`;
+    contentResponsable += `<h6>USUARIO: ${alias}.</h6>`;
+    contentFecha += `<h6>FECHA DE INGRESO: ${fecha_ingreso}.</h6>`;
+    contentCorrelativo += `<h6># CORRELATIVO: ${correlativo}.</h6>`;
+    /* contentEstado += `<h6>ESTADO: ${nombre_estado}.</h6>`; */
+    $("#total").html(contentTotal);
+    $("#correlativo").html(contentCorrelativo);
+    $("#responsable").html(contentResponsable);
+    $("#fecha_ingreso").html(contentFecha);
     let nombre_estado = '';
 
-    if (estado == 0) {
+    $('#estado_btn').html(`<div class="row">
+                            <div class="col-sm-11">
+                                <div class="custom-control custom-switch">
+                                    <button type="submit" class="btn btn-primary tooltipped" data-tooltip="Crear">CAMBIAR ESTADO</button>
+                                </div>
+                            </div>
+                        </div>`);
 
-        nombre_estado = 'Anulada';
-
-        contentTotal += `<h6>TOTAL DE FACTURA: $${total}.</h6>`;
-        contentResponsable += `<h6>USUARIO: ${alias}.</h6>`;
-        contentFecha += `<h6>FECHA DE INGRESO: ${fecha_ingreso}.</h6>`;
-        contentCorrelativo += `<h6># CORRELATIVO: ${correlativo}.</h6>`;
-        contentEstado += `<h6>ESTADO: ${nombre_estado}.</h6>`;
-        $("#total").html(contentTotal);
-        $("#correlativo").html(contentCorrelativo);
-        $("#responsable").html(contentResponsable);
-        $("#fecha_ingreso").html(contentFecha);
-        $("#estado").html(contentEstado);
-        destroy('#estado_btn');
+    if (estado == 2) {
+        nombre_estado = 'En proceso';
     } else {
         if (estado == 1) {
-
             nombre_estado = 'Ingresada';
-    
-            contentTotal += `<h6>TOTAL DE FACTURA: $${total}.</h6>`;
-            contentResponsable += `<h6>USUARIO: ${alias}.</h6>`;
-            contentFecha += `<h6>FECHA DE INGRESO: ${fecha_ingreso}.</h6>`;
-            contentCorrelativo += `<h6># CORRELATIVO: ${correlativo}.</h6>`;
-            contentEstado += `<h6>ESTADO: ${nombre_estado}.</h6>`;
-            $("#total").html(contentTotal);
-            $("#correlativo").html(contentCorrelativo);
-            $("#responsable").html(contentResponsable);
-            $("#fecha_ingreso").html(contentFecha);
-            $("#estado").html(contentEstado);
         } else {
-            if (estado == 2) {
-
-                nombre_estado = 'En proceso';
-        
-                contentTotal += `<h6>TOTAL DE FACTURA: $${total}.</h6>`;
-                contentResponsable += `<h6>USUARIO: ${alias}.</h6>`;
-                contentFecha += `<h6>FECHA DE INGRESO: ${fecha_ingreso}.</h6>`;
-                contentCorrelativo += `<h6># CORRELATIVO: ${correlativo}.</h6>`;
-                contentEstado += `<h6>ESTADO: ${nombre_estado}.</h6>`;
-                $("#total").html(contentTotal);
-                $("#correlativo").html(contentCorrelativo);
-                $("#responsable").html(contentResponsable);
-                $("#fecha_ingreso").html(contentFecha);
-                $("#estado").html(contentEstado);
+            if (estado == 0) {
+                nombre_estado = 'Anulado';
+                $('#estado_btn').html("");
             }
         }
     }
-
     
+    contentEstado += `<h6>ESTADO: ${nombre_estado}.</h6>`;
 
+    $("#estado").html(contentEstado);
+    $("#hestado").val(estado);
+    $("#hid_factura").val(id_factura);
     
 
 
@@ -342,6 +324,72 @@ function modalFacturaDetalle(id)
     })
     .fail(function(jqXHR){
         //Se muestran en consola los posibles errores de la solicitud AJAX
+        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+    });
+}
+
+
+$("#form-estado" ).submit(function() {
+    event.preventDefault();
+    
+    let estado = $('#hestado').val();
+    let cuerpo_estado = '';
+    if (estado == 2) {
+        cuerpo_estado = 'ingresado';
+    }
+
+    if (estado == 1) {
+        cuerpo_estado = 'anulado';
+    }
+
+    swal({
+        title: 'Advertencia',
+        text: '¿Cambiarás el estado a ' + cuerpo_estado + ' de esta factura?',
+        icon: 'warning',
+        buttons: ['Cancelar', 'Aceptar'],
+        closeOnClickOutside: false,
+        closeOnEsc: false
+    })
+    .then(function(value){
+        if (value) {
+          actualizarEstado(); 
+        }
+    });
+
+  });
+
+function actualizarEstado()
+{
+
+    $.ajax({
+        url: apiFacturas + 'updateEstado',
+        type: 'post',
+        data: new FormData($('#form-estado')[0]),
+        datatype: 'json',
+        cache: false,
+        contentType: false,
+        processData: false
+    })
+    .done(function(response){
+        // Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+        if (isJSONString(response)) {
+            const result = JSON.parse(response);
+            // Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
+            if (result.status) {
+                sweetAlert(1, 'Estado actualizado correctamente', null);
+                $('#modal-factura').modal('hide');
+                destroy('#tabla-facturas');
+                showTableFacturas();
+                $('#modal-factura').modal('show');
+            } else {
+                sweetAlert(2, result.exception, null);
+            }
+        } else {
+            console.log(response);
+        }
+    })
+    .fail(function(jqXHR){
+        // Se muestran en consola los posibles errores de la solicitud AJAX
         console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
     });
 }
