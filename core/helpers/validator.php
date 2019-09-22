@@ -204,7 +204,7 @@ class Validator
 	{
 		//validación para mayores de 18 años
 		$fecha = strtotime(date("01-01-2001"));
-		//validación para que la fecha minima sea 1952 y que la edad no pueda ser más de 100 años
+		//validación para que la fecha mínima sea 1952 y que la edad no pueda ser más de 100 años
 		$fmax = strtotime(date("01-01-1952"));
 		$value = strtotime($value);
 

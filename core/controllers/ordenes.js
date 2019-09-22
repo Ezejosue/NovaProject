@@ -75,7 +75,7 @@ function showModificarMesas(id){
                 } */
                 let content = '';
                 result.dataset.forEach(function(row){
-                    //Se crea un botón por cada mesa existente en la base y a través del boton se manda el id_mesa para mostrar el pre pedido correspondiente a cada mesa
+                    //Se crea un botón por cada mesa existente en la base y a través del botón se manda el id_mesa para mostrar el pre pedido correspondiente a cada mesa
                     content+= `<a href="#" class="btn btn-primary" style="border-radius: 10px; margin: 2px;" onclick="updateNumeroMesa(${row.id_mesa}, ${id})">
                     <h4 style="color: white; font-size: 20px;">MESA ${row.numero_mesa}</h4>
                     <i class="fas fa-pizza-slice"></i>

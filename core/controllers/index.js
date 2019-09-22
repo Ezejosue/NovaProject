@@ -70,7 +70,7 @@ function graficar_existencia_categoria_sobre_existencias() {
                 existencia.push(parseInt(row.cantidad));
             });
             //se mandar los parámetros de la función que se crea en el controlador de function.js los cuales son el id, xAxis, yAxis y legend
-            grafico_existencia_categoria_sobre_existen("existencia_categoria_sobre_existen", nombre, existencia, "Existencias.", "Existencia de materia prima por categoria (productos a punto de acabarse)")
+            grafico_existencia_categoria_sobre_existen("existencia_categoria_sobre_existen", nombre, existencia, "Existencias.", "Existencia de materia prima por categoría (productos a punto de acabarse)")
         })
 
         //en caso de error se ejecuta esta funcion
@@ -279,7 +279,7 @@ function CategoriaClick()
                     nombres.push(row.nombre_platillo);
                     dinero.push(row.subtotal);
                 });
-                grafica_ventas_categoria('grafica_ventas', nombres, dinero, 'Platillos más vendidos por categoria', 'Cantidad de platillos más vendidos por categoria')
+                grafica_ventas_categoria('grafica_ventas', nombres, dinero, 'Platillos más vendidos por categoría', 'Cantidad de platillos más vendidos por categoria')
                //se deshabilitan tanto el boton como el comobobox para que no genere más de una grafica 
                 document.getElementById('bloqueo').disabled=true;
                 document.getElementById('id_categoria').disabled=true;
@@ -396,7 +396,7 @@ function MateriaClick()
                     nombres.push(row.nombre_materia);
                     productos.push(row.cantidad);
                 });
-                grafica_existencia_materia_agotar('existencia_categoria_materia_agotar', nombres, productos, 'Materias primas en escacez', 'Productos por agotar')
+                grafica_existencia_materia_agotar('existencia_categoria_materia_agotar', nombres, productos, 'Materias primas en escasez', 'Productos por agotar')
                //se deshabilitan tanto el boton como el comobobox para que no genere más de una grafica 
                 document.getElementById('id_categoria_materia_agotar').disabled=true;
                 document.getElementById('botonmateria').disabled=true;
@@ -434,7 +434,7 @@ function Materia_sobre_Click()
                     nombres.push(row.nombre_materia);
                     productos.push(row.cantidad);
                 });
-                grafica_existencia_materia_sobre_existente('existencia_categoria_materia_sobre_existente', nombres, productos, 'Materias primas en escacez', 'Productos por agotar')
+                grafica_existencia_materia_sobre_existente('existencia_categoria_materia_sobre_existente', nombres, productos, 'Materias primas en escasez', 'Productos por agotar')
                //se deshabilitan tanto el boton como el comobobox para que no genere más de una grafica 
                 document.getElementById('id_categoria_materia_sobre_existente').disabled=true;
                 document.getElementById('botonmateria_ex').disabled=true;

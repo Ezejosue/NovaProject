@@ -78,9 +78,6 @@ class Pedidos extends Validator
 		return $this->cantidad;
     }
 	
-	/* 
-	SELECT id_detalle as Pedidos, precio*cantidad as Ganancia, nombre_platillo from detalle_pedido INNER JOIN pedidos USING(id_pedido) INNER JOIN platillos USING(id_platillo) ORDER by Pedidos */
-
 	// Metodos para el manejo del SCRUD
 	public function readDetalle()
 	{

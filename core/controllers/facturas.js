@@ -2,6 +2,9 @@
 $(document).ready(function()
 {
     showTableFacturas();
+    showSelectFacturas('create_factura', null);
+    showSelectProveedores('create_proveedor', null);
+    showSelectMaterias('create_materia', null); 
 })
 
 // Constante para establecer la ruta y parámetros de comunicación con la API
@@ -11,19 +14,38 @@ const apiFacturas = '../core/api/inventarios.php?site=private&action=';
 function fillTableFacturas(rows)
 {
     let content = '';
-    //Se recorren las filas para armar el cuerpo de la tabla y se utiliza comilla invertida para escapar los caracteres especiales
+    //Se recorren las filas para armar el cuerpo de la tabla y se utiliza comillas invertida para escapar los caracteres especiales
     rows.forEach(function(row){
+
+        
         content += `
             <tr>
                 <td>${row.correlativo}</td>
                 <td>${row.nom_proveedor}</td>
                 <td>${row.fecha_ingreso}</td>
                 <td>${row.alias}</td>
-                <td>
-                    <a href="#" onclick="modalFacturaDatos(${row.id_factura})" class="btn btn-info tooltipped" data-tooltip="Modificar"><i class="fa fa-edit"></i></a>
-                    <a href="#" onclick="modalFacturaDetalle(${row.id_factura})" class="btn btn-warning tooltipped" data-tooltip="Modificar"><i class="fa fa-info-circle"></i></a>
-                </td>
-            </tr>
+                <td>`
+        if (row.estado == 2){
+            content +=`<a href="#" onclick="modalFacturaDatos(${row.id_factura})" class="btn btn-info tooltipped" data-tooltip="Modificar"><i class="fa fa-edit"></i></a>
+                    <a href="#" onclick="modalFacturaDetalle(${row.id_factura})" class="btn btn-warning tooltipped" data-tooltip="Modificar"><i class="fa fa-info-circle"></i></a>`
+                    
+        } else {
+            if(row.estado == 1){
+                content +=`<button class="btn btn-success tooltipped" data-tooltip="Modificar"><i class="fa fa-check-circle"></i></button>
+                <a href="#" onclick="modalFacturaDetalle(${row.id_factura})" class="btn btn-warning tooltipped" data-tooltip="Modificar"><i class="fa fa-info-circle"></i></a>`
+    
+            } else {
+                if(row.estado == 0){
+                content +=`<button class="btn btn-danger tooltipped" data-tooltip="Modificar"><i class="fas fa-backspace"></i></button>
+                <a href="#" onclick="modalFacturaDetalle(${row.id_factura})" class="btn btn-warning tooltipped" data-tooltip="Modificar"><i class="fa fa-info-circle"></i></a>`
+    
+                }
+            }
+        }
+        
+        
+        content +=`</td>
+        </tr>
         `;
     });
     $('#tbody-read').html(content);
@@ -70,7 +92,7 @@ function fillTableDetalleFactura(rows)
     let row = '';
     console.log(rows);
 
-    //Se recorren las filas para armar el cuerpo de la tabla y se utiliza comilla invertida para escapar los caracteres especiales
+    //Se recorren las filas para armar el cuerpo de la tabla y se utiliza comillas invertida para escapar los caracteres especiales
     rows.forEach(function(row){
 
         subtotal = parseFloat(row.cantidad * row.precio).toFixed(2);
@@ -89,7 +111,6 @@ function fillTableDetalleFactura(rows)
                 <td>${row.cantidad}</td>
                 <td>$${row.precio}</td>
                 <td>$${subtotal}</td>
-                
                 <td>`;
                 console.log(row.estado);
                 if(row.estado==2){
@@ -104,8 +125,6 @@ function fillTableDetalleFactura(rows)
         `;
 
         console.log(row.id_inventario);
-        
-        //$("#id-pedido").text(row.id_pedido);
     });
 
     contentTotal += `<h6>TOTAL DE FACTURA: $${total}.</h6>`;
@@ -391,6 +410,374 @@ function actualizarEstado()
     .fail(function(jqXHR){
         // Se muestran en consola los posibles errores de la solicitud AJAX
         console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+    });
+}
+
+//Función para mostrar materias primas disponibles
+function modalUpdateMaterias(id)
+{
+    $.ajax({
+        url: apiRecetas + 'getElaboracion',
+        type: 'post',
+        data:{
+            id_elaboracion: id
+        },
+        datatype: 'json'
+    })
+    .done(function(response){
+        //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado consola
+        if (isJSONString(response)) {
+            const result = JSON.parse(response);
+            //Se comprueba si el resultado es satisfactorio para mostrar los valores en el formulario, sino se muestra la excepción
+            if (result.status) {
+                $('#form-update-materiasprimas')[0].reset();
+                $('#id_receta_updatemate').val(result.dataset.id_receta);
+                $('#id_elaboracion').val(result.dataset.id_elaboracion);
+                showSelectMaterias('id_update_materia', result.dataset.idMateria);
+                $('#cantidad_materia_update').val(result.dataset.cantidad);
+                $('#modal-update-materiasprimas').modal('show');
+            } else {
+                sweetAlert(2, result.exception, null);
+            }
+        } else {
+            console.log(response);
+        }
+    })
+    .fail(function(jqXHR){
+        //Se muestran en consola los posibles errores de la solicitud AJAX
+        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+    });
+}
+
+$('#form-update-materiasprimas').submit(function()
+{
+    event.preventDefault();
+    $.ajax({
+        url: apiRecetas + 'updateElaboracion',
+        type: 'post',
+        data: new FormData($('#form-update-materiasprimas')[0]),
+        datatype: 'json',
+        cache: false,
+        contentType: false,
+        processData: false
+    })
+    .done(function(response){
+        //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+        
+        if (isJSONString(response)) {
+            const result = JSON.parse(response);
+            
+            //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
+            if (result.status) {
+                $('#modal-update-materiasprimas').modal('hide');
+                sweetAlert(1, 'Materia prima modificada correctamente', null);
+                //Se destruye la tabla de materias primas y se vuelve a crear para que muestre los cambios realizados
+                $('#modal-update-recetas').modal('hide');
+                showTableRecetas(idReceta);
+            } else {
+                sweetAlert(2, result.exception, null);
+            }
+        } else {
+            //Se comprueba que el alias no sea repetido
+            sweetAlert(2, error2(response), null);
+            console.log(response);
+        }
+    })
+    .fail(function(jqXHR){
+        //Se muestran en consola los posibles errores de la solicitud AJAX
+        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+    });
+})
+
+// Función para llenar tabla con los datos de los registros
+function fillTableInventario(rows)
+{
+    let content = '';
+    //Se recorren las filas para armar el cuerpo de la tabla y se utiliza comilla invertida para escapar los caracteres especiales
+    rows.forEach(function(row){
+        content += `
+            <tr>
+                <td>${row.correlativo}</td>
+                <td>${row.Materia}</td>
+                <td>${row.cantidad}</td>
+                <td>${row.nom_proveedor}</td>
+                <td>${row.fecha_ingreso}</td>
+                <td>${row.alias}</td>
+                <td>
+                    <a href="#" onclick="modalDetalle(${row.id_pedido})" class="btn btn-info tooltipped" data-tooltip="Modificar"><i class="fa fa-edit"></i></a>
+                </td>
+            </tr>
+        `;
+    });
+    $('#tbody-read').html(content);
+    table('#tabla-inventarios');
+}
+
+//Función para obtener y mostrar los registros disponibles
+function showTableInventario()
+{
+    $.ajax({
+        url: apiFacturas+ 'readInventario',
+        type: 'post',
+        data: null,
+        datatype: 'json'
+    })
+    .done(function(response){
+        //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+        if (isJSONString(response)) {
+            const result = JSON.parse(response);
+            //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
+            if (!result.status) {
+                sweetAlert(4, result.exception, null);
+            }
+            fillTableInventario(result.dataset);
+        } else {
+            console.log(response);
+        }
+    })
+    .fail(function(jqXHR){
+        //Se muestran en consola los posibles errores de la solicitud AJAX
+        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+    });
+}
+
+//Función para crear una nueva factura
+$('#form-create-factura').submit(function()
+{
+    event.preventDefault();
+    $.ajax({
+        url: apiFacturas + 'createFactura',
+        type: 'post',
+        data: new FormData($('#form-create-factura')[0]),
+        datatype: 'json',
+        cache: false,
+        contentType: false,
+        processData: false
+    })
+    .done(function(response){
+        //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+        if (isJSONString(response)) {
+            const result = JSON.parse(response);
+            //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
+            if (result.status) {
+                $('#form-create-factura')[0].reset();
+                $('#modal-create-factura').modal('hide');
+                sweetAlert(1, 'Factura creada correctamente', null);
+            } else {
+                sweetAlert(2, result.exception, null);
+            }
+        } else {
+            console.log(response);
+            //Se comprueba que el alias no sea repetido
+            sweetAlert(2, error2(response), null);
+        }
+    })
+    .fail(function(jqXHR){
+        //Se muestran en consola los posibles errores de la solicitud AJAX
+        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+    });
+})
+
+
+//Función para cargar los nombres de proveedores en el select del formulario para agregar facturas
+function showSelectFacturas(idSelect, value)
+{
+    $.ajax({
+        url: apiFacturas + 'readSelectFacturas',
+        type: 'post',
+        data: null,
+        datatype: 'json'
+    })
+    .done(function(response){
+        //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+        if (isJSONString(response)) {
+            const result = JSON.parse(response);
+            //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
+            if (result.status) {
+                let content = '';
+                if (!value) {
+                    content += '<option value="" disabled selected>Seleccione una opción</option>';
+                }
+                result.dataset.forEach(function(row){
+                    if (row.id_factura != value) {
+                        content += `<option value="${row.id_factura}">${row.correlativo}</option>`;
+                    } else {
+                        content += `<option value="${row.id_factura}" selected>${row.correlativo}</option>`;
+                    }
+                });
+                $('#' + idSelect).html(content);
+            } else {
+                $('#' + idSelect).html('<option value="">No hay facturas en proceso</option>');
+            }
+        } else {
+            console.log(response);
+        }
+    })
+    .fail(function(jqXHR){
+        //Se muestran en consola los posibles errores de la solicitud AJAX
+        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+    });
+}
+
+function showSelectMaterias(idSelect, value)
+{
+    $.ajax({
+        url: apiFacturas + 'readMateriaPrima',
+        type: 'post',
+        data: null,
+        datatype: 'json'
+    })
+    .done(function(response){
+        //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+        if (isJSONString(response)) {
+            const result = JSON.parse(response);
+            //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
+            if (result.status) {
+                let content = '';
+                if (!value) {
+                    content += '<option value="" disabled selected>Seleccione una opción</option>';
+                }
+                result.dataset.forEach(function(row){
+                    if (row.idMateria != value) {
+                        content += `<option value="${row.idMateria}">${row.Materia}</option>`;
+                    } else {
+                        content += `<option value="${row.idMateria}" selected>${row.Materia}</option>`;
+                    }
+                });
+                $('#' + idSelect).html(content);
+            } else {
+                $('#' + idSelect).html('<option value="">No hay opciones</option>');
+            }
+        } else {
+            console.log(response);
+        }
+    })
+    .fail(function(jqXHR){
+        //Se muestran en consola los posibles errores de la solicitud AJAX
+        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+    });
+}
+
+//Función para cargar los nombres de proveedores en el select del formulario para agregar facturas
+function showSelectProveedores(idSelect, value)
+{
+    $.ajax({
+        url: apiFacturas + 'readProveedores',
+        type: 'post',
+        data: null,
+        datatype: 'json'
+    })
+    .done(function(response){
+        //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+        if (isJSONString(response)) {
+            const result = JSON.parse(response);
+            //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
+            if (result.status) {
+                let content = '';
+                if (!value) {
+                    content += '<option value="" disabled selected>Seleccione una opción</option>';
+                }
+                result.dataset.forEach(function(row){
+                    if (row.id_proveedor != value) {
+                        content += `<option value="${row.id_proveedor}">${row.nom_proveedor}</option>`;
+                    } else {
+                        content += `<option value="${row.id_proveedor}" selected>${row.nom_proveedor}</option>`;
+                    }
+                });
+                $('#' + idSelect).html(content);
+            } else {
+                $('#' + idSelect).html('<option value="">No hay opciones</option>');
+            }
+        } else {
+            console.log(response);
+        }
+    })
+    .fail(function(jqXHR){
+        //Se muestran en consola los posibles errores de la solicitud AJAX
+        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+    });
+}
+
+
+//Función para crear una nueva factura
+$('#form-create').submit(function()
+{
+    event.preventDefault();
+    $.ajax({
+        url: apiFacturas + 'ingresarFactura',
+        type: 'post',
+        data: new FormData($('#form-create')[0]),
+        datatype: 'json',
+        cache: false,
+        contentType: false,
+        processData: false
+    })
+    .done(function(response){
+        //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+        if (isJSONString(response)) {
+            const result = JSON.parse(response);
+            //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
+            if (result.status) {
+                $('#form-create')[0].reset();
+                $('#modal-create').modal('hide');
+                sweetAlert(1, 'Factura ingresada correctamente', null);
+                destroy('#tabla-inventarios');
+                showTableInventario();
+            } else {
+                sweetAlert(2, result.exception, null);
+            }
+        } else {
+            console.log(response);
+            //Se comprueba que el alias no sea repetido
+            sweetAlert(2, error2(response), null);
+        }
+    })
+    .fail(function(jqXHR){
+        //Se muestran en consola los posibles errores de la solicitud AJAX
+        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+    });
+})
+
+function confirmDeleteProductoFactura(id)
+{
+    swal({
+        title: 'Advertencia',
+        text: '¿Quiere eliminar esta materia prima?',
+        icon: 'warning',
+        buttons: ['Cancelar', 'Aceptar'],
+        closeOnClickOutside: false,
+        closeOnEsc: false
+    })
+    .then(function(value){
+        if (value) {
+            $.ajax({
+                url: apiRecetas + 'deleteMateria',
+                type: 'post',
+                data:{
+                    idElaboracion: id
+                },
+                datatype: 'json'
+            })
+            .done(function(response){
+                //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+                if (isJSONString(response)) {
+                    const result = JSON.parse(response);
+                    //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
+                    if (result.status) {
+                        sweetAlert(1, 'Materia prima eliminada correctamente', null);
+                        showTableRecetas(idReceta);
+                    } else {
+                        sweetAlert(2, result.exception, null);
+                    }
+                } else {
+                    console.log(response);
+                }
+            })
+            .fail(function(jqXHR){
+                //Se muestran en consola los posibles errores de la solicitud AJAX
+                console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+            });
+        }
     });
 }
 

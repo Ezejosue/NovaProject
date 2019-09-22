@@ -66,6 +66,11 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
+td.estados{
+    padding: 20px;
+}
+
+
 h1,
 h2,
 h3,

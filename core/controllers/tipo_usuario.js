@@ -200,7 +200,7 @@ function modificar(id3){
         event.preventDefault();
         //se declara el arreglo vacío
         var estados = [];
-        //Por cada checkbox se verifica si está chequedo y se agrega el valor 1 al arreglo, si no se agrega 0
+        //Por cada checkbox se verifica si está chequeada y se agrega el valor 1 al arreglo, si no se agrega 0
         $('.get_value').each(function(){
             if($(this).is(":checked")){
                 estados.push("1");

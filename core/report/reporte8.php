@@ -19,10 +19,10 @@ $pdf->SetFont('Arial','B',10);
 $data = $platillos->readMeteriaCategoria1($_GET['categoria']);
 $pdf->Ln();
 $pdf->setX(60);
-// Cell(ancho, Alto, texto, borde, salto de linea, alineacion de texto)
+// Cell(ancho, Alto, texto, borde, salto de linea, alineación de texto)
 $pdf->Cell(100,5, utf8_decode('REPORTE DE MATERIA PRIMA POR CATEGORIA'), 0, 0, 'C');  
 $pdf->Ln(10);
-// Seteamos la posición de la proxima celda en forma fija a 3.8 cm hacia la derecha de la pagina
+// Seteamos la posición de la próxima celda en forma fija a 3.8 cm hacia la derecha de la pagina
 $pdf->setX(38);
 $pdf->Ln();
 $categoria = '';
@@ -48,12 +48,12 @@ foreach($data as $datos){
         $pdf->Ln();
     }
         
-        $pdf->setX(30);
-          // Cell(ancho, Alto, texto, borde, salto de linea, alineación de texto, color)
-        //convertimos el texto a utf8
-        $pdf->Cell(135,10, utf8_decode($datos['nombre_materia']),1,0,'C');
-        $pdf->Cell(20,10, utf8_decode($datos['cantidad']),1,0,'C');
-        $pdf->Ln();
+      $pdf->setX(30);
+      // Cell(ancho, Alto, texto, borde, salto de linea, alineación de texto, color)
+      //convertimos el texto a utf8
+      $pdf->Cell(135,10, utf8_decode($datos['nombre_materia']),1,0,'C');
+      $pdf->Cell(20,10, utf8_decode($datos['cantidad']),1,0,'C');
+      $pdf->Ln();
 }
 
 

@@ -73,10 +73,7 @@ if (isset($_GET['action'])) {
 				} else {
 					$result['exception'] = 'Nombre incorrecto';
 				}
-			
 			break;
-				
-
 				
            //Operación para mostrar los cargos activos en el formulario de modificar Empleado
 				 case 'readCargo':
@@ -96,7 +93,7 @@ if (isset($_GET['action'])) {
 				 }
 				 break;
 
-				 /* Operacion para obtener el id del empleado */
+				 /* Operación para obtener el id del empleado */
 				case 'get':
 					 if ($empleado->setId($_POST['id_empleado']) 
 					 ) {
@@ -111,7 +108,7 @@ if (isset($_GET['action'])) {
 					 }
 					break;
 
-				 /* Operacion para actualizar un empleado */
+				/* Operación para actualizar un empleado */
 				case 'update':
 					$_POST = $empleado->validateForm($_POST);
 					if ($empleado->setId($_POST['id_empleado'])) 
@@ -172,7 +169,7 @@ if (isset($_GET['action'])) {
 					}
 					break;
 
-				 /* Operacion para eliminar un empleado */
+				 /* Operación para eliminar un empleado */
 				 case 'delete':
 				 if ($empleado->setId($_POST['id_empleado'])) {
 					 if ($empleado->getEmpleado()) {

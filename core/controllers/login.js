@@ -2,7 +2,6 @@
 $(document).ready(function () {
     checkUsuarios();
 })
-
 //Constante para establecer la ruta y parámetros de comunicación con la API
 const apiLogin = '../core/api/usuarios.php?site=private&action=';
 

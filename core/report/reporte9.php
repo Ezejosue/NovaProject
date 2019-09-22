@@ -19,10 +19,10 @@ $pdf->SetFillColor(239, 127, 26);
 $data = $platillos->readRecetaDesperdicio($_GET['fecha'], $_GET['fecha2']);
 $pdf->Ln();
 $pdf->setX(60);
-// Cell(ancho, Alto, texto, borde, salto de linea, alineacion de texto)
+// Cell(ancho, Alto, texto, borde, salto de linea, alineación de texto)
 $pdf->Cell(100,5, utf8_decode('REPORTE DE PRODUCTOS DESPERDICIADOS'), 0, 0, 'C');  
 $pdf->Ln(10);
-// Seteamos la posición de la proxima celda en forma fija a 3.8 cm hacia la derecha de la pagina
+// Seteamos la posición de la próxima celda en forma fija a 3.8 cm hacia la derecha de la pagina
 $pdf->setX(38);
 $pdf->Ln();
 $categoria = '';
@@ -40,7 +40,7 @@ foreach($data as $datos){
   //Se coloca el color del texto en formato rgb
   $pdf->SetTextColor(0,0,0);
   $pdf->Ln();
-    // Cell(ancho, Alto, texto, borde, salto de linea, alineación de texto, color)
+  // Cell(ancho, Alto, texto, borde, salto de linea, alineación de texto, color)
   //convertimos el texto a utf8
   $pdf->Cell(30,10, utf8_decode($datos['nombre_empleado']),1,0,'C');
   $pdf->Cell(40,10, utf8_decode($datos['fecha_desperdicio']),1,0,'C');

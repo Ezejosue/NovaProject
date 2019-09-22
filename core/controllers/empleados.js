@@ -11,7 +11,7 @@ const apiEmpleados = '../core/api/empleados.php?site=private&action=';
 //Función para llenar tabla con los datos de los registros
 function fillTable(rows) {
     let content = '';
-    // Se recorren las filas para armar el cuerpo de la tabla y se utiliza comilla invertida para escapar los caracteres especiales
+    // Se recorren las filas para armar el cuerpo de la tabla y se utiliza comillas invertida para escapar los caracteres especiales
     rows.forEach(function(row){
         content += `
             <tr>
@@ -317,7 +317,7 @@ function error2(response)
             mensaje = 'Datos de empleado duplicados';
             break;
         default:
-            mensaje = 'Ocurrió un problema, consulte al admin';
+            mensaje = 'Ocurrió un problema, consulte al administrador';
             break;
     }
     return mensaje;
