@@ -97,7 +97,6 @@ function CategoriasClick_1()
     window.open('../core/report/reporte6.php?id_categoria='+$('#id_categoria').val(),null,winFeature);
 }
 
-
 var fecha3;
 var fecha4;
 var fecha_string1;

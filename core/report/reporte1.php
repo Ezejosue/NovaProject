@@ -17,10 +17,10 @@ $platillos = new Platillos();
 $pdf->SetFont('Arial','B',10);
 $pdf->Ln();
 $pdf->setX(60);
-// Cell(ancho, Alto, texto, borde, salto de linea, alineacion de texto)
-$pdf->Cell(100,5, utf8_decode('REPORTE DE PLATILLOS POR CATEGORIA'), 0, 0, 'C');  
+// Cell(ancho, Alto, texto, borde, salto de linea, alineación de texto)
+$pdf->Cell(100,5, utf8_decode('REPORTE DE PLATILLOS POR CATEGORÍA'), 0, 0, 'C');  
 $pdf->Ln(10);
-// Seteamos la posición de la proxima celda en forma fija a 3.8 cm hacia la derecha de la pagina
+// Seteamos la posición de la próxima celda en forma fija a 3.8 cm hacia la derecha de la pagina
 $pdf->setX(38);
 $pdf->Ln();
 $categoria = '';
@@ -48,7 +48,7 @@ if($platillos->platillos_categoria()){
         $pdf->Ln();
     }
         $pdf->setX(30);
-          // Cell(ancho, Alto, texto, borde, salto de linea, alineación de texto, color)
+        // Cell(ancho, Alto, texto, borde, salto de linea, alineación de texto, color)
         //convertimos el texto a utf8
         $pdf->Cell(10,10, utf8_decode($datos['id_platillo']),1,0,'C');
         $pdf->Cell(140,10, utf8_decode($datos['nombre_platillo']),1,0,'C');

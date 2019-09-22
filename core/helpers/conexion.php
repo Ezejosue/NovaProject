@@ -64,7 +64,7 @@ class Conexion
 /*
     Este método tiene como propósito obtener el resultado del primer registro de una consulta tipo SELECT.
     Recibe como parámetros la sentencia SQL de tipo string y los valores de los campos respectivos en un arreglo.
-    Devuelve como resultado un arreglo del registro númerico y asociativo en caso de éxito, NULL en caso contrario.
+    Devuelve como resultado un arreglo del registro numérico y asociativo en caso de éxito, NULL en caso contrario.
 */
     public static function getRow($query, $values)
     {
@@ -78,7 +78,7 @@ class Conexion
 /*
     Este método tiene como propósito obtener todos los registros de una consulta tipo SELECT.
     Recibe como parámetros la sentencia SQL de tipo string y los valores de los campos respectivos en un arreglo.
-    Devuelve como resultado un arreglo con los registros númericos y asociativos en caso de éxito, NULL en caso contrario.
+    Devuelve como resultado un arreglo con los registros numéricos y asociativos en caso de éxito, NULL en caso contrario.
 */
 
     public static function getRows($query, $values)

@@ -40,16 +40,12 @@ if (isset($_GET['action'])) {
 
             case 'ActualizarSesion':
                 if ($usuario->setId($_SESSION['idUsuario'])) {
-                  /* if ($usuario->setAlias($_POST['usuario'])) { */
                     if ($usuario->UpdateLogout()) {
                         $result['status'] = 1;
                         }
-                        else {  
-                            $result['exception'] = 'No pudimos actualizar su sesión';
-                        }
-                   /*  } else {
-                        $result['exception'] = 'Alias inexistente';
-                    } */
+                    else {  
+                        $result['exception'] = 'No pudimos actualizar su sesión';
+                    }
                 } else {
                     $result['exception'] = 'No encontramos su usuario';
                 }

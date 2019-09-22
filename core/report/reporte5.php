@@ -21,7 +21,7 @@ $pdf->SetFillColor(239, 127, 26);
 $pdf->SetTextColor(0,0,0);
 $pdf->Ln();
 $pdf->setX(60);
-// Cell(ancho, Alto, texto, borde, salto de linea, alineacion de texto)
+// Cell(ancho, Alto, texto, borde, salto de linea, alineación de texto)
 $pdf->Cell(100,5, utf8_decode('REPORTE DE GANANCIAS POR CATEGORÍA'), 0, 0, 'C');  
 $pdf->Ln(10);
 $categoria = '';
