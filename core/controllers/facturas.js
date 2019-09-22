@@ -14,7 +14,7 @@ const apiFacturas = '../core/api/inventarios.php?site=private&action=';
 function fillTableFacturas(rows)
 {
     let content = '';
-    //Se recorren las filas para armar el cuerpo de la tabla y se utiliza comilla invertida para escapar los caracteres especiales
+    //Se recorren las filas para armar el cuerpo de la tabla y se utiliza comillas invertida para escapar los caracteres especiales
     rows.forEach(function(row){
 
         
@@ -92,7 +92,7 @@ function fillTableDetalleFactura(rows)
     let row = '';
     console.log(rows);
 
-    //Se recorren las filas para armar el cuerpo de la tabla y se utiliza comilla invertida para escapar los caracteres especiales
+    //Se recorren las filas para armar el cuerpo de la tabla y se utiliza comillas invertida para escapar los caracteres especiales
     rows.forEach(function(row){
 
         subtotal = parseFloat(row.cantidad * row.precio).toFixed(2);
@@ -111,7 +111,6 @@ function fillTableDetalleFactura(rows)
                 <td>${row.cantidad}</td>
                 <td>$${row.precio}</td>
                 <td>$${subtotal}</td>
-                
                 <td>`;
                 console.log(row.estado);
                 if(row.estado==2){

@@ -281,15 +281,7 @@ class Usuarios extends Validator
 		$params = array($this->token);
 		return Conexion::getRow($sql, $params);
 	}
-/* 
-	//Metodos para manejar el CRUD
-	public function bloquearUsuario()
-	{
-		$sql = 'UPDATE usuarios SET estado_usuario = ? WHERE alias = ?';
-		$params = array(0, $this->alias);
-		return Database::executeRow($sql, $params);
-	}
- */
+
 	//Metodos para sumar intentos
 	public function SumarIntentos()
 	{

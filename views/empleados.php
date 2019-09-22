@@ -27,7 +27,7 @@
                                 <th>APELLIDO</th>
                                 <th>DUI</th>
                                 <th>DIRECCIÓN</th>
-                                <th>FECHA</th>
+                                <th>CORREO</th>
                                 <th>ACCIÓN</th>
                             </tr>
                         </thead>
@@ -49,7 +49,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form class="was-validated" method="post" id="form-create" enctype="multipart/form-data">
+                <form method="post" id="form-create" enctype="multipart/form-data">
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-1">
@@ -57,7 +57,7 @@
                             </div>
                             <div class="col-sm-11">
                                 <input id="create_nombre" type="text" name="create_nombre" autocomplete="off"
-                                    class="validate form-control" placeholder="Nombre de empleado" required>
+                                    class="validate form-control" placeholder="Nombre" required>
                             </div>
                         </div>
                     </div>
@@ -123,8 +123,10 @@
                                 <i class="far fa-calendar-alt"></i>
                             </div>
                             <div class="col-sm-11">
+                                <label for="create_fecha">Fecha de nacimiento</label>
                                 <input id="create_fecha" type="date" min="01/01/1952" max="01/01/2001"
                                     name="create_fecha" autocomplete="off" class="validate form-control" required>
+                                    
                             </div>
                         </div>
                     </div>
@@ -147,7 +149,7 @@
                             </div>
                             <div class="col-sm-11">
                                 <input id="create_email" type="text" name="create_email" autocomplete="off"
-                                    class="validate form-control" placeholder="ejemplo@mail.com" required>
+                                    class="validate form-control" placeholder="correo" required>
                             </div>
                         </div>
                     </div>
@@ -165,7 +167,7 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-1">
-                                <i class="fas fa-users"></i>
+                                <i class="fas fa-user"></i>
                             </div>
                             <div class="col-sm-11">
                                 <select id="create_usuario" name="create_usuario" class="form-control" required>
@@ -307,7 +309,7 @@
                         <div class="modal-body">
                             <div class="row">
                                 <div class="col-sm-1">
-                                    <i class="fas fa-users"></i>
+                                    <i class="fas fa-user"></i>
                                 </div>
                                 <div class="col-sm-11">
                                     <select id="update_usuario" name="update_usuario" class="form-control">
@@ -331,45 +333,28 @@ Dashboard::footerTemplate('empleados.js', '#tabla-empleados');
 
     <script>
         bootstrapValidate("#create_dui", "min:9:Ingrese su DUI completo");
-        bootstrapValidate("#create_dui", "max:10:El DUI lleva solo 9 caracteres incluido el (-)");
+        bootstrapValidate("#create_dui", "max:10:El DUI debe contener solo 9 caracteres incluido el (-)");
 
-        bootstrapValidate("#create_nombre", "min:10:Campo obligatorio");
-        bootstrapValidate("#create_apellido", "min:10:Campo obligatorio");
+        bootstrapValidate("#create_nombre", "required:Campo obligatorio");
+        bootstrapValidate("#create_apellido", "required:Campo obligatorio");
         bootstrapValidate("#create_genero", "min:1:Coloca F o M según corresponda");
         bootstrapValidate("#create_fecha", "min:10:Ingresa un fecha válida");
-
-        bootstrapValidate("#create_direccion", "min:30:Ingrese una dirección de 30 caracteres o menos");
-        bootstrapValidate("#create_direccion", "max:30:Ingrese una dirección menor de 30 caracteres");
-
+        bootstrapValidate("#create_direccion", "required:Ingrese una dirección");
         bootstrapValidate("#create_telefono", "min:9:Ingrese un número de teléfono válido");
-        bootstrapValidate("#create_telefono", "max:13:Ingrese un teléfono menor de 12 caracteres");
-
-
-        bootstrapValidate("#create_nacionalidad", "min:10:Ingrese nacionalidad");
-        bootstrapValidate("#create_nacionalidad", "max:80:Ingrese una nacionalidad válida");
-
+        bootstrapValidate("#create_nacionalidad", "required:Ingrese nacionalidad");
         bootstrapValidate('#create_email', 'email:Ingrese un email válido');
 
         /*   <!-- validaciones del lado del cliente en el modal de modificar empleados --> */
 
         bootstrapValidate("#update_dui", "min:9:Ingrese su DUI completo");
         bootstrapValidate("#update_dui", "max:10:El DUI lleva solo 9 caracteres incluido el (-)");
-
-        bootstrapValidate("#update_nombre", "min:10:Campo obligatorio");
-        bootstrapValidate("#update_apellido", "min:10:Campo obligatorio");
+        bootstrapValidate("#update_nombre", "required:Campo obligatorio");
+        bootstrapValidate("#update_apellido", "required:Campo obligatorio");
         bootstrapValidate("#update_genero", "min:1:Coloca F o M según corresponda");
         bootstrapValidate("#update_fecha", "min:10:Ingresa un fecha válida");
-
-        bootstrapValidate("#update_direccion", "min:30:Ingrese una dirección de 30 caracteres o menos");
-        bootstrapValidate("#update_direccion", "max:30:Ingrese una dirección menor de 30 caracteres");
-
+        bootstrapValidate("#update_direccion", "required:Ingrese una dirección");
         bootstrapValidate("#update_telefono", "min:9:Ingrese un número de teléfono válido");
-        bootstrapValidate("#update_telefono", "max:13:Ingrese un teléfono menor de 12 caracteres");
-
-
-        bootstrapValidate("#update_nacionalidad", "min:10:Ingrese nacionalidad");
-        bootstrapValidate("#update_nacionalidad", "max:80:Ingrese una nacionalidad válida");
-
+        bootstrapValidate("#update_nacionalidad", "required:Ingrese nacionalidad");
         bootstrapValidate('#update_email', 'email:Ingrese un email válido');
     </script>
     </body>

@@ -46,10 +46,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form class="was-validated" method="post" id="form-create" enctype="multipart/form-data">
-                    <div class="modal-body">
-
-                    </div>
+                <form method="post" id="form-create" enctype="multipart/form-data">
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-1">
@@ -61,7 +58,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body text-center">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                         <button type="submit" class="btn btn-primary">Aceptar</button>
                     </div>
@@ -79,7 +76,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form class="was-validated" method="post" id="form-update" enctype="multipart/form-data">
+                <form method="post" id="form-update" enctype="multipart/form-data">
                     <input type="hidden" id="id_Cargo" name="id_Cargo" />
                     <div class="modal-body">
                         <div class="row">
@@ -104,8 +101,8 @@
 Dashboard::footerTemplate('cargo.js', '#tabla-cargo');
 ?>
     <script>
-        bootstrapValidate("#create_cargo", "min:9:Campo obligatorio (solo letras)");
-        bootstrapValidate("#update_nombre_cargo", "min:9:Campo obligatorio (solo letras)");
+        bootstrapValidate("#create_cargo", "required:Campo obligatorio");
+        bootstrapValidate("#update_nombre_cargo", "required:Campo obligatorio");
     </script>
     </body>
 

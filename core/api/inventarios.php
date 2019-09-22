@@ -102,7 +102,6 @@ if (isset($_GET['action'])) {
                         $result['exception'] = 'Factura inexistente';
                     }
                 } else {
-                    
                     $result['exception'] = 'Factura incorrecta';
                 }
                 break;
