@@ -38,18 +38,18 @@ if ($platillos->ventas_categoria_reporte($_GET['id_categoria'])){
         $pdf->setX(30);
         // Cell(ancho, Alto, texto, borde, salto de linea, alineación de texto, color)
         $pdf->Cell(25,10, utf8_decode('Categoría:'),1,0,'C');
-        $pdf->Cell(130,10, utf8_decode($categoria),1,1,'L');
+        $pdf->Cell(130,10, utf8_decode($categoria),1,1,'C');
         $pdf->Ln();
         $pdf->setX(30);
-        $pdf->Cell(120,10, utf8_decode('Platillo'),1,0,'C',true);
-        $pdf->Cell(17,10, utf8_decode('Cantidad'),1,0,'C',true);
-        $pdf->Cell(18,10, utf8_decode('Ganancia'),1,0,'C',true);
+        $pdf->Cell(110,10, utf8_decode('PLATILLO'),1,0,'C',true);
+        $pdf->Cell(22,10, utf8_decode('CANTIDAD'),1,0,'C',true);
+        $pdf->Cell(23,10, utf8_decode('GANANCIA'),1,0,'C',true);
         }
       $pdf->Ln();
       $pdf->setX(30);
-      $pdf->Cell(120,10, utf8_decode($datos['nombre_platillo']),1,0,'C');
-      $pdf->Cell(17,10, utf8_decode($datos['cantidad']),1,0,'C');
-      $pdf->Cell(18,10, utf8_decode('$'.$datos['subtotal']),1,0,'C');
+      $pdf->Cell(110,10, utf8_decode($datos['nombre_platillo']),1,0,'C');
+      $pdf->Cell(22,10, utf8_decode($datos['cantidad']),1,0,'C');
+      $pdf->Cell(23,10, utf8_decode('$'.$datos['subtotal']),1,0,'C');
       $categoria = $datos['nombre_categoria'];
     }
 } else {

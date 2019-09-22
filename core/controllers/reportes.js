@@ -136,7 +136,7 @@ function pegarFecha(){
 
 function CategoriasClick_4()
 {
-    window.open('../core/report/reporte9.php?fecha='+fecha_string+'&fecha2  ='+fecha_string2,null,winFeature);
+    window.open('../core/report/reporte9.php?fecha3='+fecha_string+'&fecha4='+fecha_string2,null,winFeature);
 }
 
 function CategoriasClick_5()
