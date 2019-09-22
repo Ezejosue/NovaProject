@@ -109,9 +109,7 @@ if (isset($_GET['action'])) {
             case 'readDetalleFactura':
                 if ($inventarios->setId_factura($_POST['id_factura'])) {
                     if ($result['dataset'] = $inventarios->readFactura()) {
-                        
                         $result['status'] = 1;
-                        /* print_r($result['dataset']); */
                     } else {
                         $result['exception'] = 'No hay detalles registrados';
                     }

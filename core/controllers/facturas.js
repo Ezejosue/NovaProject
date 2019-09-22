@@ -139,13 +139,16 @@ function fillTableDetalleFactura(rows)
     $("#fecha_ingreso").html(contentFecha);
     let nombre_estado = '';
 
-    $('#estado_btn').html(`<div class="row">
-                            <div class="col-sm-11">
-                                <div class="custom-control custom-switch">
-                                    <button type="submit" class="btn btn-primary tooltipped" data-tooltip="Crear">CAMBIAR ESTADO</button>
-                                </div>
-                            </div>
-                        </div>`);
+    if (total <= 0){
+        $('#estado_btn').html(`<div class="row">
+        <div class="col-sm-11">
+            <div class="custom-control custom-switch">
+                <button type="submit" class="btn btn-primary tooltipped" data-tooltip="Crear">CAMBIAR ESTADO</button>
+            </div>
+        </div>
+        </div>`);
+}
+    
 
     if (estado == 2) {
         nombre_estado = 'En proceso';
@@ -166,8 +169,6 @@ function fillTableDetalleFactura(rows)
     $("#hestado").val(estado);
     $("#hid_factura").val(id_factura);
     
-
-
     $('#tbody-read-detalle-factura').html(content);
     table('#tabla-detalle-factura');
 }
@@ -191,6 +192,7 @@ function showTableDetalleFactura(id)
                 sweetAlert(4, result.exception, null);
             }
             fillTableDetalleFactura(result.dataset);
+            console.log(result.dataset.id_factura);
             
         } else {
             console.log(response);
