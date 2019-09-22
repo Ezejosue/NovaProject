@@ -50,10 +50,10 @@ if (isset($_GET['action'])) {
                                         $result['exception'] = 'Seleccione una unidad de medida';
                                     } 
                                 } else {
-                                    $result['exception'] = 'Seleccione una categoria';
+                                    $result['exception'] = 'Seleccione una categoría';
                                 }
                             } else {
-                                $result['exception'] = 'Descripcion incorrecta';
+                                $result['exception'] = 'Descripción incorrecta';
                             }
                         } else {
                             $result['exception'] = 'Estado incorrecto';
@@ -117,7 +117,7 @@ if (isset($_GET['action'])) {
                                                 $result['exception'] = 'Seleccione una unidad de medida';
                                             }
                                         } else {
-                                            $result['exception'] = 'Seleccione una categoria';
+                                            $result['exception'] = 'Seleccione una categoría';
                                         }
                                     } else {
                                         $result['exception'] = 'Estado incorrecto';

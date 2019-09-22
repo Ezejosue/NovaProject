@@ -135,11 +135,8 @@ class Dashboard
 										<div class="header-button-item mr-0 js-sidebar-btn">
 											<i class="zmdi zmdi-menu"></i>
 										</div>
-										
 									</div>
-									
 								</div>
-								
 							</div>
 						</header>
 						<aside class="menu-sidebar2 js-right-sidebar d-block d-lg-none">

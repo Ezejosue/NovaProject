@@ -61,10 +61,8 @@ if (isset($_GET['action'])) {
                                 
                             } else {
                                 $result['exception'] = 'Cargo incorrecto';                    
-                            }
-                            
+                            }   
                         }
-                        
 					}
                     break;
                     

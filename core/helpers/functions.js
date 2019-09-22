@@ -99,8 +99,9 @@ function grafico_existencia_categoria_agotar(canvas, xAxis, yAxis, legend, title
 }
 
 
-//funcion que se llena con los parametros que se obtienen en index.js 
-function grafico_existencia_categoria_sobre_existen(canvas, xAxis, yAxis, legend, title) { //ramdon para la obtención de colores al azar
+//funcion que se llena con los parámetros que se obtienen en index.js 
+function grafico_existencia_categoria_sobre_existen(canvas, xAxis, yAxis, legend, title) {
+    //ramdon para la obtención de colores al azar
     let colors = [];
     for (i = 0; i < xAxis.length; i++) {
         colors.push('#' + (Math.random().toString(16).substring(2, 8)));
@@ -108,14 +109,14 @@ function grafico_existencia_categoria_sobre_existen(canvas, xAxis, yAxis, legend
     //se especifica el id de la vista
     const context = $("#" + canvas);
     const MyPieChart = new Chart(context, {
-        //se especifica el tipo de grafica que se va a utilizar
+        //se especifica el tipo de gráfica que se va a utilizar
         type: 'bar',
         data: {
             //se especifica los nombres con los que se trabajaran
             labels: xAxis,
             datasets: [{
                 label: legend,
-                //se especifica los valores de la grafica
+                //se especifica los valores de la gráfica
                 data: yAxis,
                 backgroundColor: colors,
                 borderColor: '#000000',
@@ -142,7 +143,7 @@ function grafico_existencia_categoria_sobre_existen(canvas, xAxis, yAxis, legend
     });
 }
 
-//funcion que se llena con los parametros que se obtienen en index.js 
+//función que se llena con los parámetros que se obtienen en index.js 
 function grafica_venta_platillos_mayor(canvas, xAxis, yAxis, legend, title) {
     //ramdon para la obtención de colores al azar
     let colors = [];
@@ -187,8 +188,7 @@ function grafica_venta_platillos_mayor(canvas, xAxis, yAxis, legend, title) {
     });
 }
 
-
-//funcion que se llena con los parametros que se obtienen en index.js 
+//función que se llena con los parámetros que se obtienen en index.js 
 function grafica_venta_platillos_menores(canvas, xAxis, yAxis, legend, title) {
     //ramdon para la obtención de colores al azar
     let colors = [];
@@ -234,7 +234,7 @@ function grafica_venta_platillos_menores(canvas, xAxis, yAxis, legend, title) {
 }
 
 
-//funcion que se llena con los parametros que se obtienen en index.js 
+//función que se llena con los parámetros que se obtienen en index.js 
 function grafica_platillos_caros(canvas, xAxis, yAxis, legend, title) {
     //ramdon para la obtención de colores al azar
     let colors = [];
@@ -277,7 +277,7 @@ function grafica_platillos_caros(canvas, xAxis, yAxis, legend, title) {
     });
 }
 
-//funcion que se llena con los parametros que se obtienen en index.js 
+//función que se llena con los parámetros que se obtienen en index.js 
 function grafica_platillos_baratos(canvas, xAxis, yAxis, legend, title) {
     //ramdon para la obtención de colores al azar
     let colors = [];
@@ -323,7 +323,7 @@ function grafica_platillos_baratos(canvas, xAxis, yAxis, legend, title) {
 }
 
 
-//funcion que se llena con los parametros que se obtienen en index.js 
+//función que se llena con los parámetros que se obtienen en index.js 
 function grafica_ventas_categoria(canvas, xAxis, yAxis, legend, title) {
     let colors = [];
     for (i = 0; i < xAxis.length; i++) {
@@ -366,7 +366,7 @@ function grafica_ventas_categoria(canvas, xAxis, yAxis, legend, title) {
     });
 }
 
-//funcion que se llena con los parametros que se obtienen en index.js 
+//función que se llena con los parámetros que se obtienen en index.js 
 function grafica_ventas_mes(canvas, xAxis, yAxis, legend, title) {
     //ramdon para la obtención de colores al azar
     let colors = [];
@@ -409,7 +409,7 @@ function grafica_ventas_mes(canvas, xAxis, yAxis, legend, title) {
     });
 }
 
-//funcion que se llena con los parametros que se obtienen en index.js 
+//función que se llena con los parámetros que se obtienen en index.js 
 function grafica_desperdicios_mes(canvas, xAxis, yAxis, legend, title) {
       //ramdon para la obtención de colores al azar
       let colors = [];
@@ -452,7 +452,7 @@ function grafica_desperdicios_mes(canvas, xAxis, yAxis, legend, title) {
       });
   }
   
-//funcion que se llena con los parametros que se obtienen en index.js 
+//función que se llena con los parámetros que se obtienen en index.js 
 function grafica_existencia_materia_agotar(canvas, xAxis, yAxis, legend, title) {
     let colors = [];
     for (i = 0; i < xAxis.length; i++) {
@@ -496,7 +496,7 @@ function grafica_existencia_materia_agotar(canvas, xAxis, yAxis, legend, title) 
 }
 
 
-//funcion que se llena con los parametros que se obtienen en index.js 
+//función que se llena con los parámetros que se obtienen en index.js 
 function grafica_existencia_materia_sobre_existente(canvas, xAxis, yAxis, legend, title) {
     let colors = [];
     for (i = 0; i < xAxis.length; i++) {

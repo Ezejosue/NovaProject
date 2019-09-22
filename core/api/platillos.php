@@ -141,7 +141,7 @@ if (isset($_GET['action'])) {
             //Operación para eliminar un platillo esto lo hace a través del id
             //platillo que mandamos a traer desde el getId
             case 'delete':
-            //El caso a elimiar es el de deleteplatillo
+            //El caso a eliminar es el de deleteplatillo
                     if ($platillo->setId($_POST['id_platillo'])) {
                         if ($platillo->getId()) {
                             if ($platillo->deletePlatillo()) {
@@ -156,7 +156,7 @@ if (isset($_GET['action'])) {
                         $result['exception'] = 'Platillo incorrecto';
                     }
                 break;
-            //Operación para mostrar los tipos de categorias en la tabla
+            //Operación para mostrar los tipos de categorías en la tabla
             case 'readReceta':
                 if ($result['dataset'] = $platillo->readReceta()) {
                     $result['status'] = 1;
@@ -164,7 +164,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Contenido no disponible';
                 }
                 break;
-                //Operacion para mostrar los tipos de receta en el tabla
+                //Operación para mostrar los tipos de receta en el tabla
             case 'readCategoria':
                 if ($result['dataset'] = $platillo->readCategoria()) {
                     $result['status'] = 1;
@@ -173,8 +173,8 @@ if (isset($_GET['action'])) {
                 }
                 break;
 
-                //operaciones de graficas
-                //operacion para traer el modelo de la grafica de cuales platillos se han vendido más
+                //operaciones de gráficas
+                //operación para traer el modelo de la gráfica de cuales platillos se han vendido más
 				case 'ventas_platillos_mayor':
 				if ($result['dataset'] = $platillo->grafica_ventas_platillo()) {
 					$result['status'] = 1;
@@ -183,7 +183,7 @@ if (isset($_GET['action'])) {
 				}
                 break;
                 
-                //operación para traer el modelo de la grafica de cuales platillos se han vendido menos
+                //operación para traer el modelo de la gráfica de cuales platillos se han vendido menos
 				case 'ventas_platillos_menor':
 				if ($result['dataset'] = $platillo->grafica_ventas_platillo_menor()) {
 					$result['status'] = 1;
