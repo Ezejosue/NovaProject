@@ -97,7 +97,6 @@ function CategoriasClick_1()
     window.open('../core/report/reporte6.php?id_categoria='+$('#id_categoria').val(),null,winFeature);
 }
 
-
 var fecha3;
 var fecha4;
 var fecha_string1;
@@ -107,16 +106,12 @@ function pegarFecha1(){
     fecha4 = $('#fecha_pedido').val() + ' 23:59:59';
     fecha_string1 = fecha3;
     fecha_string5 = fecha4;
-    console.log(fecha_string1);
-    console.log(fecha_string5);
-    console.log(fecha3);
-    console.log(fecha4);
     $('#fecha_escondida1').val(fecha_string1);
 }
 
 function CategoriasClick_2()
 {
-    window.open('../core/report/reporte7.php?fecha='+ fecha_string1,null,winFeature);
+    window.open('../core/report/reporte7.php?fecha='+fecha_string1+'&fecha2='+fecha_string5,null,winFeature);
 }
 
 function CategoriasClick_3()
@@ -141,7 +136,7 @@ function pegarFecha(){
 
 function CategoriasClick_4()
 {
-    window.open('../core/report/reporte9.php?fecha='+fecha_string+'&fecha2='+fecha_string2 ,null,winFeature);
+    window.open('../core/report/reporte9.php?fecha3='+fecha_string+'&fecha4='+fecha_string2,null,winFeature);
 }
 
 function CategoriasClick_5()

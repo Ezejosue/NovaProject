@@ -17,10 +17,10 @@ $materia = new Materias();
 $pdf->SetFont('Arial','B',10);
 $pdf->Ln();
 $pdf->setX(60);
-// Cell(ancho, Alto, texto, borde, salto de linea, alineacion de texto)
-$pdf->Cell(100,5, utf8_decode('REPORTE DE MATERIA PRIMA POR CATEGORIA'), 0, 0, 'C');  
+// Cell(ancho, Alto, texto, borde, salto de linea, alineación de texto)
+$pdf->Cell(100,5, utf8_decode('REPORTE DE MATERIA PRIMA POR CATEGORÍA'), 0, 0, 'C');  
 $pdf->Ln(10);
-// Seteamos la posición de la proxima celda en forma fija a 3.8 cm hacia la derecha de la pagina
+// Seteamos la posición de la próxima celda en forma fija a 3.8 cm hacia la derecha de la pagina
 $pdf->setX(38);
 $pdf->Ln();
 $categoria = '';
@@ -61,8 +61,6 @@ if($materia->readMeteriaCategoria()) {
 } else {
   $pdf->Cell(175,5, utf8_decode('NO HAY DATOS REGISTRADOS'), 0, 0, 'C');
 }
-
-
 
 $pdf->AliasNbPages();
 $pdf->Output();

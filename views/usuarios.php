@@ -51,7 +51,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form class="was-validated" method="post" id="form-create" enctype="multipart/form-data">
+                <form  method="post" id="form-create" enctype="multipart/form-data">
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-1">
@@ -158,7 +158,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form class="was-validated" method="post" id="form-update" enctype="multipart/form-data">
+                <form  method="post" id="form-update" enctype="multipart/form-data">
                     <input type="hidden" id="foto_usuario" name="foto_usuario" />
                     <input type="hidden" id="id_usuario" name="id_usuario" />
                     <div class="modal-body">

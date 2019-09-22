@@ -37,6 +37,20 @@ if (isset($_GET['action'])) {
                     header('location: ../../views/inicio.php');
                 }
                 break;
+
+            case 'ActualizarSesion':
+                if ($usuario->setId($_SESSION['idUsuario'])) {
+                    if ($usuario->UpdateLogout()) {
+                        $result['status'] = 1;
+                        }
+                    else {  
+                        $result['exception'] = 'No pudimos actualizar su sesión';
+                    }
+                } else {
+                    $result['exception'] = 'No encontramos su usuario';
+                }
+                break;
+                
             //Operación para mostrar los datos del usuario que ha iniciado sesión
             case 'readProfile':
                 if ($usuario->setId($_SESSION['idUsuario'])) {

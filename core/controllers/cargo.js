@@ -165,7 +165,7 @@ function confirmDelete(id)
 {
     swal({
         title: 'Advertencia',
-        text: '¿Quiere eliminar el empleado?',
+        text: '¿Quiere eliminar el cargo?',
         icon: 'warning',
         buttons: ['Cancelar', 'Aceptar'],
         closeOnClickOutside: false,

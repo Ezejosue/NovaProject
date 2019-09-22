@@ -33,11 +33,11 @@ if (isset($_GET['action'])) {
                                         $result['exception'] = 'Operación fallida';
                                     }
                                 } 
-                                    else {
-                                        $result['exception'] = 'Seleccione un empleado';
-                                    }
+                                else {
+                                    $result['exception'] = 'Seleccione un empleado';
+                                }
                             } else {
-                            $result['exception'] = 'Seleccione un usuario';
+                                $result['exception'] = 'Seleccione un usuario';
                         }  
                     } else {
                         $result['exception'] = 'Cantidad incorrecta';
@@ -45,16 +45,7 @@ if (isset($_GET['action'])) {
                 } else {
                     $result['exception'] = 'Seleccione una receta';
                 }
-                break;
-
-                /* case 'reporte':
-                $_POST = $desperdicios->validateForm($_POST);
-                    if($desperdicios->setFecha($_POST['fecha_escondida'])){
-                        $result['status'] = 1;
-                    } else {
-                        $result['exception'] = 'Error';
-                    }
-                break; */
+                break;                
                 
             //Operación para saber el usuario que se va a modificar
             case 'get':
@@ -93,13 +84,13 @@ if (isset($_GET['action'])) {
                                         }
                                 } else {
                                     $result['exception'] = 'Seleccione una receta';
-                                    }
-                        } else {
-                            $result['exception'] = 'Desperdicio inexistente';
-                            }
-                    }else {
-                        $result['exception'] = 'Acción no disponible';
-                    }
+                                }
+                            } else {
+                                $result['exception'] = 'Desperdicio inexistente';
+                                }
+                        }else {
+                            $result['exception'] = 'Acción no disponible';
+                        }
                     break;
             //Operación para eliminar un usuario
             case 'delete':

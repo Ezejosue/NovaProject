@@ -22,7 +22,7 @@
 				$this->SetX(150);
 				$this->Cell(50,5,('Usuario:'.$_SESSION['aliasUsuario']),0,0,'L');
 				$this->Ln();
-				// Seteamos la posición de la proxima celda en forma fija a 15 cm hacia la derecha de la pagina
+				// Seteamos la posición de la próxima celda en forma fija a 15 cm hacia la derecha de la pagina
 				$this->SetX(150);/* 
 				$this->Cell(50,5,('Usuario: '.$_SESSION['nombreUsuario']),0,0,'L');
 				// Salto de línea salta 10 lineas */
@@ -31,11 +31,11 @@
 			
 			function Footer()
 			{
-				// Seteamos la posición de la proxima celda en forma fija a 1,5 cm del final de la pagina
+				// Seteamos la posición de la próxima celda en forma fija a 1,5 cm del final de la pagina
 				$this->SetY(-15);
 				// seteamos el tipo de letra Arial Negrita 8 
 				$this->SetFont('Arial','B', 8);
-				// Número de página, el numero de de pagina se establece mediante la funcion pageno
+				// Número de página, el numero de de pagina se establece mediante la función pageno
 				$this->Cell(0,10, 'Pagina '.$this->PageNo().'/{nb}',0,0,'C' );
 			
 			}
