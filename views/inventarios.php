@@ -59,7 +59,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form class="was-validated" method="post" id="form-update" enctype="multipart/form-data" autocomplete="off">
+                <form  method="post" id="form-update" enctype="multipart/form-data" autocomplete="off">
                     <input type="hidden" id="id_proveedor" name="id_proveedor" />
                     <div class="modal-body">
                         <div class="row">

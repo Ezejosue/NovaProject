@@ -316,7 +316,7 @@ class Dashboard
 										<i class="fa fa-user"></i>
 									</div>
 									<div class="col-sm-11">
-										<input id="profile_alias" type="text" name="profile_alias" class="form-control" required>
+										<input id="profile_alias" type="text" name="profile_alias" class="form-control" autocomplete="off" required>
 									</div>
 								</div>
 							</div>
@@ -326,7 +326,7 @@ class Dashboard
 										<i class="fa fa-envelope"></i>
 									</div>
 									<div class="col-sm-11">
-										<input id="profile_correo" type="email" name="profile_correo" class="form-control" required>
+										<input id="profile_correo" type="email" name="profile_correo" class="form-control" autocomplete="off" required>
 									</div>
 								</div>
 							</div>

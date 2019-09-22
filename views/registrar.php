@@ -25,7 +25,7 @@
                 <div class="login-wrap">
                     <div class="login-content">
                         <div class="login-form text-center">
-                            <form class="was-validated" method="post" id="form-register">
+                            <form  method="post" id="form-register">
                                 <input id="alias" type="text" name="alias" class="validate form-control"
                                     placeholder="Nombre De Usuario" required>
                                 <br>

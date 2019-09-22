@@ -48,7 +48,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form class="was-validated" method="post" id="form-create" enctype="multipart/form-data">
+                <form method="post" id="form-create" enctype="multipart/form-data">
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-1">
@@ -70,8 +70,7 @@
                                 <i class="fa fa-list"></i>
                             </div>
                             <div class="col-sm-11">
-                                <input id="create_nombre" name="create_nombre" class="form-control" placeholder="Nombre"
-                                    required>
+                                <input id="create_nombre" name="create_nombre" class="form-control" placeholder="Nombre" autocomplete="off" required>
                             </div>
                         </div>
                     </div>
@@ -102,7 +101,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body text-center">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                         <button type="submit" class="btn btn-primary">Aceptar</button>
                     </div>
@@ -115,14 +114,14 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">MODIFICAR CATEGORÍAS</h5>
+                    <h5 class="modal-title">MODIFICAR CATEGORÍA</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form class="was-validated" method="post" id="form-update" enctype="multipart/form-data">
-                    <input type="hidden" id="foto_categoria" name="foto_categoria" />
-                    <input type="hidden" id="id_categoria" name="id_categoria" />
+                <form method="post" id="form-update" enctype="multipart/form-data">
+                    <input type="hidden" id="foto_categoria" name="foto_categoria"/>
+                    <input type="hidden" id="id_categoria" name="id_categoria"/>
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-1">
@@ -141,7 +140,7 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-1">
-                                <i class="fa fa-user"></i>
+                                <i class="fa fa-list"></i>
                             </div>
                             <div class="col-sm-11">
                                 <input id="update_nombre_categoria" type="text" name="update_nombre_categoria"
@@ -152,12 +151,12 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-1">
-                                <i class="fa fa-user"></i>
+                                <i class="fa fa-file-alt"></i>
                             </div>
                             <div class="col-sm-11">
-
-                                <input id="update_descripcion" type="text" name="update_descripcion"
-                                    class="validate form-control" placeholder="Descripción" required>
+                                <textarea class="form-control" id="update_descripcion"
+                                    name="update_descripcion" for="descripcion" rows="3" required>
+                                </textarea>
                             </div>
                         </div>
                     </div>
@@ -193,17 +192,17 @@
 Dashboard::footerTemplate('categorias.js', '#tabla-categorias');
 ?>
     <script>
-        bootstrapValidate("#create_nombre", "min:10:Campo obligatorio");
-        bootstrapValidate("#create_nombre", "max:30:Ingrese un nombre válido");
+        bootstrapValidate("#create_nombre", "required:Campo obligatorio");
+        bootstrapValidate("#create_nombre", "max:30:Ingrese un nombre menor a 30 caracteres");
 
-        bootstrapValidate("#create_descripcion", "min:10:Campo obligatorio");
+        bootstrapValidate("#create_descripcion", "required:Campo obligatorio");
         bootstrapValidate("#create_descripcion", "max:80:Ingrese una descripción menor a 80 caracteres");
 
 
-        bootstrapValidate("#update_nombre_categoria", "min:3:Campo obligatorio");
+        bootstrapValidate("#update_nombre_categoria", "required:Campo obligatorio");
         bootstrapValidate("#update_nombre_categoria", "max:30:Ingrese un nombre válido");
 
-        bootstrapValidate("#update_descripcion", "min:10:Campo obligatorio");
+        bootstrapValidate("#update_descripcion", "required:Campo obligatorio");
         bootstrapValidate("#update_descripcion", "max:80:Ingrese una descripción menor a 80 caracteres");
     </script>
 

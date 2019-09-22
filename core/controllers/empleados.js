@@ -19,7 +19,7 @@ function fillTable(rows) {
                 <td>${row.apellido_empleado}</td>
                 <td>${row.dui}</td>
                 <td>${row.direccion}</td>
-                <td>${row.fecha_nacimiento}</td>
+                <td>${row.correo}</td>
                 <td>
                     <a href="#" onclick="modalUpdate(${row.id_empleado})" class="btn btn-info   tooltipped" data-tooltip="Modificar"><i  class="fa fa-edit"></i></a>
                     <a href="#" onclick="confirmDelete(${row.id_empleado})"class="btn btn-danger tooltipped" data-tooltip="Eliminar"><i class="fa fa-times"></i></a>
@@ -75,7 +75,7 @@ function showSelectCargo(idSelect, value)
             if (result.status) {
                 let content = '';
                 if (!value) {
-                    content += '<option value="" disabled selected>Seleccione una opción</option>';
+                    content += '<option value="" disabled selected>Seleccione un cargo</option>';
                 }
                 result.dataset.forEach(function(row){
                     if (row.id_cargo != value) {
@@ -115,7 +115,7 @@ function showSelectTipo1(idSelect, value)
             if (result.status) {
                 let content = '';
                 if (!value) {
-                    content += '<option value="" disabled selected>Seleccione una opción</option>';
+                    content += '<option value="" disabled selected>Seleccione un usuario</option>';
                 }
                 result.dataset.forEach(function(row){
                     if (row.id_usuario != value) {

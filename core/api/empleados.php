@@ -18,10 +18,8 @@ if (isset($_GET['action'])) {
 					$result['exception'] = 'No hay empleados registradas';
 				}
 				break;
-
-
 				//Operación para crear nuevos Empleado
-		case 'create':
+			case 'create':
 				$_POST = $empleado->validateForm($_POST);
 				if ($empleado->setNombres($_POST['create_nombre'])) {
 						if ($empleado->setApellido($_POST['create_apellido'])) {
@@ -76,7 +74,7 @@ if (isset($_GET['action'])) {
 			break;
 				
            //Operación para mostrar los cargos activos en el formulario de modificar Empleado
-				 case 'readCargo':
+			case 'readCargo':
 				 if ($result['dataset'] = $empleado->readCargo()) {
 					 $result['status'] = 1;
 				 } else {
@@ -85,7 +83,7 @@ if (isset($_GET['action'])) {
 				 break;
 
            //Operación para mostrar los tipos de usuario activos en el formulario de modificar Empleado
-				 case 'readUsuarios':
+			case 'readUsuarios':
 				 if ($result['dataset'] = $empleado->readUsuarios()) {
 					 $result['status'] = 1;
 				 } else {
@@ -165,12 +163,10 @@ if (isset($_GET['action'])) {
 								$result['exception'] = 'Nombre incorrecto';
 							}
 						} 
-						
 					}
 					break;
-
 				 /* Operación para eliminar un empleado */
-				 case 'delete':
+			case 'delete':
 				 if ($empleado->setId($_POST['id_empleado'])) {
 					 if ($empleado->getEmpleado()) {
 						 if ($empleado->deleteEmpleado()) {
@@ -185,13 +181,11 @@ if (isset($_GET['action'])) {
 				 } else {
 					 $result['exception'] = 'Empleado incorrecto';
 				 }
-				 break;
-			 default:
-				 exit('Acción no disponible');
-				
+				break;
+			default:
+				exit('Acción no disponible');
 		}
 		print(json_encode($result));
-
 	} else {
 		exit('Acceso no disponible');
 	}
