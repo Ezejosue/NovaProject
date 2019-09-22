@@ -108,10 +108,10 @@ class Pedidos extends Validator
 	}
 
 
-	public function readPedidosFecha1($fecha)
+	public function readPedidosFecha1($fecha, $fecha2)
 	{
-		$sql = "SELECT fecha_pedido, id_pedido, alias FROM pedidos  INNER JOIN usuarios USING(id_usuario) where fecha_pedido>=?";
-		$params = array($fecha);
+		$sql = "SELECT fecha_pedido, id_pedido, alias, hora_pedido, numero_mesa FROM pedidos INNER JOIN usuarios USING(id_usuario) INNER JOIN mesas USING(id_mesa) where fecha_pedido >= ? AND fecha_pedido <= ?";
+		$params = array($fecha, $fecha2);
 		return conexion::getRows($sql, $params);
 	}
 
