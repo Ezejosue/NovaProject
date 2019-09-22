@@ -80,7 +80,7 @@ function showSelectAlias(idSelect, value)
             if (result.status) {
                 let content = '';
                 if (!value) {
-                    content += '<option value="" disabled selected>Seleccione una opción</option>';
+                    content += '<option value="" disabled selected>Seleccione un usuario</option>';
                 }
                 result.dataset.forEach(function(row){
                     if (row.id_usuario != value) {
@@ -120,7 +120,7 @@ function showSelectEmpleados(idSelect, value)
             if (result.status) {
                 let content = '';
                 if (!value) {
-                    content += '<option value="" disabled selected>Seleccione una opción</option>';
+                    content += '<option value="" disabled selected>Seleccione un empleado</option>';
                 }
                 result.dataset.forEach(function(row){
                     if (row.id_empleado != value) {
@@ -161,7 +161,7 @@ function showSelectReceta(idSelect, value)
             if (result.status) {
                 let content = '';
                 if (!value) {
-                    content += '<option value="" disabled selected>Seleccione una opción</option>';
+                    content += '<option value="" disabled selected>Seleccione una receta</option>';
                 }
                 result.dataset.forEach(function(row){
                     if (row.id_receta != value) {
@@ -306,7 +306,7 @@ function confirmDelete(id)
 {
     swal({
         title: 'Advertencia',
-        text: '¿Quiere eliminar esta materia prima?',
+        text: '¿Quiere eliminar este desperdicio?',
         icon: 'warning',
         buttons: ['Cancelar', 'Aceptar'],
         closeOnClickOutside: false,

@@ -1,7 +1,7 @@
 <!-- SIDEBAR-->
 <?php
     require_once('../core/helpers/dashboard.php');
-    Dashboard::headerTemplate('Categorias');
+    Dashboard::headerTemplate('Desperdicios');
 ?>
 <!-- Contenido-->
 <div class="main-content">
@@ -49,15 +49,15 @@
                         <span aria-hidden="tyrue">&times;</span>
                     </button>
                 </div>
-                <form class="was-validated" method="post" id="form-create" enctype="multipart/form-data">
-                <div class="modal-body">
+                <form method="post" id="form-create" enctype="multipart/form-data">
+                    <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-1">
                                 <i class="fa fa-user"></i>
                             </div>
                             <div class="col-sm-11">
                                 <input id="create_cantidad" type="text" name="create_cantidad"
-                                    class="validate form-control" placeholder="Cantidad" required>
+                                    class="validate form-control" placeholder="Cantidad" autocomplete="off" required>
                             </div>
                         </div>
                     </div>
@@ -67,7 +67,6 @@
                                 <i class="fas fa-users"></i>
                             </div>
                             <div class="col-sm-11">
-                                <!-- Aquí es donde se manda a traer el campo de categoría  -->
                                 <select id="create_id_receta" name="create_id_receta" class="form-control" required>
                                 </select>
                             </div>
@@ -79,7 +78,6 @@
                                 <i class="fas fa-users"></i>
                             </div>
                             <div class="col-sm-11">
-                                <!-- Aquí es donde se manda a traer el campo de categoría  -->
                                 <select id="create_id_usuario" name="create_id_usuario" class="form-control" required>
                                 </select>
                             </div>
@@ -91,13 +89,11 @@
                                 <i class="fas fa-users"></i>
                             </div>
                             <div class="col-sm-11">
-                                <!-- Aquí es donde se manda a traer el campo de la llave id_receta -->
                                 <select id="create_id_empleado" name="create_id_empleado" class="form-control" required>
                                 </select>
                             </div>
                         </div>
                     </div>
-                    <!-- los respectivos botones del modal  -->
                     <div class="modal-body text-center">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                         <button type="submit" class="btn btn-primary tooltipped" data-tooltip="Crear">Aceptar</button>
@@ -111,12 +107,12 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">MODIFICAR CATEGORÍAS</h5>
+                    <h5 class="modal-title">MODIFICAR DESPERDICIOS</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form class="was-validated" method="post" id="form-update" enctype="multipart/form-data">
+                <form method="post" id="form-update" enctype="multipart/form-data">
                     <input type="hidden" id="id_desperdicios" name="id_desperdicios" />
                     <div class="modal-body">
                         <div class="row">
@@ -125,7 +121,7 @@
                             </div>
                             <div class="col-sm-11">
                                 <input id="update_cantidad" type="text" name="update_cantidad"
-                                    class="validate form-control" placeholder="Cantidad" required>
+                                    class="validate form-control" placeholder="Cantidad" autocomplete="off" required>
                             </div>
                         </div>
                     </div>
@@ -173,12 +169,8 @@
             </div>
         </div>
     </div>
-
-
-
     <?php
 Dashboard::footerTemplate('desperdicios.js', '#tabla-desperdicios');
 ?>
     </body>
-
     </html>

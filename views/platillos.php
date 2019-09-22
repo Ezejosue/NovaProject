@@ -42,8 +42,6 @@
     </div>
     <!-- Modals-->
     <!-- Modal de Agregar -->
-    <!-- Este modal es para agregar y manda a traer dos llaves la de categoría y receta de los
-    demás cruds -->
     <div class="modal fade" id="modal-create">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -53,7 +51,7 @@
                         <span aria-hidden="tyrue">&times;</span>
                     </button>
                 </div>
-                <form class="was-validated" method="post" id="form-create" enctype="multipart/form-data">
+                <form method="post" id="form-create" enctype="multipart/form-data">
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-1">
@@ -155,7 +153,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form class="was-validated" method="post" id="form-update" enctype="multipart/form-data">
+                <form  method="post" id="form-update" enctype="multipart/form-data">
                     <input type="hidden" id="imagen" name="imagen" />
                     <input type="hidden" id="id_platillo" name="id_platillo" />
                     <div class="modal-body">
