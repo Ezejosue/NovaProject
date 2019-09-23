@@ -7,37 +7,13 @@
 <div class="main-content">
     <div class="container">
         <div class="row">
-            <div class="col-sm-1 col-3">
-                <a href="#modal-create" class="btn btn-success tooltipped modal-trigger" data-toggle="modal"
-                    data-tooltip="Agregar">
-                    <span class="btn-label">
-                        <i class="fa fa-plus"></i>
-                    </span>
-                </a>
-            </div>
-            <div class="col-sm-1 col-3">
-                <a href="#modal-create-factura" class="btn btn-success tooltipped modal-trigger" data-toggle="modal"
-                    data-tooltip="Agregar">
-                    <span class="btn-label">
-                        AGREGAR FACTURA
-                    </span>
-                </a>
-            </div>
-        </div>
-        <br>
-        <div class="container">
-            <div class="row">
+            <div class="container">
                 <div class="table-responsive">
-                    <table class="table" id="tabla-inventarios" width="100%">
+                    <table class="table" id="tabla-bodega" width="100%">
                         <thead>
                             <tr>
-                                <th>FACTURA</th>
                                 <th>MATERIA PRIMA</th>
                                 <th>CANTIDAD</th>
-                                <th>PROVEEDOR</th>
-                                <th>FECHA DE INGRESO</th>
-                                <th>RESPONSABLE</th>
-                                <th>ACCIONES</th>
                             </tr>
                         </thead>
                         <tbody id="tbody-read">
@@ -48,7 +24,7 @@
         </div>
     </div>
     <!-- Modals-->
-    
+
     <!-- Modal de Modificar -->
     <div id="modal-update" class="modal fade">
         <div class="modal-dialog">
@@ -59,7 +35,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form  method="post" id="form-update" enctype="multipart/form-data" autocomplete="off">
+                <form method="post" id="form-update" enctype="multipart/form-data" autocomplete="off">
                     <input type="hidden" id="id_proveedor" name="id_proveedor" />
                     <div class="modal-body">
                         <div class="row">
@@ -90,7 +66,7 @@
                             </div>
                             <div class="col-sm-11">
                                 <input id="update_telefono" type="text" name="update_telefono"
-                                    class="validate form-control" placeholder="Teléfono Ej.(2222-2222)"required>
+                                    class="validate form-control" placeholder="Teléfono Ej.(2222-2222)" required>
                             </div>
                         </div>
                     </div>
