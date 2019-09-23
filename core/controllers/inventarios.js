@@ -424,6 +424,7 @@ function modalFacturaDetalle(id)
             //Se comprueba si el resultado es satisfactorio para mostrar los valores en el formulario, sino se muestra la excepción
             if (result.status) {    
                 $('#form-factura')[0].reset();
+                $('#form-estado')[0].reset();
                 $('#modal-factura').modal('show');
                 showTableDetalleFactura(result.dataset.id_factura);           
             } else {
@@ -857,6 +858,8 @@ function confirmDeleteProductoFactura(id)
                     //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
                     if (result.status) {
                         sweetAlert(1, 'Producto eliminado correctamente', null);
+                        $('#form-factura')[0].reset();
+                        $('#form-estado')[0].reset();
                         showTableDetalleFactura(idFactura);
                     } else {
                         sweetAlert(2, result.exception, null);

@@ -220,6 +220,13 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Materia prima incorrecta';
                 }
             break;
+            case 'readBodega':
+                if ($result['dataset'] = $inventarios->readBodega()) {
+                    $result['status'] = 1;
+                } else {
+                    $result['exception'] = 'No hay materias primas registradas';
+                }
+            break;
 			    default:
 				    exit('Acción no disponible');
         }
