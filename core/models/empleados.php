@@ -205,7 +205,7 @@ class Empleados extends Validator
 
     public function getEmpleado()
     {
-        $sql = 'SELECT id_empleado, nombre_empleado, apellido_empleado, dui, direccion,  telefono, genero, fecha_nacimiento, nacionalidad, correo, id_cargo, id_usuario FROM empleados WHERE id_empleado = ? LIMIT 1';
+        $sql = 'SELECT id_empleado, nombre_empleado, apellido_empleado, dui, direccion, telefono, genero, fecha_nacimiento, nacionalidad, correo, nombre_cargo, alias From empleados INNER JOIN cargo USING(id_cargo) INNER JOIN usuarios USING(id_usuario) WHERE id_empleado = ? ORDER BY nombre_empleado LIMIT 1';
         $params = array($this ->id);
         return Conexion::getRow($sql, $params);
     }
