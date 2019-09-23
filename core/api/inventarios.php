@@ -104,7 +104,18 @@ if (isset($_GET['action'])) {
                 } else {
                     $result['exception'] = 'Factura incorrecta';
                 }
-                break;
+            break;
+            case 'getInventario':
+                if ($inventarios->setId_inventario($_POST['id_inventario'])) {
+                    if ($result['dataset'] = $inventarios->getInventario()) {
+                        $result['status'] = 1;
+                    } else {
+                        $result['exception'] = 'Producto inexistente';
+                    }
+                } else {
+                    $result['exception'] = 'Producto incorrecta';
+                }
+            break;
             case 'readDetalleFactura':
                 if ($inventarios->setId_factura($_POST['id_factura'])) {
                     if ($result['dataset'] = $inventarios->readFactura()) {
@@ -115,6 +126,36 @@ if (isset($_GET['action'])) {
                 }else{
                     $result['exception'] = 'Factura incorrecta';
                 }
+            break;
+            case 'updateInventario':
+                $_POST = $inventarios->validateForm($_POST);
+                if ($inventarios->setId_inventario($_POST['id_inventario'])) {
+                    if ($inventarios->getInventario()) {
+                        if ($inventarios->setIdmateria($_POST['update_materia'])) {
+                            if ($inventarios->setCantidad($_POST['update_cantidad'])) {
+                                if ($inventarios->setPrecio($_POST['update_precio'])) {
+                                    if ($inventarios->updateInventario()) {
+                                        $result['status'] = 1;
+                                        $result['message'] = 'Producto actualizado correctamente';
+                                    }
+                                    else {
+                                        $result['exception'] = 'Operación fallida';
+                                    }
+                                } else {
+                                    $result['exception'] = 'Precio incorrecta';
+                                }
+                            } else {
+                                $result['exception'] = 'Cantidad incorrecta';
+                            }
+                        } else {
+                            $result['exception'] = 'Producto incorrecta';
+                        }
+                    } else {
+                        $result['exception'] = 'Producto inexistente';
+                    }
+                } else {
+                    $result['exception'] = 'Producto incorrecta';
+                }            
             break;
             case 'updateFactura':
                 $_POST = $inventarios->validateForm($_POST);
@@ -162,6 +203,21 @@ if (isset($_GET['action'])) {
                     }
                 } else {
                     $result['exception'] = 'Factura incorrecta';
+                }
+            break;
+            case 'deleteProducto':
+                if ($inventarios->setId_inventario($_POST['id_inventario'])) {
+                    if ($inventarios->getInventario()) {
+                        if ($inventarios->deleteInventario()) {
+                            $result['status'] = 1;
+                        } else {
+                            $result['exception'] = 'Operación fallida';
+                        }
+                    } else {
+                        $result['exception'] = 'Materia prima inexistente';
+                    }
+                } else {
+                    $result['exception'] = 'Materia prima incorrecta';
                 }
             break;
 			    default:
