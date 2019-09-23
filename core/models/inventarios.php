@@ -158,7 +158,7 @@ class Inventarios extends Validator
 	{
 		$sql = 'SELECT id_factura, correlativo, p.nom_proveedor, fecha_ingreso, u.alias, f.estado
         FROM facturas f INNER JOIN proveedores p USING(id_proveedor) 
-        INNER JOIN usuarios u USING(id_usuario)';
+        INNER JOIN usuarios u USING(id_usuario) ORDER BY f.estado';
 		$params = array(null);
 		return conexion::getRows($sql, $params);
 	}
@@ -166,11 +166,11 @@ class Inventarios extends Validator
 	public function readFactura()
 	{
 		$sql = 'SELECT f.id_factura, correlativo, id_inventario, p.nom_proveedor, fecha_ingreso, us.alias , CONCAT(nombre_materia, " (" ,u.descripcion, ")") AS Materia, cantidad, precio, f.estado 
-		FROM inventarios inv INNER JOIN materiasprimas m USING(idMateria) 
-		INNER JOIN unidadmedida u USING(id_Medida) 
-		INNER JOIN facturas f USING(id_factura) 
-		INNER JOIN usuarios us USING(id_usuario) 
-		INNER JOIN proveedores p USING(id_proveedor) WHERE id_factura = ?';
+		FROM inventarios inv RIGHT JOIN materiasprimas m USING(idMateria) 
+		RIGHT JOIN unidadmedida u USING(id_Medida) 
+		RIGHT JOIN facturas f USING(id_factura) 
+		RIGHT JOIN usuarios us USING(id_usuario) 
+		RIGHT JOIN proveedores p USING(id_proveedor) WHERE f.id_factura = ?';
 		$params = array($this->id_factura);
 		return conexion::getRows($sql, $params);
 	}
@@ -179,6 +179,13 @@ class Inventarios extends Validator
 	{
 		$sql = 'SELECT id_factura, correlativo, id_proveedor, estado FROM facturas f WHERE id_factura = ? LIMIT 1';
 		$params = array($this->id_factura);
+		return conexion::getRow($sql, $params);
+	}
+
+	public function getInventario()
+	{
+		$sql = 'SELECT id_inventario, idMateria, cantidad, precio, id_factura FROM inventarios WHERE id_inventario = ? LIMIT 1';
+		$params = array($this->id_inventario);
 		return conexion::getRow($sql, $params);
 	}
 
@@ -237,6 +244,13 @@ class Inventarios extends Validator
 		return conexion::executeRow($sql, $params);
 	}
 
+	public function updateInventario()
+	{
+		$sql = 'UPDATE inventarios SET idMateria = ?, cantidad = ?, precio = ? WHERE id_inventario = ?';
+		$params = array($this->idMateria,  $this->cantidad, $this->precio,  $this->id_inventario);
+		return conexion::executeRow($sql, $params);
+	}
+
 	public function updateEstado()
 	{
 		$sql = 'UPDATE facturas SET estado = ? WHERE id_factura = ?';
@@ -250,55 +264,11 @@ class Inventarios extends Validator
 		$params = array($estado_nuevo, $this->id_factura);
 		return conexion::executeRow($sql, $params);
 	}
-	
-	public function getDesperdicios()
-	{
-		$sql = 'SELECT id_desperdicios, id_receta, cantidad, id_usuario, id_empleado FROM desperdicios WHERE id_desperdicios = ? LIMIT 1';
-		$params = array($this->id);
-		return conexion::getRow($sql, $params);
-	}
-	
 
-	public function readReceta()
+	public function deleteInventario()
 	{
-		$sql = 'SELECT id_receta, nombre_receta FROM receta';
-		$params = array(null);
-		return conexion::getRows($sql, $params);
-	}
-
-	
-	public function readNombreUsuario()
-	{
-		$sql = 'SELECT id_usuario, alias FROM usuarios WHERE estado_usuario = 1';
-		$params = array(null);
-		return Conexion::getRows($sql, $params);
-	}
-
-	public function readEmpleados()
-	{
-		$sql = 'SELECT id_empleado, nombre_empleado FROM empleados';
-		$params = array(null);
-		return Conexion::getRows($sql, $params);
-	}
-
-	public function readRecetaDesperdicio($fecha, $fecha2)
-	{
-		$sql = "SELECT nombre_empleado, fecha_desperdicio, nombre_receta, cantidad from desperdicios INNER JOIN receta USING(id_receta) INNER JOIN empleados USING(id_empleado) where fecha_desperdicio >= ? AND fecha_desperdicio <= ?";
-		$params = array($fecha, $fecha2);
-		return Conexion::getRows($sql, $params);
-	}
-
-	public function updateDesperdicios()
-	{
-		$sql = 'UPDATE desperdicios SET id_receta = ?, cantidad = ?, id_usuario= ?, id_empleado=? WHERE id_desperdicios = ?';
-		$params = array($this->id_receta, $this->cantidad, $this->id_usuario, $this->id_empleado, $this->id);
-		return conexion::executeRow($sql, $params);
-	}
-
-	public function deleteDesperdicios()
-	{
-		$sql = 'DELETE FROM desperdicios WHERE id_desperdicios = ?';
-		$params = array($this->id);
+		$sql = 'DELETE FROM inventarios WHERE id_inventario = ?';
+		$params = array($this->id_inventario);
 		return conexion::executeRow($sql, $params);
 	}
 }
