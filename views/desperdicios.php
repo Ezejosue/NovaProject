@@ -173,4 +173,5 @@
 Dashboard::footerTemplate('desperdicios.js', '#tabla-desperdicios');
 ?>
     </body>
+
     </html>

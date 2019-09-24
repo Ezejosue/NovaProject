@@ -51,15 +51,15 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form  method="post" id="form-create" enctype="multipart/form-data">
+                <form method="post" id="form-create" enctype="multipart/form-data">
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-1">
                                 <i class="fa fa-user"></i>
                             </div>
                             <div class="col-sm-11">
-                                <input id="create_alias" type="text" name="create_alias" autocomplete="off" class="form-control"
-                                    placeholder="Nombre de usuario" required>
+                                <input id="create_alias" type="text" name="create_alias" autocomplete="off"
+                                    class="form-control" placeholder="Nombre de usuario" required>
                             </div>
                         </div>
                     </div>
@@ -69,8 +69,8 @@
                                 <i class="fa fa-envelope"></i>
                             </div>
                             <div class="col-sm-11">
-                                <input id="create_correo" type="email" name="create_correo" autocomplete="off" class="form-control"
-                                    placeholder="Correo" required>
+                                <input id="create_correo" type="email" name="create_correo" autocomplete="off"
+                                    class="form-control" placeholder="Correo" required>
                             </div>
                         </div>
                     </div>
@@ -158,7 +158,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form  method="post" id="form-update" enctype="multipart/form-data">
+                <form method="post" id="form-update" enctype="multipart/form-data">
                     <input type="hidden" id="foto_usuario" name="foto_usuario" />
                     <input type="hidden" id="id_usuario" name="id_usuario" />
                     <div class="modal-body">
@@ -167,7 +167,8 @@
                                 <i class="fa fa-user"></i>
                             </div>
                             <div class="col-sm-11">
-                                <input id="update_alias" type="text" name="update_alias" class="validate form-control" required>
+                                <input id="update_alias" type="text" name="update_alias" class="validate form-control"
+                                    required>
                             </div>
                         </div>
                     </div>
@@ -177,7 +178,8 @@
                                 <i class="fas fa-envelope"></i>
                             </div>
                             <div class="col-sm-11">
-                            <input id="update_correo" type="email" name="update_correo" class="validate form-control" required>
+                                <input id="update_correo" type="email" name="update_correo"
+                                    class="validate form-control" required>
                             </div>
                         </div>
                     </div>

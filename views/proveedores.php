@@ -48,7 +48,7 @@
                         <span aria-hidden="tyrue">&times;</span>
                     </button>
                 </div>
-                <form  method="post" id="form-create" enctype="multipart/form-data" autocomplete="off">
+                <form method="post" id="form-create" enctype="multipart/form-data" autocomplete="off">
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-1">
@@ -78,7 +78,7 @@
                             </div>
                             <div class="col-sm-11">
                                 <input id="create_telefono" type="text" name="create_telefono"
-                                    class="validate form-control" placeholder="Teléfono Ej. (2222-2222)"required>
+                                    class="validate form-control" placeholder="Teléfono Ej. (2222-2222)" required>
                             </div>
                         </div>
                     </div>
@@ -116,7 +116,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form  method="post" id="form-update" enctype="multipart/form-data" autocomplete="off">
+                <form method="post" id="form-update" enctype="multipart/form-data" autocomplete="off">
                     <input type="hidden" id="id_proveedor" name="id_proveedor" />
                     <div class="modal-body">
                         <div class="row">
@@ -147,7 +147,7 @@
                             </div>
                             <div class="col-sm-11">
                                 <input id="update_telefono" type="text" name="update_telefono"
-                                    class="validate form-control" placeholder="Teléfono Ej.(2222-2222)"required>
+                                    class="validate form-control" placeholder="Teléfono Ej.(2222-2222)" required>
                             </div>
                         </div>
                     </div>

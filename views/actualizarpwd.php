@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Actualizar cont</title>
+    <title>Actualizar contraseña</title>
+    <link href="../resources/img/logo.ico" rel="icon">
 
     <!-- Fontfaces CSS-->
     <link href="../resources/css/font-face.css" rel="stylesheet" media="all">
@@ -48,7 +49,8 @@
 
                                 </div>
                                 <div class="text-center">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                    <button type="button" class="btn btn-secondary"
+                                        data-dismiss="modal">Cancelar</button>
                                     <button type="submit" class="btn btn-primary">Aceptar</button>
                                     <br>
                                 </div>

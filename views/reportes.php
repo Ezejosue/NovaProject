@@ -55,8 +55,8 @@
                                     <br>
                                     <button class="btn btn-primary mx-auto " type="button"
                                         onclick="CategoriasClick_1()">Obtener reporte</button>
+                                </form>
                             </div>
-                            </form>
                             <br>
                             <h5 align="center">Pedidos por fecha</h5>
                             <br>
