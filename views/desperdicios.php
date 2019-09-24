@@ -64,7 +64,7 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-1">
-                                <i class="fas fa-users"></i>
+                                <i class="fas fa-book"></i>
                             </div>
                             <div class="col-sm-11">
                                 <select id="create_id_receta" name="create_id_receta" class="form-control" required>
@@ -75,7 +75,7 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-1">
-                                <i class="fas fa-users"></i>
+                                <i class="fas fa-user"></i>
                             </div>
                             <div class="col-sm-11">
                                 <select id="create_id_usuario" name="create_id_usuario" class="form-control" required>
@@ -86,7 +86,7 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-1">
-                                <i class="fas fa-users"></i>
+                                <i class="fas fa-user"></i>
                             </div>
                             <div class="col-sm-11">
                                 <select id="create_id_empleado" name="create_id_empleado" class="form-control" required>
@@ -128,7 +128,7 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-1">
-                                <i class="fas fa-users"></i>
+                                <i class="fas fa-book"></i>
                             </div>
                             <div class="col-sm-11">
                                 <!-- Aquí es donde se manda a traer el campo de categoria  -->
@@ -140,7 +140,7 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-1">
-                                <i class="fas fa-users"></i>
+                                <i class="fas fa-user"></i>
                             </div>
                             <div class="col-sm-11">
                                 <!-- Aquí es donde se manda a traer el campo de categoria  -->
@@ -152,7 +152,7 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-1">
-                                <i class="fas fa-users"></i>
+                                <i class="fas fa-user"></i>
                             </div>
                             <div class="col-sm-11">
                                 <!-- Aquí es donde se manda a traer el campo de la llave id_receta -->
