@@ -75,7 +75,6 @@ function modalEmpleado(id)
             const result = JSON.parse(response);
             //Se comprueba si el resultado es satisfactorio para mostrar los valores en el formulario, sino se muestra la excepción
             if (result.status) {
-                console.log(result.dataset);
                 var nombre = '&nbsp' + result.dataset.nombre_empleado;
                 var apellido = '&nbsp' + result.dataset.apellido_empleado;
                 var dui = '&nbsp' + result.dataset.dui;
