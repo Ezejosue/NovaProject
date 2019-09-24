@@ -3,14 +3,15 @@ require_once('../../core/helpers/conexion.php');
 require_once('../../core/helpers/validator.php');
 require_once('../../core/models/inventarios.php');
 
-// Se comprueba si existe una acción a realizar, de lo contrario se muestra un mensaje de error
+/* Se comprueba si existe una acción a realizar, de lo contrario se muestra un mensaje de error */
 if (isset($_GET['action'])) {
 	session_start();
 	$inventarios = new Inventarios;
 	$result = array('status' => 0, 'exception' => '');
-	// Se verifica si existe una sesión iniciada como administrador para realizar las operaciones correspondientes
+	/* Se verifica si existe una sesión iniciada como administrador para realizar las operaciones correspondientes */
 	if (isset($_SESSION['idUsuario'])) {
 		switch ($_GET['action']) {
+            /* Case para leer facturas */
 			case 'readFacturas':
 				if ($result['dataset'] = $inventarios->readFacturas()) {
 					$result['status'] = 1;
@@ -18,6 +19,7 @@ if (isset($_GET['action'])) {
 					$result['exception'] = 'No hay facturas registrados';
 				}
             break;
+            /* Case para ejectuar método del modelo y crear factura */
             case 'createFactura':
 				$_POST = $inventarios->validateForm($_POST);
         		if ($inventarios->setCorrelativo($_POST['create_correlativo'])) {
@@ -40,6 +42,7 @@ if (isset($_GET['action'])) {
 					$result['exception'] = 'Correlativo incorrecto, escribe solo números de 8 dígitos.';
 				}
             break;
+            /* Case para llenar select de proveedores */
             case 'readProveedores':
 				if ($result['dataset'] = $inventarios->readProveedores()) {
 					$result['status'] = 1;
@@ -47,6 +50,7 @@ if (isset($_GET['action'])) {
 					$result['exception'] = 'No hay proveedores registrados';
 				}
             break;
+            /* Case para llenar select de facturas disponibles */
             case 'readSelectFacturas':
 				if ($result['dataset'] = $inventarios->readSelectFacturas()) {
 					$result['status'] = 1;
@@ -54,6 +58,7 @@ if (isset($_GET['action'])) {
 					$result['exception'] = 'No hay facturas registrados';
 				}
             break;
+            /* Casa para llenar select de productos/materias primas disponibles */
             case 'readMateriaPrima':
                 if ($result['dataset'] = $inventarios->readMateriasPrimas()) {
                     $result['status'] = 1;
@@ -61,14 +66,8 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Contenido no disponible';
                 }
             break;
-            case 'readInventario':
-				if ($result['dataset'] = $inventarios->readInventario()) {
-					$result['status'] = 1;
-				} else {
-					$result['exception'] = 'No hay facturas ingresadas';
-				}
-            break;
-            case 'ingresarFactura':
+            /* Case para ejecturar método del modelo y crear detalle de factura */
+            case 'createDetalle':
                 $_POST = $inventarios->validateForm($_POST);
                 if ($inventarios->setId_factura($_POST['create_factura'])) {
                     if ($inventarios->setIdmateria($_POST['create_materia'])) {
@@ -94,6 +93,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Correlativo incorrecto';
                 }
             break;
+            /* Case para obtener datos de una factura */
             case 'getFactura':
                 if ($inventarios->setId_factura($_POST['id_factura'])) {
                     if ($result['dataset'] = $inventarios->getFactura()) {
@@ -105,6 +105,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Factura incorrecta';
                 }
             break;
+            /* Case para obtener datos de una filla del detalle de una factura */
             case 'getInventario':
                 if ($inventarios->setId_inventario($_POST['id_inventario'])) {
                     if ($result['dataset'] = $inventarios->getInventario()) {
@@ -116,6 +117,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Producto incorrecta';
                 }
             break;
+            /* Case para leer detalle de una factura */
             case 'readDetalleFactura':
                 if ($inventarios->setId_factura($_POST['id_factura'])) {
                     if ($result['dataset'] = $inventarios->readFactura()) {
@@ -127,6 +129,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Factura incorrecta';
                 }
             break;
+            /* Case para modificar una fila de un detalle de */
             case 'updateInventario':
                 $_POST = $inventarios->validateForm($_POST);
                 if ($inventarios->setId_inventario($_POST['id_inventario'])) {
@@ -157,6 +160,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Producto incorrecta';
                 }            
             break;
+            /* Case para actualizar correlativo o proveedor de una factura */
             case 'updateFactura':
                 $_POST = $inventarios->validateForm($_POST);
                 if ($inventarios->setId_factura($_POST['id_factura'])) {
@@ -183,6 +187,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Factura incorrecta';
                 }            
             break;
+            /* Case para cambiar estado de una factura */
             case 'updateEstado':
                 $_POST = $inventarios->validateForm($_POST);
                 if ($inventarios->setId_factura($_POST['hid_factura'])) {
@@ -196,7 +201,7 @@ if (isset($_GET['action'])) {
                                 $result['exception'] = 'Operación fallida';
                             }
                         } else {
-                            $result['exception'] = 'Materia prima incorrecta';
+                            $result['exception'] = 'Estado incorrecta';
                         }
                     } else {
                         $result['exception'] = 'Factura inexistente';
@@ -205,6 +210,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Factura incorrecta';
                 }
             break;
+            /* Case para borrar una fila de un detalle de factura */
             case 'deleteProducto':
                 if ($inventarios->setId_inventario($_POST['id_inventario'])) {
                     if ($inventarios->getInventario()) {
@@ -220,6 +226,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Materia prima incorrecta';
                 }
             break;
+            /* Case para obtener datos generales de bodega */
             case 'readBodega':
                 if ($result['dataset'] = $inventarios->readBodega()) {
                     $result['status'] = 1;
