@@ -786,7 +786,7 @@ $('#form-create').submit(function()
 {
     event.preventDefault();
     $.ajax({
-        url: apiFacturas + 'ingresarFactura',
+        url: apiFacturas + 'createDetalle',
         type: 'post',
         data: new FormData($('#form-create')[0]),
         datatype: 'json',
