@@ -70,7 +70,8 @@
                                 <i class="fa fa-list"></i>
                             </div>
                             <div class="col-sm-11">
-                                <input id="create_nombre" name="create_nombre" class="form-control" placeholder="Nombre" autocomplete="off" required>
+                                <input id="create_nombre" name="create_nombre" class="form-control" placeholder="Nombre"
+                                    autocomplete="off" required>
                             </div>
                         </div>
                     </div>
@@ -120,8 +121,8 @@
                     </button>
                 </div>
                 <form method="post" id="form-update" enctype="multipart/form-data">
-                    <input type="hidden" id="foto_categoria" name="foto_categoria"/>
-                    <input type="hidden" id="id_categoria" name="id_categoria"/>
+                    <input type="hidden" id="foto_categoria" name="foto_categoria" />
+                    <input type="hidden" id="id_categoria" name="id_categoria" />
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-1">
@@ -154,8 +155,8 @@
                                 <i class="fa fa-file-alt"></i>
                             </div>
                             <div class="col-sm-11">
-                                <textarea class="form-control" id="update_descripcion"
-                                    name="update_descripcion" for="descripcion" rows="3" required>
+                                <textarea class="form-control" id="update_descripcion" name="update_descripcion"
+                                    for="descripcion" rows="3" required>
                                 </textarea>
                             </div>
                         </div>

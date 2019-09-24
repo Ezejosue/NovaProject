@@ -153,7 +153,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form  method="post" id="form-update" enctype="multipart/form-data">
+                <form method="post" id="form-update" enctype="multipart/form-data">
                     <input type="hidden" id="imagen" name="imagen" />
                     <input type="hidden" id="id_platillo" name="id_platillo" />
                     <div class="modal-body">

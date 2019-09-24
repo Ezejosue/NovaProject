@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Iniciar Sesión</title>
+    <link href="../resources/img/logo.ico" rel="icon">
 
     <!-- Fontfaces CSS-->
     <link href="../resources/css/font-face.css" rel="stylesheet" media="all">

@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Registrar</title>
+    <link href="../resources/img/logo.ico" rel="icon">
 
     <!-- Fontfaces CSS-->
     <link href="../resources/css/font-face.css" rel="stylesheet" media="all">
@@ -25,7 +26,7 @@
                 <div class="login-wrap">
                     <div class="login-content">
                         <div class="login-form text-center">
-                            <form  method="post" id="form-register">
+                            <form method="post" id="form-register">
                                 <input id="alias" type="text" name="alias" class="validate form-control"
                                     placeholder="Nombre De Usuario" required>
                                 <br>
@@ -70,7 +71,7 @@
             </div>
         </div>
     </div>
-    
+
     <script src="../resources/js/jquery-3.2.1.min.js"></script>
     <script src="../resources/extras/bootstrap-4.1/bootstrap.min.js"></script>
     <script src="../resources/js/sweetalert.min.js"></script>
