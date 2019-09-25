@@ -192,7 +192,7 @@ if (isset($_GET['action'])) {
                 $_POST = $inventarios->validateForm($_POST);
                 if ($inventarios->setId_factura($_POST['hid_factura'])) {
                     if ($inventarios->getFactura()) {
-                        if ($inventarios->setEstado($_POST['hestado'])) {
+                        if ($estado = $inventarios->setEstado($_POST['hestado'])) {
                             if ($inventarios->updateEstado()) {
                                 $result['status'] = 1;
                                 $result['message'] = 'Factura actualizada correctamente';

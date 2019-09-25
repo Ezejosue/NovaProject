@@ -17,7 +17,7 @@ function fillTableDetalleFactura(rows)
         content += `
             <tr>
                 <td>${row.Materia}</td>
-                <td>${row.CantidadTotal}</td>
+                <td>${row.Cantidad}</td>
             </tr>
         `;
     });

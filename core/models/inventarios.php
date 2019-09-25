@@ -276,10 +276,7 @@ class Inventarios extends Validator
 	/* Método para llenar tala de bodega */
 	public function readBodega()
 	{
-		$sql = 'SELECT CONCAT(m.nombre_materia, " (" ,u.descripcion, ")")AS Materia, SUM(inv.cantidad) AS CantidadTotal 
-		FROM inventarios inv INNER JOIN facturas f 
-		INNER JOIN materiasprimas m USING(idMateria) 
-		INNER JOIN unidadmedida u WHERE f.estado = 1 GROUP BY nombre_materia';
+		$sql = 'CALL readBodega();';
 		$params = array(null);
 		return conexion::getRows($sql, $params);
 	}
