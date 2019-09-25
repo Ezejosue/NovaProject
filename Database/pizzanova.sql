@@ -24,6 +24,28 @@ SET time_zone = "+00:00";
 CREATE DATABASE IF NOT EXISTS `pizzanova` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
 USE `pizzanova`;
 
+DELIMITER $$
+--
+-- Procedimientos
+--
+DROP PROCEDURE IF EXISTS `readBodega`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `readBodega` ()  NO SQL
+    DETERMINISTIC
+SELECT (COALESCE(SUM(cantidad),0)-(SELECT COALESCE(SUM(elab.`cantidad`),0) 
+FROM pedidos AS ped 
+JOIN detalle_pedido detped USING(`id_pedido`) 
+JOIN platillos plat USING (`id_platillo`) 
+JOIN receta rec USING(`id_receta`)
+JOIN elaboraciones elab USING(`id_receta`)
+WHERE elab.`idMateria`=inv.`idMateria` ORDER BY elab.`idMateria`)-(SELECT (COALESCE(SUM(des.cantidad),0)*COALESCE(SUM(elab.cantidad),0)) AS Cantidad FROM desperdicios des JOIN receta re USING(`id_receta`) JOIN elaboraciones elab USING(`id_receta`)
+WHERE elab.idMateria= inv.`idMateria`
+GROUP BY elab.idMateria)) AS Cantidad, CONCAT(nombre_materia, " (", uni.descripcion, ")") AS Materia 
+FROM inventarios AS inv JOIN facturas AS fact ON inv.`id_factura`=fact.`id_factura` 
+JOIN materiasprimas mate USING(`idMateria`) JOIN unidadmedida uni USING(id_Medida)
+WHERE fact.`estado`=1 GROUP BY inv.`idMateria`$$
+
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --

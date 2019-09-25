@@ -21,7 +21,8 @@ function fillTable(rows) {
                 <td>${row.direccion}</td>
                 <td>${row.correo}</td>
                 <td>
-                    <a href="#" onclick="modalUpdate(${row.id_empleado})" class="btn btn-info   tooltipped" data-tooltip="Modificar"><i  class="fa fa-edit"></i></a>
+                    <a href="#" onclick="modalEmpleado(${row.id_empleado})" class="btn btn-dark tooltipped" data-tooltip="Ver más"><i  class="fa fa-address-card"></i></a>
+                    <a href="#" onclick="modalUpdate(${row.id_empleado})" class="btn btn-info tooltipped" data-tooltip="Modificar"><i  class="fa fa-edit"></i></a>
                     <a href="#" onclick="confirmDelete(${row.id_empleado})"class="btn btn-danger tooltipped" data-tooltip="Eliminar"><i class="fa fa-times"></i></a>
                 </td>
             </tr>
@@ -56,6 +57,66 @@ function showTable() {
             //Se muestran en consola los posibles errores de la solicitud AJAX
             console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
         });
+}
+
+function modalEmpleado(id)
+{
+    $.ajax({
+        url: apiEmpleados + 'get',
+        type: 'post',
+        data:{
+            id_empleado: id
+        },
+        datatype: 'json'
+    })
+    .done(function(response){
+        //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+        if (isJSONString(response)) {
+            const result = JSON.parse(response);
+            //Se comprueba si el resultado es satisfactorio para mostrar los valores en el formulario, sino se muestra la excepción
+            if (result.status) {
+                var nombre = '&nbsp' + result.dataset.nombre_empleado;
+                var apellido = '&nbsp' + result.dataset.apellido_empleado;
+                var dui = '&nbsp' + result.dataset.dui;
+                var direccion = '&nbsp' + result.dataset.direccion;
+                var telefono = '&nbsp' + result.dataset.telefono;
+                var genero = result.dataset.genero;
+                var genero_string = '';
+                var nacimiento = '&nbsp' + result.dataset.fecha_nacimiento;
+                var nacionalidad = '&nbsp' + result.dataset.nacionalidad;
+                var correo = '&nbsp' + result.dataset.correo;
+                var cargo = '&nbsp' + result.dataset.nombre_cargo;
+                var usuario = '&nbsp' + result.dataset.alias;
+                if(genero == "M") {
+                    genero_string = '&nbspMasculino'
+                } else if(genero == "F") {
+                    genero_string = '&nbspFemenino'
+                } else {
+                    genero_string = '';
+                }
+                $("#info-nombre").html(nombre);
+                $("#info-apellido").html(apellido);
+                $("#info-dui").html(dui);
+                $("#info-direccion").html(direccion);
+                $("#info-telefono").html(telefono);
+                $("#info-genero").html(genero_string);
+                $("#info-nacimiento").html(nacimiento);
+                $("#info-nacionalidad").html(nacionalidad);
+                $("#info-correo").html(correo);
+                $("#info-cargo").html(cargo);
+                $("#info-usuario").html(usuario);
+                $('#modal-empleado').modal('show');
+            } else {
+                sweetAlert(2, result.exception, null);
+            }
+        } else {
+            console.log(response);
+        }
+    })
+    .fail(function(jqXHR){
+        //Se muestran en consola los posibles errores de la solicitud AJAX
+        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+    });
 }
 
 //Función para cargar los cargos en el select del formulario

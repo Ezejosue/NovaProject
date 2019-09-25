@@ -99,8 +99,7 @@
                     <span aria-hidden="tyrue">&times;</span>
                 </button>
             </div>
-            <form  method="post" id="form-update-factura" enctype="multipart/form-data"
-                autocomplete="off">
+            <form method="post" id="form-update-factura" enctype="multipart/form-data" autocomplete="off">
                 <input type="hidden" id="id_factura" name="id_factura" />
                 <div class="modal-body">
                     <div class="row">
@@ -202,8 +201,7 @@
                     <span aria-hidden="tyrue">&times;</span>
                 </button>
             </div>
-            <form  method="post" id="form-create-factura" enctype="multipart/form-data"
-                autocomplete="off">
+            <form method="post" id="form-create-factura" enctype="multipart/form-data" autocomplete="off">
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-sm-1">
@@ -244,7 +242,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form  method="post" id="form-create" enctype="multipart/form-data" autocomplete="off">
+            <form method="post" id="form-create" enctype="multipart/form-data" autocomplete="off">
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-sm-1">
@@ -307,7 +305,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form  method="post" id="form-update-producto" enctype="multipart/form-data" autocomplete="off">
+            <form method="post" id="form-update-producto" enctype="multipart/form-data" autocomplete="off">
                 <input type="hidden" id="id_inventario" name="id_inventario" />
                 <div class="modal-body">
                     <div class="row">

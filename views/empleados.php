@@ -39,6 +39,72 @@
         </div>
     </div>
     <!-- Modals-->
+    <div class="modal fade" id="modal-empleado">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">INFORMACIÓN DEL EMPLEADO</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-1">
+                        </div>
+                        <div class="col-sm-5 md-5">
+                            <div class="row">
+                                <strong>Nombre:</strong>
+                                <p id="info-nombre"></p>
+                            </div>
+                            <div class="row">
+                                <strong>Apellido:</strong>
+                                <p id="info-apellido"></p>
+                            </div>
+                            <div class="row">
+                                <strong>DUI:</strong>
+                                <p id="info-dui"></p>
+                            </div>
+                            <div class="row">
+                                <strong>Direccion:</strong>
+                                <p id="info-direccion"></p>
+                            </div>
+                            <div class="row">
+                                <strong>Teléfono:</strong>
+                                <p id="info-telefono"></p>
+                            </div>
+                            <div class="row">
+                                <strong>Genero</strong>
+                                <p id="info-genero"></p>
+                            </div>
+                        </div>
+                        <div class="col-sm-5 md-5">
+                            <div class="row">
+                                <strong>Fecha de nacimiento:</strong>
+                                <p id="info-nacimiento"></p>
+                            </div>
+                            <div class="row">
+                                <strong>Nacionalidad:</strong>
+                                <p id="info-nacionalidad"></p>
+                            </div>
+                            <div class="row">
+                                <strong>Correo</strong>
+                                <p id="info-correo"></p>
+                            </div>
+                            <div class="row">
+                                <strong>Cargo:</strong>
+                                <p id="info-cargo"></p>
+                            </div>
+                            <div class="row">
+                                <strong>Usuario:</strong>
+                                <p id="info-usuario"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- Modal de Agregar -->
     <div class="modal fade" id="modal-create">
         <div class="modal-dialog">
@@ -126,7 +192,7 @@
                                 <label for="create_fecha">Fecha de nacimiento</label>
                                 <input id="create_fecha" type="date" min="01/01/1952" max="01/01/2001"
                                     name="create_fecha" autocomplete="off" class="validate form-control" required>
-                                    
+
                             </div>
                         </div>
                     </div>
@@ -247,7 +313,8 @@
                                 </div>
                                 <div class="col-sm-11">
                                     <input id="update_telefono" type="text" name="update_telefono"
-                                        class="validate form-control" validate placeholder="Teléfono (0000-0000)" required>
+                                        class="validate form-control" validate placeholder="Teléfono (0000-0000)"
+                                        required>
                                 </div>
                             </div>
                         </div>
@@ -326,6 +393,7 @@
             </div>
         </div>
     </div>
+
     <?php
 Dashboard::footerTemplate('empleados.js', '#tabla-empleados');
 ?>
