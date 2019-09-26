@@ -154,7 +154,7 @@
                     </button>
                 </div>
                 <form method="post" id="form-update" enctype="multipart/form-data">
-                    <input type="text" id="imagen_platillo" name="imagen_platillo" />
+                    <input type="hidden" id="imagen_platillo" name="imagen_platillo" />
                     <input type="hidden" id="id_platillo" name="id_platillo" />
                     <div class="modal-body">
                         <div class="row">
