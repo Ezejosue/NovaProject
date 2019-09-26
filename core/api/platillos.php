@@ -12,7 +12,6 @@ if (isset($_GET['action'])) {
     //Se verifica si existe una sesión iniciada como administrador para realizar las operaciones correspondientes
     if (isset($_SESSION['idUsuario'])) {
         switch ($_GET['action']) {
-            
             case 'read':
                 if ($result['dataset'] = $platillo->readPlatillo()) {
                     $result['status'] = 1;
@@ -20,7 +19,6 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'No hay platillos registrados';
                 }
                 break;
-
             //Operación para crear nuevos platillos 
             case 'create':
                 $_POST = $platillo->validateForm($_POST);
@@ -64,7 +62,6 @@ if (isset($_GET['action'])) {
                         $result['exception'] = 'Nombre incorrecto';
                     }                                     
                     break;
-                
             //Operación para saber el platillo a modificar
             case 'get':
                 if ($platillo->setId($_POST['id_platillo'])) {
@@ -88,20 +85,19 @@ if (isset($_GET['action'])) {
                                 if ($platillo->setCategoria($_POST['update_categoria'])) {
                                      if ($platillo->setReceta($_POST['update_receta'])) {
                                     if ($platillo->setEstado(isset($_POST['update_estado']) ? 1 : 0)) {
-                                            //Se comprueba que se haya subido una imagen
-                                            if (is_uploaded_file($_FILES['update_imagen']['tmp_name'])) {
-                                                if ($platillo->setImagen($_FILES['update_imagen'], $_POST['imagen'])) {
-                                                    $archivo = true;
-                                                } else {
-                                                    $result['exception'] = $platillo->getImageError();
-                                                    $archivo = false;
-                                                }
+                                        if (is_uploaded_file($_FILES['update_imagen']['tmp_name'])) {
+                                            if ($platillo->setImagen($_FILES['update_imagen'], $_POST['imagen_platillo'])) {
+                                                $archivo = true;
                                             } else {
-                                                if (!$platillo->setImagen(null, $_POST['imagen'])) {
-                                                    $result['exception'] = $platillo->getImageError();
-                                                }
+                                                $result['exception'] = $platillo->getImageError();
                                                 $archivo = false;
                                             }
+                                        } else {
+                                            if (!$platillo->setImagen(null, $_POST['imagen_platillo'])) {
+                                                $result['exception'] = $platillo->getImageError();
+                                            }
+                                            $archivo = false;
+                                        }
                                         if ($platillo->updatePlatillo()) {
                                             $result['status'] = 1;
                                             if ($archivo) {

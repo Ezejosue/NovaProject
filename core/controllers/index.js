@@ -34,7 +34,7 @@ const apiPlatillos = '../core/api/platillos.php?site=private&action=';
                 result.dataset.forEach(row => {
                     //se recorren todos los datos que esten en las filas especificadas en el row
                     nombre.push(row.nombre_categoria);
-                    existencia.push(parseInt(row.cantidad));
+                    existencia.push(parseInt(row.CantidadTotal));
                 });
                 //se mandar los parámetros de la función que se crea en el controlador de function.js los cuales son el id, xAxis, yAxis y legend
                 grafico_existencia_categoria_agotar("existencia_categoria_agotar", nombre, existencia, "Existencias.", "Existencia de materia prima por categoria (productos a punto de acabarse)")
@@ -67,7 +67,7 @@ function graficar_existencia_categoria_sobre_existencias() {
             result.dataset.forEach(row => {
                 //se recorren todos los datos que esten en las filas especificadas en el row
                 nombre.push(row.nombre_categoria);
-                existencia.push(parseInt(row.cantidad));
+                existencia.push(parseInt(row.CantidadTotal));
             });
             //se mandar los parámetros de la función que se crea en el controlador de function.js los cuales son el id, xAxis, yAxis y legend
             grafico_existencia_categoria_sobre_existen("existencia_categoria_sobre_existen", nombre, existencia, "Existencias.", "Existencia de materia prima por categoría (productos a punto de acabarse)")
@@ -394,7 +394,7 @@ function MateriaClick()
                 let productos = [];
                 result.dataset.forEach(function(row){
                     nombres.push(row.nombre_materia);
-                    productos.push(row.cantidad);
+                    productos.push(row.CantidadTotal);
                 });
                 grafica_existencia_materia_agotar('existencia_categoria_materia_agotar', nombres, productos, 'Materias primas en escasez', 'Productos por agotar')
                //se deshabilitan tanto el boton como el comobobox para que no genere más de una grafica 
@@ -432,7 +432,7 @@ function Materia_sobre_Click()
                 let productos = [];
                 result.dataset.forEach(function(row){
                     nombres.push(row.nombre_materia);
-                    productos.push(row.cantidad);
+                    productos.push(row.CantidadTotal);
                 });
                 grafica_existencia_materia_sobre_existente('existencia_categoria_materia_sobre_existente', nombres, productos, 'Materias primas en escasez', 'Productos por agotar')
                //se deshabilitan tanto el boton como el comobobox para que no genere más de una grafica 

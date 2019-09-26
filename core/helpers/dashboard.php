@@ -18,7 +18,7 @@ class Dashboard
 						require_once('../core/helpers/usuarios.php');
 						$usuario = new Usuarios;
 						//Tiempo de vida de la sesión, en este caso 15min
-						$inactivo = 900;
+						$inactivo = 1000;
 						//calculamos tiempo de vida inactivo
 						$vida_session = time() - $_SESSION['tiempo'];
 						//comparamos si el tiempo de vida de la sesión es mayor inactivo

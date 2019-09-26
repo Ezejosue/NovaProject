@@ -140,7 +140,7 @@ class Tipo_usuario extends Validator
 
 	public function getVistas()
 	{
-		$sql = 'SELECT id_vista FROM vistas';
+		$sql = 'SELECT id_vista FROM vistas ORDER BY id_vista';
 		$params = array(null);
 		return conexion::getRows($sql, $params);
 	}

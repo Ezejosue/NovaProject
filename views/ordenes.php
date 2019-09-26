@@ -122,8 +122,7 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-sm-12 col-md-12">
-                            <input type="number" class="form-control" id="nueva_cantidad" name="nueva_cantidad"
-                                max="999" min="1">
+                            <input type="text" class="form-control" id="nueva_cantidad" name="nueva_cantidad">
                             <br>
                         </div>
                     </div>

@@ -208,8 +208,8 @@ function modalUpdate(id)
                 $('#update_precio').val(result.dataset.precio);
                 showSelectCategoria('update_categoria', result.dataset.id_categoria);
                 showSelectReceta('update_receta', result.dataset.id_receta);
-                $('#update_estado').val(result.dataset.estado);
-                $('#imagen').val(result.dataset.imagen);
+                (result.dataset.estado == 1) ? $('#update_estado').prop('checked', true) : $('#update_estado').prop('checked', false);
+                $('#imagen_platillo').val(result.dataset.imagen);
                 $('#modal-update').modal('show');
             } else {
                 sweetAlert(2, result.exception, null);

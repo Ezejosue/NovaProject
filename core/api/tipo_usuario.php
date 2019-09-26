@@ -103,7 +103,8 @@ if (isset($_GET['action'])) {
 								//Se avanza a la siguiente posición del arreglo
 								$i = $i + 1;
 							}
-							$_SESSION['vistas'] = $tipo_usuario->readMenu();	
+							$tipo_usuario->setId($_SESSION['tipoUsuario']);
+							$_SESSION['vistas'] = $tipo_usuario->readMenu();
 						} else {
 							$result['exception'] = 'Error al obtener los estados';
 						}

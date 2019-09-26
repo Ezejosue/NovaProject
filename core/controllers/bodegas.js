@@ -17,7 +17,7 @@ function fillTableDetalleFactura(rows)
         content += `
             <tr>
                 <td>${row.Materia}</td>
-                <td>${row.CantidadTotal}</td>
+                <td>${row.Cantidad}</td>
             </tr>
         `;
     });
@@ -43,6 +43,7 @@ function showTableBodega()
                 sweetAlert(4, result.exception, null);
             }
             fillTableDetalleFactura(result.dataset);
+            console.log(result);
         } else {
             console.log(response);
         }

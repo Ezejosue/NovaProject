@@ -1,7 +1,7 @@
 <?php
 class Inventarios extends Validator
 {
-	// Declaración de propiedades
+	/* Declaración de propiedades */
     private $id_inventario = null;
     private $id_factura = null;
     private $idMateria = null;
@@ -12,7 +12,7 @@ class Inventarios extends Validator
     private $correlativo = null;
     private $estado = null;
 
-	// Métodos para sobrecarga de propiedades
+	/* Métodos para sobrecarga de propiedades */
 	public function setId_inventario($value)
 	{
 		if ($this->validateId($value)) {
@@ -153,7 +153,8 @@ class Inventarios extends Validator
 		return $this->estado;
 	}
 
-	// Metodos para el manejo del SCRUD
+	/* Metodos para el manejo del SCRUD */
+	/* Método para llenar table de facturas */
 	public function readFacturas()
 	{
 		$sql = 'SELECT id_factura, correlativo, p.nom_proveedor, fecha_ingreso, u.alias, f.estado
@@ -163,6 +164,7 @@ class Inventarios extends Validator
 		return conexion::getRows($sql, $params);
 	}
 
+	/* Método para obtener detalle de facturas */
 	public function readFactura()
 	{
 		$sql = 'SELECT f.id_factura, correlativo, id_inventario, p.nom_proveedor, fecha_ingreso, us.alias , CONCAT(nombre_materia, " (" ,u.descripcion, ")") AS Materia, cantidad, precio, f.estado 
@@ -175,6 +177,7 @@ class Inventarios extends Validator
 		return conexion::getRows($sql, $params);
 	}
 
+	/* Método para obtener datos de una factura */
 	public function getFactura()
 	{
 		$sql = 'SELECT id_factura, correlativo, id_proveedor, estado FROM facturas f WHERE id_factura = ? LIMIT 1';
@@ -182,6 +185,7 @@ class Inventarios extends Validator
 		return conexion::getRow($sql, $params);
 	}
 
+	/* Método para obtener datos de una fila de productos ingresados */
 	public function getInventario()
 	{
 		$sql = 'SELECT id_inventario, idMateria, cantidad, precio, id_factura FROM inventarios WHERE id_inventario = ? LIMIT 1';
@@ -189,27 +193,31 @@ class Inventarios extends Validator
 		return conexion::getRow($sql, $params);
 	}
 
+	/* Método para crear una factura */
 	public function createFactura()
 	{
 		$sql = 'INSERT INTO `facturas` (`correlativo`, `id_proveedor`, `id_usuario`, `estado`) VALUES (?, ?, ?, 2);';
 		$params = array($this->correlativo, $this->id_proveedor, $this->id_usuario);
 		return conexion::executeRow($sql, $params);
     }
-    
+	
+	/* Método para llenar select de proveedores */
     public function readProveedores()
 	{
 		$sql = 'SELECT id_proveedor, nom_proveedor FROM proveedores WHERE estado = 1';
 		$params = array(null);
 		return conexion::getRows($sql, $params);
     }
-    
+	
+	/* Método para llenar select de facturas con estado "en proceso" */
     public function readSelectFacturas()
 	{
 		$sql = 'SELECT id_factura, correlativo FROM facturas WHERE estado = 2';
 		$params = array(null);
 		return conexion::getRows($sql, $params);
     }
-    
+	
+	/* Método para llenar select de materias primas/productos disponibles */
     public function readMateriasPrimas()
 	{
 		$sql = 'SELECT idMateria, CONCAT(nombre_materia, " (" ,u.descripcion, ")") AS Materia 
@@ -217,19 +225,8 @@ class Inventarios extends Validator
 		$params = array(null);
 		return Conexion::getRows($sql, $params);
     }
-    
-    public function readInventario()
-	{
-		$sql = 'SELECT correlativo, f.estado, CONCAT(nombre_materia, " (" ,u.descripcion, ")") AS Materia, cantidad, p.nom_proveedor, fecha_ingreso, us.alias 
-        FROM inventarios INNER JOIN materiasprimas m USING(idMateria) 
-        INNER JOIN unidadmedida u USING(id_Medida) 
-        INNER JOIN facturas f USING(id_factura) 
-        INNER JOIN usuarios us USING(id_usuario) 
-        INNER JOIN proveedores p USING(id_proveedor)';
-		$params = array(null);
-		return Conexion::getRows($sql, $params);
-    }
-    
+	
+	/* Método para ingresar productos al detalle de facturas */    
     public function createInventario()
 	{
 		$sql = 'INSERT INTO `inventarios` (`idMateria`, `cantidad`, `precio`, `id_factura`) VALUES (?, ?, ?, ?);';
@@ -237,6 +234,7 @@ class Inventarios extends Validator
 		return conexion::executeRow($sql, $params);
 	}
 	
+	/* Método para modificar factura correlativo o proveedor de un factura */
 	public function updateFactura()
 	{
 		$sql = 'UPDATE facturas SET correlativo = ?, id_proveedor = ? WHERE id_factura = ?';
@@ -244,6 +242,7 @@ class Inventarios extends Validator
 		return conexion::executeRow($sql, $params);
 	}
 
+	/* Método para modificar un producto del detalle de una factura */
 	public function updateInventario()
 	{
 		$sql = 'UPDATE inventarios SET idMateria = ?, cantidad = ?, precio = ? WHERE id_inventario = ?';
@@ -251,6 +250,7 @@ class Inventarios extends Validator
 		return conexion::executeRow($sql, $params);
 	}
 
+	/* Método para cambiar estado de una factura */
 	public function updateEstado()
 	{
 		$sql = 'UPDATE facturas SET estado = ? WHERE id_factura = ?';
@@ -265,6 +265,7 @@ class Inventarios extends Validator
 		return conexion::executeRow($sql, $params);
 	}
 
+	/* Método para eliminar un producto del detalle de una factura */
 	public function deleteInventario()
 	{
 		$sql = 'DELETE FROM inventarios WHERE id_inventario = ?';
@@ -272,12 +273,10 @@ class Inventarios extends Validator
 		return conexion::executeRow($sql, $params);
 	}
 
+	/* Método para llenar tabla de bodega */
 	public function readBodega()
 	{
-		$sql = 'SELECT CONCAT(m.nombre_materia, " (" ,u.descripcion, ")")AS Materia, SUM(inv.cantidad) AS CantidadTotal 
-		FROM inventarios inv INNER JOIN facturas f 
-		INNER JOIN materiasprimas m USING(idMateria) 
-		INNER JOIN unidadmedida u WHERE f.estado = 1 GROUP BY nombre_materia';
+		$sql = 'CALL readBodega();';
 		$params = array(null);
 		return conexion::getRows($sql, $params);
 	}

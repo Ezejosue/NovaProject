@@ -38,7 +38,7 @@ class Validator
 	public function validateForm($fields)
 	{
 		foreach ($fields as $index => $value) {
-			$value = htmlentities(trim($value));
+			$value = trim($value);
 			$fields[$index] = $value;
 		}
 		return $fields;
@@ -143,7 +143,7 @@ class Validator
 	//validación que permite ingresar solamente letras y números.
 	public function validateAlphanumeric($value, $minimum, $maximum)
 	{
-		if (preg_match('/^[a-zA-Z0-9ñÑáÁéÉíÍóÓúÚ\s\.]{'.$minimum.','.$maximum.'}$/', $value)) {
+		if (preg_match('/^[a-zA-Z0-9ñÑáÁéÉíÍóÓúÚ\s\.\,\;]{'.$minimum.','.$maximum.'}$/', $value)) {
 			return true;
 		} else {
 			return false;
@@ -203,7 +203,7 @@ class Validator
 	public function validateFecha($value)
 	{
 		//validación para mayores de 18 años
-		$fecha = strtotime(date("01-01-2001"));
+		$fecha = strtotime(date("01-01-2002"));
 		//validación para que la fecha mínima sea 1952 y que la edad no pueda ser más de 100 años
 		$fmax = strtotime(date("01-01-1952"));
 		$value = strtotime($value);

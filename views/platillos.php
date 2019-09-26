@@ -71,8 +71,8 @@
                             </div>
                             <div class="col-sm-11">
                                 <!-- Aquí se agrega el segundo campo que es el del precio con su validación respectiva en la parte de abajo -->
-                                <input id="create_precio" type="number" name="create_precio"
-                                    class="validate form-control" placeholder="0.00" max="999.99" min="0.01" required />
+                                <input id="create_precio" type="text" name="create_precio"
+                                    class="validate form-control" placeholder="0.00" required />
                             </div>
                         </div>
                     </div>
@@ -154,7 +154,7 @@
                     </button>
                 </div>
                 <form method="post" id="form-update" enctype="multipart/form-data">
-                    <input type="hidden" id="imagen" name="imagen" />
+                    <input type="hidden" id="imagen_platillo" name="imagen_platillo" />
                     <input type="hidden" id="id_platillo" name="id_platillo" />
                     <div class="modal-body">
                         <div class="row">
@@ -175,8 +175,8 @@
                             </div>
                             <div class="col-sm-11">
                                 <!-- vemos el campo del precio en el modal de update -->
-                                <input id="update_precio" type="number" name="update_precio"
-                                    class="validate form-control" placeholder="Precio" max="999.99" min="0.01" required>
+                                <input id="update_precio" type="text" name="update_precio"
+                                    class="validate form-control" placeholder="Precio" required>
                             </div>
                         </div>
                     </div>
@@ -212,8 +212,7 @@
                             <div class="col-sm-11">
                                 <div class="custom-file">
                                     <!-- vemos el campo para poder cambiar la imagen siempre en el modal de update platillos -->
-                                    <input type="file" class="custom-file-input" id="update_imagen" name="update_imagen"
-                                        required>
+                                    <input type="file" class="custom-file-input" id="update_imagen" name="update_imagen">
                                     <label class="custom-file-label" for="update_imagen">Escoge un archivo</label>
                                     <div class="invalid-feedback">Por favor seleccione una imagen 500 x 500</div>
                                 </div>
