@@ -154,7 +154,7 @@
                     </button>
                 </div>
                 <form method="post" id="form-update" enctype="multipart/form-data">
-                    <input type="hidden" id="imagen" name="imagen" />
+                    <input type="text" id="imagen_platillo" name="imagen_platillo" />
                     <input type="hidden" id="id_platillo" name="id_platillo" />
                     <div class="modal-body">
                         <div class="row">
@@ -212,8 +212,7 @@
                             <div class="col-sm-11">
                                 <div class="custom-file">
                                     <!-- vemos el campo para poder cambiar la imagen siempre en el modal de update platillos -->
-                                    <input type="file" class="custom-file-input" id="update_imagen" name="update_imagen"
-                                        required>
+                                    <input type="file" class="custom-file-input" id="update_imagen" name="update_imagen">
                                     <label class="custom-file-label" for="update_imagen">Escoge un archivo</label>
                                     <div class="invalid-feedback">Por favor seleccione una imagen 500 x 500</div>
                                 </div>
