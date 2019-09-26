@@ -14,12 +14,22 @@ function fillTableDetalleFactura(rows)
     //Se recorren las filas para armar el cuerpo de la tabla y se utiliza comillas invertida para escapar los caracteres especiales
     rows.forEach(function(row){
 
-        content += `
+        if (row.Cantidad == null) {
+            content += `
+            <tr>
+                <td>${row.Materia}</td>
+                <td>SIN EXISTENCIAS</td>
+            </tr>
+        `;
+        } else {
+            content += `
             <tr>
                 <td>${row.Materia}</td>
                 <td>${row.Cantidad}</td>
             </tr>
-        `;
+            `;
+        }
+        
     });
 
     $('#tbody-read').html(content);

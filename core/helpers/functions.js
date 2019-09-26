@@ -90,7 +90,7 @@ function grafico_existencia_categoria_agotar(canvas, xAxis, yAxis, legend, title
                 yAxes: [{
                     ticks: {
                         beginAtZero: true,
-                        stepSize: 50
+                        stepSize: 50000000
                     }
                 }]
             }
@@ -135,7 +135,7 @@ function grafico_existencia_categoria_sobre_existen(canvas, xAxis, yAxis, legend
                 yAxes: [{
                     ticks: {
                         beginAtZero: true,
-                        stepSize: 50
+                        stepSize: 50000000
                     }
                 }]
             }
@@ -487,7 +487,7 @@ function grafica_existencia_materia_agotar(canvas, xAxis, yAxis, legend, title) 
                 yAxes: [{
                     ticks: {
                         beginAtZero: true,
-                        stepSize: 50
+                        stepSize: 5000
                     }
                 }]
             }
@@ -531,7 +531,7 @@ function grafica_existencia_materia_sobre_existente(canvas, xAxis, yAxis, legend
                 yAxes: [{
                     ticks: {
                         beginAtZero: true,
-                        stepSize: 50
+                        stepSize: 5000
                     }
                 }]
             }
