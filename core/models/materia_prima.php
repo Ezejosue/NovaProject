@@ -171,14 +171,26 @@ class Materias extends Validator
 
 	public function readMeteriaCategoria()
 	{
-		$sql = 'SELECT nombre_materia, cantidad, nombre_categoria from materiasprimas INNER JOIN categorias USING(id_categoria) ORDER BY nombre_categoria';
+		$sql = 'CALL `materiasPorCategoria`();';
 		$params = array(null);
 		return Conexion::getRows($sql, $params);
 	}
 
 	public function readMeteriaCategoria1($categoria)
 	{
-		$sql = "SELECT nombre_materia, cantidad, nombre_categoria from materiasprimas INNER JOIN categorias USING(id_categoria) WHERE id_categoria = $categoria ORDER BY nombre_categoria";
+		$sql = "SELECT nombre_categoria, (COALESCE(SUM(cantidad),0)-(SELECT COALESCE(SUM(elab.`cantidad`),0) 
+		FROM pedidos AS ped 
+		JOIN detalle_pedido detped USING(`id_pedido`) 
+		JOIN platillos plat USING (`id_platillo`) 
+		JOIN receta rec USING(`id_receta`)
+		JOIN elaboraciones elab USING(`id_receta`)
+		WHERE elab.`idMateria`=inv.`idMateria` ORDER BY elab.`idMateria`)-(SELECT (COALESCE(SUM(des.cantidad),0)*COALESCE(SUM(elab.cantidad),0)) AS Cantidad FROM desperdicios des JOIN receta re USING(`id_receta`) JOIN elaboraciones elab USING(`id_receta`)
+		WHERE elab.idMateria= inv.`idMateria`
+		GROUP BY elab.idMateria )) AS CantidadTotal, CONCAT(nombre_materia, ' (', uni.descripcion, ')') AS Materia 
+		FROM inventarios AS inv JOIN facturas AS fact ON inv.`id_factura`=fact.`id_factura` 
+		JOIN materiasprimas mate USING(`idMateria`) JOIN unidadmedida uni USING(id_Medida)
+		JOIN categorias cat USING(`id_categoria`)
+		WHERE fact.`estado`= 1 AND mate.`id_categoria` = $categoria GROUP BY cat.`nombre_categoria`";
 		$params = array(null);
 		return Conexion::getRows($sql, $params);
 	}

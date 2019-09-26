@@ -52,8 +52,8 @@ if($materia->readMeteriaCategoria()) {
         $pdf->setX(30);
           // Cell(ancho, Alto, texto, borde, salto de linea, alineación de texto, color)
         //convertimos el texto a utf8
-        $pdf->Cell(20,10, utf8_decode($datos['cantidad']),1,0,'C');
-        $pdf->Cell(135,10, utf8_decode($datos['nombre_materia']),1,0,'C');
+        $pdf->Cell(20,10, utf8_decode($datos['CantidadTotal']),1,0,'C');
+        $pdf->Cell(135,10, utf8_decode($datos['Materia']),1,0,'C');
         
         $pdf->Ln();
   }
