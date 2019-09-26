@@ -142,11 +142,7 @@ class Categorias extends Validator
 
 	public function graficar_existencia_categoria_agotar()
 	{//funcion para traer la cantidad de materia prima por categoria
-		$sql = 'SELECT SUM(materiasprimas.cantidad) cantidad, nombre_categoria 
-		FROM materiasprimas 
-		INNER JOIN categorias USING (id_categoria)
-		 WHERE materiasprimas.estado = 1 
-		 GROUP BY nombre_categoria ORDER BY cantidad asc LIMIT 5';
+		$sql = 'CALL `existenciasPorAgotar`();';
 		$params = array(null);
 		return conexion::getRows($sql, $params);
 	}
@@ -154,11 +150,7 @@ class Categorias extends Validator
 	
 	public function graficar_existencia_categoria_sobre_existen()
 	{//funcion para traer la cantidad de materia prima por categoria
-		$sql = 'SELECT SUM(materiasprimas.cantidad) cantidad, nombre_categoria 
-		FROM materiasprimas 
-		INNER JOIN categorias USING (id_categoria) 
-		WHERE materiasprimas.estado = 1
-		GROUP BY nombre_categoria ORDER BY cantidad DESC LIMIT 5';
+		$sql = 'CALL `sobreExistencias`();';
 		$params = array(null);
 		return conexion::getRows($sql, $params);
 	}
@@ -249,18 +241,38 @@ class Categorias extends Validator
 
 	public function graficar_existencia_materia_prima_agotar($id_categoria_materia)
 	{
-		$sql = "SELECT SUM(cantidad) as cantidad, nombre_materia, nombre_categoria FROM materiasprimas 
-		INNER JOIN categorias USING (id_categoria)
-		WHERE materiasprimas.estado = 1 AND  id_categoria = $id_categoria_materia GROUP BY nombre_materia ORDER BY cantidad ASC LIMIT 5";
+		$sql = "SELECT nombre_categoria, nombre_materia, (COALESCE(SUM(cantidad),0)-(SELECT COALESCE(SUM(elab.`cantidad`),0) 
+		FROM pedidos AS ped 
+		JOIN detalle_pedido detped USING(`id_pedido`) 
+		JOIN platillos plat USING (`id_platillo`) 
+		JOIN receta rec USING(`id_receta`)
+		JOIN elaboraciones elab USING(`id_receta`)
+		WHERE elab.`idMateria`=inv.`idMateria` ORDER BY elab.`idMateria`)-(SELECT (COALESCE(SUM(des.cantidad),0)*COALESCE(SUM(elab.cantidad),0)) AS Cantidad FROM desperdicios des JOIN receta re USING(`id_receta`) JOIN elaboraciones elab USING(`id_receta`)
+		WHERE elab.idMateria= inv.`idMateria`
+		GROUP BY elab.idMateria )) AS CantidadTotal, CONCAT(nombre_materia, ' (', uni.descripcion, ')') AS Materia 
+		FROM inventarios AS inv JOIN facturas AS fact ON inv.`id_factura`=fact.`id_factura` 
+		JOIN materiasprimas mate USING(`idMateria`) JOIN unidadmedida uni USING(id_Medida)
+		JOIN categorias cat USING(`id_categoria`)
+		WHERE fact.`estado`= 1 AND mate.`id_categoria` = $id_categoria_materia GROUP BY cat.nombre_categoria ORDER BY CantidadTotal ASC LIMIT 5";
 		$params = array(null);
 		return conexion::getRows($sql, $params);
 	}
 	
 	public function graficar_existencia_materia_prima_sobre_existente($id_categoria_materia_prima)
 	{
-		$sql = "SELECT SUM(cantidad) cantidad, nombre_materia, nombre_categoria FROM materiasprimas 
-		INNER JOIN categorias USING (id_categoria)
-		WHERE materiasprimas.estado = 1 AND  id_categoria = $id_categoria_materia_prima GROUP BY nombre_materia ORDER BY cantidad DESC LIMIT 5";
+		$sql = "SELECT nombre_categoria, nombre_materia, (COALESCE(SUM(cantidad),0)-(SELECT COALESCE(SUM(elab.`cantidad`),0) 
+		FROM pedidos AS ped 
+		JOIN detalle_pedido detped USING(`id_pedido`) 
+		JOIN platillos plat USING (`id_platillo`) 
+		JOIN receta rec USING(`id_receta`)
+		JOIN elaboraciones elab USING(`id_receta`)
+		WHERE elab.`idMateria`=inv.`idMateria` ORDER BY elab.`idMateria`)-(SELECT (COALESCE(SUM(des.cantidad),0)*COALESCE(SUM(elab.cantidad),0)) AS Cantidad FROM desperdicios des JOIN receta re USING(`id_receta`) JOIN elaboraciones elab USING(`id_receta`)
+		WHERE elab.idMateria= inv.`idMateria`
+		GROUP BY elab.idMateria )) AS CantidadTotal, CONCAT(nombre_materia, ' (', uni.descripcion, ')') AS Materia 
+		FROM inventarios AS inv JOIN facturas AS fact ON inv.`id_factura`=fact.`id_factura` 
+		JOIN materiasprimas mate USING(`idMateria`) JOIN unidadmedida uni USING(id_Medida)
+		JOIN categorias cat USING(`id_categoria`)
+		WHERE fact.`estado`= 1 AND mate.`id_categoria` = $id_categoria_materia_prima GROUP BY cat.nombre_categoria ORDER BY CantidadTotal DESC LIMIT 5";
 		$params = array(null);
 		return conexion::getRows($sql, $params);
 	}
