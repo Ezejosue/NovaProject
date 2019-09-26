@@ -71,8 +71,8 @@
                             </div>
                             <div class="col-sm-11">
                                 <!-- Aquí se agrega el segundo campo que es el del precio con su validación respectiva en la parte de abajo -->
-                                <input id="create_precio" type="number" name="create_precio"
-                                    class="validate form-control" placeholder="0.00" max="999.99" min="0.01" required />
+                                <input id="create_precio" type="text" name="create_precio"
+                                    class="validate form-control" placeholder="0.00" required />
                             </div>
                         </div>
                     </div>
@@ -175,8 +175,8 @@
                             </div>
                             <div class="col-sm-11">
                                 <!-- vemos el campo del precio en el modal de update -->
-                                <input id="update_precio" type="number" name="update_precio"
-                                    class="validate form-control" placeholder="Precio" max="999.99" min="0.01" required>
+                                <input id="update_precio" type="text" name="update_precio"
+                                    class="validate form-control" placeholder="Precio" required>
                             </div>
                         </div>
                     </div>

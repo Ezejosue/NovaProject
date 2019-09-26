@@ -624,7 +624,7 @@ INSERT INTO `vistas` (`id_vista`, `nombre_vista`, `ruta`, `icono`) VALUES
 (15, 'Usuarios', 'usuarios.php', 'user-plus'),
 (16, 'Proveedores', 'proveedores.php', 'user-plus'),
 (17, 'Inventario', 'inventarios.php', 'cart-plus'),
-(18, 'Facturas', 'facturas.php', 'list');
+(18, 'Bodegas', 'bodegas.php', 'list');
 
 --
 -- Índices para tablas volcadas

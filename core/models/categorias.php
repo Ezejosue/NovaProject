@@ -65,7 +65,7 @@ class Categorias extends Validator
 	public function setDescripcion($value)
 	{
 		if ($value) {
-			if ($this->validateAlphanumeric($value, 1, 200)) {
+			if ($this->validateAlphanumeric($value, 1, 1000)) {
 				$this->descripcion = $value;
 				return true;
 			} else {

@@ -273,7 +273,7 @@ class Inventarios extends Validator
 		return conexion::executeRow($sql, $params);
 	}
 
-	/* Método para llenar tala de bodega */
+	/* Método para llenar tabla de bodega */
 	public function readBodega()
 	{
 		$sql = 'CALL readBodega();';

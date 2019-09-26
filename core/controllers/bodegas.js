@@ -43,6 +43,7 @@ function showTableBodega()
                 sweetAlert(4, result.exception, null);
             }
             fillTableDetalleFactura(result.dataset);
+            console.log(result);
         } else {
             console.log(response);
         }

@@ -271,7 +271,7 @@
                             <i class="fa fa-user"></i>
                         </div>
                         <div class="col-sm-11">
-                            <input id="create_cantidad" type="number" name="create_cantidad"
+                            <input id="create_cantidad" type="text" name="create_cantidad"
                                 class="validate form-control" placeholder="Cantidad" required>
                         </div>
                     </div>
@@ -282,8 +282,8 @@
                             <i class="fa fa-user"></i>
                         </div>
                         <div class="col-sm-11">
-                            <input id="create_precio" type="number" name="create_precio" class="validate form-control"
-                                placeholder="0.00" max="999.99" min="0.01" required />
+                            <input id="create_precio" type="text" name="create_precio" class="validate form-control"
+                                placeholder="0.00" required />
                         </div>
                     </div>
                 </div>
@@ -324,7 +324,7 @@
                             <i class="fa fa-user"></i>
                         </div>
                         <div class="col-sm-11">
-                            <input id="update_cantidad" type="number" name="update_cantidad"
+                            <input id="update_cantidad" type="text" name="update_cantidad"
                                 class="validate form-control" placeholder="Cantidad" required>
                         </div>
                     </div>
@@ -335,8 +335,8 @@
                             <i class="fa fa-user"></i>
                         </div>
                         <div class="col-sm-11">
-                            <input id="update_precio" type="number" name="update_precio" class="validate form-control"
-                                placeholder="0.00" max="999.99" min="0.01" required />
+                            <input id="update_precio" type="text" name="update_precio" class="validate form-control"
+                                placeholder="0.00" required />
                         </div>
                     </div>
                 </div>
