@@ -41,8 +41,8 @@ if($platillos->platillos_categoria()){
         $pdf->Cell(150,10, utf8_decode($datos['nombre_categoria']),1,0,'C',true);
         $pdf->Ln();        
         $pdf->setX(30);
-        $pdf->Cell(10,10, utf8_decode('#'),1,0,'C');
-        $pdf->Cell(140,10, utf8_decode('Producto'),1,0,'C');
+        $pdf->Cell(100,10, utf8_decode('Producto'),1,0,'C');
+        $pdf->Cell(50,10, utf8_decode('Precio'),1,0,'C');
         $categoria = $datos['nombre_categoria'];
         //saldo de linea
         $pdf->Ln();
@@ -50,8 +50,8 @@ if($platillos->platillos_categoria()){
         $pdf->setX(30);
         // Cell(ancho, Alto, texto, borde, salto de linea, alineación de texto, color)
         //convertimos el texto a utf8
-        $pdf->Cell(10,10, utf8_decode($datos['id_platillo']),1,0,'C');
-        $pdf->Cell(140,10, utf8_decode($datos['nombre_platillo']),1,0,'C');
+        $pdf->Cell(100,10, utf8_decode($datos['nombre_platillo']),1,0,'C');
+        $pdf->Cell(50,10, utf8_decode($datos['precio']),1,0,'C');
         $pdf->Ln();
   }
 } else {
