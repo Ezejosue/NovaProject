@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-09-2019 a las 23:02:21
+-- Tiempo de generación: 27-09-2019 a las 23:44:13
 -- Versión del servidor: 10.1.37-MariaDB
 -- Versión de PHP: 7.3.1
 
@@ -224,10 +224,11 @@ CREATE TABLE `desperdicios` (
 --
 
 INSERT INTO `desperdicios` (`id_desperdicios`, `id_receta`, `id_usuario`, `id_empleado`, `cantidad`, `fecha_desperdicio`) VALUES
-(1, 4, 1, 4, 2, '2019-09-25 19:59:10'),
-(2, 5, 1, 3, 20, '2019-07-25 14:38:45'),
-(3, 8, 2, 1, 10, '2019-09-25 14:39:30'),
-(4, 12, 2, 4, 5, '2019-09-25 14:40:01');
+(4, 12, 2, 4, 5, '2019-09-25 14:40:01'),
+(9, 19, 2, 1, 2, '2019-09-26 14:49:26'),
+(12, 7, 1, 1, 1, '2019-09-26 15:50:02'),
+(13, 4, 1, 1, 2, '2019-09-27 15:04:40'),
+(14, 9, 1, 4, 1, '2019-09-27 15:17:23');
 
 -- --------------------------------------------------------
 
@@ -238,7 +239,7 @@ INSERT INTO `desperdicios` (`id_desperdicios`, `id_receta`, `id_usuario`, `id_em
 CREATE TABLE `detalle_pedido` (
   `id_detalle` int(10) UNSIGNED NOT NULL,
   `id_pedido` int(11) UNSIGNED NOT NULL,
-  `id_platillo` int(11) NOT NULL,
+  `id_platillo` int(11) UNSIGNED NOT NULL,
   `cantidad` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
@@ -292,7 +293,38 @@ INSERT INTO `detalle_pedido` (`id_detalle`, `id_pedido`, `id_platillo`, `cantida
 (43, 21, 46, 1),
 (44, 22, 29, 1),
 (45, 22, 43, 1),
-(46, 22, 47, 1);
+(46, 22, 47, 1),
+(47, 23, 48, 4),
+(48, 23, 49, 4),
+(49, 23, 50, 52),
+(50, 24, 48, 4),
+(51, 24, 49, 4),
+(52, 25, 29, 1),
+(53, 25, 43, 1),
+(54, 26, 48, 4),
+(55, 27, 29, 1),
+(56, 27, 53, 4),
+(57, 28, 29, 1),
+(58, 28, 57, 4),
+(59, 29, 57, 6),
+(60, 30, 29, 3),
+(61, 30, 47, 2),
+(62, 31, 29, 3),
+(63, 32, 29, 3),
+(64, 32, 30, 2),
+(65, 32, 47, 1),
+(66, 33, 29, 3),
+(67, 34, 53, 2),
+(68, 34, 47, 2),
+(69, 34, 49, 3),
+(70, 35, 29, 1),
+(71, 36, 29, 1),
+(72, 36, 47, 2),
+(73, 37, 30, 1),
+(74, 37, 48, 1),
+(75, 38, 30, 1),
+(76, 38, 34, 1),
+(77, 38, 47, 2);
 
 -- --------------------------------------------------------
 
@@ -370,14 +402,6 @@ INSERT INTO `elaboraciones` (`id_elaboracion`, `id_receta`, `cantidad`, `idMater
 (70, 15, 50, 24),
 (71, 15, 50, 25),
 (72, 15, 50, 38),
-(73, 16, 100, 21),
-(74, 16, 300, 19),
-(75, 16, 4, 20),
-(76, 16, 12, 22),
-(77, 16, 14, 27),
-(78, 16, 100, 23),
-(79, 16, 100, 24),
-(80, 16, 100, 38),
 (81, 18, 400, 19),
 (82, 18, 6, 20),
 (83, 18, 120, 21),
@@ -407,7 +431,9 @@ INSERT INTO `elaboraciones` (`id_elaboracion`, `id_receta`, `cantidad`, `idMater
 (107, 22, 25, 42),
 (108, 22, 90, 24),
 (109, 23, 1, 44),
-(110, 24, 1, 45);
+(110, 24, 1, 45),
+(111, 22, 4, 32),
+(112, 21, 1, 26);
 
 -- --------------------------------------------------------
 
@@ -459,13 +485,35 @@ CREATE TABLE `facturas` (
 --
 
 INSERT INTO `facturas` (`id_factura`, `correlativo`, `id_proveedor`, `fecha_ingreso`, `id_usuario`, `estado`) VALUES
-(1, '00000001', 1, '2019-09-25 22:29:51', 1, 0),
+(1, '00000001', 1, '2019-09-25 22:29:51', 1, 1),
 (2, '00000002', 1, '2019-09-25 22:36:59', 1, 0),
 (3, '00000003', 2, '2019-09-26 07:22:20', 1, 1),
 (4, '00000004', 3, '2019-04-23 11:21:29', 1, 1),
-(5, '00000005', 4, '2019-07-24 11:26:21', 1, 1),
+(5, '00000005', 4, '2019-07-24 11:26:21', 1, 0),
 (6, '00000006', 5, '2019-07-25 14:30:39', 1, 1),
-(8, '00000007', 2, '2019-09-25 14:45:23', 1, 1);
+(8, '00000007', 2, '2019-09-25 14:45:23', 1, 0),
+(9, '00000008', 2, '2019-09-26 13:41:57', 1, 0),
+(10, '00001234', 3, '2019-09-26 13:55:49', 1, 0),
+(11, '01234567', 4, '2019-09-26 14:04:28', 1, 1),
+(12, '00123456', 2, '2019-09-26 14:39:55', 1, 0),
+(13, '09878907', 2, '2019-09-26 14:46:49', 1, 0),
+(14, '07554545', 4, '2019-09-26 14:52:14', 1, 1),
+(15, '05745123', 3, '2019-09-26 14:56:20', 1, 0),
+(16, '65320231', 2, '2019-09-26 14:57:53', 1, 0),
+(17, '00012345', 1, '2019-09-26 15:04:38', 1, 0),
+(18, '03211564', 1, '2019-09-26 15:10:12', 1, 0),
+(19, '00321549', 2, '2019-09-26 15:18:40', 1, 0),
+(20, '08904152', 2, '2019-09-26 15:28:26', 1, 0),
+(21, '15467520', 5, '2019-09-27 08:39:08', 1, 0),
+(22, '45664532', 1, '2019-09-27 08:40:30', 1, 0),
+(23, '45421358', 3, '2019-09-27 08:41:28', 1, 0),
+(24, '21365767', 2, '2019-09-27 08:48:38', 1, 0),
+(25, '00001236', 2, '2019-09-27 09:26:41', 1, 0),
+(26, '12345678', 1, '2019-09-27 09:39:11', 1, 0),
+(27, '15615613', 5, '2019-09-27 10:03:21', 1, 0),
+(28, '01234568', 1, '2019-09-27 11:41:42', 1, 1),
+(29, '00000015', 3, '2019-09-27 15:02:52', 1, 1),
+(30, '00000017', 4, '2019-09-27 15:15:40', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -500,7 +548,40 @@ INSERT INTO `inventarios` (`id_inventario`, `idMateria`, `cantidad`, `precio`, `
 (12, 28, '500', 0.10, 6),
 (13, 38, '7000', 0.11, 6),
 (14, 26, '7230', 0.25, 6),
-(15, 38, '500', 0.20, 8);
+(15, 38, '500', 0.20, 8),
+(16, 19, '28936', 2.50, 9),
+(17, 34, '46328', 0.40, 10),
+(18, 36, '963', 1.25, 10),
+(19, 35, '500', 1.25, 10),
+(20, 32, '436', 1.50, 11),
+(21, 29, '5', 1.25, 12),
+(22, 43, '234', 0.60, 13),
+(23, 19, '12543', 1.25, 14),
+(24, 25, '15780', 5.25, 14),
+(25, 20, '284', 2.12, 14),
+(26, 29, '27854', 1.25, 14),
+(27, 19, '121042670', 2.50, 15),
+(28, 25, '1000000', 1.25, 16),
+(29, 20, '1125', 1.25, 16),
+(30, 21, '35', 1.25, 17),
+(31, 22, '250000', 1.25, 18),
+(32, 19, '500000', 1.25, 18),
+(33, 25, '2500000', 1.25, 18),
+(34, 25, '45', 1.25, 19),
+(35, 22, '11750123', 2.25, 20),
+(36, 19, '221653456', 1.00, 20),
+(37, 25, '841070052', 2.22, 20),
+(38, 20, '24991234', 2.21, 20),
+(39, 19, '100', 1.20, 21),
+(40, 25, '25', 2.20, 22),
+(41, 25, '14000', 1.25, 23),
+(42, 35, '1', 0.55, 24),
+(43, 43, '10', 1.25, 25),
+(44, 26, '100', 1.30, 26),
+(45, 37, '15', 1.20, 27),
+(46, 22, '4', 1.00, 28),
+(47, 32, '200', 0.04, 29),
+(48, 43, '145', 0.02, 30);
 
 -- --------------------------------------------------------
 
@@ -625,7 +706,23 @@ INSERT INTO `pedidos` (`id_pedido`, `fecha_pedido`, `hora_pedido`, `id_mesa`, `i
 (19, '2019-05-24', '11:19:41', 10, 1),
 (20, '2019-05-24', '11:20:10', 16, 1),
 (21, '2019-05-24', '11:20:24', 10, 1),
-(22, '2019-09-25', '14:43:57', 1, 1);
+(22, '2019-09-25', '14:43:57', 1, 1),
+(23, '2019-09-26', '13:59:34', 2, 1),
+(24, '2019-09-26', '13:59:43', 2, 1),
+(25, '2019-09-26', '14:00:13', 1, 1),
+(26, '2019-09-26', '14:00:28', 2, 1),
+(27, '2019-09-26', '14:05:40', 1, 1),
+(28, '2019-09-26', '14:08:27', 3, 1),
+(29, '2019-09-26', '14:10:46', 1, 1),
+(30, '2019-09-26', '14:15:49', 1, 1),
+(31, '2019-09-26', '14:39:14', 2, 1),
+(32, '2019-09-26', '15:15:31', 2, 1),
+(33, '2019-09-27', '09:25:35', 3, 1),
+(34, '2019-09-27', '09:38:15', 13, 1),
+(35, '2019-09-27', '10:02:21', 4, 1),
+(36, '2019-09-27', '10:29:02', 11, 1),
+(37, '2019-09-27', '15:01:18', 5, 1),
+(38, '2019-09-27', '15:14:30', 5, 1);
 
 -- --------------------------------------------------------
 
@@ -634,7 +731,7 @@ INSERT INTO `pedidos` (`id_pedido`, `fecha_pedido`, `hora_pedido`, `id_mesa`, `i
 --
 
 CREATE TABLE `platillos` (
-  `id_platillo` int(10) UNSIGNED NOT NULL,
+  `id_platillo` int(11) UNSIGNED NOT NULL,
   `nombre_platillo` varchar(50) COLLATE latin1_spanish_ci NOT NULL,
   `precio` double(6,2) DEFAULT NULL,
   `estado` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1 es activo 0 es inactivo',
@@ -687,14 +784,11 @@ CREATE TABLE `pre_pedido` (
 --
 
 INSERT INTO `pre_pedido` (`id_prepedido`, `id_mesa`, `id_platillo`, `cantidad`) VALUES
-(12, 4, 30, 1),
-(13, 4, 59, 1),
-(17, 11, 56, 1),
-(18, 11, 59, 1),
-(25, 16, 53, 1),
-(26, 16, 56, 1),
-(28, 1, 29, 1),
-(29, 1, 43, 1);
+(43, 13, 53, 2),
+(44, 13, 47, 2),
+(47, 11, 29, 1),
+(48, 5, 30, 1),
+(51, 5, 34, 1);
 
 -- --------------------------------------------------------
 
@@ -729,7 +823,7 @@ INSERT INTO `proveedores` (`id_proveedor`, `nom_proveedor`, `contacto`, `telefon
 
 CREATE TABLE `receta` (
   `id_receta` int(10) UNSIGNED NOT NULL,
-  `nombre_receta` varchar(1000) COLLATE latin1_spanish_ci NOT NULL,
+  `nombre_receta` varchar(100) COLLATE latin1_spanish_ci NOT NULL,
   `tiempo` varchar(11) COLLATE latin1_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
@@ -750,7 +844,6 @@ INSERT INTO `receta` (`id_receta`, `nombre_receta`, `tiempo`) VALUES
 (13, 'Sprite 1.5 lt', '0 minutos'),
 (14, 'Taza de cafÃ©', '5 minutos'),
 (15, 'Pizza de pepperoni personal', '10 minutos'),
-(16, 'Pizza de pepperoni grande', '15 minutos'),
 (17, 'Pizza de pepperoni grande', '10 minutos'),
 (18, 'Pizza de pepperoni familiar', '20 minutos'),
 (19, 'LasaÃ±a a la boloÃ±esa', '20 minutos'),
@@ -798,7 +891,7 @@ CREATE TABLE `tipousuario` (
 
 INSERT INTO `tipousuario` (`id_Tipousuario`, `tipo`, `descripcion`, `estado`) VALUES
 (1, 'admin', 'Tiene acceso a todas las funciones', 1),
-(4, 'Cajero', 'test', 1);
+(4, 'Cajero', 'Solo puede hacer ordenes', 1);
 
 -- --------------------------------------------------------
 
@@ -853,7 +946,7 @@ CREATE TABLE `usuarios` (
 
 INSERT INTO `usuarios` (`id_usuario`, `alias`, `correo_usuario`, `clave_usuario`, `foto_usuario`, `token_usuario`, `fecha_creacion`, `intentos`, `logueado`, `estado_usuario`, `id_Tipousuario`, `fecha_contrasena`) VALUES
 (1, 'Gerardo', 'gerardogo145@gmail.com', '$2y$10$8HM98qGLdf4Misa221eWOOdpCftUvf4JHj5vP8.yKohh58JajiGvC', '5d8b92fb67a7d.jpg', NULL, '2019-09-25 16:16:59', 0, 0, 1, 1, '2019-09-25 10:16:59'),
-(2, 'aezeq', 'aezequiel56@gmail.com', '$2y$10$V9xSCKcILSuJT6YHQvxNROPhpdjaN6W5a9SDcbCYFZLzSVCtmlnLa', '5d8bdf60ed81c.png', NULL, '2019-09-25 21:42:57', 0, 0, 1, 4, '2019-09-25 15:42:57');
+(2, 'Ezequiel', 'aezequiel56@gmail.com', '$2y$10$V9xSCKcILSuJT6YHQvxNROPhpdjaN6W5a9SDcbCYFZLzSVCtmlnLa', '5d8bdf60ed81c.png', NULL, '2019-09-25 21:42:57', 0, 0, 1, 4, '2019-09-25 15:42:57');
 
 -- --------------------------------------------------------
 
@@ -915,7 +1008,8 @@ ALTER TABLE `bitacoras`
 -- Indices de la tabla `cargo`
 --
 ALTER TABLE `cargo`
-  ADD PRIMARY KEY (`id_Cargo`);
+  ADD PRIMARY KEY (`id_Cargo`),
+  ADD UNIQUE KEY `nombre_Cargo` (`nombre_Cargo`);
 
 --
 -- Indices de la tabla `categorias`
@@ -937,7 +1031,8 @@ ALTER TABLE `desperdicios`
 --
 ALTER TABLE `detalle_pedido`
   ADD PRIMARY KEY (`id_detalle`),
-  ADD KEY `id_pedido` (`id_pedido`);
+  ADD KEY `id_pedido` (`id_pedido`),
+  ADD KEY `id_platillo` (`id_platillo`);
 
 --
 -- Indices de la tabla `elaboraciones`
@@ -980,6 +1075,7 @@ ALTER TABLE `inventarios`
 --
 ALTER TABLE `materiasprimas`
   ADD PRIMARY KEY (`idMateria`),
+  ADD UNIQUE KEY `nombre_materia` (`nombre_materia`),
   ADD KEY `id_categoria` (`id_categoria`),
   ADD KEY `id_Medida` (`id_Medida`);
 
@@ -1003,6 +1099,8 @@ ALTER TABLE `pedidos`
 --
 ALTER TABLE `platillos`
   ADD PRIMARY KEY (`id_platillo`),
+  ADD UNIQUE KEY `nombre_platillo` (`nombre_platillo`),
+  ADD UNIQUE KEY `nombre_platillo_2` (`nombre_platillo`),
   ADD KEY `id_receta` (`id_receta`),
   ADD KEY `id_categoria` (`id_categoria`);
 
@@ -1024,7 +1122,8 @@ ALTER TABLE `proveedores`
 -- Indices de la tabla `receta`
 --
 ALTER TABLE `receta`
-  ADD PRIMARY KEY (`id_receta`);
+  ADD PRIMARY KEY (`id_receta`),
+  ADD UNIQUE KEY `nombre_receta` (`nombre_receta`);
 
 --
 -- Indices de la tabla `tareas`
@@ -1092,19 +1191,19 @@ ALTER TABLE `categorias`
 -- AUTO_INCREMENT de la tabla `desperdicios`
 --
 ALTER TABLE `desperdicios`
-  MODIFY `id_desperdicios` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_desperdicios` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `detalle_pedido`
 --
 ALTER TABLE `detalle_pedido`
-  MODIFY `id_detalle` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `id_detalle` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
 
 --
 -- AUTO_INCREMENT de la tabla `elaboraciones`
 --
 ALTER TABLE `elaboraciones`
-  MODIFY `id_elaboracion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=111;
+  MODIFY `id_elaboracion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=113;
 
 --
 -- AUTO_INCREMENT de la tabla `empleados`
@@ -1116,19 +1215,19 @@ ALTER TABLE `empleados`
 -- AUTO_INCREMENT de la tabla `facturas`
 --
 ALTER TABLE `facturas`
-  MODIFY `id_factura` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_factura` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT de la tabla `inventarios`
 --
 ALTER TABLE `inventarios`
-  MODIFY `id_inventario` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_inventario` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT de la tabla `materiasprimas`
 --
 ALTER TABLE `materiasprimas`
-  MODIFY `idMateria` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `idMateria` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT de la tabla `mesas`
@@ -1140,19 +1239,19 @@ ALTER TABLE `mesas`
 -- AUTO_INCREMENT de la tabla `pedidos`
 --
 ALTER TABLE `pedidos`
-  MODIFY `id_pedido` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id_pedido` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT de la tabla `platillos`
 --
 ALTER TABLE `platillos`
-  MODIFY `id_platillo` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
+  MODIFY `id_platillo` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
 
 --
 -- AUTO_INCREMENT de la tabla `pre_pedido`
 --
 ALTER TABLE `pre_pedido`
-  MODIFY `id_prepedido` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id_prepedido` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT de la tabla `proveedores`
@@ -1164,7 +1263,7 @@ ALTER TABLE `proveedores`
 -- AUTO_INCREMENT de la tabla `receta`
 --
 ALTER TABLE `receta`
-  MODIFY `id_receta` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id_receta` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT de la tabla `tareas`
@@ -1225,7 +1324,8 @@ ALTER TABLE `desperdicios`
 -- Filtros para la tabla `detalle_pedido`
 --
 ALTER TABLE `detalle_pedido`
-  ADD CONSTRAINT `detalle_pedido_ibfk_1` FOREIGN KEY (`id_pedido`) REFERENCES `pedidos` (`id_pedido`);
+  ADD CONSTRAINT `detalle_pedido_ibfk_1` FOREIGN KEY (`id_pedido`) REFERENCES `pedidos` (`id_pedido`),
+  ADD CONSTRAINT `detalle_pedido_ibfk_2` FOREIGN KEY (`id_platillo`) REFERENCES `platillos` (`id_platillo`);
 
 --
 -- Filtros para la tabla `empleados`
@@ -1259,7 +1359,15 @@ ALTER TABLE `materiasprimas`
 -- Filtros para la tabla `pedidos`
 --
 ALTER TABLE `pedidos`
-  ADD CONSTRAINT `pedidos_ibfk_1` FOREIGN KEY (`id_mesa`) REFERENCES `mesas` (`id_mesa`);
+  ADD CONSTRAINT `pedidos_ibfk_1` FOREIGN KEY (`id_mesa`) REFERENCES `mesas` (`id_mesa`),
+  ADD CONSTRAINT `pedidos_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`);
+
+--
+-- Filtros para la tabla `platillos`
+--
+ALTER TABLE `platillos`
+  ADD CONSTRAINT `platillos_ibfk_1` FOREIGN KEY (`id_categoria`) REFERENCES `categorias` (`id_categoria`),
+  ADD CONSTRAINT `platillos_ibfk_2` FOREIGN KEY (`id_receta`) REFERENCES `receta` (`id_receta`);
 
 --
 -- Filtros para la tabla `pre_pedido`
@@ -1267,6 +1375,12 @@ ALTER TABLE `pedidos`
 ALTER TABLE `pre_pedido`
   ADD CONSTRAINT `pre_pedido_ibfk_2` FOREIGN KEY (`id_platillo`) REFERENCES `platillos` (`id_platillo`),
   ADD CONSTRAINT `pre_pedido_ibfk_3` FOREIGN KEY (`id_mesa`) REFERENCES `mesas` (`id_mesa`);
+
+--
+-- Filtros para la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  ADD CONSTRAINT `usuarios_ibfk_1` FOREIGN KEY (`id_Tipousuario`) REFERENCES `tipousuario` (`id_Tipousuario`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
