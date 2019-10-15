@@ -196,10 +196,18 @@ class Ordenes extends Validator
 	
 	public function deletePrepedido()
 	{
+		$sql = 'DELETE FROM pre_pedido WHERE id_mesa = ?';
+		$params = array($this->idMesa);
+		return conexion::executeRow($sql, $params);
+	}
+
+	public function deleteProducto()
+	{
 		$sql = 'DELETE FROM pre_pedido WHERE id_mesa = ? AND id_platillo = ?';
 		$params = array($this->idMesa, $this->platillo);
 		return conexion::executeRow($sql, $params);
 	}
+
 
 	public function getPre(){
 		$sql = 'SELECT id_prepedido FROM pre_pedido WHERE id_prepedido = ?';

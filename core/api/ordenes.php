@@ -77,7 +77,7 @@ if (isset($_GET['action'])) {
 				case 'deleteProducto':
 				if($ordenes->setPlatillo($_POST['id_platillo'])) {
                     if ($ordenes->setIdMesa($_POST['id_mesa'])){
-                        if ($ordenes->deletePrepedido()){
+                        if ($ordenes->deleteProducto()){
                             $result['status'] = 1;
                         } else {
 							$result['exception'] = 'Operación fallida';
