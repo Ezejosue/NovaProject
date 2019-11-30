@@ -94,5 +94,4 @@ if (isset($_GET['action'])) {
 } else {
 	exit('Recurso denegado');
 }
-
 ?>
